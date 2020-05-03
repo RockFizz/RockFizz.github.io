@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>车舟慢</title>
+  
+  <subtitle>雁引愁心去，山衔好月来。</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://rockfizz.github.io/"/>
+  <updated>2020-05-03T16:08:28.800Z</updated>
+  <id>https://rockfizz.github.io/</id>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://rockfizz.github.io/2020/05/01/diary-0/"/>
+    <id>https://rockfizz.github.io/2020/05/01/diary-0/</id>
+    <published>2020-05-01T14:48:28.000Z</published>
+    <updated>2020-05-03T16:08:28.800Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;  因疫情原因，从1月23号到4月6号的两个多月一直呆乡里，关注新闻、刷抖音、吃饭、锻炼、了解日落与星空，背单词，做卫生、烧火、买菜、挖蒲公英、犁地之类。。。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

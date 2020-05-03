@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2020/05/01/diary-0/"/>
+      <url>/2020/05/01/diary-0/</url>
+      
+        <content type="html"><![CDATA[<p>  因疫情原因，从1月23号到4月6号的两个多月一直呆乡里，关注新闻、刷抖音、吃饭、锻炼、了解日落与星空，背单词，做卫生、烧火、买菜、挖蒲公英、犁地之类。。。</p><a id="more"></a><p>  复工一段时间后，5月1号发现过去买的域名今年3月份就过期了，过期时间过长无法续费，只能更高费用的赎回，那域名就不要算了。再加上旧服务器本来就慢。</p><p>  把旧服务器上花里胡哨的文件备份留存以后，就捣鼓了这个博客，重新开始。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
