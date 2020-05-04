@@ -526,7 +526,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             volume: Number('0.7'),
             listFolded: 'false' === 'true',
             listMaxHeight: '197px',
-            audio: JSON.parse('[{"name":"微微","artist":"傅如乔","url":"http://music.163.com/song/media/outer/url?id=1433434738.mp3","cover":"http://p1.music.126.net/IUO87TLnekKYxGaWg_CbiQ==/109951164839657994.jpg?param=130y130"},{"name":"与我无关","artist":"阿冗","url":"http://music.163.com/song/media/outer/url?id=1413585838.mp3","cover":"http://p2.music.126.net/x-jReyGkM5OTKUEtTqXGoA==/109951164597332931.jpg?param=130y130"},{"name":"少年中国","artist":"中央少年广播合唱团","url":"http://music.163.com/song/media/outer/url?id=1392789472.mp3","cover":"http://p2.music.126.net/Xd4ysWIF0GIEmja2v_Ny6w==/109951164382554614.jpg?param=130y130"},{"name":"一直很安静","artist":"阿桑","url":"http://music.163.com/song/media/outer/url?id=5260494.mp3","cover":"http://p1.music.126.net/Zyji-kiWpjLF19CF0yHSlg==/1727332767246198.jpg?param=130y130"},{"name":"笑看风云","artist":"邓瑞霞","url":"http://music.163.com/song/media/outer/url?id=339371.mp3","cover":"http://p2.music.126.net/8hMHeoSUew5UE3zdvkaSKQ==/109951164903279453.jpg?param=130y130"},{"name":"我的名字","artist":"焦迈奇","url":"http://music.163.com/song/media/outer/url?id=554241732.mp3","cover":"http://p2.music.126.net/a_rb8pgC5R_hO-lfm7acSw==/109951164019567772.jpg?param=130y130"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"http://music.163.com/song/media/outer/url?id=1332041346.mp3","cover":"http://p1.music.126.net/tMVrMV9pIYT5yydHv-XaPQ==/109951163718558106.jpg?param=130y130"},{"name":"俩俩相忘","artist":"渺渺(翻唱)","url":"http://music.163.com/song/media/outer/url?id=1405316543.mp3","cover":"http://p2.music.126.net/VaFPmPC2Rm4HEJNA13sRZQ==/109951163655176222.jpg?param=130y130"}]')
+            audio: JSON.parse('[{"name":"微微","artist":"傅如乔","url":"http://music.163.com/song/media/outer/url?id=1433434738.mp3","cover":"http://p1.music.126.net/IUO87TLnekKYxGaWg_CbiQ==/109951164839657994.jpg?param=130y130"},{"name":"与我无关","artist":"阿冗","url":"http://music.163.com/song/media/outer/url?id=1413585838.mp3","cover":"http://p2.music.126.net/x-jReyGkM5OTKUEtTqXGoA==/109951164597332931.jpg?param=130y130"},{"name":"melancholy","artist":"轻音乐","url":"https://gitee.com/seanzs/pic/raw/master/audioVideo/MELANCHOLY_White%20Cherry.mp3","cover":"http://p2.music.126.net/-CFt0bZ07CkM8Chc6sM8Og==/109951164922344481.jpg?param=130y130"},{"name":"少年中国","artist":"中央少年广播合唱团","url":"http://music.163.com/song/media/outer/url?id=1392789472.mp3","cover":"http://p2.music.126.net/Xd4ysWIF0GIEmja2v_Ny6w==/109951164382554614.jpg?param=130y130"},{"name":"一直很安静","artist":"阿桑","url":"http://music.163.com/song/media/outer/url?id=5260494.mp3","cover":"http://p1.music.126.net/Zyji-kiWpjLF19CF0yHSlg==/1727332767246198.jpg?param=130y130"},{"name":"笑看风云","artist":"邓瑞霞","url":"http://music.163.com/song/media/outer/url?id=339371.mp3","cover":"http://p2.music.126.net/8hMHeoSUew5UE3zdvkaSKQ==/109951164903279453.jpg?param=130y130"},{"name":"我的名字","artist":"焦迈奇","url":"http://music.163.com/song/media/outer/url?id=554241732.mp3","cover":"http://p2.music.126.net/a_rb8pgC5R_hO-lfm7acSw==/109951164019567772.jpg?param=130y130"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"http://music.163.com/song/media/outer/url?id=1332041346.mp3","cover":"http://p1.music.126.net/tMVrMV9pIYT5yydHv-XaPQ==/109951163718558106.jpg?param=130y130"},{"name":"俩俩相忘","artist":"渺渺(翻唱)","url":"http://music.163.com/song/media/outer/url?id=1405316543.mp3","cover":"http://p2.music.126.net/VaFPmPC2Rm4HEJNA13sRZQ==/109951163655176222.jpg?param=130y130"}]')
         });
     });
 </script>
@@ -535,45 +535,8 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 </div>
 
                 
-                <!-- shw2018 洪卫  modify 2019.08.15-->
-<link rel="stylesheet" href="/libs/dplayer/DPlayer.min.css">
-<div class="video-player">
-    
-    <div class="title center-align">
-        <i class="fa fa-video-camera"></i>&nbsp;&nbsp;看看视频
-    </div>
-    
-    <div class="row">
-        
-        <div class="col l8 offset-l2 m10 offset-m1 s12"> 
-            <div id="dplayer" class="dplayer-video"
-                    ></div>
-        </div>
 
-    </div>
-</div>
-
-<script src="/libs/dplayer/DPlayer.min.js"></script>
-<script>
-    $(function () {
-        new DPlayer({
-            container: document.getElementById('dplayer'),
-            autoplay: 'false' === 'true',
-            theme: '#42b983',
-            loop: 'true' === 'true',
-            lang: 'zh-CN' === 'zh-CN' ? 'zh-cn' : 'en',
-            preload: 'auto',
-            volume: Number('0.7'),
-            video: {
-                url: 'https://vodkgeyttp9.vod.126.net/vodkgeyttp8/dOtz05jF_2393634828_shd.mp4?ts=1588525206&rid=9A2D4FCB18635BBCA31DE58C2E1C7878&rl=3&rs=MPYLGqQmUkPrwMdjkHsuAoPAdrurbcgQ&sign=4204b098079db87a70409a5d766aca96&ext=qCXpyLB7OgdjBVPfAViPVNMFSKQoQTcRBPx6Vom3e8sz%252F31sNCDLDGHgkeKkcDTEmr0Ry3ejvEibjglUJFDLf6GtnSFQ%252BkMeRcIn1kfnqDpkY2voQwG0%252BwRR27jGMyRe7pB7VXr9K8LfSyMDV3K5tHBT63GPlMDUJfxFiI7YtQtrawsfLm8ol0XBJW%252Bvcy%252F9tIBZyA7Qw3GWfdSFnzJaTRQVkgNydgtmoNDWI3HRk%252Fc41jzJcisBqVZpL8U%252FbP7zGYW%252FYxxuE0DfgrxdA8YDjcx510cF5reY7%252Bd%252FAQEYdb1Xni93FAA%252BFBfnJk1hOUuFtD4BRX0VL9%252BVPsLQYTCmFsYDLTPUvAbyJ2pKOVqsdt2p4BugqKf%252BlsIJ%252BcOCscwYbak8zk%252FmlWI0UG%252FPxY%252FtWIo1x8EyyDd6vZVAYZ9NSIyrrJZQfArEUesZZ%252B%252BZjLUgdg2sqErl24D7RaXVhr5r2FsHSHMfDpmnJOsYXYNcJwdXXUdys5tZgSuH7ipB%252B5tz4L5Z4bFhMZRzhNCxbCKopMo2yKAonSMzincFGWKak8A%253D',
-                pic: '',
-                thumbnails: ''
-            }
-        });
-    });
-</script>
-                
-
+<!--
                 
                 
 <div id="myGallery" class="my-gallery">
@@ -652,6 +615,8 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
     });
 </script>
                 
+-->
+
             </div>
         </div>
 
@@ -915,5 +880,5 @@ $(function () {
             </script>
         
 
-    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
 </html>
