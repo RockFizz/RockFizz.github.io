@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>江滩拍摄婚纱照</title>
+      <link href="/2020/05/07/diary-20200507/"/>
+      <url>/2020/05/07/diary-20200507/</url>
+      
+        <content type="html"><![CDATA[<p>  昨天来江汉路选婚纱照的服装，选了三套：主白纱、彩纱、室外纱。到时候现场拍摄现场再选古装和街拍服装。天气预报今天中雨，但拍摄时间仍预约今天，如果真一直下大雨就只拍室内的，室外的另订时间。</p><p>  今天天公作美，早上九点半到店里，给女士化妆，给我扑了点粉，准时开拍，因疫情原因，原定江夏的外景改成就近的江滩，各个方面也挺合适的，拍摄时一直配合摄影师的要求在摆姿势，“帅哥、美女，往老公这靠点，看着你老婆，太凶了，这是假笑，靠近点，走一步，挺胸，头歪了，闭眼了，好，别动，再来一次，笑的敷衍哦，笑太开了，高点，过来点，侧着点，行，不错，很好”。</p><p>  五套服装连贯拍完一直到了下午五点半左右，期间吃了点自己带的代餐面包和水。确实是体力活，有点累的。</p><p>  晚上微信视频里你葛优躺在床头调侃拍照除了费钱有什么作用，我说可能是为了发朋友圈，呵呵。</p><p>  照片将情感沉淀在今天定格的瞬间，翻阅照片就是品味往事，点点滴滴，从懵懂变清晰。生活也逐渐展开新的篇章。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="/2020/05/01/diary-0/"/>
       <url>/2020/05/01/diary-0/</url>
