@@ -5,11 +5,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="江滩拍摄婚纱照, 车舟慢">
+    <meta name="keywords" content="BLE学习笔记3-BLE广播数据解析, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="  昨天来江汉路选婚纱照的服装，选了三套：主白纱、彩纱、室外纱。到时候现场拍摄现场再选古装和街拍服装。天气预报今天中雨，但拍摄时间仍预约今天，如果真一直下大雨就只拍室内的，室外的另订时间。
-  今天天公作美，早上九点半到店里，给女士化妆，给">
+    <meta name="description" content="BLE设备工作的第一步就是向外广播数据。广播数据中带有设备相关的信息。本文主要说一下 BLE 的广播中的数据的规范以及广播包的解析。
+一、广播模式BLE 中有两种角色 Central 和 Peripheral ，也就是中心设备和外围设备。中">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>江滩拍摄婚纱照 | 车舟慢</title>
+    <title>BLE学习笔记3-BLE广播数据解析 | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -484,13 +484,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        江滩拍摄婚纱照
+                        BLE学习笔记3-BLE广播数据解析
                     </div>
                 </div>
             </div>
@@ -612,13 +612,13 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-07
+                    2020-07-05
                 </div>
 
                 <div class="post-author info-break-policy">
                     <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
                     
-                        Sean
+                        sean
                     
                 </div>
 
@@ -626,14 +626,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        436
+                        992
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        4 分
                     </div>
                     
                 
@@ -645,15 +645,81 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>  昨天来江汉路选婚纱照的服装，选了三套：主白纱、彩纱、室外纱。到时候现场拍摄现场再选古装和街拍服装。天气预报今天中雨，但拍摄时间仍预约今天，如果真一直下大雨就只拍室内的，室外的另订时间。</p>
-<p>  今天天公作美，早上九点半到店里，给女士化妆，给我扑了点粉，准时开拍，因疫情原因，原定江夏的外景改成就近的江滩，各个方面也挺合适的，拍摄时一直配合摄影师的要求在摆姿势，“帅哥、美女，往老公这靠点，看着你老婆，太凶了，这是假笑，靠近点，走一步，挺胸，头歪了，闭眼了，好，别动，再来一次，笑的敷衍哦，笑太开了，高点，过来点，侧着点，行，不错，很好”。</p>
-<p>  五套服装连贯拍完一直到了下午五点半左右，期间吃了点自己带的代餐面包和水。确实是体力活，有点累的。</p>
-<p>  晚上微信视频里你葛优躺在床头调侃拍照除了费钱有什么作用，我说可能是为了发朋友圈，呵呵。</p>
-<p>  照片将情感沉淀在今天定格的瞬间，翻阅照片就是品味往事，点点滴滴，从懵懂变清晰。生活也逐渐展开新的篇章。</p>
-<blockquote>
-<p>5月9号挑选精修及入册的照片，5月16号邮箱看效果，估计5月底能拿相册等东西</p>
-</blockquote>
-<script>
+                <p>BLE设备工作的第一步就是向外广播数据。广播数据中带有设备相关的信息。本文主要说一下 BLE 的广播中的数据的规范以及广播包的解析。</p>
+<h2 id="一、广播模式"><a href="#一、广播模式" class="headerlink" title="一、广播模式"></a>一、广播模式</h2><p>BLE 中有两种角色 Central 和 Peripheral ，也就是中心设备和外围设备。中心设备可以主动连接外围设备，外围设备发送广播或者被中心设备连接。外围通过广播被中心设备发现，广播中带有外围设备自身的相关信息。<br>广播包有两种： 广播包 （Advertising Data）和 响应包 （Scan Response），其中广播包是每个设备必须广播的，而响应包是可选的。 数据包的格式如下图所示<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/data_format.jpg" alt="数据包格式"><br>每个包都是 31 字节，数据包中分为有效数据（significant）和无效数据（non-significant）两部分。</p>
+<ul>
+<li>有效数据部分：包含若干个广播数据单元，称为 AD Structure。如图中所示，AD Structure 的组成是：第一个字节是长度值 Len，表示接下来的 Len 个字节是数据部分。数据部分的第一个字节表示数据的类型 AD Type，剩下的 Len - 1 个字节是真正的数据 AD data。其中 AD type 非常关键，决定了 AD Data 的数据代表的是什么和怎么解析，这个在《BLE学习笔记1-Android开发前言》里详细讲；</li>
+<li>无效数据部分 ：因为广播包的长度必须是 31 个 byte，如果有效数据部分不到 31 自己，剩下的就用 0 补全。这部分的数据是无效的，解释的时候，忽略即可。<h2 id="二、广播数据解析"><a href="#二、广播数据解析" class="headerlink" title="二、广播数据解析"></a>二、广播数据解析</h2>在 Android 可以使用 BluetoothAdapter 来发起扫描。基本用法如下：<pre><code>BluetoothAdapter.LeScanCallback mLeScanCallback =  
+  new BluetoothAdapter.LeScanCallback() {
+      @Override
+      public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+          // 解析广播数据
+          parseAdvData(scanRecord);
+      }
+  };
+</code></pre></li>
+</ul>
+<p>mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();<br>// 开始扫描设备<br>mBluetoothAdapter.startLeScan(mLeScanCallback);<br>…<br>// 停止扫描设备<br>mBluetoothAdapter.stopLeScan(mLeScanCallback);  </p>
+<pre><code>当扫描到设备以后，就会回调 onLeScan(...)，这里的参数 scanRecord 就是广播数据，这里同时包含广播数据和扫描相应数据（如果有的话），所以长度一般就是 62 字节。
+据上一节的广播数据格式的说明，可以实现解析广播数据函数 parseAdvData(scanRecord);，下面的代码实现了解析几个我关心的数据：</code></pre><p>public static ParsedAd parseData(byte[] adv_data) {<br>    ParsedAd parsedAd = new ParsedAd();<br>    ByteBuffer buffer = ByteBuffer.wrap(adv_data).order(ByteOrder.LITTLE_ENDIAN);<br>    while (buffer.remaining() &gt; 2) {<br>        byte length = buffer.get();<br>        if (length == 0)<br>            break;</p>
+<pre><code>    byte type = buffer.get();
+    length -= 1;
+    switch (type) {
+        case 0x01: // Flags
+            parsedAd.flags = buffer.get();
+            length--;
+            break;
+        case 0x02: // Partial list of 16-bit UUIDs
+        case 0x03: // Complete list of 16-bit UUIDs
+        case 0x14: // List of 16-bit Service Solicitation UUIDs
+            while (length &gt;= 2) {
+                parsedAd.uuids.add(UUID.fromString(String.format(
+                        "%08x-0000-1000-8000-00805f9b34fb", buffer.getShort())));
+                length -= 2;
+            }
+            break;
+        case 0x04: // Partial list of 32 bit service UUIDs
+        case 0x05: // Complete list of 32 bit service UUIDs
+            while (length &gt;= 4) {
+                parsedAd.uuids.add(UUID.fromString(String.format(
+                        "%08x-0000-1000-8000-00805f9b34fb", buffer.getInt())));
+                length -= 4;
+            }
+            break;
+        case 0x06: // Partial list of 128-bit UUIDs
+        case 0x07: // Complete list of 128-bit UUIDs
+        case 0x15: // List of 128-bit Service Solicitation UUIDs
+            while (length &gt;= 16) {
+                long lsb = buffer.getLong();
+                long msb = buffer.getLong();
+                parsedAd.uuids.add(new UUID(msb, lsb));
+                length -= 16;
+            }
+            break;
+        case 0x08: // Short local device name
+        case 0x09: // Complete local device name
+            byte sb[] = new byte[length];
+            buffer.get(sb, 0, length);
+            length = 0;
+            parsedAd.localName = new String(sb).trim();
+            break;                
+        case (byte) 0xFF: // Manufacturer Specific Data
+            parsedAd.manufacturer = buffer.getShort();
+            length -= 2;
+            break;
+        default: // skip
+            break;
+    }
+    if (length &gt; 0) {
+        buffer.position(buffer.position() + length);
+    }
+}
+return parsedAd;</code></pre><p>}</p>
+<pre><code>其中 ParsedAd 是自定义的简单 Java 对象，用来保存解析后的数据。这里只是解析了我关心的数据，你也可以根据前面的说明，解析更多的内容。
+## 三、参考资料
+- [蓝牙官方文档](https://www.bluetooth.org/en-us/specification/adopted-specifications)
+- [GAP Advertising and Scan Response Data format](https://devzone.nordicsemi.com/documentation/nrf51/4.2.0/html/group___b_l_e___g_a_p___a_d___t_y_p_e___d_e_f_i_n_i_t_i_o_n_s.html)
+- [Parsing BLE Advertisement packets](http://www.sfonge.com/forum/topic/parsing-ble-advertisement-packets)</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -697,7 +763,7 @@
                     </span>
                     <a href="https://seanzs.gitee.io" class="b-link-green">车舟慢</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/05/07/diary-20200507/" class="b-link-green">江滩拍摄婚纱照</a>
+                    <a href="/2020/07/05/diary-20200705-3/" class="b-link-green">BLE学习笔记3-BLE广播数据解析</a>
                 </p>
             </div>
 
@@ -1021,24 +1087,26 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/05/10/diary-20200510/">
+                <a href="/2020/07/06/diary-20200706/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="明天就要去公司上班了">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="熬过无人问津的日子，才有诗和远方">
                         
-                        <span class="card-title">明天就要去公司上班了</span>
+                        <span class="card-title">熬过无人问津的日子，才有诗和远方</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            结束居家办公
+                            推开世界的门你是站在门外最孤单的人捧着一颗不懂计较的认真路过你的时候 时间多残忍左手的泥呀 右手的泥呀知己的花衣裳世界本该是你诚实的模样左眼的悲伤 右眼的倔强看起来都一样原来你就是我走失的地方
+
+        document.query
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-10
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-06
                         </span>
                         <span class="publish-author">
                             
@@ -1055,24 +1123,24 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/01/diary-0/">
+                <a href="/2020/07/05/diary-20200705-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="BLE学习笔记2-GATT Profile简介">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">BLE学习笔记2-GATT Profile简介</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            hello world
+                            一、引言BLE低功耗蓝牙（Bluetooth Low Energy）连接都是建立在 GATT (Generic Attribute Profile) 协议之上。GATT 是一个在蓝牙连接之上的发送和接收很短的数据段的通用规范，这些很短的数据
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-01
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-05
                             </span>
                         <span class="publish-author">
                             

@@ -6,17 +6,106 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-06-16T15:30:48.803Z</updated>
+  <updated>2020-07-05T16:58:04.798Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>熬过无人问津的日子，才有诗和远方</title>
+    <link href="https://seanzs.gitee.io/2020/07/06/diary-20200706/"/>
+    <id>https://seanzs.gitee.io/2020/07/06/diary-20200706/</id>
+    <published>2020-07-05T16:32:54.000Z</published>
+    <updated>2020-07-05T16:58:04.798Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>BLE学习笔记3-BLE广播数据解析</title>
+    <link href="https://seanzs.gitee.io/2020/07/05/diary-20200705-3/"/>
+    <id>https://seanzs.gitee.io/2020/07/05/diary-20200705-3/</id>
+    <published>2020-07-05T08:32:54.000Z</published>
+    <updated>2020-07-05T17:31:28.471Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;BLE设备工作的第一步就是向外广播数据。广播数据中带有设备相关的信息。本文主要说一下 BLE 的广播中的数据的规范以及广播包的解析。&lt;/p&gt;
+&lt;h2 id=&quot;一、广播模式&quot;&gt;&lt;a href=&quot;#一、广播模式&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>BLE学习笔记2-GATT Profile简介</title>
+    <link href="https://seanzs.gitee.io/2020/07/05/diary-20200705-2/"/>
+    <id>https://seanzs.gitee.io/2020/07/05/diary-20200705-2/</id>
+    <published>2020-07-05T05:32:54.000Z</published>
+    <updated>2020-07-05T17:28:27.495Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一、引言&quot;&gt;&lt;a href=&quot;#一、引言&quot; class=&quot;headerlink&quot; title=&quot;一、引言&quot;&gt;&lt;/a&gt;一、引言&lt;/h2&gt;&lt;p&gt;BLE低功耗蓝牙（Bluetooth Low Energy）连接都是建立在 GATT (Generic Attribute
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>BLE学习笔记1-Android开发前言</title>
+    <link href="https://seanzs.gitee.io/2020/07/05/diary-20200705-1/"/>
+    <id>https://seanzs.gitee.io/2020/07/05/diary-20200705-1/</id>
+    <published>2020-07-05T03:32:54.000Z</published>
+    <updated>2020-07-05T17:25:39.605Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一、相关介绍&quot;&gt;&lt;a href=&quot;#一、相关介绍&quot; class=&quot;headerlink&quot; title=&quot;一、相关介绍&quot;&gt;&lt;/a&gt;一、相关介绍&lt;/h2&gt;&lt;h3 id=&quot;1-1概述&quot;&gt;&lt;a href=&quot;#1-1概述&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>4月以来的两月瘦了20斤</title>
     <link href="https://seanzs.gitee.io/2020/06/16/diary-20200616/"/>
     <id>https://seanzs.gitee.io/2020/06/16/diary-20200616/</id>
     <published>2020-06-16T14:33:48.000Z</published>
-    <updated>2020-06-16T15:30:48.803Z</updated>
+    <updated>2020-06-20T14:21:06.527Z</updated>
     
     <summary type="html">
     
