@@ -6,10 +6,34 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-07-06T16:15:05.306Z</updated>
+  <updated>2020-07-15T15:40:58.886Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android中ListView的用法</title>
+    <link href="https://seanzs.gitee.io/2020/07/15/diary-20200715-1/"/>
+    <id>https://seanzs.gitee.io/2020/07/15/diary-20200715-1/</id>
+    <published>2020-07-15T05:32:54.000Z</published>
+    <updated>2020-07-15T15:40:58.886Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一、ListView的作用：&quot;&gt;&lt;a href=&quot;#一、ListView的作用：&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
+    
+  </entry>
   
   <entry>
     <title>熬过无人问津的日子，才有诗和远方</title>
