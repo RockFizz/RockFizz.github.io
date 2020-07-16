@@ -8,8 +8,8 @@
     <meta name="keywords" content="使用socket.io和nodeJS的websocket实践, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="
-Node v12.16.3一、关于socket.IOsocket.IO是一个websocket库，包括了客户端的js和服务器端的nodejs。官方地址：http://socket.io 二、socket.io提供给客户端的websock服">
+    <meta name="description" content="一、关于socket.IOsocket.IO是一个websocket库，包括了客户端的js和服务器端的nodejs。官方地址：http://socket.io 
+二、socket.io提供给客户端的websock服务去github clon">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -634,7 +634,7 @@ Node v12.16.3一、关于socket.IOsocket.IO是一个websocket库，包括了客�
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        630
+                        616
                     </div>
                     
 
@@ -653,88 +653,83 @@ Node v12.16.3一、关于socket.IOsocket.IO是一个websocket库，包括了客�
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <ul>
-<li>Node v12.16.3<h2 id="一、关于socket-IO"><a href="#一、关于socket-IO" class="headerlink" title="一、关于socket.IO"></a>一、关于socket.IO</h2>socket.IO是一个websocket库，包括了客户端的js和服务器端的nodejs。官方地址：<a href="http://socket.io" target="_blank" rel="noopener">http://socket.io</a> <h2 id="二、socket-io提供给客户端的websock服务"><a href="#二、socket-io提供给客户端的websock服务" class="headerlink" title="二、socket.io提供给客户端的websock服务"></a>二、socket.io提供给客户端的websock服务</h2>去github clone socket.io的最新版本，或者直接饮用使用socket.io的CDN服务：<pre><code>  &lt;script src="https://lib.baomitu.com/socket.io/2.3.0/socket.io.js"&gt;&lt;/script&gt;</code></pre>以下是使用socket.io库来创建客户端<pre><code></code></pre></li>
-</ul>
-
-
-    <meta name="generator" content="Hexo 3.9.0">
-    <meta charset="UTF-8">
-    <title></title>
-    <script src="https://lib.baomitu.com/socket.io/2.3.0/socket.io.js"></script>
-    <script>
+                <h2 id="一、关于socket-IO"><a href="#一、关于socket-IO" class="headerlink" title="一、关于socket.IO"></a>一、关于socket.IO</h2><p>socket.IO是一个websocket库，包括了客户端的js和服务器端的nodejs。官方地址：<a href="http://socket.io" target="_blank" rel="noopener">http://socket.io</a> </p>
+<h2 id="二、socket-io提供给客户端的websock服务"><a href="#二、socket-io提供给客户端的websock服务" class="headerlink" title="二、socket.io提供给客户端的websock服务"></a>二、socket.io提供给客户端的websock服务</h2><p>去github clone socket.io的最新版本，或者直接饮用使用socket.io的CDN服务：</p>
+<pre><code>    &lt;script src="https://lib.baomitu.com/socket.io/2.3.0/socket.io.js"&gt;&lt;/script&gt;</code></pre><p>以下是使用socket.io库来创建客户端</p>
+<pre><code>    &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;script src="https://lib.baomitu.com/socket.io/2.3.0/socket.io.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
         var socket=io.connect('http://localhost:8081');
         socket.on('message',function(data){
             console.log('Receive message from server,'+data);
 
-<pre><code>        socket.emit(&#39;message&#39;,{nihao:&#39;helloworld&#39;});
-        socket.emit(&#39;storeClientInfo&#39;,{customId:&quot;000CustomIdHere1234&quot;});
-    });
-    socket.on(&#39;connect&#39;,function(){
-        alert(&quot;连接成功&quot;);
-    });
-    socket.on(&#39;disconnect&#39;,function(){
-        console.log(&quot;断开连接&quot;);
-    });
+            socket.emit('message',{nihao:'helloworld'});
+            socket.emit('storeClientInfo',{customId:"000CustomIdHere1234"});
+        });
+        socket.on('connect',function(){
+            alert("连接成功");
+        });
+        socket.on('disconnect',function(){
+            console.log("断开连接");
+        });
 
-&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
+    &lt;/script&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
 
-&lt;/body&gt;</code></pre></html>
-
-<pre><code>## 三、socket.io提供给服务器端搭建websock服务
-### 创建空的项目文件夹</code></pre><pre><code>mkdir socketserver
-cd socketserver</code></pre><pre><code>### 在项目内安装socket.io</code></pre><pre><code>npm install socket.io</code></pre><pre><code>### 搭建服务器环境
-通过nodejs的http模块就可以方便的搭建websocket服务器环境</code></pre><pre><code>// 引入需要的模块：http和socket.io
-var http=require(&#39;http&#39;);
-var io=require(&#39;socket.io&#39;);
-// 创建server，Socket服务器还是构建于HTTP服务器之上，因此先调用 http.createServer()
-var server=http.createServer();
-server.on(&#39;request&#39;,function(req,res){
-    res.writeHead(200,{&#39;Content-Type&#39;:&#39;text/html&#39;});
-    res.end(&#39;&lt;h1&gt;Hello,Socket&lt;/h1&gt;&#39;);
-});
-//http端口8081
-server.listen(8081);
-console.log(&quot;-- http listen on port :8081 --&quot;);
-
-var clients=[];
-//创建socket，交由Socket.io接管
-var socket=io.listen(server);
-//添加连接监听，Socket.io 真正的连接事件
-socket.on(&#39;connection&#39;,function(client){
-    //服务端这边的客户端对象代表接受客户端发过来的信息
-    client.on(&#39;message&#39;,function(obj){
-        console.log(&quot;Receive message from client,&quot;+obj.nihao);
+    &lt;/body&gt;</code></pre><h2 id="三、socket-io提供给服务器端搭建websock服务"><a href="#三、socket-io提供给服务器端搭建websock服务" class="headerlink" title="三、socket.io提供给服务器端搭建websock服务"></a>三、socket.io提供给服务器端搭建websock服务</h2><h3 id="创建空的项目文件夹"><a href="#创建空的项目文件夹" class="headerlink" title="创建空的项目文件夹"></a>创建空的项目文件夹</h3><pre><code>    mkdir socketserver
+    cd socketserver</code></pre><h3 id="在项目内安装socket-io"><a href="#在项目内安装socket-io" class="headerlink" title="在项目内安装socket.io"></a>在项目内安装socket.io</h3><pre><code>    npm install socket.io</code></pre><h3 id="搭建服务器环境"><a href="#搭建服务器环境" class="headerlink" title="搭建服务器环境"></a>搭建服务器环境</h3><p>通过nodejs的http模块就可以方便的搭建websocket服务器环境</p>
+<pre><code>    // 引入需要的模块：http和socket.io
+    var http=require('http');
+    var io=require('socket.io');
+    // 创建server，Socket服务器还是构建于HTTP服务器之上，因此先调用 http.createServer()
+    var server=http.createServer();
+    server.on('request',function(req,res){
+        res.writeHead(200,{'Content-Type':'text/html'});
+        res.end('&lt;h1&gt;Hello,Socket&lt;/h1&gt;');
     });
-    //客户端断开连接时，在服务器端的列表里删除相应对象代表
-    client.on(&#39;disconnect&#39;,function(){
-        //console.log(&#39;server has disconnected&#39;);
-        for(var i=0,len=clients.length;i&lt;len;++i){
-            var c=clients[i];
-            if(c.clientId==client.id){
-                clients.splice(i,1);
-                console.log(clients.length);
-                break;
+    //http端口8081
+    server.listen(8081);
+    console.log("-- http listen on port :8081 --");
+
+    var clients=[];
+    //创建socket，交由Socket.io接管
+    var socket=io.listen(server);
+    //添加连接监听，Socket.io 真正的连接事件
+    socket.on('connection',function(client){
+        //服务端这边的客户端对象代表接受客户端发过来的信息
+        client.on('message',function(obj){
+            console.log("Receive message from client,"+obj.nihao);
+        });
+        //客户端断开连接时，在服务器端的列表里删除相应对象代表
+        client.on('disconnect',function(){
+            //console.log('server has disconnected');
+            for(var i=0,len=clients.length;i&lt;len;++i){
+                var c=clients[i];
+                if(c.clientId==client.id){
+                    clients.splice(i,1);
+                    console.log(clients.length);
+                    break;
+                }
             }
-        }
-    });
-    //服务端这边的监听客户端对象代表接受客户端发过来的自定义事件
-    client.on(&#39;storeClientInfo&#39;,function(data){
-        var clientInfo=new Object();
-        clientInfo.customId=data.customId;
-        clientInfo.clientId=client.id;
-        clients.push(clientInfo);
-        console.log(clients.length);
-    });
-    //服务端通过客户端对象代表向该客户端发送信息message
-    client.send(&quot;welcome my friend&quot;);
+        });
+        //服务端这边的监听客户端对象代表接受客户端发过来的自定义事件
+        client.on('storeClientInfo',function(data){
+            var clientInfo=new Object();
+            clientInfo.customId=data.customId;
+            clientInfo.clientId=client.id;
+            clients.push(clientInfo);
+            console.log(clients.length);
+        });
+        //服务端通过客户端对象代表向该客户端发送信息message
+        client.send("welcome my friend");
 
 
-});
-console.log(&quot;-- socket listen on port :8081 --&quot;);</code></pre><pre><code></code></pre></script><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><script>
+    });
+    console.log("-- socket listen on port :8081 --");
+</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -1115,8 +1110,8 @@ console.log(&quot;-- socket listen on port :8081 --&quot;);</code></pre><pre><co
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-Node v12.16.3一、关于socket.IOsocket.IO是一个websocket库，包括了客户端的js和服务器端的nodejs。官方地址：http://socket.io 二、socket.io提供给客户端的websock服
+                            一、关于socket.IOsocket.IO是一个websocket库，包括了客户端的js和服务器端的nodejs。官方地址：http://socket.io 
+二、socket.io提供给客户端的websock服务去github clon
                         
                     </div>
                     <div class="publish-info">
@@ -1165,7 +1160,9 @@ Node v12.16.3一、关于socket.IOsocket.IO是一个websocket库，包括了客�
                         
                             
 Vue v2.9.6
-Node v12.16.3一、关于vuepress：vuepress项目的文档结构，都必须按照官方文档的格式进行制作。比如说你想修改整体的主题颜色，你就必须修改styles文件夹下的palette.styl。你想在m
+Node v12.16.3
+
+一、关于vuepress：vuepress项目的文档结构，都必须按照官方文档的格式进行制作。比如说你想修改整体的主题颜色，你就必须修改styles文件夹下的palette.styl。你想
                         
                     </div>
                     <div class="publish-info">
@@ -1551,5 +1548,5 @@ $(function () {
             </script>
         
 
-    <script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+    <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":200},"mobile":{"show":false},"react":{"opacity":0.7}});</script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body>
 </html>
