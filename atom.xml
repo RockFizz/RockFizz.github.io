@@ -6,10 +6,63 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-07-15T15:40:58.886Z</updated>
+  <updated>2020-07-16T13:05:31.986Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用socket.io和nodeJS的websocket实践</title>
+    <link href="https://seanzs.gitee.io/2020/07/16/diary-20200716-2/"/>
+    <id>https://seanzs.gitee.io/2020/07/16/diary-20200716-2/</id>
+    <published>2020-07-16T07:32:54.000Z</published>
+    <updated>2020-07-16T13:05:31.986Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;ul&gt;
+&lt;li&gt;Node v12.16.3&lt;h2 id=&quot;一、关于socket-IO&quot;&gt;&lt;a href=&quot;#一、关于socket-IO&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="NodeJS" scheme="https://seanzs.gitee.io/tags/NodeJS/"/>
+    
+      <category term="socket.io" scheme="https://seanzs.gitee.io/tags/socket-io/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>快速搭建在线文档的实践</title>
+    <link href="https://seanzs.gitee.io/2020/07/16/diary-20200716-1/"/>
+    <id>https://seanzs.gitee.io/2020/07/16/diary-20200716-1/</id>
+    <published>2020-07-16T01:32:54.000Z</published>
+    <updated>2020-07-16T13:05:31.897Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;ul&gt;
+&lt;li&gt;Vue v2.9.6&lt;/li&gt;
+&lt;li&gt;Node v12.16.3&lt;h2 id=&quot;一、关于vuepress：&quot;&gt;&lt;a href=&quot;#一、关于vuepress：&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Vue" scheme="https://seanzs.gitee.io/tags/Vue/"/>
+    
+  </entry>
   
   <entry>
     <title>Android中ListView的用法</title>

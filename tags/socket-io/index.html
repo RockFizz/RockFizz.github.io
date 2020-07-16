@@ -5,10 +5,10 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="放松一下, 车舟慢">
+    <meta name="keywords" content="标签: socket.io, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="放松一下 | 车舟慢">
+    <meta name="description" content="标签: socket.io | 车舟慢">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>放松一下 | 车舟慢</title>
+    <title>标签: socket.io | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -466,14 +466,7 @@
 
 </header>
 
-        <style type="text/css">
-    /* don't remove. */
-    .about-cover {
-        height: 75vh;
-    }
-</style>
-
-<div class="bg-cover pd-header about-cover">
+        <div class="bg-cover pd-header about-cover">
     <div class="container">
     <div class="row">
     <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
@@ -483,7 +476,7 @@
                     车舟慢
                  -->
                 
-                    放松一下
+                    标签
                 
             </div>
 
@@ -508,175 +501,93 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 </div>
 
 <main class="content">
-    <div id="aboutme" class="container about-container">
-        <div class="card">
-            <div class="card-content">
 
-                <div class="music-player">
-                    <div class="title center-align">
-                        <i class="fa fa-music"></i>&nbsp;&nbsp;听听音乐
-                    </div>
-                    
-                        
-
-<link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<div class="music-player">
     
-    <div class="row">
-        
-        
-        <div class="col s12 ">
-            <div id="aplayer" class="music"></div>
+
+<div id="tags" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fa fa-tags"></i>&nbsp;&nbsp;文章标签
+            </div>
+            <div class="tag-chips">
+                
+                
+                <a href="/tags/AndroidStudio/" title="AndroidStudio: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="AndroidStudio" style="background-color: #F9EBEA;">AndroidStudio
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/Vue/" title="Vue: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="Vue" style="background-color: #F5EEF8;">Vue
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/NodeJS/" title="NodeJS: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="NodeJS" style="background-color: #D5F5E3;">NodeJS
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/socket-io/" title="socket.io: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active "
+                            data-tagname="socket.io" style="background-color: #E8F8F5;">socket.io
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+            </div>
         </div>
     </div>
 </div>
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script>
-    $(function () {
-        new APlayer({
-            container: document.getElementById('aplayer'),
-            fixed: 'false' === 'true',
-            autoplay: 'false' === 'true',
-            theme: '#542674',
-            loop: 'all',
-            order: 'list',
-            preload: 'auto',
-            volume: Number('0.7'),
-            listFolded: 'false' === 'true',
-            listMaxHeight: '197px',
-            audio: JSON.parse('[{"name":"微微","artist":"傅如乔","url":"http://music.163.com/song/media/outer/url?id=1433434738.mp3","cover":"http://p1.music.126.net/IUO87TLnekKYxGaWg_CbiQ==/109951164839657994.jpg?param=130y130"},{"name":"与我无关","artist":"阿冗","url":"http://music.163.com/song/media/outer/url?id=1413585838.mp3","cover":"http://p2.music.126.net/x-jReyGkM5OTKUEtTqXGoA==/109951164597332931.jpg?param=130y130"},{"name":"melancholy","artist":"White Cherry","url":"http://music.163.com/song/media/outer/url?id=1297742167.mp3","cover":"http://p2.music.126.net/-CFt0bZ07CkM8Chc6sM8Og==/109951164922344481.jpg?param=130y130"},{"name":"少年中国","artist":"中央少年广播合唱团","url":"http://music.163.com/song/media/outer/url?id=1392789472.mp3","cover":"http://p2.music.126.net/Xd4ysWIF0GIEmja2v_Ny6w==/109951164382554614.jpg?param=130y130"},{"name":"一直很安静","artist":"阿桑","url":"http://music.163.com/song/media/outer/url?id=5260494.mp3","cover":"http://p1.music.126.net/Zyji-kiWpjLF19CF0yHSlg==/1727332767246198.jpg?param=130y130"},{"name":"笑看风云","artist":"邓瑞霞","url":"http://music.163.com/song/media/outer/url?id=339371.mp3","cover":"http://p2.music.126.net/8hMHeoSUew5UE3zdvkaSKQ==/109951164903279453.jpg?param=130y130"},{"name":"我的名字","artist":"焦迈奇","url":"http://music.163.com/song/media/outer/url?id=554241732.mp3","cover":"http://p2.music.126.net/a_rb8pgC5R_hO-lfm7acSw==/109951164019567772.jpg?param=130y130"},{"name":"Walk Thru Fire","artist":"Vicetone / Meron Ryan","url":"http://music.163.com/song/media/outer/url?id=1332041346.mp3","cover":"http://p1.music.126.net/tMVrMV9pIYT5yydHv-XaPQ==/109951163718558106.jpg?param=130y130"},{"name":"俩俩相忘","artist":"渺渺(翻唱)","url":"http://music.163.com/song/media/outer/url?id=1405316543.mp3","cover":"http://p2.music.126.net/VaFPmPC2Rm4HEJNA13sRZQ==/109951163655176222.jpg?param=130y130"},{"name":"飘洋过海来看你","artist":"周深","url":"http://music.163.com/song/media/outer/url?id=30903117.mp3","cover":"http://p1.music.126.net/nghrV1_ZW6lht9Ue7r4Ffg==/7697680906845029.jpg?param=130y130"},{"name":"摘下满天星","artist":"郑少秋","url":"http://music.163.com/song/media/outer/url?id=194465.mp3","cover":"http://p1.music.126.net/BJXStmMNcEYEyJNGFfWIYA==/85761906984149.jpg?param=130y130"},{"name":"When You Say Nothing at All","artist":"Ronan Keating","url":"http://music.163.com/song/media/outer/url?id=26481445.mp3","cover":"http://p2.music.126.net/K9hhBg0INq8rafxj6eM0AA==/2357352930009852.jpg?param=130y130"},{"name":"In My Secret Life","artist":"Leonard Cohen","url":"http://music.163.com/song/media/outer/url?id=20954450.mp3","cover":"http://p2.music.126.net/u_3MQsWctndmC_GzpLvAFg==/17812088370395370.jpg?param=130y130"},{"name":"爱不爱我","artist":"零点乐队","url":"http://music.163.com/song/media/outer/url?id=363488.mp3","cover":"http://p2.music.126.net/Frbn2mQ18NswoanBk-O1wg==/106652627910743.jpg?param=130y130"},{"name":"岁月神偷","artist":"金玟歧","url":"http://music.163.com/song/media/outer/url?id=28285910.mp3","cover":"http://p2.music.126.net/54wdQi_3rpjreY2oo2jb7w==/5998935441219557.jpg?param=130y130"},{"name":"也许","artist":"林忆莲","url":"http://music.163.com/song/media/outer/url?id=255575.mp3","cover":"http://p1.music.126.net/1a01ADYXdZL6FrQEzpQlLA==/109951163188713630.jpg?param=130y130"},{"name":"心照","artist":"DJ","url":"http://music.163.com/song/media/outer/url?id=1425800693.mp3","cover":"http://p1.music.126.net/R9mjPalLfOhapRx4VbOavQ==/109951164738708826.jpg?param=130y130"},{"name":"DonotBreakMyHeart","artist":"唐西锐","url":"http://music.163.com/song/media/outer/url?id=1446810633.mp3","cover":"http://p2.music.126.net/9fZvz34FK4F239arQPdHyQ==/109951164973205738.jpg?param=130y130"}]')
-        });
-    });
-</script>
-                    
+    
 
-                </div>
-
-                
-
-<!--
-                
-                
-<div id="myGallery" class="my-gallery">
-    <div class="title center-align" data-aos="zoom-in-up">
-        <i class="fa fa-photo"></i>&nbsp;&nbsp;相册
-    </div>
-    <div class="row">
-        
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/0.jpg">
-                <img src="/medias/featureimages/0.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/1.jpg">
-                <img src="/medias/featureimages/1.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/2.jpg">
-                <img src="/medias/featureimages/2.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/4.jpg">
-                <img src="/medias/featureimages/4.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/5.jpg">
-                <img src="/medias/featureimages/5.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/6.jpg">
-                <img src="/medias/featureimages/6.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/7.jpg">
-                <img src="/medias/featureimages/7.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/8.jpg">
-                <img src="/medias/featureimages/8.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        <div class="photo col s12 m6 l4" data-aos="fade-up">
-            <div class="img-item" data-src="/medias/featureimages/9.jpg">
-                <img src="/medias/featureimages/9.jpg" class="responsive-img">
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-<script>
-    $(function () {
-        let animateClass = 'animated pulse';
-        $('#myGallery .photo').hover(function () {
-            $(this).addClass(animateClass);
-        }, function () {
-            $(this).removeClass(animateClass);
-        });
-    });
-</script>
-                
--->
-
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <div class="card-content article-card-content">
-                        <div class="title center-align" data-aos="zoom-in-up">
-                            <i class="fa fa-download"></i>&nbsp;&nbsp;资源共享
+    <article id="articles" class="container articles">
+        <div class="row tags-posts">
+            
+            
+            <div class="article tag-post col s12 m6 l4" data-tags="NodeJS, socket.io" data-aos="fade-up">
+                <div class="card">
+                    <a href="/2020/07/16/diary-20200716-2/">
+                        <div class="card-image tag-image">
+                            
+                            
+                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="使用socket.io和nodeJS的websocket实践">
+                            
+                            <span class="card-title">使用socket.io和nodeJS的websocket实践</span>
                         </div>
-                        <div id="articleContent" data-aos="fade-up">
-                            <h1 id="影音资源共享"><a href="#影音资源共享" class="headerlink" title="影音资源共享"></a>影音资源共享</h1><ul>
-<li><b>这里准备用来分享各类好玩的资源</b></li>
-<li><b>待更新……<b></b></b></li>
-</ul>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-16
+                            </span>
+                            <span class="publish-author">
+                                
+                            </span>
                         </div>
+                    </div>
                 </div>
             </div>
+            
         </div>
-
-
-    </div>
+    </article>
 </main>
+
+
         <footer class="page-footer bg-color">
     <div class="container row center-align">
         <div class="col s12 m8 l8 copy-right">
