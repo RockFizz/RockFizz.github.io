@@ -5,14 +5,12 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="第一天, 车舟慢">
+    <meta name="keywords" content="MongoDB实践之1-安装及命令行登录, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="  今天周日，第一次在这里从早上待到晚上，看着这夕阳，才下眉头，却上心头。
-
-        document.querySelectorAll(&#39;.github-emoji&#39;)
-          .forEach(el =&gt; {
-   ">
+    <meta name="description" content="一、相关概念
+1.1二、解压版MongoDB配置使用官方下载地址 http://dl.mongodb.org/dl/win32/x86_64
+2.1 创建mongodb目录下载mongodb-win32-x86_64-2008plus-ss">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>第一天 | 车舟慢</title>
+    <title>MongoDB实践之1-安装及命令行登录 | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -487,13 +485,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        第一天
+                        MongoDB实践之1-安装及命令行登录
                     </div>
                 </div>
             </div>
@@ -602,9 +600,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/MongoDB/" target="_blank">
+                                <span class="chip bg-color">MongoDB</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -615,7 +617,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-17
+                    2020-07-20
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -629,14 +631,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        82
+                        767
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        3 分
                     </div>
                     
                 
@@ -648,8 +650,45 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>  今天周日，第一次在这里从早上待到晚上，看着这夕阳，才下眉头，却上心头。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/646328966.jpg" width="80%" align="center"></p>
-<script>
+                <h2 id="一、相关概念"><a href="#一、相关概念" class="headerlink" title="一、相关概念"></a>一、相关概念</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/gainianmongodb1.jpg" alt="MongoDB相关概念1"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/gainianmongodb2.jpg" alt="MongoDB相关概念直观示意"></p>
+<h3 id="1-1"><a href="#1-1" class="headerlink" title="1.1"></a>1.1</h3><h2 id="二、解压版MongoDB配置使用"><a href="#二、解压版MongoDB配置使用" class="headerlink" title="二、解压版MongoDB配置使用"></a>二、解压版MongoDB配置使用</h2><p>官方下载地址 <a href="http://dl.mongodb.org/dl/win32/x86_64" target="_blank" rel="noopener">http://dl.mongodb.org/dl/win32/x86_64</a></p>
+<h3 id="2-1-创建mongodb目录"><a href="#2-1-创建mongodb目录" class="headerlink" title="2.1 创建mongodb目录"></a>2.1 创建mongodb目录</h3><p>下载mongodb-win32-x86_64-2008plus-ssl-v4.0-latest.zip，解压到当前目录后更改文件夹名称为mongodb（名称可随意）。<br>在解压后的文件夹内新建data、log两个文件夹<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/jiayainstallmongodb1.jpg" alt="创建mongodb目录"></p>
+<h3 id="2-2-创建配置文件"><a href="#2-2-创建配置文件" class="headerlink" title="2.2 创建配置文件"></a>2.2 创建配置文件</h3><p>mongodb目录下创建conf文件夹，其内创建mongodb.config</p>
+<pre><code>dbpath=D:\mdb\mongodb\data                            #数据库路径
+logpath=D:\mdb\mongodb\log\mongodb.log                #日志输出文件路径
+logappend=true                                        #日志采用追加模式，mongodb的日志会追加到现有日志文件里，而不是重新创建一个新文件
+journal=true                                        #启用日志
+quiet=true                                            #过滤掉一些无用日志信息，若需调试请设置为false
+port=27017                                            #端口号 默认为27017
+bind_ip_all=true                                    #允许所有地址访问</code></pre><h3 id="2-3手动启动"><a href="#2-3手动启动" class="headerlink" title="2.3手动启动"></a>2.3手动启动</h3><p>管理员cmd模式下进入mongodb目录 D:\mdb\mongodb\bin下</p>
+<h4 id="运行mongodb"><a href="#运行mongodb" class="headerlink" title="运行mongodb"></a>运行mongodb</h4><pre><code>mongod --config "D:/mdb/mongodb/conf/mongodb.config"</code></pre><h4 id="查看mongodb版本"><a href="#查看mongodb版本" class="headerlink" title="查看mongodb版本"></a>查看mongodb版本</h4><pre><code>mongod --version</code></pre><h3 id="2-4命令行登录db"><a href="#2-4命令行登录db" class="headerlink" title="2.4命令行登录db"></a>2.4命令行登录db</h3><p>mongodb运行后，重新另起一个cmd模式进入 D:\mdb\mongodb\bin，可以登录测试mongodb是否起来了</p>
+<pre><code>mongo 127.0.0.1:27017</code></pre><h3 id="2-5命令行登录mongodb后的操作"><a href="#2-5命令行登录mongodb后的操作" class="headerlink" title="2.5命令行登录mongodb后的操作"></a>2.5命令行登录mongodb后的操作</h3><h4 id="查看所有数据库"><a href="#查看所有数据库" class="headerlink" title="查看所有数据库"></a>查看所有数据库</h4><p>show dbs;</p>
+<h4 id="切换-创建数据库"><a href="#切换-创建数据库" class="headerlink" title="切换/创建数据库"></a>切换/创建数据库</h4><p>use dancy;<br>如果use后面的数据库存在则切换到该数据库，如果不存在则创建</p>
+<h4 id="查看当前数据库"><a href="#查看当前数据库" class="headerlink" title="查看当前数据库"></a>查看当前数据库</h4><p>db;</p>
+<h4 id="查看当前库有多少集合"><a href="#查看当前库有多少集合" class="headerlink" title="查看当前库有多少集合"></a>查看当前库有多少集合</h4><p>show collections;</p>
+<h4 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h4><p>db.createCollection(某collection名)</p>
+<h4 id="查询某个集合的内容"><a href="#查询某个集合的内容" class="headerlink" title="查询某个集合的内容"></a>查询某个集合的内容</h4><p>db.”某collection名(类似某表名)”.find();</p>
+<h4 id="往某集合里插入一条文档数据"><a href="#往某集合里插入一条文档数据" class="headerlink" title="往某集合里插入一条文档数据"></a>往某集合里插入一条文档数据</h4><p>db.”某collection名(类似某表名)”.insert({“name”: “dancy”})</p>
+<h4 id="删除当前数据库db-dropDatabase"><a href="#删除当前数据库db-dropDatabase" class="headerlink" title="删除当前数据库db.dropDatabase()"></a>删除当前数据库db.dropDatabase()</h4><h4 id="查看集合内文档-db-集合名-find"><a href="#查看集合内文档-db-集合名-find" class="headerlink" title="查看集合内文档 db.集合名.find()"></a>查看集合内文档 db.集合名.find()</h4><p>find方法里面可以传递参数（查询条件）</p>
+<h4 id="查看已插入集合的所有文档（格式化输出）"><a href="#查看已插入集合的所有文档（格式化输出）" class="headerlink" title="查看已插入集合的所有文档（格式化输出）"></a>查看已插入集合的所有文档（格式化输出）</h4><p>db.集合名.find().pretty()</p>
+<h4 id="删除一个文档"><a href="#删除一个文档" class="headerlink" title="删除一个文档"></a>删除一个文档</h4><p>db.集合名.deleteOne({“name”: “lotus”}) , 括号内参数为删除条件。</p>
+<h4 id="删除所有文档："><a href="#删除所有文档：" class="headerlink" title="删除所有文档："></a>删除所有文档：</h4><p>db.集合名.deleteMany({})</p>
+<pre><code>db.adminCommand()               db.dbEval()                     db.getFreeMonitoringStatus()    db.getSiblingDB()               db.isMaster()                   db.revokePrivilegesFromRole()   db.stats()
+db.aggregate()                  db.disableFreeMonitoring()      db.getLastError()               db.getSisterDB()                db.killOP()                     db.revokeRolesFromRole()        db.toLocaleString()
+db.auth()                       db.dropAllRoles()               db.getLastErrorCmd()            db.getSlaveOk()                 db.killOp()                     db.revokeRolesFromUser()        db.toString()
+db.changeUserPassword()         db.dropAllUsers()               db.getLastErrorObj()            db.getUser()                    db.listCommands()               db.runCommand()                 db.tojson()
+db.cloneCollection()            db.dropDatabase(               db.getLogComponents(           db.getUsers()                   db.loadServerScripts()          db.runCommandWithMetadata()     db.unsetWriteConcern()
+db.cloneDatabase()              db.dropRole()                   db.getMongo()                   db.getWriteConcern()            db.logout()                     db.runReadCommand()             db.updateRole()
+db.commandHelp()                db.dropUser()                   db.getName()                    db.grantPrivilegesToRole()      db.printCollectionStats()       db.serverBits()                 db.updateUser()
+db.constructor                 db.enableFreeMonitoring()       db.getPrevError()               db.grantRolesToRole()           db.printReplicationInfo()       db.serverBuildInfo()            db.valueOf
+db.copyDatabase()               db.eval()                       db.getProfilingLevel()          db.grantRolesToUser()           db.printShardingStatus()        db.serverCmdLineOpts()          db.version()
+db.createCollection()           db.forceError()                 db.getProfilingStatus()         db.group()                      db.printSlaveReplicationInfo()  db.serverStatus()
+db.createRole()                 db.fsyncLock()                  db.getQueryOptions()            db.groupcmd()                   db.propertyIsEnumerable        db.setLogLevel()
+db.createUser()                 db.fsyncUnlock()                db.getReplicationInfo()         db.groupeval()                  db.prototype                   db.setProfilingLevel()
+db.createView()                 db.getCollection()              db.getRole()                    db.hasOwnProperty              db.removeUser()                 db.setSlaveOk()
+db.currentOP()                  db.getCollectionInfos()         db.getRoles()                   db.help()                       db.repairDatabase()             db.setWriteConcern()
+db.currentOp()                  db.getCollectionNames()         db.getSession()                 db.hostInfo()                   db.resetError()                 db.shutdownServer()
+</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -693,7 +732,7 @@
                     </span>
                     <a href="https://seanzs.gitee.io" class="b-link-green">车舟慢</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/05/17/diary-20200517/" class="b-link-green">第一天</a>
+                    <a href="/2020/07/20/diary-20200720-1/" class="b-link-green">MongoDB实践之1-安装及命令行登录</a>
                 </p>
             </div>
 
@@ -1017,29 +1056,38 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/05/19/diary-20200519/">
+                <a href="/2020/07/20/diary-20200720-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="难搞哦">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="MongoDB实践之2-nodejs连接mongodb数据库">
                         
-                        <span class="card-title">难搞哦</span>
+                        <span class="card-title">MongoDB实践之2-nodejs连接mongodb数据库</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            难搞哦
+                            一、基础操作1.1初始化nodejs工程在项目根目录下初始化一个package.json文件
+    npm init -y1.2安装mongodb模块    npm install --save-dev mongodb1.3基础增删改查操
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-19
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-20
                         </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MongoDB/" target="_blank">
+                        <span class="chip bg-color">MongoDB</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1051,29 +1099,45 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/11/diary-20200511/">
+                <a href="/2020/07/17/diary-20200717-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="下班路上">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Android网络请求框架OkHttp的使用">
                         
-                        <span class="card-title">下班路上</span>
+                        <span class="card-title">Android网络请求框架OkHttp的使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            下班路上
+                            
+okhttp-3.9.0.jar
+okio-1.13.0.jar(配套必须包含)
+
+一、关于OkHttp OkHttp 是 Square 公司开源的针对 Java 和 Android 程序，封装的一个高性能 http 请求库。支持spdy
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-11
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-17
                             </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/OkHttp/" target="_blank">
+                        <span class="chip bg-color">OkHttp</span>
+                    </a>
+                    
+                    <a href="/tags/AndriodStudio/" target="_blank">
+                        <span class="chip bg-color">AndriodStudio</span>
+                    </a>
+                    
                 </div>
                 
             </div>

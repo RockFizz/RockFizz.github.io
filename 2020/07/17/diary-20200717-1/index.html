@@ -5,14 +5,14 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="第一天, 车舟慢">
+    <meta name="keywords" content="Android网络请求框架OkHttp的使用, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="  今天周日，第一次在这里从早上待到晚上，看着这夕阳，才下眉头，却上心头。
+    <meta name="description" content="
+okhttp-3.9.0.jar
+okio-1.13.0.jar(配套必须包含)
 
-        document.querySelectorAll(&#39;.github-emoji&#39;)
-          .forEach(el =&gt; {
-   ">
+一、关于OkHttp OkHttp 是 Square 公司开源的针对 Java 和 Android 程序，封装的一个高性能 http 请求库。支持spdy">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +20,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>第一天 | 车舟慢</title>
+    <title>Android网络请求框架OkHttp的使用 | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -487,13 +487,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        第一天
+                        Android网络请求框架OkHttp的使用
                     </div>
                 </div>
             </div>
@@ -602,9 +602,17 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/OkHttp/" target="_blank">
+                                <span class="chip bg-color">OkHttp</span>
+                            </a>
+                        
+                            <a href="/tags/AndriodStudio/" target="_blank">
+                                <span class="chip bg-color">AndriodStudio</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -615,7 +623,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-17
+                    2020-07-17
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -629,14 +637,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        82
+                        627
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        3 分
                     </div>
                     
                 
@@ -648,8 +656,90 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>  今天周日，第一次在这里从早上待到晚上，看着这夕阳，才下眉头，却上心头。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/646328966.jpg" width="80%" align="center"></p>
-<script>
+                <ul>
+<li>okhttp-3.9.0.jar</li>
+<li>okio-1.13.0.jar(配套必须包含)</li>
+</ul>
+<h2 id="一、关于OkHttp"><a href="#一、关于OkHttp" class="headerlink" title="一、关于OkHttp"></a>一、关于OkHttp</h2><p> OkHttp 是 Square 公司开源的针对 Java 和 Android 程序，封装的一个高性能 http 请求库。支持spdy、http2.0、websocket，支持同步、异步，而且OkHttp又封装了线程池，封装了数据转换，封装了参数使用、错误处理等，api使用起来更加方便。可以把它理解成是一个封装之后的类似HttpUrlConnection的一个东西，但是你在使用的时候仍然需要自己再做一层封装，这样才能像使用一个框架一样更加顺手。</p>
+<h2 id="二、安装使用"><a href="#二、安装使用" class="headerlink" title="二、安装使用"></a>二、安装使用</h2><h3 id="2-1-添加库的引用"><a href="#2-1-添加库的引用" class="headerlink" title="2.1 添加库的引用"></a>2.1 添加库的引用</h3><p>将okhttp-3.9.0.jar和okio-1.13.0.jar放入AndroidStudio的Project/app/libs/目录下，并右键点击“Add As Library”。</p>
+<h3 id="2-2-添加网络访问权限"><a href="#2-2-添加网络访问权限" class="headerlink" title="2.2 添加网络访问权限"></a>2.2 添加网络访问权限</h3><p>在AndroidManifest.xml里添加权限</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.compancy1.yibuhttp"&gt;
+
+    &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+
+    &lt;application
+        android:networkSecurityConfig="@xml/network"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"&gt;
+        &lt;meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/network" /&gt;
+        &lt;activity android:name=".MainActivity"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+&lt;/manifest&gt;
+</code></pre><h3 id="2-3-Activity代码中使用"><a href="#2-3-Activity代码中使用" class="headerlink" title="2.3 Activity代码中使用"></a>2.3 Activity代码中使用</h3><pre><code>public class MainActivity extends AppCompatActivity {
+
+    Button btn;     
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btn=(Button) findViewById(R.id.btn1);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myPost();
+            }
+        });
+
+    }
+
+    private void myPost(){
+        String url="http://192.168.31.112:8181";
+        OkHttpClient okHttpClient=new OkHttpClient();
+        FormBody.Builder formBody=new FormBody.Builder();
+        formBody.add("username","关云长");
+        formBody.add("password","a123321b");
+        Request request=new Request.Builder()
+                .url(url)
+                .post(formBody.build())
+                .build();
+        Call call=okHttpClient.newCall(request);
+        //异步请求，通过接口回调告知用户http的异步执行结果
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("OKHttpFailed",e.getMessage());
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    Log.d("OKHttp",response.body().toString());
+                }
+            }
+        });
+    }
+
+}
+
+</code></pre><h3 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h3><p>由于Android P以后网络访问安全策略升级引起的错误，报错CLEARTEXT communication to “ “ not permitted by network security policy 。<br>解决方法:添加res/xml/network.xml文件后，在Androidmanifest.xml中设置networkSecurity指向该文件即可。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/notpermittedbynetworksecuritypolicy.jpg" alt="网络访问安全策略修改"><br>network.xml如下</p>
+<pre><code>&lt;?xml version ="1.0" encoding ="utf-8"?&gt;
+&lt;network-security-config&gt;
+    &lt;base-config cleartextTrafficPermitted="true"  /&gt;
+&lt;/network-security-config&gt;
+</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -693,7 +783,7 @@
                     </span>
                     <a href="https://seanzs.gitee.io" class="b-link-green">车舟慢</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/05/17/diary-20200517/" class="b-link-green">第一天</a>
+                    <a href="/2020/07/17/diary-20200717-1/" class="b-link-green">Android网络请求框架OkHttp的使用</a>
                 </p>
             </div>
 
@@ -1017,29 +1107,39 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/05/19/diary-20200519/">
+                <a href="/2020/07/20/diary-20200720-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="难搞哦">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="MongoDB实践之1-安装及命令行登录">
                         
-                        <span class="card-title">难搞哦</span>
+                        <span class="card-title">MongoDB实践之1-安装及命令行登录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            难搞哦
+                            一、相关概念
+1.1二、解压版MongoDB配置使用官方下载地址 http://dl.mongodb.org/dl/win32/x86_64
+2.1 创建mongodb目录下载mongodb-win32-x86_64-2008plus-ss
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-19
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-20
                         </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MongoDB/" target="_blank">
+                        <span class="chip bg-color">MongoDB</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1051,29 +1151,42 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/11/diary-20200511/">
+                <a href="/2020/07/16/diary-20200716-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="下班路上">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="使用socket.io和nodeJS的websocket实践">
                         
-                        <span class="card-title">下班路上</span>
+                        <span class="card-title">使用socket.io和nodeJS的websocket实践</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            下班路上
+                            一、关于socket.IOsocket.IO是一个websocket库，包括了客户端的js和服务器端的nodejs。官方地址：http://socket.io 
+二、socket.io提供给客户端的websock服务去github clon
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-11
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-16
                             </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/NodeJS/" target="_blank">
+                        <span class="chip bg-color">NodeJS</span>
+                    </a>
+                    
+                    <a href="/tags/socket-io/" target="_blank">
+                        <span class="chip bg-color">socket.io</span>
+                    </a>
+                    
                 </div>
                 
             </div>

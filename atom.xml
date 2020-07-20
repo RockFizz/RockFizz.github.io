@@ -6,10 +6,88 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-07-16T13:20:29.621Z</updated>
+  <updated>2020-07-20T13:31:44.457Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MongoDB实践之2-nodejs连接mongodb数据库</title>
+    <link href="https://seanzs.gitee.io/2020/07/20/diary-20200720-2/"/>
+    <id>https://seanzs.gitee.io/2020/07/20/diary-20200720-2/</id>
+    <published>2020-07-20T06:45:54.000Z</published>
+    <updated>2020-07-20T13:31:44.457Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一、基础操作&quot;&gt;&lt;a href=&quot;#一、基础操作&quot; class=&quot;headerlink&quot; title=&quot;一、基础操作&quot;&gt;&lt;/a&gt;一、基础操作&lt;/h2&gt;&lt;h3 id=&quot;1-1初始化nodejs工程&quot;&gt;&lt;a href=&quot;#1-1初始化nodejs工程&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="MongoDB" scheme="https://seanzs.gitee.io/tags/MongoDB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MongoDB实践之1-安装及命令行登录</title>
+    <link href="https://seanzs.gitee.io/2020/07/20/diary-20200720-1/"/>
+    <id>https://seanzs.gitee.io/2020/07/20/diary-20200720-1/</id>
+    <published>2020-07-20T00:59:54.000Z</published>
+    <updated>2020-07-20T13:39:38.858Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一、相关概念&quot;&gt;&lt;a href=&quot;#一、相关概念&quot; class=&quot;headerlink&quot; title=&quot;一、相关概念&quot;&gt;&lt;/a&gt;一、相关概念&lt;/h2&gt;&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+      <category term="MongoDB" scheme="https://seanzs.gitee.io/tags/MongoDB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android网络请求框架OkHttp的使用</title>
+    <link href="https://seanzs.gitee.io/2020/07/17/diary-20200717-1/"/>
+    <id>https://seanzs.gitee.io/2020/07/17/diary-20200717-1/</id>
+    <published>2020-07-17T07:32:54.000Z</published>
+    <updated>2020-07-20T13:42:45.471Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;ul&gt;
+&lt;li&gt;okhttp-3.9.0.jar&lt;/li&gt;
+&lt;li&gt;okio-1.13.0.jar(配套必须包含)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;一、关于OkHttp&quot;&gt;&lt;a href=&quot;#一、关于OkHttp&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="OkHttp" scheme="https://seanzs.gitee.io/tags/OkHttp/"/>
+    
+      <category term="AndriodStudio" scheme="https://seanzs.gitee.io/tags/AndriodStudio/"/>
+    
+  </entry>
   
   <entry>
     <title>使用socket.io和nodeJS的websocket实践</title>

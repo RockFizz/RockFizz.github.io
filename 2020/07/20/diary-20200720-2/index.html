@@ -5,14 +5,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="第一天, 车舟慢">
+    <meta name="keywords" content="MongoDB实践之2-nodejs连接mongodb数据库, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="  今天周日，第一次在这里从早上待到晚上，看着这夕阳，才下眉头，却上心头。
-
-        document.querySelectorAll(&#39;.github-emoji&#39;)
-          .forEach(el =&gt; {
-   ">
+    <meta name="description" content="一、基础操作1.1初始化nodejs工程在项目根目录下初始化一个package.json文件
+    npm init -y1.2安装mongodb模块    npm install --save-dev mongodb1.3基础增删改查操">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +17,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>第一天 | 车舟慢</title>
+    <title>MongoDB实践之2-nodejs连接mongodb数据库 | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -487,13 +484,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        第一天
+                        MongoDB实践之2-nodejs连接mongodb数据库
                     </div>
                 </div>
             </div>
@@ -602,9 +599,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/MongoDB/" target="_blank">
+                                <span class="chip bg-color">MongoDB</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -615,7 +616,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-17
+                    2020-07-20
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -629,7 +630,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        82
+                        259
                     </div>
                     
 
@@ -648,8 +649,73 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>  今天周日，第一次在这里从早上待到晚上，看着这夕阳，才下眉头，却上心头。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/646328966.jpg" width="80%" align="center"></p>
-<script>
+                <h2 id="一、基础操作"><a href="#一、基础操作" class="headerlink" title="一、基础操作"></a>一、基础操作</h2><h3 id="1-1初始化nodejs工程"><a href="#1-1初始化nodejs工程" class="headerlink" title="1.1初始化nodejs工程"></a>1.1初始化nodejs工程</h3><p>在项目根目录下初始化一个package.json文件</p>
+<pre><code>    npm init -y</code></pre><h3 id="1-2安装mongodb模块"><a href="#1-2安装mongodb模块" class="headerlink" title="1.2安装mongodb模块"></a>1.2安装mongodb模块</h3><pre><code>    npm install --save-dev mongodb</code></pre><h3 id="1-3基础增删改查操作"><a href="#1-3基础增删改查操作" class="headerlink" title="1.3基础增删改查操作"></a>1.3基础增删改查操作</h3><p>建立index.js进行代码编写，对数据库进行连接操作。node index.js运行。</p>
+<pre><code>    const mongodbClient=require("mongodb").MongoClient;
+    const url="mongodb://127.0.0.1:27017";
+    mongodbClient.connect(url,
+        {
+            useUnifiedTopology:true
+        },
+        (err,client)=&gt;{
+        if(err){
+            console.log("连接失败:"+err);
+        }else{
+            console.log("连接成功:"+url);
+        }
+    });
+
+    mongodbClient.connect(
+        url,
+        {
+            useUnifiedTopology:true
+        },
+        (err,client)=&gt;{
+            if(err){
+                console.log("连接失败:"+err);
+            }else{
+                //连接到该数据库服务器下数据库tablihi中的表biao1,获取表后，对表进行操作。
+                const collection=client.db("tablehi").collection("biao1");
+
+                //增
+                //collection.save(
+                //    {
+                //        "name":"赵四",
+                //        "password":"safs56"
+                //    },(err,result)=&gt;{
+                //        //client.close();
+                //    }
+                //);
+
+                //删
+                //collection.remove(
+                //    {
+                //        "name":"张三"
+                //    },()=&gt;{
+                //        //client.close();
+                //    }
+                //);
+
+                //改
+                //collection.update(
+                //    {
+                //        "name":"王五"
+                //    },
+                //    {
+                //        "$set":{"password":"wangwu"}
+                //    }
+                //);
+
+                //查
+                collection.find().toArray((err,data)=&gt;{
+                    console.log(data);
+                    client.close();
+                });
+
+            }
+        }
+    );
+</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -693,7 +759,7 @@
                     </span>
                     <a href="https://seanzs.gitee.io" class="b-link-green">车舟慢</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/05/17/diary-20200517/" class="b-link-green">第一天</a>
+                    <a href="/2020/07/20/diary-20200720-2/" class="b-link-green">MongoDB实践之2-nodejs连接mongodb数据库</a>
                 </p>
             </div>
 
@@ -1013,33 +1079,44 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/05/19/diary-20200519/">
+                <a href="/2020/07/20/diary-20200720-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="难搞哦">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="MongoDB实践之2-nodejs连接mongodb数据库">
                         
-                        <span class="card-title">难搞哦</span>
+                        <span class="card-title">MongoDB实践之2-nodejs连接mongodb数据库</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            难搞哦
+                            一、基础操作1.1初始化nodejs工程在项目根目录下初始化一个package.json文件
+    npm init -y1.2安装mongodb模块    npm install --save-dev mongodb1.3基础增删改查操
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-19
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-20
+                            </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MongoDB/" target="_blank">
+                        <span class="chip bg-color">MongoDB</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1051,29 +1128,39 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/11/diary-20200511/">
+                <a href="/2020/07/20/diary-20200720-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="下班路上">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="MongoDB实践之1-安装及命令行登录">
                         
-                        <span class="card-title">下班路上</span>
+                        <span class="card-title">MongoDB实践之1-安装及命令行登录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            下班路上
+                            一、相关概念
+1.1二、解压版MongoDB配置使用官方下载地址 http://dl.mongodb.org/dl/win32/x86_64
+2.1 创建mongodb目录下载mongodb-win32-x86_64-2008plus-ss
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-11
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-20
                             </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/MongoDB/" target="_blank">
+                        <span class="chip bg-color">MongoDB</span>
+                    </a>
+                    
                 </div>
                 
             </div>
