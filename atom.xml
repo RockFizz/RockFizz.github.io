@@ -6,10 +6,112 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-07-20T13:31:44.457Z</updated>
+  <updated>2020-07-23T15:27:35.562Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android调用摄像头拍照，保存至相册并显示在当前界面</title>
+    <link href="https://seanzs.gitee.io/2020/07/23/diary-20200723-4/"/>
+    <id>https://seanzs.gitee.io/2020/07/23/diary-20200723-4/</id>
+    <published>2020-07-23T08:05:54.000Z</published>
+    <updated>2020-07-23T15:27:35.562Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;测试的功能就是界面一个按钮，点击调用摄像头拍照，在onActivityResult回调方法里对图片处理显示在当前界面并保存在相册。&lt;br&gt;直接上代码。&lt;/p&gt;
+&lt;p&gt;Android应用的清单文件AndroidManifest.xml&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?
+        
+      
+    
+    </summary>
+    
+    
+      <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于Nodejs+Mongodb+Android+Vue的一个应用</title>
+    <link href="https://seanzs.gitee.io/2020/07/23/diary-20200723-3/"/>
+    <id>https://seanzs.gitee.io/2020/07/23/diary-20200723-3/</id>
+    <published>2020-07-23T07:05:54.000Z</published>
+    <updated>2020-07-23T15:23:17.574Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;最近数据联通验证了一个应用。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;手环作为ble设备，时刻通过蓝牙向外广播信息。&lt;/li&gt;
+&lt;li&gt;运行起来MongoDB数据库,用于接收存储手环信息，如体温步数等。&lt;/li&gt;
+&lt;li&gt;Android应用，通过手机蓝牙扫描，收集手环信息，通过http发
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Vue常用功能之2-验证码</title>
+    <link href="https://seanzs.gitee.io/2020/07/23/diary-20200723-2/"/>
+    <id>https://seanzs.gitee.io/2020/07/23/diary-20200723-2/</id>
+    <published>2020-07-23T05:05:54.000Z</published>
+    <updated>2020-07-23T15:23:24.657Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一、验证码的实现&quot;&gt;&lt;a href=&quot;#一、验证码的实现&quot; class=&quot;headerlink&quot; title=&quot;一、验证码的实现&quot;&gt;&lt;/a&gt;一、验证码的实现&lt;/h2&gt;&lt;h3 id=&quot;1-1新建组件identify-vue&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Vue" scheme="https://seanzs.gitee.io/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue常用功能之1-轮询</title>
+    <link href="https://seanzs.gitee.io/2020/07/23/diary-20200723-1/"/>
+    <id>https://seanzs.gitee.io/2020/07/23/diary-20200723-1/</id>
+    <published>2020-07-23T01:05:54.000Z</published>
+    <updated>2020-07-23T15:23:17.487Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一、轮询的实现&quot;&gt;&lt;a href=&quot;#一、轮询的实现&quot; class=&quot;headerlink&quot; title=&quot;一、轮询的实现&quot;&gt;&lt;/a&gt;一、轮询的实现&lt;/h2&gt;&lt;p&gt;添加定义，方法。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    data(){
+       
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Vue" scheme="https://seanzs.gitee.io/tags/Vue/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB实践之2-nodejs连接mongodb数据库</title>
@@ -64,7 +166,7 @@
     <link href="https://seanzs.gitee.io/2020/07/17/diary-20200717-1/"/>
     <id>https://seanzs.gitee.io/2020/07/17/diary-20200717-1/</id>
     <published>2020-07-17T07:32:54.000Z</published>
-    <updated>2020-07-20T13:42:45.471Z</updated>
+    <updated>2020-07-23T15:19:50.108Z</updated>
     
     <summary type="html">
     
@@ -83,9 +185,9 @@
     </summary>
     
     
-      <category term="OkHttp" scheme="https://seanzs.gitee.io/tags/OkHttp/"/>
+      <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
     
-      <category term="AndriodStudio" scheme="https://seanzs.gitee.io/tags/AndriodStudio/"/>
+      <category term="OkHttp" scheme="https://seanzs.gitee.io/tags/OkHttp/"/>
     
   </entry>
   
@@ -391,45 +493,6 @@
 &lt;p&gt;  明天结束居家办公去公司上班，今天上午把电脑搬去公司，顺便做个卫生，停车费有点贵呀；&lt;b
         
       
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>江滩拍摄婚纱照</title>
-    <link href="https://seanzs.gitee.io/2020/05/07/diary-20200507/"/>
-    <id>https://seanzs.gitee.io/2020/05/07/diary-20200507/</id>
-    <published>2020-05-07T14:48:28.000Z</published>
-    <updated>2020-05-26T16:51:27.755Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;  昨天来江汉路选婚纱照的服装，选了三套：主白纱、彩纱、室外纱。到时候现场拍摄现场再选古装和街拍服装。天气预报今天中雨，但拍摄时间仍预约今天，如果真一直下大雨就只拍室内的，室外的另订时间。&lt;/p&gt;
-&lt;p&gt;  今天天公作美，早上九点半到店里，给女士化妆，给我扑了点粉，准时开拍
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://seanzs.gitee.io/2020/05/01/diary-0/"/>
-    <id>https://seanzs.gitee.io/2020/05/01/diary-0/</id>
-    <published>2020-05-01T14:48:28.000Z</published>
-    <updated>2020-05-26T16:51:27.555Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;  因疫情原因，从1月23号到4月6号的两个多月一直呆乡里，关注新闻、刷抖音、吃饭、锻炼、了解日落与星空，背单词，做卫生、烧火、买菜、挖蒲公英、犁地之类。。。&lt;/p&gt;
     
     </summary>
     

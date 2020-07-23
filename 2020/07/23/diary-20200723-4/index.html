@@ -5,11 +5,12 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="使用socket.io和nodeJS的websocket实践, 车舟慢">
+    <meta name="keywords" content="Android调用摄像头拍照，保存至相册并显示在当前界面, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="一、关于socket.IOsocket.IO是一个websocket库，包括了客户端的js和服务器端的nodejs。官方地址：http://socket.io 
-二、socket.io提供给客户端的websock服务去github clon">
+    <meta name="description" content="测试的功能就是界面一个按钮，点击调用摄像头拍照，在onActivityResult回调方法里对图片处理显示在当前界面并保存在相册。直接上代码。
+Android应用的清单文件AndroidManifest.xml
+&amp;lt;?xml versi">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>使用socket.io和nodeJS的websocket实践 | 车舟慢</title>
+    <title>Android调用摄像头拍照，保存至相册并显示在当前界面 | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -484,13 +485,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        使用socket.io和nodeJS的websocket实践
+                        Android调用摄像头拍照，保存至相册并显示在当前界面
                     </div>
                 </div>
             </div>
@@ -601,12 +602,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/NodeJS/" target="_blank">
-                                <span class="chip bg-color">NodeJS</span>
-                            </a>
-                        
-                            <a href="/tags/socket-io/" target="_blank">
-                                <span class="chip bg-color">socket.io</span>
+                            <a href="/tags/AndroidStudio/" target="_blank">
+                                <span class="chip bg-color">AndroidStudio</span>
                             </a>
                         
                     </div>
@@ -620,7 +617,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-16
+                    2020-07-23
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -634,14 +631,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        616
+                        797
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        3 分
+                        4 分
                     </div>
                     
                 
@@ -653,83 +650,193 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="一、关于socket-IO"><a href="#一、关于socket-IO" class="headerlink" title="一、关于socket.IO"></a>一、关于socket.IO</h2><p>socket.IO是一个websocket库，包括了客户端的js和服务器端的nodejs。官方地址：<a href="http://socket.io" target="_blank" rel="noopener">http://socket.io</a> </p>
-<h2 id="二、socket-io提供给客户端的websock服务"><a href="#二、socket-io提供给客户端的websock服务" class="headerlink" title="二、socket.io提供给客户端的websock服务"></a>二、socket.io提供给客户端的websock服务</h2><p>去github clone socket.io的最新版本，或者直接饮用使用socket.io的CDN服务：</p>
-<pre><code>    &lt;script src="https://lib.baomitu.com/socket.io/2.3.0/socket.io.js"&gt;&lt;/script&gt;</code></pre><p>以下是使用socket.io库来创建客户端</p>
-<pre><code>    &lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;&lt;/title&gt;
-    &lt;script src="https://lib.baomitu.com/socket.io/2.3.0/socket.io.js"&gt;&lt;/script&gt;
-    &lt;script&gt;
-        var socket=io.connect('http://localhost:8081');
-        socket.on('message',function(data){
-            console.log('Receive message from server,'+data);
+                <p>测试的功能就是界面一个按钮，点击调用摄像头拍照，在onActivityResult回调方法里对图片处理显示在当前界面并保存在相册。<br>直接上代码。</p>
+<p>Android应用的清单文件AndroidManifest.xml</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.compancy1.usecamera"&gt;
 
-            socket.emit('message',{nihao:'helloworld'});
-            socket.emit('storeClientInfo',{customId:"000CustomIdHere1234"});
-        });
-        socket.on('connect',function(){
-            alert("连接成功");
-        });
-        socket.on('disconnect',function(){
-            console.log("断开连接");
-        });
+    &lt;uses-permission android:name="android.permission.CAMERA"/&gt;
+    &lt;uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/&gt;
 
-    &lt;/script&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
+    &lt;application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"&gt;
+        &lt;activity android:name=".MainActivity"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
 
-    &lt;/body&gt;</code></pre><h2 id="三、socket-io提供给服务器端搭建websock服务"><a href="#三、socket-io提供给服务器端搭建websock服务" class="headerlink" title="三、socket.io提供给服务器端搭建websock服务"></a>三、socket.io提供给服务器端搭建websock服务</h2><h3 id="创建空的项目文件夹"><a href="#创建空的项目文件夹" class="headerlink" title="创建空的项目文件夹"></a>创建空的项目文件夹</h3><pre><code>    mkdir socketserver
-    cd socketserver</code></pre><h3 id="在项目内安装socket-io"><a href="#在项目内安装socket-io" class="headerlink" title="在项目内安装socket.io"></a>在项目内安装socket.io</h3><pre><code>    npm install socket.io</code></pre><h3 id="搭建服务器环境"><a href="#搭建服务器环境" class="headerlink" title="搭建服务器环境"></a>搭建服务器环境</h3><p>通过nodejs的http模块就可以方便的搭建websocket服务器环境</p>
-<pre><code>    // 引入需要的模块：http和socket.io
-    var http=require('http');
-    var io=require('socket.io');
-    // 创建server，Socket服务器还是构建于HTTP服务器之上，因此先调用 http.createServer()
-    var server=http.createServer();
-    server.on('request',function(req,res){
-        res.writeHead(200,{'Content-Type':'text/html'});
-        res.end('&lt;h1&gt;Hello,Socket&lt;/h1&gt;');
-    });
-    //http端口8081
-    server.listen(8081);
-    console.log("-- http listen on port :8081 --");
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
 
-    var clients=[];
-    //创建socket，交由Socket.io接管
-    var socket=io.listen(server);
-    //添加连接监听，Socket.io 真正的连接事件
-    socket.on('connection',function(client){
-        //服务端这边的客户端对象代表接受客户端发过来的信息
-        client.on('message',function(obj){
-            console.log("Receive message from client,"+obj.nihao);
-        });
-        //客户端断开连接时，在服务器端的列表里删除相应对象代表
-        client.on('disconnect',function(){
-            //console.log('server has disconnected');
-            for(var i=0,len=clients.length;i&lt;len;++i){
-                var c=clients[i];
-                if(c.clientId==client.id){
-                    clients.splice(i,1);
-                    console.log(clients.length);
-                    break;
+&lt;/manifest&gt;</code></pre><p>布局文件activity_main.xml</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"&gt;
+
+    &lt;Button
+        android:id="@+id/btn_take_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拍照" /&gt;
+
+    &lt;ImageView
+        android:id="@+id/picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" /&gt;
+
+
+&lt;/LinearLayout&gt;
+</code></pre><p>入口MainActivity.java</p>
+<pre><code>package com.compancy1.usecamera;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+public class MainActivity extends AppCompatActivity {
+
+    public static  final int TAKE_PHOTO=1;
+    public static  final int TAKE_PHOTO_2=2;
+    private ImageView pictureShow;
+    private String mFilePath;
+    private String fileName;
+    private Context mContext;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button takePhoto=findViewById(R.id.btn_take_photo);
+        pictureShow=findViewById(R.id.picture);
+        mContext=MainActivity.this;
+
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+                    ActivityCompat.requestPermissions((Activity)mContext,new String[]{Manifest.permission.CAMERA},100);
+                }else{
+                    startCamera2();
                 }
             }
         });
-        //服务端这边的监听客户端对象代表接受客户端发过来的自定义事件
-        client.on('storeClientInfo',function(data){
-            var clientInfo=new Object();
-            clientInfo.customId=data.customId;
-            clientInfo.clientId=client.id;
-            clients.push(clientInfo);
-            console.log(clients.length);
-        });
-        //服务端通过客户端对象代表向该客户端发送信息message
-        client.send("welcome my friend");
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 100:
+                startCamera2();
+                break;
+            default:
+        }
+    }
 
-    });
-    console.log("-- socket listen on port :8081 --");
-</code></pre><script>
+    private void startCamera(){
+        Intent intent=new Intent("android.media.action.IMAGE_CAPTURE");
+        startActivityForResult(intent,TAKE_PHOTO);
+    }
+    private void  startCamera2(){
+        //拍摄的照片保存到本地相册
+        File fileDir=new File(Environment.getExternalStorageState(),"Pictures");
+        if(!fileDir.exists()){
+            fileDir.mkdir();
+        }
+        fileName="IMG_"+System.currentTimeMillis()+".jpg";
+        mFilePath=fileDir.getAbsolutePath()+"/"+fileName;
+        Uri uri=null;
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(MediaStore.Images.Media.DISPLAY_NAME,fileName);
+        if(Build.VERSION.SDK_INT&gt;=Build.VERSION_CODES.Q){
+            contentValues.put(MediaStore.Images.Media.RELATIVE_PATH,"DCIM/Pictures");
+        }else{
+            contentValues.put(MediaStore.Images.Media.DATA,mFilePath);
+        }
+        contentValues.put(MediaStore.Images.Media.MIME_TYPE,"image/JPEG");
+        uri=getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+        Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//启动系统相机
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+        startActivityForResult(intent,TAKE_PHOTO_2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case TAKE_PHOTO:
+
+                break;
+            case TAKE_PHOTO_2:
+                //将拍摄的照片显示在当前界面
+                String selection=MediaStore.Images.Media.DISPLAY_NAME+"=?";
+                Cursor cursor=getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,new String[]{MediaStore.Images.Media._ID},selection,new String[]{fileName},null);
+                if(cursor!=null&amp;&amp;cursor.moveToFirst()){
+                    do{
+                        Uri uri= ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,cursor.getLong(0));
+                        Log.i("luingssd","@"+uri);
+                        try {
+                            InputStream inputStream=getContentResolver().openInputStream(uri);
+                            Bitmap bitmap= BitmapFactory.decodeStream(inputStream);
+                            pictureShow.setImageBitmap(bitmap);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                    }while (cursor.moveToNext());
+                }else{
+                    Toast.makeText(this, "no photo", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+                default:
+        }
+
+    }
+}</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -773,7 +880,7 @@
                     </span>
                     <a href="https://seanzs.gitee.io" class="b-link-green">车舟慢</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/07/16/diary-20200716-2/" class="b-link-green">使用socket.io和nodeJS的websocket实践</a>
+                    <a href="/2020/07/23/diary-20200723-4/" class="b-link-green">Android调用摄像头拍照，保存至相册并显示在当前界面</a>
                 </p>
             </div>
 
@@ -1093,47 +1200,43 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/07/17/diary-20200717-1/">
+                <a href="/2020/07/23/diary-20200723-4/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Android网络请求框架OkHttp的使用">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Android调用摄像头拍照，保存至相册并显示在当前界面">
                         
-                        <span class="card-title">Android网络请求框架OkHttp的使用</span>
+                        <span class="card-title">Android调用摄像头拍照，保存至相册并显示在当前界面</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-okhttp-3.9.0.jar
-okio-1.13.0.jar(配套必须包含)
-
-一、关于OkHttp OkHttp 是 Square 公司开源的针对 Java 和 Android 程序，封装的一个高性能 http 请求库。支持spdy
+                            测试的功能就是界面一个按钮，点击调用摄像头拍照，在onActivityResult回调方法里对图片处理显示在当前界面并保存在相册。直接上代码。
+Android应用的清单文件AndroidManifest.xml
+&lt;?xml versi
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-23
+                            </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
                     <a href="/tags/AndroidStudio/" target="_blank">
                         <span class="chip bg-color">AndroidStudio</span>
-                    </a>
-                    
-                    <a href="/tags/OkHttp/" target="_blank">
-                        <span class="chip bg-color">OkHttp</span>
                     </a>
                     
                 </div>
@@ -1147,41 +1250,34 @@ okio-1.13.0.jar(配套必须包含)
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/16/diary-20200716-1/">
+                <a href="/2020/07/23/diary-20200723-3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="快速搭建在线文档的实践">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="基于Nodejs+Mongodb+Android+Vue的一个应用">
                         
-                        <span class="card-title">快速搭建在线文档的实践</span>
+                        <span class="card-title">基于Nodejs+Mongodb+Android+Vue的一个应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-Vue v2.9.6
-Node v12.16.3
+                            最近数据联通验证了一个应用。
 
-一、关于vuepress：vuepress项目的文档结构，都必须按照官方文档的格式进行制作。比如说你想修改整体的主题颜色，你就必须修改styles文件夹下的palette.styl。你想
+手环作为ble设备，时刻通过蓝牙向外广播信息。
+运行起来MongoDB数据库,用于接收存储手环信息，如体温步数等。
+Android应用，通过手机蓝牙扫描，收集手环信息，通过http发往服务器。
+服务端Node
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-16
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-23
                             </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Vue/" target="_blank">
-                        <span class="chip bg-color">Vue</span>
-                    </a>
-                    
                 </div>
                 
             </div>
