@@ -1200,38 +1200,35 @@ public class MainActivity extends AppCompatActivity {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/07/23/diary-20200723-4/">
+                <a href="/2020/07/27/diary-20200727-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Android调用摄像头拍照，保存至相册并显示在当前界面">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="AndroidStudio开发记录1-运行时权限">
                         
-                        <span class="card-title">Android调用摄像头拍照，保存至相册并显示在当前界面</span>
+                        <span class="card-title">AndroidStudio开发记录1-运行时权限</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            测试的功能就是界面一个按钮，点击调用摄像头拍照，在onActivityResult回调方法里对图片处理显示在当前界面并保存在相册。直接上代码。
-Android应用的清单文件AndroidManifest.xml
-&lt;?xml versi
+                            申请运行时权限Android 6.0以后加入了运行时权限这一概念。对于危险权限，应用必须在使用的时候进行申请。
+1.1 AndroidManifest.xml内添加权限    &lt;uses-permission android:name
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-27
+                        </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1440,7 +1437,7 @@ Android应用，通过手机蓝牙扫描，收集手环信息，通过http发往
             
 			
                 &nbsp; | &nbsp;字数统计:&nbsp;
-    <span class="white-color">18.9k</span> 字  
+    <span class="white-color">20k</span> 字  
 			
             
 			
@@ -1595,38 +1592,6 @@ $(function () {
     
         
 
-        
-            <script src="//code.tidio.co/xxxxxxxxxxxxxxxxxxxxxxxxxxx.js"></script>
-            <!--  在线聊天位置自定义    -->
-            <script> 
-                $(document).ready(function () {
-
-                    setInterval(change_Tidio, 50);  
-                    function change_Tidio() { 
-
-                        var tidio=$("#tidio-chat iframe");
-                        if(tidio.css("display")=="block"&& $(window).width()>977 ){
-                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" &&$(window).width()>977)>0? "-40px" : ($("div.toc-title").length&&$(window).width()>977)>0?"80px":"20px";   
-                            document.getElementById("tidio-chat-iframe").style.right="-15px";   
-                            document.getElementById("tidio-chat-iframe").style.height=parseInt(tidio.css("height"))>=520?"520px":tidio.css("height");
-                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
-                        } 
-                        else if(tidio.css("display")=="block"&&$(window).width()>601 &&$(window).width()<992 ){
-                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && 601< $(window).width()<992)>0? "-40px":"20px" ;   
-                            document.getElementById("tidio-chat-iframe").style.right="-15px"; 
-                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
-                        }
-                        else if(tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))<230){
-                            document.getElementById("tidio-chat-iframe").style.bottom= ($("div#backTop.top-scroll").css("display")=="none" && $(window).width()<601)>0? "-10px":"45px" ;   
-                            document.getElementById("tidio-chat-iframe").style.zIndex="997";
-                        }
-
-                        if( tidio.css("display")=="block"&&$(window).width()<601 && parseInt(tidio.css("height"))>=230){
-                            document.getElementById("tidio-chat-iframe").style.zIndex="998";
-                        }
-                    } 
-                }); 
-            </script>
         
 
         

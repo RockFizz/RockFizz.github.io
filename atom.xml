@@ -6,10 +6,60 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-07-23T15:27:35.562Z</updated>
+  <updated>2020-07-28T14:16:01.481Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AndroidStudio快速实现二维码功能</title>
+    <link href="https://seanzs.gitee.io/2020/07/28/diary-20200728-1/"/>
+    <id>https://seanzs.gitee.io/2020/07/28/diary-20200728-1/</id>
+    <published>2020-07-28T06:21:54.000Z</published>
+    <updated>2020-07-28T14:16:01.481Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;1-1-AndroidManifest-xml内添加权限&quot;&gt;&lt;a href=&quot;#1-1-AndroidManifest-xml内添加权限&quot; class=&quot;headerlink&quot; title=&quot;1.1
+        
+      
+    
+    </summary>
+    
+    
+      <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
+    
+      <category term="二维码" scheme="https://seanzs.gitee.io/tags/%E4%BA%8C%E7%BB%B4%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AndroidStudio开发记录1-运行时权限</title>
+    <link href="https://seanzs.gitee.io/2020/07/27/diary-20200727-1/"/>
+    <id>https://seanzs.gitee.io/2020/07/27/diary-20200727-1/</id>
+    <published>2020-07-27T01:21:54.000Z</published>
+    <updated>2020-07-28T14:15:55.776Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;申请运行时权限&quot;&gt;&lt;a href=&quot;#申请运行时权限&quot; class=&quot;headerlink&quot; title=&quot;申请运行时权限&quot;&gt;&lt;/a&gt;申请运行时权限&lt;/h2&gt;&lt;p&gt;Android
+        
+      
+    
+    </summary>
+    
+    
+      <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
+    
+  </entry>
   
   <entry>
     <title>Android调用摄像头拍照，保存至相册并显示在当前界面</title>
@@ -444,53 +494,6 @@
         
         
           &lt;p&gt;  今天周日，第一次在这里从早上待到晚上，看着这夕阳，才下眉头，却上心头。&lt;br&gt;&lt;img
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>下班路上</title>
-    <link href="https://seanzs.gitee.io/2020/05/11/diary-20200511/"/>
-    <id>https://seanzs.gitee.io/2020/05/11/diary-20200511/</id>
-    <published>2020-05-11T04:58:53.000Z</published>
-    <updated>2020-05-26T16:51:27.710Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;  下班路上&lt;br&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>明天就要去公司上班了</title>
-    <link href="https://seanzs.gitee.io/2020/05/10/diary-20200510/"/>
-    <id>https://seanzs.gitee.io/2020/05/10/diary-20200510/</id>
-    <published>2020-05-10T15:39:28.000Z</published>
-    <updated>2020-05-26T16:51:28.418Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;blockquote&gt;
-&lt;p&gt;人生路漫漫，很多事情都会不知不觉中忘记，但如果你把它记录下来了。等你老了翻开来看看，那是一笔无法用钱来衡量的财富。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;  明天结束居家办公去公司上班，今天上午把电脑搬去公司，顺便做个卫生，停车费有点贵呀；&lt;b
         
       
     

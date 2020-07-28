@@ -5,12 +5,11 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 车舟慢">
+    <meta name="keywords" content="AndroidStudio快速实现二维码功能, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="  因疫情原因，从1月23号到4月6号的两个多月一直呆乡里，关注新闻、刷抖音、吃饭、锻炼、了解日落与星空，背单词，做卫生、烧火、买菜、挖蒲公英、犁地之类。。。
-
-  复工一段时间后，5月1号发现过去买的域名今年3月份就过期了，过期时间过长无">
+    <meta name="description" content="1.1 AndroidManifest.xml内添加权限    &amp;lt;uses-permission android:name=&#34;android.permission.CAMERA&#34; /&amp;gt;
+    &amp;lt;uses-permissi">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +17,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Hello World | 车舟慢</title>
+    <title>AndroidStudio快速实现二维码功能 | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -491,7 +490,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Hello World
+                        AndroidStudio快速实现二维码功能
                     </div>
                 </div>
             </div>
@@ -600,9 +599,17 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/AndroidStudio/" target="_blank">
+                                <span class="chip bg-color">AndroidStudio</span>
+                            </a>
+                        
+                            <a href="/tags/二维码/" target="_blank">
+                                <span class="chip bg-color">二维码</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -613,13 +620,13 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-01
+                    2020-07-28
                 </div>
 
                 <div class="post-author info-break-policy">
                     <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
                     
-                        Sean
+                        sean
                     
                 </div>
 
@@ -627,14 +634,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        205
+                        759
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        4 分
                     </div>
                     
                 
@@ -646,11 +653,172 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>  因疫情原因，从1月23号到4月6号的两个多月一直呆乡里，关注新闻、刷抖音、吃饭、锻炼、了解日落与星空，背单词，做卫生、烧火、买菜、挖蒲公英、犁地之类。。。</p>
-<a id="more"></a>
-<p>  复工一段时间后，5月1号发现过去买的域名今年3月份就过期了，过期时间过长无法续费，只能更高费用的赎回，那域名就不要算了。再加上旧服务器本来就慢。</p>
-<p>  把旧服务器上花里胡哨的文件备份留存以后，就捣鼓了这个博客，重新开始。</p>
-<script>
+                <h3 id="1-1-AndroidManifest-xml内添加权限"><a href="#1-1-AndroidManifest-xml内添加权限" class="headerlink" title="1.1 AndroidManifest.xml内添加权限"></a>1.1 AndroidManifest.xml内添加权限</h3><pre><code>    &lt;uses-permission android:name="android.permission.CAMERA" /&gt;
+    &lt;uses-permission android:name="android.permission.FLASHLIGHT" /&gt;
+    &lt;uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/&gt;
+    &lt;uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/&gt;
+    &lt;uses-feature android:name="android.hardware.camera" /&gt;
+    &lt;uses-feature android:name="android.hardware.camera.autofocus" /&gt;
+    &lt;uses-permission android:name="android.permission.VIBRATE" /&gt;
+    &lt;uses-permission android:name="android.permission.WAKE_LOCK" /&gt;
+</code></pre><h3 id="1-2-在build-gradle-Module-app-中添加"><a href="#1-2-在build-gradle-Module-app-中添加" class="headerlink" title="1.2 在build.gradle(Module:app)中添加"></a>1.2 在build.gradle(Module:app)中添加</h3><p>在build.gradle(Module:app)的dependencies{}中添加 implementation “cn.yipianfengye.android:zxing-library:2.2”</p>
+<pre><code>    dependencies {
+        implementation fileTree(dir: "libs", include: ["*.jar"])
+        implementation 'androidx.appcompat:appcompat:1.1.0'
+        implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+        androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+        implementation "cn.yipianfengye.android:zxing-library:2.2"
+    }</code></pre><h3 id="1-3-入口函数里初始化"><a href="#1-3-入口函数里初始化" class="headerlink" title="1.3 入口函数里初始化"></a>1.3 入口函数里初始化</h3><p>在MainActivity的onCreate里初始化，执行ZXingLibrary.initDisplayOpinion(this);<br>Android6.0以后需要动态运行时权限。<br>MainActivity.java如下</p>
+<pre><code>package com.compancy1.myqrcode;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        getRuntimePermission();
+
+
+    }
+    private void getRuntimePermission(){
+        if(Build.VERSION.SDK_INT&gt;=Build.VERSION_CODES.M){
+            String[] perms={Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
+            if(checkSelfPermission(perms[0])== PackageManager.PERMISSION_DENIED||checkSelfPermission(perms[1])==PackageManager.PERMISSION_DENIED||checkSelfPermission(perms[2])==PackageManager.PERMISSION_DENIED){
+                requestPermissions(perms,200);
+            }else{
+                DoReallyThing();
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch(requestCode){
+            case 200:{
+                for(int i:grantResults){
+                    if(i==PackageManager.PERMISSION_DENIED){
+                        Toast.makeText(this,"权限拒绝",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                DoReallyThing();
+                break;
+            }
+        }
+
+    }
+
+    private void DoReallyThing(){
+        ZXingLibrary.initDisplayOpinion(getApplicationContext());
+
+        Button btnStartQR=findViewById(R.id.btn);
+        btnStartQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //打开摄像头识别二维码
+                Intent intent =new Intent(MainActivity.this, CaptureActivity.class);
+                startActivityForResult(intent,250);
+            }
+        });
+
+        Button btnGenerateQR=findViewById(R.id.btn2);
+        final EditText yourInputText=(EditText)findViewById(R.id.yourinput);
+        final ImageView imageView=(ImageView)findViewById(R.id.imageView1);
+        btnGenerateQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String textContent=yourInputText.getText().toString();
+                if(TextUtils.isEmpty(textContent)){
+                    Toast.makeText(getApplicationContext(),"您的输入为空!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                yourInputText.setText("");
+                Bitmap bitmap=CodeUtils.createImage(textContent,400,400, null);
+                imageView.setImageBitmap(bitmap);
+
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==250){
+            Bundle bundle=data.getExtras();
+            if(bundle==null){
+                return;
+            }
+            if(bundle.getInt(CodeUtils.RESULT_TYPE)==CodeUtils.RESULT_SUCCESS){
+                String result=bundle.getString(CodeUtils.RESULT_STRING);
+                Toast.makeText(this,"解析结果:"+result,Toast.LENGTH_LONG).show();
+            }else if(bundle.getInt(CodeUtils.RESULT_TYPE)==CodeUtils.RESULT_FAILED){
+                Toast.makeText(this,"解析失败",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}
+</code></pre><p>布局文件activity_main.xml如下：</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"&gt;
+
+    &lt;Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开启相机识别二维码" /&gt;
+
+    &lt;Button
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="生成二维码" /&gt;
+
+    &lt;EditText
+        android:id="@+id/yourinput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" /&gt;
+
+    &lt;ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" /&gt;
+
+&lt;/LinearLayout&gt;</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -694,7 +862,7 @@
                     </span>
                     <a href="https://seanzs.gitee.io" class="b-link-green">车舟慢</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/05/01/diary-0/" class="b-link-green">Hello World</a>
+                    <a href="/2020/07/28/diary-20200728-1/" class="b-link-green">AndroidStudio快速实现二维码功能</a>
                 </p>
             </div>
 
@@ -1014,33 +1182,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/05/07/diary-20200507/">
+                <a href="/2020/07/28/diary-20200728-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="江滩拍摄婚纱照">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="AndroidStudio快速实现二维码功能">
                         
-                        <span class="card-title">江滩拍摄婚纱照</span>
+                        <span class="card-title">AndroidStudio快速实现二维码功能</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            江滩拍摄婚纱照
+                            1.1 AndroidManifest.xml内添加权限    &lt;uses-permission android:name="android.permission.CAMERA" /&gt;
+    &lt;uses-permissi
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-28
+                            </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AndroidStudio/" target="_blank">
+                        <span class="chip bg-color">AndroidStudio</span>
+                    </a>
+                    
+                    <a href="/tags/二维码/" target="_blank">
+                        <span class="chip bg-color">二维码</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1049,34 +1232,42 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/01/diary-0/">
+                <a href="/2020/07/27/diary-20200727-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="AndroidStudio开发记录1-运行时权限">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">AndroidStudio开发记录1-运行时权限</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            hello world
+                            申请运行时权限Android 6.0以后加入了运行时权限这一概念。对于危险权限，应用必须在使用的时候进行申请。
+1.1 AndroidManifest.xml内添加权限    &lt;uses-permission android:name
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-01
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-27
                             </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/AndroidStudio/" target="_blank">
+                        <span class="chip bg-color">AndroidStudio</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
