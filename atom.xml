@@ -6,10 +6,34 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-07-28T14:16:01.481Z</updated>
+  <updated>2020-07-30T23:04:52.380Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>低功耗蓝牙BLE的GATT协议和广播消息解析</title>
+    <link href="https://seanzs.gitee.io/2020/07/30/diary-20200730-1/"/>
+    <id>https://seanzs.gitee.io/2020/07/30/diary-20200730-1/</id>
+    <published>2020-07-30T02:06:54.000Z</published>
+    <updated>2020-07-30T23:04:52.380Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;蓝牙作为短距离无线通讯技术，可实现设备与设备之间的数据交换。一般将蓝牙3.0之前的BR/EDR称为传统蓝牙，将蓝牙4.0规范的BLE蓝牙称为低功耗蓝牙。&lt;br&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+    
+      <category term="BLE" scheme="https://seanzs.gitee.io/tags/BLE/"/>
+    
+  </entry>
   
   <entry>
     <title>AndroidStudio快速实现二维码功能</title>
@@ -472,28 +496,6 @@
         document.querySelectorAll(&#39;.github-emoji&#39;)
           .forEach(el =&gt; {
             if (!el.dataset.src) {
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>第一天</title>
-    <link href="https://seanzs.gitee.io/2020/05/17/diary-20200517/"/>
-    <id>https://seanzs.gitee.io/2020/05/17/diary-20200517/</id>
-    <published>2020-05-17T15:26:02.000Z</published>
-    <updated>2020-05-26T16:51:27.240Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;  今天周日，第一次在这里从早上待到晚上，看着这夕阳，才下眉头，却上心头。&lt;br&gt;&lt;img
         
       
     
