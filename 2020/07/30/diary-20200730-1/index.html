@@ -632,14 +632,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        7k
+                        7.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        33 分
+                        35 分
                     </div>
                     
                 
@@ -859,7 +859,8 @@ alertLevel=gattCharacteristic;</code></pre>这两句，把需要的服务中的C
             Log.e("onCharacteristicWrite中", "没权限");
         }
     }
-</code></pre><h2 id="四、BLE总结-打开蓝牙-gt-搜索设备-gt-发现设备-gt-建立连接-gt-数据通信"><a href="#四、BLE总结-打开蓝牙-gt-搜索设备-gt-发现设备-gt-建立连接-gt-数据通信" class="headerlink" title="四、BLE总结(打开蓝牙->搜索设备->发现设备->建立连接->数据通信)"></a>四、BLE总结(打开蓝牙-&gt;搜索设备-&gt;发现设备-&gt;建立连接-&gt;数据通信)</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/blekaifaliucheng2.jpg" alt="ble蓝牙开发流程"></p>
+</code></pre><h2 id="四、BLE总结"><a href="#四、BLE总结" class="headerlink" title="四、BLE总结"></a>四、BLE总结</h2><p>(打开蓝牙-&gt;搜索设备-&gt;发现设备-&gt;建立连接-&gt;数据通信)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/blekaifaliucheng2.jpg" alt="ble蓝牙开发流程"></p>
 <h3 id="4-1-Android-BLE-API简介"><a href="#4-1-Android-BLE-API简介" class="headerlink" title="4.1 Android BLE API简介"></a>4.1 Android BLE API简介</h3><pre><code>+ GATT
 描述了一个框架，该框架定义了服务(Server)和服务属性(characteristic)的过程(Procedure)及格式Procedure定义了characteristic的发现、读、写、通知(Notifing)、指示(Indicating)及配置characteristic的广播。
 GATT中最上层是Profile，Profile由一个或多个服务(Service)组成服务是由Characteristics组成，或是其他服务的引用(Reference)Characteristic包含一个值(Value)，可能包含该Value的相关信息。
@@ -1084,7 +1085,7 @@ BluetoothGatt mBluetoothGatt = device.connectGatt(context, false, mGattCallback)
 <li>每次发送数据或者数据分包发送时， 操作间要有至少15ms的间隔。</li>
 <li>如果出现扫描不到的情况，那是因为手机没有开启定位权限，清单文件中写上定位权限，代码中在动态获取下就OK</li>
 </ul>
-<h2 id="七、我的一个扫描ble设备解析广播消息的例子"><a href="#七、我的一个扫描ble设备解析广播消息的例子" class="headerlink" title="七、我的一个扫描ble设备解析广播消息的例子"></a>七、我的一个扫描ble设备解析广播消息的例子</h2><p>AndroidManifest.xml</p>
+<h2 id="七、我做的一个例子"><a href="#七、我做的一个例子" class="headerlink" title="七、我做的一个例子"></a>七、我做的一个例子</h2><p>扫描ble设备并解析广播消息<br>AndroidManifest.xml</p>
 <pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="my.compancy1.mybluetooth"&gt;
@@ -1717,7 +1718,54 @@ public class MainActivity extends AppCompatActivity {
         }
         mBluetoothGatt.writeCharacteristic(characteristic);
     }
-}</code></pre><script>
+}</code></pre><h2 id="八、GATT读写操作的一点说明"><a href="#八、GATT读写操作的一点说明" class="headerlink" title="八、GATT读写操作的一点说明"></a>八、GATT读写操作的一点说明</h2><p>bluetoothDevice.connectGatt（）方法返回的对象BluetoothGatt，这个BluetoothGatt对象非常重要，甚至可以说是最重要的。一般都是单独声明成全局变量来使用的，因为我们设备的读、写和订阅等操作都需要用到这个对象。<br>发现服务后才可以进行读写订阅等操作。读写订阅操作通过服务Service和特征值Characteristic来操作，如何获得对应的服务和特征值呢？一般硬件工程师会预先定义好uuid并告诉我们。我们通过如下方法获得服务和特征值：</p>
+<pre><code>//write_UUID_service和write_UUID_chara是硬件工程师告诉我们的
+ BluetoothGattService service=mBluetoothGatt.getService(write_UUID_service);
+ BluetoothGattCharacteristic charaWrite=service.getCharacteristic(write_UUID_chara);</code></pre><p>读取数据 </p>
+<pre><code>private void readData() {
+        BluetoothGattCharacteristic characteristic=mBluetoothGatt.getService(read_UUID_service).getCharacteristic(read_UUID_chara);
+        mBluetoothGatt.readCharacteristic(characteristic);
+}
+</code></pre><p>读取数据用的少，一般我们都是先订阅，再写入，在订阅的回调里进行数据交互。</p>
+<p>写入数据</p>
+<pre><code>private void writeData(){
+        BluetoothGattService service=mBluetoothGatt.getService(write_UUID_service);
+        BluetoothGattCharacteristic charaWrite=service.getCharacteristic(write_UUID_chara);
+        byte[] data=HexUtil.hexStringToBytes(hex);
+        if (data.length&gt;20){//数据大于个字节 分批次写入
+            Log.e(TAG, "writeData: length="+data.length);
+            int num=0;
+            if (data.length%20!=0){
+                num=data.length/20+1;
+            }else{
+                num=data.length/20;
+            }
+            for (int i=0;i&lt;num;i++){
+                byte[] tempArr;
+                if (i==num-1){
+                    tempArr=new byte[data.length-i*20];
+                    System.arraycopy(data,i*20,tempArr,0,data.length-i*20);
+                }else{
+                    tempArr=new byte[20];
+                    System.arraycopy(data,i*20,tempArr,0,20);
+                }
+                charaWrite.setValue(tempArr);
+                mBluetoothGatt.writeCharacteristic(charaWrite);
+            }
+        }else{
+            charaWrite.setValue(data);
+            mBluetoothGatt.writeCharacteristic(charaWrite);
+        }
+    }
+</code></pre><p>写操作的回调</p>
+<pre><code>        @Override
+        public void onCharacteristicWrite(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic, int status) {
+                super.onCharacteristicWrite(gatt, characteristic, status);
+                Log.e(TAG,"onCharacteristicWrite()  status="+status+",value="+HexUtil.encodeHexStr(characteristic.getValue()));
+        }</code></pre><p>订阅回调</p>
+<pre><code>//订阅通知
+mBluetoothGatt.setCharacteristicNotification(mBluetoothGatt.getService(notify_UUID_service).getCharacteristic(notify_UUID_chara),true);</code></pre><p>注意一定要写在写入之前，要不然就收不到写入的数据，我一般都是在发现服务之后就订阅。关于订阅收不到这里，需要注意一下，首先你写入的和订阅的Characteristic对象一定要属于同一个Service对象，另外就是保证你写入的数据没问题，否则就可能收不到订阅回调。</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -2330,7 +2378,7 @@ public class MainActivity extends AppCompatActivity {
             
 			
                 &nbsp; | &nbsp;字数统计:&nbsp;
-    <span class="white-color">27k</span> 字  
+    <span class="white-color">27.5k</span> 字  
 			
             
 			
