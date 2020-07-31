@@ -1085,7 +1085,7 @@ BluetoothGatt mBluetoothGatt = device.connectGatt(context, false, mGattCallback)
 <li>每次发送数据或者数据分包发送时， 操作间要有至少15ms的间隔。</li>
 <li>如果出现扫描不到的情况，那是因为手机没有开启定位权限，清单文件中写上定位权限，代码中在动态获取下就OK</li>
 </ul>
-<h2 id="七、我做的一个例子"><a href="#七、我做的一个例子" class="headerlink" title="七、我做的一个例子"></a>七、我做的一个例子</h2><p>扫描ble设备并解析广播消息<br>AndroidManifest.xml</p>
+<h2 id="七、我的例子"><a href="#七、我的例子" class="headerlink" title="七、我的例子"></a>七、我的例子</h2><h3 id="7-1-扫描ble设备并解析广播消息"><a href="#7-1-扫描ble设备并解析广播消息" class="headerlink" title="7.1 扫描ble设备并解析广播消息"></a>7.1 扫描ble设备并解析广播消息</h3><p>AndroidManifest.xml</p>
 <pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="my.compancy1.mybluetooth"&gt;
@@ -1718,7 +1718,8 @@ public class MainActivity extends AppCompatActivity {
         }
         mBluetoothGatt.writeCharacteristic(characteristic);
     }
-}</code></pre><h2 id="八、GATT读写操作的一点说明"><a href="#八、GATT读写操作的一点说明" class="headerlink" title="八、GATT读写操作的一点说明"></a>八、GATT读写操作的一点说明</h2><p>bluetoothDevice.connectGatt（）方法返回的对象BluetoothGatt，这个BluetoothGatt对象非常重要，甚至可以说是最重要的。一般都是单独声明成全局变量来使用的，因为我们设备的读、写和订阅等操作都需要用到这个对象。<br>发现服务后才可以进行读写订阅等操作。读写订阅操作通过服务Service和特征值Characteristic来操作，如何获得对应的服务和特征值呢？一般硬件工程师会预先定义好uuid并告诉我们。我们通过如下方法获得服务和特征值：</p>
+}</code></pre><h3 id="7-2-协议说明与操作结果"><a href="#7-2-协议说明与操作结果" class="headerlink" title="7.2 协议说明与操作结果"></a>7.2 协议说明与操作结果</h3><p>厂家协议说明和nRFConnect软件实际操作结果对比，如图：<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/documentinstruct1.jpg" alt="协议说明"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/nrfconnectres2.jpg" alt="nRF Connect操作结果"></p>
+<h2 id="八、GATT读写操作的一点说明"><a href="#八、GATT读写操作的一点说明" class="headerlink" title="八、GATT读写操作的一点说明"></a>八、GATT读写操作的一点说明</h2><p>bluetoothDevice.connectGatt（）方法返回的对象BluetoothGatt，这个BluetoothGatt对象非常重要，甚至可以说是最重要的。一般都是单独声明成全局变量来使用的，因为我们设备的读、写和订阅等操作都需要用到这个对象。<br>发现服务后才可以进行读写订阅等操作。读写订阅操作通过服务Service和特征值Characteristic来操作，如何获得对应的服务和特征值呢？一般硬件工程师会预先定义好uuid并告诉我们。我们通过如下方法获得服务和特征值：</p>
 <pre><code>//write_UUID_service和write_UUID_chara是硬件工程师告诉我们的
  BluetoothGattService service=mBluetoothGatt.getService(write_UUID_service);
  BluetoothGattCharacteristic charaWrite=service.getCharacteristic(write_UUID_chara);</code></pre><p>读取数据 </p>
@@ -2378,7 +2379,7 @@ mBluetoothGatt.setCharacteristicNotification(mBluetoothGatt.getService(notify_UU
             
 			
                 &nbsp; | &nbsp;字数统计:&nbsp;
-    <span class="white-color">27.5k</span> 字  
+    <span class="white-color">27.6k</span> 字  
 			
             
 			
