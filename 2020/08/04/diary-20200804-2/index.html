@@ -5,12 +5,17 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 车舟慢">
+    <meta name="keywords" content="基于vue的登陆页上下空白处自适应等高, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="  因疫情原因，从1月23号到4月6号的两个多月一直呆乡里，关注新闻、刷抖音、吃饭、锻炼、了解日落与星空，背单词，做卫生、烧火、买菜、挖蒲公英、犁地之类。。。
-
-  复工一段时间后，5月1号发现过去买的域名今年3月份就过期了，过期时间过长无">
+    <meta name="description" content="data中先定义
+    data() {
+        return {
+          windowHeight: &#34;&#34;, 
+          topHeight: &#34;&#34;
+        };
+    },mounted中：
+ ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +23,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Hello World | 车舟慢</title>
+    <title>基于vue的登陆页上下空白处自适应等高 | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -485,13 +490,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/28.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/29.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Hello World
+                        基于vue的登陆页上下空白处自适应等高
                     </div>
                 </div>
             </div>
@@ -600,9 +605,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Vue/" target="_blank">
+                                <span class="chip bg-color">Vue</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -613,13 +622,13 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-01
+                    2020-08-04
                 </div>
 
                 <div class="post-author info-break-policy">
                     <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
                     
-                        Sean
+                        sean
                     
                 </div>
 
@@ -627,7 +636,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        205
+                        196
                     </div>
                     
 
@@ -646,11 +655,32 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>  因疫情原因，从1月23号到4月6号的两个多月一直呆乡里，关注新闻、刷抖音、吃饭、锻炼、了解日落与星空，背单词，做卫生、烧火、买菜、挖蒲公英、犁地之类。。。</p>
-<a id="more"></a>
-<p>  复工一段时间后，5月1号发现过去买的域名今年3月份就过期了，过期时间过长无法续费，只能更高费用的赎回，那域名就不要算了。再加上旧服务器本来就慢。</p>
-<p>  把旧服务器上花里胡哨的文件备份留存以后，就捣鼓了这个博客，重新开始。</p>
-<script>
+                <p>data中先定义</p>
+<pre><code>    data() {
+        return {
+          windowHeight: "", 
+          topHeight: ""
+        };
+    },</code></pre><p>mounted中：</p>
+<pre><code>    mounted() {
+        this.windowHeight = window.innerHeight;  // 浏览器可见区域高度
+        this.topHeight = (this.windowHeight - 600) / 2 + "px"; // 浏览器可见区域高度 - 600为背景图高度 / 2 = 平均上下高度
+        window.onresize = () =&gt; {
+          return (() =&gt; {
+            this.windowHeight = window.innerHeight;
+            this.topHeight = (this.windowHeight - 600) / 2 + "px";
+          })();
+        };
+    }</code></pre><p>mouted为界面加载时执行的方法，那么，应该怎么监听到mouned中的 window.onresize呢？</p>
+<pre><code>    // 使用vue的watch事件监听
+    watch: { 
+        topHeight(val) {
+          this.topHeight = val;
+        }
+    },</code></pre><p>再在顶部元素中绑定style即可。</p>
+<pre><code>    &lt;div :style="{height:topHeight}"&gt;
+        &lt;span&gt;xx管理平台&lt;/span&gt;
+    &lt;/div&gt;</code></pre><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -694,7 +724,7 @@
                     </span>
                     <a href="https://seanzs.gitee.io" class="b-link-green">车舟慢</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/05/01/diary-0/" class="b-link-green">Hello World</a>
+                    <a href="/2020/08/04/diary-20200804-2/" class="b-link-green">基于vue的登陆页上下空白处自适应等高</a>
                 </p>
             </div>
 
@@ -1014,33 +1044,50 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/05/07/diary-20200507/">
+                <a href="/2020/08/04/diary-20200804-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="江滩拍摄婚纱照">
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="基于vue的登陆页上下空白处自适应等高">
                         
-                        <span class="card-title">江滩拍摄婚纱照</span>
+                        <span class="card-title">基于vue的登陆页上下空白处自适应等高</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            江滩拍摄婚纱照
+                            data中先定义
+    data() {
+        return {
+          windowHeight: "", 
+          topHeight: ""
+        };
+    },mounted中：
+ 
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-07
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-04
+                            </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Vue/" target="_blank">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1049,34 +1096,33 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/01/diary-0/">
+                <a href="/2020/08/04/diary-20200804-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/28.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="婚礼流程细节安排参考">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">婚礼流程细节安排参考</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            hello world
+                            婚礼流程细节安排参考
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-05-01
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-04
                             </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
