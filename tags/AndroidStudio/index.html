@@ -110,15 +110,6 @@
     </li>
     
     <li class="hide-on-med-and-down">
-        <a href="/categories" class="waves-effect waves-light">
-            
-            <i class="fa fa-bookmark"></i>
-            
-            <span>分类</span>
-        </a>
-    </li>
-    
-    <li class="hide-on-med-and-down">
         <a href="/archives" class="waves-effect waves-light">
             
             <i class="fa fa-archive"></i>
@@ -146,6 +137,15 @@
     </li>
     
     <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
         <a href="/contact" class="waves-effect waves-light">
             
             <i class="fa fa-envelope"></i>
@@ -168,51 +168,40 @@
       <li class="hide-on-med-and-down nav-item" >
 
         
-              <a href="/" class="waves-effect waves-light">
+            <a href="/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+              <a href="/tags" class="waves-effect waves-light">
                 
-                  <i class="fa fa-home"></i>
+                  <i class="fa fa-tags"></i>
                 
-                <span>首页</span>
+                <span>标签</span>
                 <i class="fa fa-chevron-down" aria-hidden="true"></i>
               </a>
 
             <ul class="sub-nav menus_item_child ">
               
                 <li> 
-                  <a href="/" >
+                  <a href="/categories" >
                     
-                    <span>首页</span>
+                      <i class="fa fa-bookmark" style="margin-top: -20px;"></i>
+                    
+                    <span>分类</span>
                   </a>
                 </li>
                
             </ul>
           
-      </li>
-    
-      <li class="hide-on-med-and-down nav-item" >
-
-        
-            <a href="/tags" class="waves-effect waves-light">
-              
-                <i class="fa fa-tags"></i>
-              
-              <span>标签</span>
-            </a>
-
-            
-      </li>
-    
-      <li class="hide-on-med-and-down nav-item" >
-
-        
-            <a href="/categories" class="waves-effect waves-light">
-              
-                <i class="fa fa-bookmark"></i>
-              
-              <span>分类</span>
-            </a>
-
-            
       </li>
     
       <li class="hide-on-med-and-down nav-item" >
@@ -249,6 +238,19 @@
                 <i class="fa fa-photo"></i>
               
               <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/about" class="waves-effect waves-light">
+              
+                <i class="fa fa-user-circle-o"></i>
+              
+              <span>关于</span>
             </a>
 
             
@@ -313,15 +315,6 @@
         </li>
         
         <li>
-            <a href="/categories" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-bookmark"></i>
-                
-                分类
-            </a>
-        </li>
-        
-        <li>
             <a href="/archives" class="waves-effect waves-light">
                 
                 <i class="fa fa-fw fa-archive"></i>
@@ -349,6 +342,15 @@
         </li>
         
         <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
             <a href="/contact" class="waves-effect waves-light">
                 
                 <i class="fa fa-fw fa-envelope"></i>
@@ -367,45 +369,36 @@
     
         <li class="m-nav-item">
                 
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
                     <a href="javascript:;">
                             
-                            <i class="fa fa-fw fa-home"></i>
+                            <i class="fa fa-fw fa-tags"></i>
                             
-                            首页
+                            标签
                             <span class="m-icon"><i class="fa fa-chevron-right"></i></span>
                     </a>
                 <ul>
                   
                     <li> 
-                      <a href="/" >
+                      <a href="/categories" >
                            
-                       <span>首页</span>
+                            <i class="fa fa-bookmark" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>分类</span>
                       </a>
                     </li>
                    
                 </ul>
-              
-            </li>
-        
-        <li class="m-nav-item">
-                
-                    <a href="/tags" class="waves-effect waves-light">
-                        
-                        <i class="fa fa-fw fa-tags"></i>
-                        
-                        标签
-                    </a>
-              
-            </li>
-        
-        <li class="m-nav-item">
-                
-                    <a href="/categories" class="waves-effect waves-light">
-                        
-                        <i class="fa fa-fw fa-bookmark"></i>
-                        
-                        分类
-                    </a>
               
             </li>
         
@@ -438,6 +431,17 @@
                         <i class="fa fa-fw fa-photo"></i>
                         
                         相册
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/about" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        
+                        关于
                     </a>
               
             </li>
@@ -580,6 +584,24 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             data-tagname="BLE" style="background-color: #D7BDE2;">BLE
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/webgl/" title="webgl: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="webgl" style="background-color: #A3E4D7;">webgl
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/unity3d/" title="unity3d: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="unity3d" style="background-color: #85C1E9;">unity3d
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -740,7 +762,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
             
 			
                 &nbsp; | &nbsp;字数统计:&nbsp;
-    <span class="white-color">29.6k</span> 字  
+    <span class="white-color">30.4k</span> 字  
 			
             
 			

@@ -6,10 +6,36 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-08-05T18:57:50.436Z</updated>
+  <updated>2020-08-06T14:00:44.339Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Unity3d输出webgl网页常用修改1</title>
+    <link href="https://seanzs.gitee.io/2020/08/06/diary-20200806-1/"/>
+    <id>https://seanzs.gitee.io/2020/08/06/diary-20200806-1/</id>
+    <published>2020-08-06T06:54:54.000Z</published>
+    <updated>2020-08-06T14:00:44.339Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;webgl与web之间的通信&quot;&gt;&lt;a href=&quot;#webgl与web之间的通信&quot; class=&quot;headerlink&quot; title=&quot;webgl与web之间的通信&quot;&gt;&lt;/a&gt;webgl与web之间的通信&lt;/h2&gt;&lt;p&gt;unity3d
+        
+      
+    
+    </summary>
+    
+    
+      <category term="webgl" scheme="https://seanzs.gitee.io/tags/webgl/"/>
+    
+      <category term="unity3d" scheme="https://seanzs.gitee.io/tags/unity3d/"/>
+    
+  </entry>
   
   <entry>
     <title>基于vue的登陆页上下空白处自适应等高</title>
@@ -477,30 +503,6 @@
         
         
           &lt;h2 id=&quot;一、相关介绍&quot;&gt;&lt;a href=&quot;#一、相关介绍&quot; class=&quot;headerlink&quot; title=&quot;一、相关介绍&quot;&gt;&lt;/a&gt;一、相关介绍&lt;/h2&gt;&lt;h3 id=&quot;1-1概述&quot;&gt;&lt;a href=&quot;#1-1概述&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>4月以来的两月瘦了20斤</title>
-    <link href="https://seanzs.gitee.io/2020/06/16/diary-20200616/"/>
-    <id>https://seanzs.gitee.io/2020/06/16/diary-20200616/</id>
-    <published>2020-06-16T14:33:48.000Z</published>
-    <updated>2020-06-20T14:21:06.527Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;1-空&quot;&gt;&lt;a href=&quot;#1-空&quot; class=&quot;headerlink&quot; title=&quot;1.空&quot;&gt;&lt;/a&gt;1.空&lt;/h3&gt;&lt;p align=&quot;center&quot;&gt;不过是大梦一场空&lt;/p&gt;
-&lt;p align=&quot;center&quot;&gt;不过是孤影照惊鸿&lt;/p&gt;
-&lt;p
         
       
     

@@ -5,12 +5,12 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="Vue常用功能之2-验证码, 车舟慢">
+    <meta name="keywords" content="Unity3d输出webgl网页常用修改1, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="一、验证码的实现1.1新建组件identify.vue    &amp;lt;template&amp;gt;
-      &amp;lt;div class=&#34;s-canvas&#34;&amp;gt;
-        &amp;lt;canvas id=&#34;s-canvas&#34; :wid">
+    <meta name="description" content="webgl与web之间的通信unity3d 2018.2.10f1里定义脚本，附加到Canvas上，脚本里对应public变量赋好值
+using System.Collections;
+using System.Collections.Ge">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +18,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Vue常用功能之2-验证码 | 车舟慢</title>
+    <title>Unity3d输出webgl网页常用修改1 | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -495,7 +495,7 @@
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        Vue常用功能之2-验证码
+                        Unity3d输出webgl网页常用修改1
                     </div>
                 </div>
             </div>
@@ -606,8 +606,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Vue/" target="_blank">
-                                <span class="chip bg-color">Vue</span>
+                            <a href="/tags/webgl/" target="_blank">
+                                <span class="chip bg-color">webgl</span>
+                            </a>
+                        
+                            <a href="/tags/unity3d/" target="_blank">
+                                <span class="chip bg-color">unity3d</span>
                             </a>
                         
                     </div>
@@ -621,7 +625,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-23
+                    2020-08-06
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -635,14 +639,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.2k
+                        736
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        6 分
+                        4 分
                     </div>
                     
                 
@@ -654,329 +658,132 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="一、验证码的实现"><a href="#一、验证码的实现" class="headerlink" title="一、验证码的实现"></a>一、验证码的实现</h2><h3 id="1-1新建组件identify-vue"><a href="#1-1新建组件identify-vue" class="headerlink" title="1.1新建组件identify.vue"></a>1.1新建组件identify.vue</h3><pre><code>    &lt;template&gt;
-      &lt;div class="s-canvas"&gt;
-        &lt;canvas id="s-canvas" :width="contentWidth" :height="contentHeight"&gt;&lt;/canvas&gt;
-      &lt;/div&gt;
-    &lt;/template&gt;
-    &lt;script&gt;
-    export default {
-        name: 'SIdentify',
-        props: {
-            identifyCode: { // 默认注册码
-                type: String,
-                default: '1234'
-            },
-        fontSizeMin: { // 字体最小值
-            type: Number,
-            default: 25
-        },
-        fontSizeMax: { // 字体最大值
-            type: Number,
-            default: 35
-        },
-        backgroundColorMin: { // 验证码图片背景色最小值
-            type: Number,
-            default: 200
-        },
-        backgroundColorMax: { // 验证码图片背景色最大值
-            type: Number,
-            default: 220
-        },
-        dotColorMin: { // 背景干扰点最小值
-            type: Number,
-            default: 60
-        },
-        dotColorMax: { // 背景干扰点最大值
-            type: Number,
-            default: 120
-        },
-        contentWidth: { // 容器宽度
-            type: Number,
-            default: 116
-        },
-        contentHeight: { // 容器高度
-            type: Number,
-            default: 38
-        }
-      },
-      methods: {
-        // 生成一个随机数
-        randomNum (min, max) {
-            return Math.floor(Math.random() * (max - min) + min)
-        },
-        // 生成一个随机的颜色
-        randomColor (min, max) {
-            let r = this.randomNum(min, max)
-            let g = this.randomNum(min, max)
-            let b = this.randomNum(min, max)
-            return 'rgb(' + r + ',' + g + ',' + b + ')'
-        },
-        drawPic () {
-            let canvas = document.getElementById('s-canvas')
-            let ctx = canvas.getContext('2d')
-            ctx.textBaseline = 'bottom'
-          // 绘制背景
-            ctx.fillStyle = this.randomColor(this.backgroundColorMin, this.backgroundColorMax)
-            ctx.fillRect(0, 0, this.contentWidth, this.contentHeight)
-          // 绘制文字
-            for (let i = 0; i &lt; this.identifyCode.length; i++) {
-                this.drawText(ctx, this.identifyCode[i], i)
-            }
-            this.drawLine(ctx)
-            this.drawDot(ctx)
-        },
-        drawText (ctx, txt, i) {
-          ctx.fillStyle = this.randomColor(50, 160) // 随机生成字体颜色
-          ctx.font = this.randomNum(this.fontSizeMin, this.fontSizeMax) + 'px SimHei' // 随机生成字体大小
-          let x = (i + 1) * (this.contentWidth / (this.identifyCode.length + 1))
-          let y = this.randomNum(this.fontSizeMax, this.contentHeight - 5)
-          var deg = this.randomNum(-30, 30)
-          // 修改坐标原点和旋转角度
-          ctx.translate(x, y)
-          ctx.rotate(deg * Math.PI / 180)
-          ctx.fillText(txt, 0, 0)
-          // 恢复坐标原点和旋转角度
-          ctx.rotate(-deg * Math.PI / 180)
-          ctx.translate(-x, -y)
-        },
-        drawLine (ctx) {
-          // 绘制干扰线
-          for (let i = 0; i &lt; 4; i++) {
-            ctx.strokeStyle = this.randomColor(100, 200)
-            ctx.beginPath()
-            ctx.moveTo(this.randomNum(0, this.contentWidth), this.randomNum(0, this.contentHeight))
-            ctx.lineTo(this.randomNum(0, this.contentWidth), this.randomNum(0, this.contentHeight))
-            ctx.stroke()
-          }
-        },
-        drawDot (ctx) {
-          // 绘制干扰点
-          for (let i = 0; i &lt; 30; i++) {
-            ctx.fillStyle = this.randomColor(0, 255)
-            ctx.beginPath()
-            ctx.arc(this.randomNum(0, this.contentWidth), this.randomNum(0, this.contentHeight), 1, 0, 2 * Math.PI)
-            ctx.fill()
-          }
-        }
-      },
-      watch: {
-        identifyCode () {
-          this.drawPic()
-        }
-      },
-      mounted () {
-        this.drawPic()
-      }
+                <h2 id="webgl与web之间的通信"><a href="#webgl与web之间的通信" class="headerlink" title="webgl与web之间的通信"></a>webgl与web之间的通信</h2><p>unity3d 2018.2.10f1里定义脚本，附加到Canvas上，脚本里对应public变量赋好值</p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TestWebgl : MonoBehaviour {
+    public InputField youInput;
+    public Text youText;
+
+    void Start () {
+
     }
-    &lt;/script&gt;
 
-    &lt;style scoped&gt;
-    &lt;/style&gt;
-</code></pre><h3 id="1-2在需要的页面中使用验证码组件"><a href="#1-2在需要的页面中使用验证码组件" class="headerlink" title="1.2在需要的页面中使用验证码组件"></a>1.2在需要的页面中使用验证码组件</h3><pre><code>&lt;template&gt;
-  &lt;div class="pageLogin"&gt;
-    &lt;div class="pageInner"&gt;
-    &lt;el-form :model="loginfrom" :rules="rules" ref="loginfrom" label-width="0px" class="demo-ruleForm"&gt;
-        &lt;el-form-item prop="username"&gt;
-             &lt;el-input v-model="loginfrom.username" placeholder="账号"&gt;
-             &lt;i slot="prepend" class="el-icon-s-custom"/&gt;
-             &lt;/el-input&gt;
-        &lt;/el-form-item&gt;
-        &lt;el-form-item prop="password"&gt;
-             &lt;el-input :type="passw" placeholder="密码" v-model="loginfrom.password"&gt;
-             &lt;i slot="prepend" class="el-icon-lock"/&gt;
-             &lt;/el-input&gt;
-        &lt;/el-form-item&gt;
-        &lt;el-form-item prop="code"&gt;
-             &lt;el-row :span="24"&gt;
-             &lt;el-col :span="12"&gt;
-             &lt;el-input v-model="loginfrom.code" auto-complete="off" placeholder="请输入验证码" maxlength="4"
-              &gt;&lt;/el-input&gt;
-             &lt;/el-col&gt;
-             &lt;el-col :span="12"&gt;
-             &lt;div class="login-code" @click="changeCode()"&gt;
-                    &lt;identify :identifyCode="identifyCode"&gt;&lt;/identify&gt;
-                &lt;/div&gt;
-             &lt;/el-col&gt;
-             &lt;/el-row&gt;
-        &lt;/el-form-item&gt;
-        &lt;el-form-item&gt;
-            &lt;el-col :span="8"&gt;
-                &lt;span&gt;&lt;/span&gt;
-            &lt;/el-col&gt;
-            &lt;el-col :span="8"&gt;
-                &lt;div class="login-btn"&gt;
-                    &lt;el-button type="primary" @click="submitForm('loginfrom')"&gt;登录&lt;/el-button&gt;
-                &lt;/div&gt;
-            &lt;/el-col&gt;
-            &lt;el-col :span="8"&gt;
-                &lt;i&gt;&lt;router-link to="Register"&gt;我要注册&lt;/router-link&gt;&lt;/i&gt;
-            &lt;/el-col&gt;            
-        &lt;/el-form-item&gt;
+    void Update () {
 
-    &lt;/el-form&gt;
+    }
+    public void OnClickBtn1() {
+        UnityToWeb();
+    }
 
+    public void UnityToWeb() {
+        Application.ExternalCall("GetFromUnity", youInput.text.Trim());
+    }
 
-
-    &lt;/div&gt;  
-  &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-
-import Qs from 'qs';
-import Mock from 'mockjs';
-
-import store from "@/vuex/store";
-import identify from '@/components/identify';
-
-export default {
-    created(){
-        this.identifyCode = ''
-        this.makeCode(this.identifyCodes, 4);
-
-        Mock.mock('http://unExist.net/assessment/unExistLogin.php',{
-            'objs':[
-                {
-                    'msg':'欢迎你的登陆'
-                },
-                {
-                    'msg':'这是一条测试信息'
-                }
-            ]
-        });
-    },
-    components:{
-        identify
-    },
-    store,
-    name: 'Login',
-    data () {
-
-
-        return {
-            loginfrom: {
-                username: '',
-                password:'',
-                code:''
-            },            
-            rules: {
-                username: [
-                { required: true, message: '请输入账号', trigger: 'blur' },
-                { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
-                ],
-                password: [
-                { required: true, message: '请输入密码', trigger: 'blur' },
-                { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
-                ], 
-            },
-            passw:"password",
-            identifyCode:'',
-            identifyCodes:'1234567890abcdefghijkmnpstuwxyz',
-
-            username:'',
-            password:'',
-            rememberPw:false
-
-        }
-    },
-    methods:{
-        onClickLogin:function(){
-
-            var _this=this; 
-
-            var data=Qs.stringify({
-                user:this.username,
-                pass:this.password
-            });            
-            this.$axios.post('http://unExist.net/assessment/unExistLogin.php',data,{headers:{}}).then(function(res){
-                console.log(res);
-                _this.loginSuccess();
-
-            }).catch(function(err){
-                console.log(err);
-            });
-
-        },
-        loginSuccess:function(){
-            console.log(this.$store.state.count);
-        },
-        submitForm(formName) {
-            this.$refs[formName].validate((valid) =&gt; {
-                if (valid) {
-                    console.log('success validate');
-                    if(this.identifyCode.toLowerCase()==this.loginfrom.code.toLowerCase()){
-                        console.log('success code');
-                        this.onClickLogin();
-
-                        this.$router.push("/admin").catch(error =&gt; error);
-
-                    }else{
-                        console.log('error code');
-                    }
-                } else {
-                    console.log('error validate');
-                    return false;
-                }
-            });
-        },
-        changeCode(){
-            //点击验证码刷新验证码
-            this.identifyCode='';
-            this.makeCode(this.identifyCodes,4);
-        },
-        randomNum(min,max){
-            //生成随机整数
-            max=max+1;
-            return Math.floor(Math.random()*(max-min)+min);
-        },
-        makeCode(data,len){
-            //生成随机验证码字符串
-            for(let i =0;i&lt;len;i++)
-            {
-                this.identifyCode+=data[this.randomNum(0,data.length-1)];
-            }
-        },
-        showPass(){
-            if(this.passw=="text"){
-                this.passw="password";
-                this.icon="el-input__icon el-icon-view";
-            }else{
-                this.passw="text";
-                this.icon="el-input__icon el-icon-lock";
-            }
-        }
+    public void WebToUnity(string s) {
+        youText.text = s;
     }
 }
-&lt;/script&gt;
+</code></pre><p>打包输出webgl网页里修改内容index.html</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en-us"&gt;
+  &lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+    &lt;title&gt;Unity WebGL Player | hiwebgl&lt;/title&gt;
+    &lt;link rel="shortcut icon" href="TemplateData/favicon.ico"&gt;
+    &lt;link rel="stylesheet" href="TemplateData/style.css"&gt;
+    &lt;script src="TemplateData/UnityProgress.js"&gt;&lt;/script&gt;  
+    &lt;script src="Build/UnityLoader.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+      var gameInstance = UnityLoader.instantiate("gameContainer", "Build/debug.json", {onProgress: UnityProgress});
+    &lt;/script&gt;
+    &lt;script&gt;
+        function GetFromUnity(str){
+            var content=document.getElementById("TextInUnity");
+            content.innerText=str;
+        }
+        function WebToUnity(s){
+            gameInstance.SendMessage("Canvas","WebToUnity",s);
+        }
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div&gt;&lt;h1 id="TextInUnity"&gt;标题&lt;/h1&gt;
+    &lt;button type="button" onclick="WebToUnity('Helloworld')"&gt;Click&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div class="webgl-content"&gt;
+      &lt;div id="gameContainer" style="width: 960px; height: 600px"&gt;&lt;/div&gt;
+      &lt;div class="footer"&gt;
+        &lt;div class="webgl-logo"&gt;&lt;/div&gt;
+        &lt;div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"&gt;&lt;/div&gt;
+        &lt;div class="title"&gt;hiwebgl&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre><h2 id="WebGL时UI界面随浏览器自适应"><a href="#WebGL时UI界面随浏览器自适应" class="headerlink" title="WebGL时UI界面随浏览器自适应"></a>WebGL时UI界面随浏览器自适应</h2><ul>
+<li><p>方法1：在生成的html里面修改代码</p>
+<pre><code>function Reset() { 
+  var canvas = document.getElementById("#canvas"); 
+  canvas.height= document.documentElement.clientHeight; 
+  canvas.width = document.documentElement.clientWidth; 
+  console.log(canvas.width );
+}</code></pre></li>
+<li><p>方法2: 在生成的html里面修改代码</p>
+<pre><code>将&lt;div id="unityContainer" style="width: 960px; height: 600px"&gt;&lt;/div&gt;
+修改为
+&lt;div id="unityContainer" style="width: 99vw; height: 95vh;"&gt;&lt;/div&gt;</code></pre><p>修改后<br>width: 99vw 即在左右留一白边。<br>height: 95vh 设置为95可以正好将网页底端，显示项目名和Logo那一部分显示出来。</p>
+</li>
+<li><p>一个html模板</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en-us"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"&gt;
+  &lt;title&gt;Unity WebGL Player&lt;/title&gt;
+  &lt;link rel="shortcut icon" href="TemplateData/favicon.ico"&gt;
+  &lt;link rel="stylesheet" href="TemplateData/style.css"&gt;
+  &lt;script src="TemplateData/UnityProgress.js"&gt;&lt;/script&gt;  
+   &lt;script src="Build/UnityLoader.js"&gt;&lt;/script&gt;
+  &lt;script src="jquery-1.4.2.min.js"&gt;&lt;/script&gt;
+ &lt;script type="text/javascript"&gt;
+ var  gameInstance;
+      $(function () {            
+          var resizeGmContainer = function () {
+              var docWidth = $(window).width();
+              var docHeight = $(window).height();
+              var gmContainer = document.querySelector('#gameContainer');
+              gmContainer.style.width = docWidth + 'px';
+              gmContainer.style.height = docHeight + 'px';
+              if(gameInstance != null) {
+                  gameInstance.Module.canvas.style.width = docWidth + 'px';
+                  gameInstance.Module.canvas.style.height = docHeight + 'px';
+              }
+              console.log(docWidth+"   "+docHeight);
+          };
+          resizeGmContainer();
+          $(window).resize(resizeGmContainer);
+          gameInstance = UnityLoader.instantiate("gameContainer", "Build/debug.json", {onProgress: UnityProgress});
+      });
 
-&lt;!-- Add "scoped" attribute to limit CSS to this component only --&gt;
-&lt;style lang="scss" scoped&gt;
-    body{
-        text-align:center;
-
-    }
-    .pageInner{
-        width:300px;
-        height:220px;
-        margin:25px auto;
-        padding:0 0;
-
-    }
-  .pageLogin{
-    width:400px;
-    height:280px;
-    margin:160px auto;
-    padding:5px 0px;
-    background-color:#f5f5f5;
-    .el-col{
-        border: 1px solid transparent;
-    }
-  }
-&lt;/style&gt;
-
-
-</code></pre><script>
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="webgl-content"&gt;
+    &lt;div id="gameContainer" style=""&gt;&lt;/div&gt;
+    &lt;div class="footer"&gt;
+      &lt;div class="webgl-logo"&gt;&lt;/div&gt;
+      &lt;div class="fullscreen" onclick="gameInstance.SetFullscreen(1)" &gt;&lt;/div&gt;
+      &lt;div class="title"&gt;123&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></li>
+</ul>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -1020,7 +827,7 @@ export default {
                     </span>
                     <a href="https://seanzs.gitee.io" class="b-link-green">车舟慢</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/07/23/diary-20200723-2/" class="b-link-green">Vue常用功能之2-验证码</a>
+                    <a href="/2020/08/06/diary-20200806-1/" class="b-link-green">Unity3d输出webgl网页常用修改1</a>
                 </p>
             </div>
 
@@ -1340,38 +1147,49 @@ export default {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/07/23/diary-20200723-3/">
+                <a href="/2020/08/06/diary-20200806-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="基于Nodejs+Mongodb+Android+Vue的一个应用">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Unity3d输出webgl网页常用修改1">
                         
-                        <span class="card-title">基于Nodejs+Mongodb+Android+Vue的一个应用</span>
+                        <span class="card-title">Unity3d输出webgl网页常用修改1</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            最近数据联通验证了一个应用。
-
-手环作为ble设备，时刻通过蓝牙向外广播信息。
-运行起来MongoDB数据库,用于接收存储手环信息，如体温步数等。
-Android应用，通过手机蓝牙扫描，收集手环信息，通过http发往服务器。
-服务端Node
+                            webgl与web之间的通信unity3d 2018.2.10f1里定义脚本，附加到Canvas上，脚本里对应public变量赋好值
+using System.Collections;
+using System.Collections.Ge
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-23
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-06
+                            </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/webgl/" target="_blank">
+                        <span class="chip bg-color">webgl</span>
+                    </a>
+                    
+                    <a href="/tags/unity3d/" target="_blank">
+                        <span class="chip bg-color">unity3d</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1383,33 +1201,31 @@ Android应用，通过手机蓝牙扫描，收集手环信息，通过http发往
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/07/23/diary-20200723-1/">
+                <a href="/2020/08/04/diary-20200804-2/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="Vue常用功能之1-轮询">
+                        <img src="/medias/featureimages/29.jpg" class="responsive-img" alt="基于vue的登陆页上下空白处自适应等高">
                         
-                        <span class="card-title">Vue常用功能之1-轮询</span>
+                        <span class="card-title">基于vue的登陆页上下空白处自适应等高</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            一、轮询的实现添加定义，方法。
-    data(){
-        return{
-            timer:null,
-        }
-    }    
-    ......
-    ......
-
-    metho
+                            data中先定义
+    data() {
+        return {
+          windowHeight: "", 
+          topHeight: ""
+        };
+    },mounted中：
+ 
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-23
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-04
                             </span>
                         <span class="publish-author">
                             

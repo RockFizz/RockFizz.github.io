@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://seanzs.gitee.io/about/index.html</loc>
+    
+    <lastmod>2020-08-06T14:57:10.289Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://seanzs.gitee.io/galleries/%E7%9B%B8%E5%86%8C/index.html</loc>
+    
+    <lastmod>2020-08-06T14:09:02.214Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://seanzs.gitee.io/2020/08/06/diary-20200806-1/</loc>
+    
+    <lastmod>2020-08-06T14:00:44.339Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://seanzs.gitee.io/2020/08/04/diary-20200804-2/</loc>
     
     <lastmod>2020-08-05T18:57:50.436Z</lastmod>
@@ -250,13 +271,6 @@
     <loc>https://seanzs.gitee.io/archives/index.html</loc>
     
     <lastmod>2020-05-02T18:09:15.330Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://seanzs.gitee.io/about/index.html</loc>
-    
-    <lastmod>2020-05-02T18:09:15.329Z</lastmod>
     
   </url>
   
