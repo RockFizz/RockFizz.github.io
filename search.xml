@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>unity3d实现物体沿指定的平滑曲线移动</title>
+      <link href="/2020/08/07/diary-20200807-1/"/>
+      <url>/2020/08/07/diary-20200807-1/</url>
+      
+        <content type="html"><![CDATA[<p>通过贝塞尔曲线连接指定节点，并实现物体沿该平滑曲线移动。<br>首先就是把关键节点保存起来，然后在通过贝塞尔的计算公式计算出两个节点之间的拟合点的集合，最后可以控制小球在运动的过程中通过走过的路径的长度作为下标，取出该长度下对应的坐标信息，从而实现小球沿规定路径移动。<br>首先是计算出指定轨迹的拟合点，保存到list中，就是只在初始化的时候计算出来，然后保存，后面可以一直沿用，如果是在运行边计算边使用计算量会偏大。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/02020080701.jpg" alt=""></p><pre><code>    #region 计算贝塞尔曲线的拟合点    //初始化算出所有的点的信息    void InitPoint()    {        //获取指定的点的信息        Vector3[] pointPos = new Vector3[basePoint.Length];        for (int i = 0; i &lt; pointPos.Length; i++)        {            pointPos[i] = basePoint[i].transform.position;        }        GetTrackPoint(pointPos);    }    /// &lt;summary&gt;    /// 根据设定节点 绘制指定的曲线    /// &lt;/summary&gt;    /// &lt;param name="track"&gt;所有指定节点的信息&lt;/param&gt;    public void GetTrackPoint(Vector3[] track)    {        Vector3[] vector3s = PathControlPointGenerator(track);        int SmoothAmount = track.Length * baseCount;        lineRender.positionCount = SmoothAmount;        for (int i = 1; i &lt; SmoothAmount; i++)        {            float pm = (float)i / SmoothAmount;            Vector3 currPt = Interp(vector3s, pm);            lineRender.SetPosition(i, currPt);            lsPoint.Add(currPt);        }    }    /// &lt;summary&gt;    /// 计算所有节点以及控制点坐标    /// &lt;/summary&gt;    /// &lt;param name="path"&gt;所有节点的存储数组&lt;/param&gt;    /// &lt;returns&gt;&lt;/returns&gt;    public Vector3[] PathControlPointGenerator(Vector3[] path)    {        Vector3[] suppliedPath;        Vector3[] vector3s;        suppliedPath = path;        int offset = 2;        vector3s = new Vector3[suppliedPath.Length + offset];        Array.Copy(suppliedPath, 0, vector3s, 1, suppliedPath.Length);        vector3s[0] = vector3s[1] + (vector3s[1] - vector3s[2]);        vector3s[vector3s.Length - 1] = vector3s[vector3s.Length - 2] + (vector3s[vector3s.Length - 2] - vector3s[vector3s.Length - 3]);        if (vector3s[1] == vector3s[vector3s.Length - 2])        {            Vector3[] tmpLoopSpline = new Vector3[vector3s.Length];            Array.Copy(vector3s, tmpLoopSpline, vector3s.Length);            tmpLoopSpline[0] = tmpLoopSpline[tmpLoopSpline.Length - 3];            tmpLoopSpline[tmpLoopSpline.Length - 1] = tmpLoopSpline[2];            vector3s = new Vector3[tmpLoopSpline.Length];            Array.Copy(tmpLoopSpline, vector3s, tmpLoopSpline.Length);        }        return (vector3s);    }    /// &lt;summary&gt;    /// 计算曲线的任意点的位置    /// &lt;/summary&gt;    /// &lt;param name="pos"&gt;&lt;/param&gt;    /// &lt;param name="t"&gt;&lt;/param&gt;    /// &lt;returns&gt;&lt;/returns&gt;    public Vector3 Interp(Vector3[] pos, float t)    {        int length = pos.Length - 3;        int currPt = Mathf.Min(Mathf.FloorToInt(t * length), length - 1);        float u = t * (float)length - (float)currPt;        Vector3 a = pos[currPt];        Vector3 b = pos[currPt + 1];        Vector3 c = pos[currPt + 2];        Vector3 d = pos[currPt + 3];        return .5f * (           (-a + 3f * b - 3f * c + d) * (u * u * u)           + (2f * a - 5f * b + 4f * c - d) * (u * u)           + (-a + c) * u           + 2f * b       );    }    #endregion</code></pre><p>然后就是通过在update中移动小球，根据小球轨迹长度取出对应长度下的坐标信息赋值。</p><pre><code>    void Start()    {        lineRender = gameObject.GetComponent&lt;LineRenderer&gt;();        InitPoint();    }    void Update()    {        length += Time.deltaTime * speed;        if (length &gt;= lsPoint.Count - 1)        {            length = lsPoint.Count - 1;        }        sphere.transform.localPosition = lsPoint[(int)(length)];    }</code></pre><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/demobesizermove.gif" alt=""></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> unity3d </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Unity3d输出webgl网页常用修改1</title>
       <link href="/2020/08/06/diary-20200806-1/"/>
       <url>/2020/08/06/diary-20200806-1/</url>

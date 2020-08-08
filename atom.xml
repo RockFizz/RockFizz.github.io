@@ -6,10 +6,34 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-08-06T14:00:44.339Z</updated>
+  <updated>2020-08-08T00:08:22.039Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>unity3d实现物体沿指定的平滑曲线移动</title>
+    <link href="https://seanzs.gitee.io/2020/08/07/diary-20200807-1/"/>
+    <id>https://seanzs.gitee.io/2020/08/07/diary-20200807-1/</id>
+    <published>2020-08-07T07:54:54.000Z</published>
+    <updated>2020-08-08T00:08:22.039Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;通过贝塞尔曲线连接指定节点，并实现物体沿该平滑曲线移动。&lt;br&gt;首先就是把关键节点保存起来，然后在通过贝塞尔的计算公式计算出两个节点之间的拟合点的集合，最后可以控制小球在运动的过程中通过走过的路径的长度作为下标，取出该长度下对应的坐标信息，从而实现小球沿规定路径移动。&lt;br
+        
+      
+    
+    </summary>
+    
+    
+      <category term="unity3d" scheme="https://seanzs.gitee.io/tags/unity3d/"/>
+    
+  </entry>
   
   <entry>
     <title>Unity3d输出webgl网页常用修改1</title>
@@ -481,28 +505,6 @@
         
         
           &lt;h2 id=&quot;一、引言&quot;&gt;&lt;a href=&quot;#一、引言&quot; class=&quot;headerlink&quot; title=&quot;一、引言&quot;&gt;&lt;/a&gt;一、引言&lt;/h2&gt;&lt;p&gt;BLE低功耗蓝牙（Bluetooth Low Energy）连接都是建立在 GATT (Generic Attribute
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>BLE学习笔记1-Android开发前言</title>
-    <link href="https://seanzs.gitee.io/2020/07/05/diary-20200705-1/"/>
-    <id>https://seanzs.gitee.io/2020/07/05/diary-20200705-1/</id>
-    <published>2020-07-05T03:32:54.000Z</published>
-    <updated>2020-07-05T17:25:39.605Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;一、相关介绍&quot;&gt;&lt;a href=&quot;#一、相关介绍&quot; class=&quot;headerlink&quot; title=&quot;一、相关介绍&quot;&gt;&lt;/a&gt;一、相关介绍&lt;/h2&gt;&lt;h3 id=&quot;1-1概述&quot;&gt;&lt;a href=&quot;#1-1概述&quot; class=&quot;headerlink&quot;
         
       
     
