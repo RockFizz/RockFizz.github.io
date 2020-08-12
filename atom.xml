@@ -6,10 +6,86 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-08-08T00:08:22.039Z</updated>
+  <updated>2020-08-12T22:35:00.114Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ubuntu18.04下安装配置vsftpd</title>
+    <link href="https://seanzs.gitee.io/2020/08/11/diary-20200811-1/"/>
+    <id>https://seanzs.gitee.io/2020/08/11/diary-20200811-1/</id>
+    <published>2020-08-11T08:54:54.000Z</published>
+    <updated>2020-08-12T22:35:00.114Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;首先解决ubuntu下vi不能正常使用上下左右方向键&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$sudo apt-get remove vim-common
+$sudo apt-get install
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="https://seanzs.gitee.io/tags/Ubuntu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Express开发之初始化工程helloworld</title>
+    <link href="https://seanzs.gitee.io/2020/08/10/diary-20200810-1/"/>
+    <id>https://seanzs.gitee.io/2020/08/10/diary-20200810-1/</id>
+    <published>2020-08-10T02:54:54.000Z</published>
+    <updated>2020-08-12T22:35:08.868Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;关于Express&quot;&gt;&lt;a href=&quot;#关于Express&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Express" scheme="https://seanzs.gitee.io/tags/Express/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>注册和登录的小例子</title>
+    <link href="https://seanzs.gitee.io/2020/08/10/diary-20200810-2/"/>
+    <id>https://seanzs.gitee.io/2020/08/10/diary-20200810-2/</id>
+    <published>2020-08-10T02:54:54.000Z</published>
+    <updated>2020-08-12T22:52:41.612Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;index-html&quot;&gt;&lt;a href=&quot;#index-html&quot; class=&quot;headerlink&quot; title=&quot;index.html&quot;&gt;&lt;/a&gt;index.html&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE
+        
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="https://seanzs.gitee.io/tags/php/"/>
+    
+      <category term="html" scheme="https://seanzs.gitee.io/tags/html/"/>
+    
+  </entry>
   
   <entry>
     <title>unity3d实现物体沿指定的平滑曲线移动</title>
@@ -443,73 +519,6 @@
     
     
       <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>熬过无人问津的日子，才有诗和远方</title>
-    <link href="https://seanzs.gitee.io/2020/07/06/diary-20200706/"/>
-    <id>https://seanzs.gitee.io/2020/07/06/diary-20200706/</id>
-    <published>2020-07-05T16:32:54.000Z</published>
-    <updated>2020-08-02T01:08:11.418Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>BLE学习笔记3-BLE广播数据解析</title>
-    <link href="https://seanzs.gitee.io/2020/07/05/diary-20200705-3/"/>
-    <id>https://seanzs.gitee.io/2020/07/05/diary-20200705-3/</id>
-    <published>2020-07-05T08:32:54.000Z</published>
-    <updated>2020-07-05T17:31:28.471Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;BLE设备工作的第一步就是向外广播数据。广播数据中带有设备相关的信息。本文主要说一下 BLE 的广播中的数据的规范以及广播包的解析。&lt;/p&gt;
-&lt;h2 id=&quot;一、广播模式&quot;&gt;&lt;a href=&quot;#一、广播模式&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>BLE学习笔记2-GATT Profile简介</title>
-    <link href="https://seanzs.gitee.io/2020/07/05/diary-20200705-2/"/>
-    <id>https://seanzs.gitee.io/2020/07/05/diary-20200705-2/</id>
-    <published>2020-07-05T05:32:54.000Z</published>
-    <updated>2020-07-05T17:28:27.495Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;一、引言&quot;&gt;&lt;a href=&quot;#一、引言&quot; class=&quot;headerlink&quot; title=&quot;一、引言&quot;&gt;&lt;/a&gt;一、引言&lt;/h2&gt;&lt;p&gt;BLE低功耗蓝牙（Bluetooth Low Energy）连接都是建立在 GATT (Generic Attribute
-        
-      
-    
-    </summary>
-    
     
   </entry>
   
