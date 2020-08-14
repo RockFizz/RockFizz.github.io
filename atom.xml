@@ -6,10 +6,34 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-08-13T13:32:46.857Z</updated>
+  <updated>2020-08-14T16:36:37.652Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git的基础操作</title>
+    <link href="https://seanzs.gitee.io/2020/08/14/diary-20200814-1/"/>
+    <id>https://seanzs.gitee.io/2020/08/14/diary-20200814-1/</id>
+    <published>2020-08-14T09:11:54.000Z</published>
+    <updated>2020-08-14T16:36:37.652Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;关于git&quot;&gt;&lt;a href=&quot;#关于git&quot; class=&quot;headerlink&quot; title=&quot;关于git&quot;&gt;&lt;/a&gt;关于git&lt;/h2&gt;&lt;h3 id=&quot;git有三种状态&quot;&gt;&lt;a href=&quot;#git有三种状态&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="git" scheme="https://seanzs.gitee.io/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>TexturePacker图集打包工具在Unity3D中的使用</title>
@@ -491,34 +515,6 @@ $sudo apt-get install
       <category term="NodeJS" scheme="https://seanzs.gitee.io/tags/NodeJS/"/>
     
       <category term="socket.io" scheme="https://seanzs.gitee.io/tags/socket-io/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>快速搭建在线文档的实践</title>
-    <link href="https://seanzs.gitee.io/2020/07/16/diary-20200716-1/"/>
-    <id>https://seanzs.gitee.io/2020/07/16/diary-20200716-1/</id>
-    <published>2020-07-16T01:32:54.000Z</published>
-    <updated>2020-08-13T13:41:39.889Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;ul&gt;
-&lt;li&gt;Vue v2.9.6&lt;/li&gt;
-&lt;li&gt;Node v12.16.3&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;一、关于vuepress：&quot;&gt;&lt;a href=&quot;#一、关于vuepress：&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Vue" scheme="https://seanzs.gitee.io/tags/Vue/"/>
     
   </entry>
   
