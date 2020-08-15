@@ -6,10 +6,34 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-08-14T16:36:37.652Z</updated>
+  <updated>2020-08-15T01:08:08.780Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RISC-V是什么</title>
+    <link href="https://seanzs.gitee.io/2020/08/15/diary-20200815/"/>
+    <id>https://seanzs.gitee.io/2020/08/15/diary-20200815/</id>
+    <published>2020-08-15T00:11:54.000Z</published>
+    <updated>2020-08-15T01:08:08.780Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;最早是计算机的发展带动芯片的发展，最近十几年来越来越多其他设备开始使用芯片、有操作系统、有数据存储。特别是智能手机的出现带动芯片迅猛发展。目前热门的三种芯片架构X86、ARM和RISC-V。&lt;br&gt;X86是英特尔创造的，性能非常好，特别适用于电脑和笔记本，能够高效运行各种软
+        
+      
+    
+    </summary>
+    
+    
+      <category term="RISC-V" scheme="https://seanzs.gitee.io/tags/RISC-V/"/>
+    
+  </entry>
   
   <entry>
     <title>Git的基础操作</title>
@@ -489,32 +513,6 @@ $sudo apt-get install
       <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
     
       <category term="OkHttp" scheme="https://seanzs.gitee.io/tags/OkHttp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>使用socket.io和nodeJS的websocket实践</title>
-    <link href="https://seanzs.gitee.io/2020/07/16/diary-20200716-2/"/>
-    <id>https://seanzs.gitee.io/2020/07/16/diary-20200716-2/</id>
-    <published>2020-07-16T07:32:54.000Z</published>
-    <updated>2020-07-16T13:20:29.621Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;一、关于socket-IO&quot;&gt;&lt;a href=&quot;#一、关于socket-IO&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="NodeJS" scheme="https://seanzs.gitee.io/tags/NodeJS/"/>
-    
-      <category term="socket.io" scheme="https://seanzs.gitee.io/tags/socket-io/"/>
     
   </entry>
   

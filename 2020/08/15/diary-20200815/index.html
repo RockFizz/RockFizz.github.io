@@ -5,17 +5,10 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="基于vue的登陆页上下空白处自适应等高, 车舟慢">
+    <meta name="keywords" content="RISC-V是什么, 车舟慢">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="data中先定义
-    data() {
-        return {
-          windowHeight: &#34;&#34;, 
-          topHeight: &#34;&#34;
-        };
-    },mounted中：
- ">
+    <meta name="description" content="最早是计算机的发展带动芯片的发展，最近十几年来越来越多其他设备开始使用芯片、有操作系统、有数据存储。特别是智能手机的出现带动芯片迅猛发展。目前热门的三种芯片架构X86、ARM和RISC-V。X86是英特尔创造的，性能非常好，特别适用于电脑和">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>基于vue的登陆页上下空白处自适应等高 | 车舟慢</title>
+    <title>RISC-V是什么 | 车舟慢</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -494,13 +487,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/29.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/25.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        基于vue的登陆页上下空白处自适应等高
+                        RISC-V是什么
                     </div>
                 </div>
             </div>
@@ -611,8 +604,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Vue/" target="_blank">
-                                <span class="chip bg-color">Vue</span>
+                            <a href="/tags/RISC-V/" target="_blank">
+                                <span class="chip bg-color">RISC-V</span>
                             </a>
                         
                     </div>
@@ -626,7 +619,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-08-04
+                    2020-08-15
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -640,14 +633,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        196
+                        1.6k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        5 分
                     </div>
                     
                 
@@ -659,32 +652,13 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>data中先定义</p>
-<pre><code>    data() {
-        return {
-          windowHeight: "", 
-          topHeight: ""
-        };
-    },</code></pre><p>mounted中：</p>
-<pre><code>    mounted() {
-        this.windowHeight = window.innerHeight;  // 浏览器可见区域高度
-        this.topHeight = (this.windowHeight - 600) / 2 + "px"; // 浏览器可见区域高度 - 600为背景图高度 / 2 = 平均上下高度
-        window.onresize = () =&gt; {
-          return (() =&gt; {
-            this.windowHeight = window.innerHeight;
-            this.topHeight = (this.windowHeight - 600) / 2 + "px";
-          })();
-        };
-    }</code></pre><p>mouted为界面加载时执行的方法，那么，应该怎么监听到mouned中的 window.onresize呢？</p>
-<pre><code>    // 使用vue的watch事件监听
-    watch: { 
-        topHeight(val) {
-          this.topHeight = val;
-        }
-    },</code></pre><p>再在顶部元素中绑定style即可。</p>
-<pre><code>    &lt;div :style="{height:topHeight}"&gt;
-        &lt;span&gt;xx管理平台&lt;/span&gt;
-    &lt;/div&gt;</code></pre><script>
+                <p>最早是计算机的发展带动芯片的发展，最近十几年来越来越多其他设备开始使用芯片、有操作系统、有数据存储。特别是智能手机的出现带动芯片迅猛发展。目前热门的三种芯片架构X86、ARM和RISC-V。<br>X86是英特尔创造的，性能非常好，特别适用于电脑和笔记本，能够高效运行各种软件和执行各种指令。移动设备体积小，电池是自带的，不能够外界电源，要求设备续航能力很强，刚好ARM架构就满足了这一个条件。手机，平板，POS机，还包括穿戴的手表手环芯片，都是用ARM架构做的，主要原因就是功耗低续航能力强。<br>总而言之，X86是PC时代，带电源的设备用的架构，ARM是大多移动设备芯片架构，X86的优势是性能，ARM的优势是功耗。RICS-V是新一代移动硬件设备的芯片架构，但RICS-V是刚刚开始。</p>
+<p>CPU只认识二进制编码，也就是只认识0和1。CPU最主要的功能是计算，可以算加法、减法、与或非等等的计算。也可以做内存存数取数的操作。那么你要让CPU计算，你就要告诉CPU你要算什么东西，这时候就要用机器语言。其实是二进制串。不同的体系结构，其实本质区别就在于它们的机器语言不一样。CPU能识别的机器语言也就是指令集了。所以说，本质区别是指令集不同。例如，同样是做一次加法，可能一个是用00001111，一个是用11000011，一个是用10100101，之类的，反正根本就是不一样的指令。还有一些其它的区别。那你可以想想，一段为ARM体系结构CPU写的机器语言，如果让MIPS体系结构的CPU来执行，结果会怎么样。不是无法识别就是识别错误，肯定是达不到这段程序预期的效果的。所以，ARM的CPU只能运行ARM程序，MIPD的CPU只能运行MIPS程序，一个CPU只能运行用它的指令集来写的程序。</p>
+<p>指令系统诞生之初就有两种设计思想或者说流派，CISC（复杂指令集）和RISC（简单指令集），RISC的代表就是著名的ARM架构，专注于高性能，低功耗，小体积，主要应用于移动设备；而CISC的代表是x86架构，像常用的PC、服务器的CPU等等，专注于桌面，高性能和民用市场。CISC系统复杂庞大8086CPU的指令就有300多条，而大多数RISC只有几十条指令。x86系列指令集属于CISC是Intel的专利，其他人在取得Intel的授权前是不能够使用的。ARM、MIPS、RISC-V都是属于RISC，只是前两个是商业公司的专利产品，他人使用前要取得授权，RISC-V是加州大学伯克利分校以BSD协议分发的开源指令集，任何人可以免费使用，且不禁止商业用途。</p>
+<p>生态的区别是怎么回事呢？比如windows为什么一度只能在x86的CPU上跑？因为windows是C和汇编写的，汇编语言基本和机器语言完美对应。汇编的那一部分，不同体系结构的机器语言不一样，汇编语言也不一样。如果要跑在ARM体系结构的CPU上，显然要把汇编这一部分用ARM汇编再写一遍，这个只能由微软来做，毕竟不开源，除了微软没人动的了。而微软一直不做，那自然就不行了，你总不能把x86版本的拿到ARM上跑的。可能还不光操作系统，连普通应用软件都有可能要针对某种具体的体系结构做优化，于是用到汇编语言或者机器语言（一般如果是人来写的话都是用汇编），那么这种软件也是只能在一种体系结构上跑的。也就是说，如果没人给你RISC-V写软件，你RISC-V就没有软件可用，毕竟不能拿ARM或者x86的软件来跑。</p>
+<p>依靠开源和免费，RISC-V非常受大学和科研院所青睐，并有望在教学领域大展拳脚，而这又会给RISC-V培养源源不断的后备军。对于商业公司来说，由于ARM的授权费实在是太贵了，也有较强的动力去做RISC-V，给自己留一个备份，避免被绑死在ARM上。不过，RISC-V也存在一个隐忧，那就是缺乏强有力的主导者，进而导致破碎化的问题。当年的MIPS其实也非常学院派，MIPS阵营的商业公司可以自由添加指令，比如龙芯就以MIPS为基础添加了1000多条新指令，进而形成了自己的指令集LoongISA。这又使开发软件的时候，即便同样属于MIPS，也必须分为龙芯版和MIPS版……由于RISC-V也允许用户自己加新指令，这就有可能使RISC-V破碎化，也许未来华为、高通、谷歌开发出的RISC-V处理器虽然都属于RISC-V，但却不能跑同样一套软件。毕竟完全开放与有力的领导是一对矛盾，如果无法解决这个问题，恐怕 RISC-V 很难成长到能与X86和ARM争雄的水平。ARM、X86架构之所以这么强大，是因为多年以来X86、ARM架构已经建立了完整的生态，除了芯片设计的架构之外，其他的众多的周边产品都是围绕着这两个架构而来的，以合作的方式来完成相关的产品设计，这一点上RISC-V是很欠缺的，需要一家强有力的公司来推动才可行。</p>
+<p>目前大家用RISC-V架构更多的是开发一些并不依赖生态的物联网芯片，也没打算去形成一个统一的生态。</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -728,7 +702,7 @@
                     </span>
                     <a href="https://seanzs.gitee.io" class="b-link-green">车舟慢</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2020/08/04/diary-20200804-2/" class="b-link-green">基于vue的登陆页上下空白处自适应等高</a>
+                    <a href="/2020/08/15/diary-20200815/" class="b-link-green">RISC-V是什么</a>
                 </p>
             </div>
 
@@ -1048,45 +1022,41 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/08/06/diary-20200806-1/">
+                <a href="/2020/08/15/diary-20200815/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Unity3d输出webgl网页常用修改1">
+                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="RISC-V是什么">
                         
-                        <span class="card-title">Unity3d输出webgl网页常用修改1</span>
+                        <span class="card-title">RISC-V是什么</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            webgl与web之间的通信unity3d 2018.2.10f1里定义脚本，附加到Canvas上，脚本里对应public变量赋好值
-using System.Collections;
-using System.Collections.Ge
+                            最早是计算机的发展带动芯片的发展，最近十几年来越来越多其他设备开始使用芯片、有操作系统、有数据存储。特别是智能手机的出现带动芯片迅猛发展。目前热门的三种芯片架构X86、ARM和RISC-V。X86是英特尔创造的，性能非常好，特别适用于电脑和
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-15
+                            </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/webgl/" target="_blank">
-                        <span class="chip bg-color">webgl</span>
-                    </a>
-                    
-                    <a href="/tags/unity3d/" target="_blank">
-                        <span class="chip bg-color">unity3d</span>
+                    <a href="/tags/RISC-V/" target="_blank">
+                        <span class="chip bg-color">RISC-V</span>
                     </a>
                     
                 </div>
@@ -1100,29 +1070,39 @@ using System.Collections.Ge
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/08/04/diary-20200804-1/">
+                <a href="/2020/08/14/diary-20200814-1/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="婚礼流程细节安排参考">
+                        <img src="/medias/featureimages/25.jpg" class="responsive-img" alt="Git的基础操作">
                         
-                        <span class="card-title">婚礼流程细节安排参考</span>
+                        <span class="card-title">Git的基础操作</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            婚礼流程细节安排参考
+                            关于gitgit有三种状态你的文件可能处于其中之一：已提交（committed）、已修改（modified）和已暂存（staged）。由此引入 Git 项目的三个工作区域的概念：Git 仓库、工作目录以及暂存区域，如下图所示。
+
+Git 仓
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-04
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-14
                             </span>
                         <span class="publish-author">
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/git/" target="_blank">
+                        <span class="chip bg-color">git</span>
+                    </a>
+                    
                 </div>
                 
             </div>
