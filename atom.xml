@@ -6,10 +6,83 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-08-15T01:08:08.780Z</updated>
+  <updated>2020-08-20T23:10:35.448Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PHP面向对象小结</title>
+    <link href="https://seanzs.gitee.io/2020/08/19/diary-20200819-2/"/>
+    <id>https://seanzs.gitee.io/2020/08/19/diary-20200819-2/</id>
+    <published>2020-08-19T02:33:54.000Z</published>
+    <updated>2020-08-20T23:10:35.448Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;面向对象三大特征：封装、继承、多态。&lt;/p&gt;
+&lt;h2 id=&quot;封装&quot;&gt;&lt;a href=&quot;#封装&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="php" scheme="https://seanzs.gitee.io/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VMWare14安装MacOS系统</title>
+    <link href="https://seanzs.gitee.io/2020/08/19/diary-20200819-1/"/>
+    <id>https://seanzs.gitee.io/2020/08/19/diary-20200819-1/</id>
+    <published>2020-08-19T01:30:54.000Z</published>
+    <updated>2020-08-20T23:14:52.556Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;安装VMware14&quot;&gt;&lt;a href=&quot;#安装VMware14&quot; class=&quot;headerlink&quot; title=&quot;安装VMware14&quot;&gt;&lt;/a&gt;安装VMware14&lt;/h2&gt;&lt;h2 id=&quot;停止VMware服务&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="MacOS" scheme="https://seanzs.gitee.io/tags/MacOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>通过js将sqlite3数据库完整加载到客户端内存</title>
+    <link href="https://seanzs.gitee.io/2020/08/18/diary-20200818-1/"/>
+    <id>https://seanzs.gitee.io/2020/08/18/diary-20200818-1/</id>
+    <published>2020-08-18T02:14:54.000Z</published>
+    <updated>2020-08-18T22:53:34.399Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;通过使用sql.js(version_0.5)，加载html时把服务端数据库(小型sqlite3)完整加载到客户端内存里来。之后增删查改都在客户端内存里完成。经测试流程是通的，应用场景比较奇怪。&lt;br&gt;内存里数据库如果有改动，浏览器没有权限直接更改服务端数据库，还是得通过调
+        
+      
+    
+    </summary>
+    
+    
+      <category term="sqlite3" scheme="https://seanzs.gitee.io/tags/sqlite3/"/>
+    
+  </entry>
   
   <entry>
     <title>RISC-V是什么</title>
@@ -435,84 +508,6 @@ $sudo apt-get install
     
     
       <category term="Vue" scheme="https://seanzs.gitee.io/tags/Vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB实践之2-nodejs连接mongodb数据库</title>
-    <link href="https://seanzs.gitee.io/2020/07/20/diary-20200720-2/"/>
-    <id>https://seanzs.gitee.io/2020/07/20/diary-20200720-2/</id>
-    <published>2020-07-20T06:45:54.000Z</published>
-    <updated>2020-07-20T13:31:44.457Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;一、基础操作&quot;&gt;&lt;a href=&quot;#一、基础操作&quot; class=&quot;headerlink&quot; title=&quot;一、基础操作&quot;&gt;&lt;/a&gt;一、基础操作&lt;/h2&gt;&lt;h3 id=&quot;1-1初始化nodejs工程&quot;&gt;&lt;a href=&quot;#1-1初始化nodejs工程&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="MongoDB" scheme="https://seanzs.gitee.io/tags/MongoDB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MongoDB实践之1-安装及命令行登录</title>
-    <link href="https://seanzs.gitee.io/2020/07/20/diary-20200720-1/"/>
-    <id>https://seanzs.gitee.io/2020/07/20/diary-20200720-1/</id>
-    <published>2020-07-20T00:59:54.000Z</published>
-    <updated>2020-07-20T13:39:38.858Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;一、相关概念&quot;&gt;&lt;a href=&quot;#一、相关概念&quot; class=&quot;headerlink&quot; title=&quot;一、相关概念&quot;&gt;&lt;/a&gt;一、相关概念&lt;/h2&gt;&lt;p&gt;&lt;img
-        
-      
-    
-    </summary>
-    
-    
-      <category term="MongoDB" scheme="https://seanzs.gitee.io/tags/MongoDB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android网络请求框架OkHttp的使用</title>
-    <link href="https://seanzs.gitee.io/2020/07/17/diary-20200717-1/"/>
-    <id>https://seanzs.gitee.io/2020/07/17/diary-20200717-1/</id>
-    <published>2020-07-17T07:32:54.000Z</published>
-    <updated>2020-07-23T15:19:50.108Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;ul&gt;
-&lt;li&gt;okhttp-3.9.0.jar&lt;/li&gt;
-&lt;li&gt;okio-1.13.0.jar(配套必须包含)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&quot;一、关于OkHttp&quot;&gt;&lt;a href=&quot;#一、关于OkHttp&quot; class=&quot;headerlink&quot;
-        
-      
-    
-    </summary>
-    
-    
-      <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
-    
-      <category term="OkHttp" scheme="https://seanzs.gitee.io/tags/OkHttp/"/>
     
   </entry>
   
