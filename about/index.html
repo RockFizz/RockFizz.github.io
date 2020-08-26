@@ -101,11 +101,11 @@
     </li>
     
     <li class="hide-on-med-and-down">
-        <a href="/tags" class="waves-effect waves-light">
+        <a href="/categories" class="waves-effect waves-light">
             
-            <i class="fa fa-tags"></i>
+            <i class="fa fa-bookmark"></i>
             
-            <span>标签</span>
+            <span>分类</span>
         </a>
     </li>
     
@@ -181,27 +181,14 @@
       <li class="hide-on-med-and-down nav-item" >
 
         
-              <a href="/tags" class="waves-effect waves-light">
-                
-                  <i class="fa fa-tags"></i>
-                
-                <span>标签</span>
-                <i class="fa fa-chevron-down" aria-hidden="true"></i>
-              </a>
-
-            <ul class="sub-nav menus_item_child ">
+            <a href="/categories" class="waves-effect waves-light">
               
-                <li> 
-                  <a href="/categories" >
-                    
-                      <i class="fa fa-bookmark" style="margin-top: -20px;"></i>
-                    
-                    <span>分类</span>
-                  </a>
-                </li>
-               
-            </ul>
-          
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
       </li>
     
       <li class="hide-on-med-and-down nav-item" >
@@ -306,11 +293,11 @@
         </li>
         
         <li>
-            <a href="/tags" class="waves-effect waves-light">
+            <a href="/categories" class="waves-effect waves-light">
                 
-                <i class="fa fa-fw fa-tags"></i>
+                <i class="fa fa-fw fa-bookmark"></i>
                 
-                标签
+                分类
             </a>
         </li>
         
@@ -380,25 +367,12 @@
         
         <li class="m-nav-item">
                 
-                    <a href="javascript:;">
-                            
-                            <i class="fa fa-fw fa-tags"></i>
-                            
-                            标签
-                            <span class="m-icon"><i class="fa fa-chevron-right"></i></span>
+                    <a href="/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
                     </a>
-                <ul>
-                  
-                    <li> 
-                      <a href="/categories" >
-                           
-                            <i class="fa fa-bookmark" style="left: 18px; position: absolute;"></i>
-                       
-                       <span>分类</span>
-                      </a>
-                    </li>
-                   
-                </ul>
               
             </li>
         
@@ -526,6 +500,11 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 
 
 
+<div class="statis">
+    <span class="count"><a href="/categories" target="_blank">1</a></span>
+    <span class="name">分类</span>
+</div>
+
 
 
 <div class="statis">
@@ -549,6 +528,11 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
 </div>
 
 
+
+<div class="statis">
+    <span class="count"><a href="/categories" target="_blank">1</a></span>
+    <span class="name">分类</span>
+</div>
 
 
 
@@ -728,7 +712,7 @@ $('.bg-cover').css('background-image', 'url(/medias/banner/' + new Date().getDay
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [],
+                data: [{"name":"其他","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
