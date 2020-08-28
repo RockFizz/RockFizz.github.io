@@ -6,10 +6,34 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-08-20T23:10:35.448Z</updated>
+  <updated>2020-08-28T19:07:52.350Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搬家前清点一些碗筷</title>
+    <link href="https://seanzs.gitee.io/2020/08/29/diary-20200829-1/"/>
+    <id>https://seanzs.gitee.io/2020/08/29/diary-20200829-1/</id>
+    <published>2020-08-28T18:40:54.000Z</published>
+    <updated>2020-08-28T19:07:52.350Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;这些是我妈6年前买的碗筷和一些厨房用品。上次搬家放在收纳盒和衣柜里一直没动过。 
+        
+      
+    
+    </summary>
+    
+      <category term="生活" scheme="https://seanzs.gitee.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>PHP面向对象小结</title>
@@ -475,32 +499,6 @@ $sudo apt-get install
         
         
           &lt;h2 id=&quot;一、验证码的实现&quot;&gt;&lt;a href=&quot;#一、验证码的实现&quot; class=&quot;headerlink&quot; title=&quot;一、验证码的实现&quot;&gt;&lt;/a&gt;一、验证码的实现&lt;/h2&gt;&lt;h3 id=&quot;1-1新建组件identify-vue&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Vue" scheme="https://seanzs.gitee.io/tags/Vue/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vue常用功能之1-轮询</title>
-    <link href="https://seanzs.gitee.io/2020/07/23/diary-20200723-1/"/>
-    <id>https://seanzs.gitee.io/2020/07/23/diary-20200723-1/</id>
-    <published>2020-07-23T01:05:54.000Z</published>
-    <updated>2020-07-23T15:23:17.487Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;一、轮询的实现&quot;&gt;&lt;a href=&quot;#一、轮询的实现&quot; class=&quot;headerlink&quot; title=&quot;一、轮询的实现&quot;&gt;&lt;/a&gt;一、轮询的实现&lt;/h2&gt;&lt;p&gt;添加定义，方法。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;    data(){
-       
         
       
     
