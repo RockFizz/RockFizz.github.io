@@ -6,10 +6,34 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-08-28T19:43:30.465Z</updated>
+  <updated>2020-09-02T18:34:01.024Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>老社区</title>
+    <link href="https://seanzs.gitee.io/2020/09/02/diary-20200902/"/>
+    <id>https://seanzs.gitee.io/2020/09/02/diary-20200902/</id>
+    <published>2020-09-02T04:40:54.000Z</published>
+    <updated>2020-09-02T18:34:01.024Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;昨天下午在派出所办完事。出来时已经下午4点多了。&lt;br&gt;这个派出所位于一个小区内部。大门口对着一个熙熙攘攘的广场，一撮老人围坐在树林下这个角落或那个角落打牌，一撮老人在广场中间打乒乓球。广场另一侧是个幼儿园，一群家长在门口等待着接小孩回家。这社区至少得快四十年了。炎炎夏日下
+        
+      
+    
+    </summary>
+    
+      <category term="生活" scheme="https://seanzs.gitee.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>搬家前清点一些碗筷</title>
@@ -482,30 +506,6 @@ $sudo apt-get install
     
     </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>Vue常用功能之2-验证码</title>
-    <link href="https://seanzs.gitee.io/2020/07/23/diary-20200723-2/"/>
-    <id>https://seanzs.gitee.io/2020/07/23/diary-20200723-2/</id>
-    <published>2020-07-23T05:05:54.000Z</published>
-    <updated>2020-07-23T15:23:24.657Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h2 id=&quot;一、验证码的实现&quot;&gt;&lt;a href=&quot;#一、验证码的实现&quot; class=&quot;headerlink&quot; title=&quot;一、验证码的实现&quot;&gt;&lt;/a&gt;一、验证码的实现&lt;/h2&gt;&lt;h3 id=&quot;1-1新建组件identify-vue&quot;&gt;&lt;a
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Vue" scheme="https://seanzs.gitee.io/tags/Vue/"/>
     
   </entry>
   
