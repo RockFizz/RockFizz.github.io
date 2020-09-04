@@ -6,10 +6,60 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://seanzs.gitee.io/"/>
-  <updated>2020-09-02T18:34:01.024Z</updated>
+  <updated>2020-09-04T16:35:36.213Z</updated>
   <id>https://seanzs.gitee.io/</id>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>医保卡到底怎么报销</title>
+    <link href="https://seanzs.gitee.io/2020/09/04/diary-20200904-1/"/>
+    <id>https://seanzs.gitee.io/2020/09/04/diary-20200904-1/</id>
+    <published>2020-09-04T01:14:54.000Z</published>
+    <updated>2020-09-04T16:35:36.213Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;随便感个冒，买药就要几十上百，&lt;br&gt;随便去个医院门诊，五六百上千块分分钟就没了，&lt;br&gt;很多人都感觉肉疼，直呼现在简直是生不起病。&lt;br&gt;由于医保体系艰深复杂且枯燥，本文用情节互动小说的形式展开，让你沿着自己的故事路线去了解医保。&lt;/p&gt;
+&lt;h2 id=&quot;01&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="生活" scheme="https://seanzs.gitee.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>什么是五险一金</title>
+    <link href="https://seanzs.gitee.io/2020/09/03/diary-20200903-1/"/>
+    <id>https://seanzs.gitee.io/2020/09/03/diary-20200903-1/</id>
+    <published>2020-09-03T02:12:54.000Z</published>
+    <updated>2020-09-04T15:09:25.956Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;五险一金&lt;br&gt;五险指养老保险、医疗保险、失业保险、工伤保险和生育保险。&lt;br&gt;一金指住房公积金。&lt;/p&gt;
+&lt;h2 id=&quot;养老保险&quot;&gt;&lt;a href=&quot;#养老保险&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="生活" scheme="https://seanzs.gitee.io/categories/%E7%94%9F%E6%B4%BB/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>老社区</title>
@@ -454,58 +504,6 @@ $sudo apt-get install
     
     
       <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Android调用摄像头拍照，保存至相册并显示在当前界面</title>
-    <link href="https://seanzs.gitee.io/2020/07/23/diary-20200723-4/"/>
-    <id>https://seanzs.gitee.io/2020/07/23/diary-20200723-4/</id>
-    <published>2020-07-23T08:05:54.000Z</published>
-    <updated>2020-07-23T15:27:35.562Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;测试的功能就是界面一个按钮，点击调用摄像头拍照，在onActivityResult回调方法里对图片处理显示在当前界面并保存在相册。&lt;br&gt;直接上代码。&lt;/p&gt;
-&lt;p&gt;Android应用的清单文件AndroidManifest.xml&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;lt;?
-        
-      
-    
-    </summary>
-    
-    
-      <category term="AndroidStudio" scheme="https://seanzs.gitee.io/tags/AndroidStudio/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>基于Nodejs+Mongodb+Android+Vue的一个应用</title>
-    <link href="https://seanzs.gitee.io/2020/07/23/diary-20200723-3/"/>
-    <id>https://seanzs.gitee.io/2020/07/23/diary-20200723-3/</id>
-    <published>2020-07-23T07:05:54.000Z</published>
-    <updated>2020-07-23T15:23:17.574Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;最近数据联通验证了一个应用。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;手环作为ble设备，时刻通过蓝牙向外广播信息。&lt;/li&gt;
-&lt;li&gt;运行起来MongoDB数据库,用于接收存储手环信息，如体温步数等。&lt;/li&gt;
-&lt;li&gt;Android应用，通过手机蓝牙扫描，收集手环信息，通过http发
-        
-      
-    
-    </summary>
-    
     
   </entry>
   
