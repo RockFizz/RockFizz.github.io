@@ -4,6 +4,183 @@
   
     
     <entry>
+      <title>Quasar安装测试</title>
+      <link href="/2020/10/23/diary-20201023-1/"/>
+      <url>/2020/10/23/diary-20201023-1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="介绍Quasar"><a href="#介绍Quasar" class="headerlink" title="介绍Quasar"></a>介绍Quasar</h2><h2 id="1-安装Quasar-CLI"><a href="#1-安装Quasar-CLI" class="headerlink" title="(*)1.安装Quasar CLI"></a>(*)1.安装Quasar CLI</h2><p>Before we install Quasar CLI, we need to make sure we have the right versions of node (&gt;= 8 at the time of writing) and npm (&gt;= 5). If not, we need to either install or update it. Then we can install Quasar CLI:</p><pre><code>npm install -g @quasar/cli </code></pre><h2 id="2-安装yarn"><a href="#2-安装yarn" class="headerlink" title="(*)2.安装yarn"></a>(*)2.安装yarn</h2><p>双击安装yarn-1.22.5.msi文件。<a href="https://pan.baidu.com/s/1EWXutw07RA8L9lmeUEhQSg" target="_blank" rel="noopener">点我下载yarn安装包</a></p><h2 id="基于quasar创建项目"><a href="#基于quasar创建项目" class="headerlink" title="基于quasar创建项目"></a>基于quasar创建项目</h2><p>Then we create a project folder with Quasar CLI:</p><pre><code>quasar create helloworld</code></pre><p>Once the CLI has successfully created the application, it will give you the command to change into the newly created directory and the command you will need to run to start your application: </p><pre><code>cd helloworldquasar dev </code></pre><p>开发模式的一些常用命令</p><pre><code>quasar dev                        #运行开发服务器(使用默认主题)quasar dev -p 9090                #运行在特定端口quasar dev -m ssr                #SSR quasar dev -m pwa                #PWA quasar dev -m electron            #Electron应用</code></pre><p><a href="https://pan.baidu.com/s/1sZzVH_Myr2natDE6Xi9i5g" target="_blank" rel="noopener">初始化好的空quasar项目demo下载</a></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+            <tag> Quasar </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue实现响应式设计的一种思路</title>
+      <link href="/2020/10/21/diary-20201021-3/"/>
+      <url>/2020/10/21/diary-20201021-3/</url>
+      
+        <content type="html"><![CDATA[<p>响应式就是根据当前屏幕大小，设置个性化样式。</p><h2 id="Vue原生功能"><a href="#Vue原生功能" class="headerlink" title="Vue原生功能"></a>Vue原生功能</h2><p>除了vue利用类似element-UI框架自带响应式布局等以外 ，利用Vue原生功能实现响应式设计，就是利用<br>一个生命周期钩子——mounted：挂载时操作；<br>几条条指令——v-show等（本例中采用，非绝对）：根据条件显示；<br>一套js判断语句：if/else或者switch/case。</p><pre><code>&lt;div v-show="this.show"&gt;fdsafdf&lt;/div&gt;......var head = new Vue({    el : "#head",    data : {        //此处省略一千字        show : true        },    mounted : function(){        //可用于设置自适应屏幕，根据获得的可视宽度（兼容性）判断是否显示        let w = document.documentElement.offsetWidth || document.body.offsetWidth;        if(w &lt; 1000){            this.show = false;        }})</code></pre><h2 id="Vue监听窗口变化"><a href="#Vue监听窗口变化" class="headerlink" title="Vue监听窗口变化"></a>Vue监听窗口变化</h2><p>先回顾JS里获得浏览器窗口大小的方法。</p><pre><code>监听窗口变化    window.onresize 网页可见区域宽        document.body.clientWidth网页可见区域高        document.body.clientHeight网页可见区域宽        document.body.offsetWidth    (包括边线的宽)网页可见区域高        document.body.offsetHeight    (包括边线的宽)</code></pre><p>在vue的data中定义变量screenWidth，在页面mounted时挂载window.onresize方法，监听screenWidth属性值变化并处理。</p><pre><code>data:{    screenWidth:document.body.clientWidth,    timer:false}.........mounted:function(){    const that =this;    window.onresize=()=&gt;{        return (()=&gt;{            that.screenWidth=document.body.clientWidth;        })    };}.........watch:{    screenWidth(val){        //为避免频繁触发resize函数导致页面卡顿，使用定时器。        if(!this.timer){            this.screenWidth=val;            this.timer=true;            let that =this;            setTimeout(function(){                console.log(that.screenWidth);                that.timer=false;            },400);        }    }}</code></pre><h2 id="实践demo"><a href="#实践demo" class="headerlink" title="实践demo"></a>实践demo</h2><p>既然已经可以监听窗口宽度的变化，就可以根据这个值设定不同的自适应方案了。<br>下面举个例子。（div或img的宽度自适应很简单，设置css的width属性为百分比即可），但父级元素的高度并不固定，通常由子级元素撑开决定。<br>一个类似图片库功能，当屏幕缩小放大时，我们可以设置外层边框的宽度为100%，以达到宽度自适应。但高度不行，我们需要：<br>1、数据加载完后，获取图片（外层框）的宽度。<br>2、根据宽度，设置外层框的高度。（如宽度的60%）<br>3、监听窗口宽度变化，每次变化重新获取宽度，重新设置高度</p><pre><code>mounted:function(){    //1.数据首次加载完之后，获取宽度，设置高度为宽度的60%    this.$nextTick(()=&gt;{        let imgBox=this.$refs.imgBox;        let wImgBox=imgBox[0].getBoundingClientRect().width;        this.imgBox.height=0.6*wImgBox+'px';    });    //2.挂载resize事件，屏幕缩放时监听宽度变化，改变设置高度    const that =this;    window.onresize=()=&gt;{        return(()=&gt;{            this.$nextTick(()=&gt;{                let imgBox=this.$refs.imgBox;                let wImgBox=imgBox[0].getBoundingClientRect().width;                this.imgBox.height=0.6*wImgBox+'px';            });        })    };}</code></pre><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>孩子要经历什么，才能懂得学业的重要、父母的不易</title>
+      <link href="/2020/10/21/diary-20201021-2/"/>
+      <url>/2020/10/21/diary-20201021-2/</url>
+      
+        <content type="html"><![CDATA[<p>文章开始之前，我们先来看两个关于环卫工人的事例。</p><p>每个周末的清晨，这个小男孩都要帮做环卫工的母亲打扫街道。</p><p>打扫完了，母子俩还会一起歇一歇，说说话，温情的画面令人感动。</p><p>一名体型较胖的年轻女子，用手狠狠地拽着一个环卫工人拖行数米，旁边其他环卫工急忙上前拦架。</p><p>原来是女儿在向母亲要钱！</p><p>这位母亲已经快50岁了，做环卫工10多年，一个月才几千块钱。</p><p>她的女儿也已做了母亲，还隔三差五伸手向母亲要钱，不给钱就辱骂、吵架、打架…..</p><p>同是环卫工的子女，为什么这个小男孩这么体恤母亲，而那个年轻女子却成了“白眼狼”呢？</p><h2 id="蜜里泡大的少年，如何懂得愁滋味。"><a href="#蜜里泡大的少年，如何懂得愁滋味。" class="headerlink" title="蜜里泡大的少年，如何懂得愁滋味。"></a>蜜里泡大的少年，如何懂得愁滋味。</h2><p>有人问小男孩的母亲：“你家孩子真懂事，是怎么教育的？”</p><p>这位女环卫工不善言辞，说不出太多的教育道理来，有些不好意思地说：</p><p>“我们穷人的孩子早当家嘛！”</p><p>穷人的孩子中，有很多很懂事，也有很多很任性。</p><p>我相信，一定存在某种因素造成了这种区别。</p><p>这种因素究竟是什么呢？</p><p>看到下面的故事后，我恍然大悟。</p><p>某君高中时沉迷网络，时常半夜翻墙出校上网。</p><p>一日他照例翻墙，翻到一半即拔足狂奔而归，面色古怪，问之不语。</p><p>从此认真读书，不再上网，学校盛传他见鬼了。</p><p>后来他考上名校，昔日同学问及此事，他沉默良久说，那天父亲来送生活费，舍不得住旅馆，在墙下坐了一夜。</p><p>有没有被这个父亲感动到？</p><p>可是假如这个父亲的艰辛，没有被调皮捣蛋的儿子意外发现，儿子会洗心革面吗？</p><p>孩子都不是天生就懂得体恤父母。</p><p>他们只有切切实实感受到了父母的艰辛和苦难后，才会对父母心生感激。</p><p>进而对自己严格要求，不辜负父母的一片苦心。 </p><h2 id="父母的过度呵护，是一味毒药。"><a href="#父母的过度呵护，是一味毒药。" class="headerlink" title="父母的过度呵护，是一味毒药。"></a>父母的过度呵护，是一味毒药。</h2><p>当下的中国，有一个很可怕的现象——全民富二代。</p><p>富人家的孩子当富二代养，穷人家的孩子也当富二代养，所谓“再穷不能穷教育，再苦不能苦孩子”。</p><p>有不少父母，不顾家庭资源禀赋差异，百般努力、倾尽所有，让孩子享受最好的生活条件。</p><p>夫妻俩加上四个老人，六个人照顾一个孩子，衣来伸手、饭来张口，真是捧在手里怕摔了，含在嘴里怕化了。</p><p>“穷人的孩子早当家”，这句话放在过去的确是成立的。</p><p>上学时，我拼命地努力，想通过学习，去争取更好的生活。</p><p>我从来不大手大脚地花钱，因为我知道，父母供我读书的每一分钱，都来之不易。</p><p>不仅是我，那个时候，我身边大多数的孩子都是这样。</p><p>现在，一些条件并不宽裕的家庭，觉得亏欠了孩子，担心孩子被别人家孩子比下去，产生自卑心理，反而更加娇惯、宠溺孩子。</p><p>大多数的孩子都过着一种享乐的生活，热了有空调，冷了有暖气，家家都有零食吃，人人都有新衣服穿。</p><p>父母再苦再累，也舍不得孩子吃苦受罪。</p><p>当父母恨不得把全世界所有的好东西和所有的爱都给孩子时，却忘了告诉孩子一件事：生活的艰辛，是难以想象的。</p><p>父母的过度呵护，对于孩子们来说，无疑是一味毒药。</p><p>孩子们心安理得享受着一切，根本不知道知足、感恩和体贴父母，更不知道生活的不容易。</p><p>相反，还滋生了很多虚荣、懒惰的坏毛病。 </p><h2 id="所谓富贵病、不适应，都是矫情。"><a href="#所谓富贵病、不适应，都是矫情。" class="headerlink" title="所谓富贵病、不适应，都是矫情。"></a>所谓富贵病、不适应，都是矫情。</h2><p>知乎上曾有一个很热的帖子。</p><p>说的是在外留学的富二代，不学无术、不能适应，对在国外学习和生活都产生了极其严重的排斥感，勉强混完一个学期后，意图退学。</p><p>他爸爸二话不说，让他假期不要回国，不能在家呆着，必须出去打工。</p><p>找到一份在中餐馆的工作，少年开始了“水深火热”、“暗无天日”的日子。</p><pre><code>“餐馆的老板极其苛刻，什么脏话累活都扔给我，我的主要任务就是洗碗，拖地，剁菜，搬饮料，以及频繁地炒饭，有一段时间我连做梦都梦见自己在炒饭。还要听命于其他店员的指使，哪里垃圾该倒了，哪里厕所堵了，他们上嘴唇一碰下嘴唇，我就得屁颠屁颠地去解决。店里打工的人都没有文化，没有绿卡，不会英文，但我是新来的，而且职位最低，自然没有地位。到了晚上下了班一群人合住在一个房间里，完全没有隐私。他们睡觉打呼，这对睡眠极浅的我来说又是一种折磨，常常整夜整夜地睡不着，第二天起来干活根本没精神又要被人骂。”</code></pre><p>一个月后，拿着辛苦赚来的血汗钱，他灰溜溜地回到了学校。</p><p>爸爸意味深长地说了一番话：</p><p>不是每个人都得循规蹈矩地上完高中上大学，上完大学去公司当上班族的。</p><p>只不过如果不走这条相对轻松的路，那摆在大多数人眼前的就只有干粗活苦活累活。</p><p>可是干粗活也是分人的，有的人干得了，有的人就干不了。</p><p>有的人没有条件也没有选择，只能干粗活，那没什么好说的；可有的人如果明明有好的条件和机会却任性地放弃错过了，将来可是要后悔莫及的。</p><p>当然，要是有人天赋异禀，3岁识谱、5岁编曲或者18岁就能打NBA，那这些话不适用他。</p><p>否则，好好读书永远不会让人吃亏。</p><p>从此少年认真学习，再无不适应。</p><p>原来所谓的富贵病、难适应，都是矫情，吃一吃苦就好了。 </p><h2 id="勤奋和努力，是给孩子最好的馈赠。"><a href="#勤奋和努力，是给孩子最好的馈赠。" class="headerlink" title="勤奋和努力，是给孩子最好的馈赠。"></a>勤奋和努力，是给孩子最好的馈赠。</h2><p>或许我们没有让孩子去国外留学的条件，但依然可以在日常中让孩子有更多体验，提供机会让孩子收获磨练。</p><p>我一侄子参加完中考，接下来就是一个长长的假期。</p><p>他爸妈让我帮忙，介绍到我家附近的奶茶店打工，体验生活。</p><p>每天回来，都有新的话题，要么告诉我们一天做了些什么，要么就是店里来了些什么人，还知道了一些送快餐的骑手和一些业务员的事儿，说的头头是道的。</p><p>有一天我问他：“上班容易不？”</p><p>他说：“也容易也不容易，我上班这几天，把一辈子的哥姐都给叫了，脸都笑僵了。”</p><p>我把这话转告给他爸妈，他们倍感欣慰。</p><p>给孩子再好的教育，都不如让他亲自去感受一下，成人世界的不容易。</p><p>正如曾国藩所说：</p><p>“子侄除读书外，教之扫屋、抹桌凳、收粪、锄草，是极好之事，切不可以为有损架子而不为也。”</p><p>今天的父母，总想着把最好的条件给孩子，这其实是在害孩子。</p><p>成长过程中，物质越充裕，精神越疲敝；精神疲敝时，创造物质的脚步自然会停歇。</p><p>反之，给孩子真实的成长，让孩子懂得困难与艰辛，教孩子珍惜馈赠与财富，引导孩子依靠勤奋和努力，才是对孩子最深邃的馈赠。 </p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文摘 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>人到中年，有水平的处世方式</title>
+      <link href="/2020/10/21/diary-20201021-1/"/>
+      <url>/2020/10/21/diary-20201021-1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="学会沉默"><a href="#学会沉默" class="headerlink" title="学会沉默"></a>学会沉默</h2><p>说话是银，沉默是金。<br>人到中年，慢慢发现，50%的话不必说，50%的话说了也没用。<br>懂的人自然会懂，面对不懂的人，要学会沉默。<br>宋代吕蒙正，因为出身不好，经常被人看不起。<br>承蒙皇帝赏识，他出仕不久就升任参政。<br>从前看不起他的人心里不平衡，就开始在背后嚼舌头。<br>有一天下朝，有人在背后讥讽他：“就这样的货色，也配参政吗？”<br>他却像没听到一样，头也不回往前走。<br>朋友愤愤不平，想要回头理论。<br>他拉住朋友说：“不必理会，让他说去吧。”<br>围观的人说他很有胸襟，将来必能当宰相！<br>后来，他果然做到了宰相。<br>说话固然是一种表达，沉默也是一种态度。<br>面对那些和自己不同路的人，不必争辩，努力做好自己的事，保持沉默就是最好的蔑视。 </p><h2 id="不拒绝新事物"><a href="#不拒绝新事物" class="headerlink" title="不拒绝新事物"></a>不拒绝新事物</h2><p>季羡林曾说：中年之后，最忌讳的就是思维僵化。<br>所谓思维僵化，就是一个人不再有能力吸收新的东西。<br>这样的人很容易和社会脱节，把自己困在过去的小天地里。<br>曾国藩是传统的儒家知识分子。<br>他从小学的是四书五经，接受的是夷夏之防。<br>但是他的头脑却一直保持开放的状态，积极学习，从未老去。<br>别的士大夫把洋人当成蛮夷，只有他说：洋人也懂信义，洋人的技术我们也要学习。<br>年过五旬，曾国藩积极学习西方的数理化，推动洋务运动。<br>曾国藩创办的安庆内军械所，是中国第一所兵工厂。<br>他让儿子去学英文，给他请最好的英文老师，让孩子去见更广阔的天地。<br>他送出了中国第一批留学生，开办了中国第一所翻译馆。<br>正是曾国藩的不懈努力，让古老的中国开始慢慢了解外面的世界。<br>李南老师曾说：一个人只要不拒绝新鲜事物，那么他的世界就可以每天增长一点点。<br>这个人的视野和格局也会变得越来越大。<br>一个人在不断尝试新鲜事物之后，日子也会变得越来越充实有趣。 </p><h2 id="收住脾气"><a href="#收住脾气" class="headerlink" title="收住脾气"></a>收住脾气</h2><p>人发脾气是天性，收住脾气则是修养。<br>一个人的修养越好，越能控制好自己的情绪。<br>从前有个将军，千里迢迢去找禅师求道。<br>到了寺庙，他问禅师：何为天堂，何为地狱。<br>禅师说：“你一个武夫，也配和我论道？”<br>将军大怒，拔出剑来架在禅师脖子上，吼道：“如此无礼，我杀了你！”<br>禅师平静地回答：此为地狱。<br>将军一愣，随即恍然，放刀入鞘，向禅师鞠躬，感谢指点。<br>老子说：“胜人者力，自胜者强”。<br>一个人能够真正掌控自己，才是真正的强者。<br>不能控制情绪的人，只能沦为情绪的奴隶，肆意发泄，害人害己。<br>当情绪上涌的时候，人是失去理智的野兽。<br>这时候无论做什么都是错的。<br>静下心来，离开现场，听听音乐，跑跑步，多换位思考一下。<br>等情绪平复，再作打算。<br>这样的人，才能真正掌控自己的生活，主导自己的人生。 </p><h2 id="善于麻烦别人"><a href="#善于麻烦别人" class="headerlink" title="善于麻烦别人"></a>善于麻烦别人</h2><p>很多人都觉得，多帮助别人才能多交朋友。<br>而实际上，多麻烦别人，也能建立牢固的友谊。<br>胡适十几岁的时候被送往上海读书，母亲不放心，送他到车站的时候说：你要去到更大的世界了，我再也帮不了你，自己去闯荡吧，送你四个字——学会求助。<br>多年以后，回想起这四个字，胡适才开始明白母亲的睿智。<br>每个人都渴望被需要，只要不是太过分的要求，别人一定乐意帮你一把，对帮助者而言，这也是一种快乐。<br>18世纪的富兰克林曾有一个难缠的对手。<br>每次他演讲，这个议员都会给他唱反调。<br>他一直对这个议员很礼貌，但是议员就是不愿跟他合作。<br>直到有一天，他知道这个议员有一套绝版图书。<br>他赶忙去借，没想到议员同意了，从那次之后，两人关系明显缓和。<br>最后俩人还成了好友。<br>富兰克林说：“相比那些被你帮助过的人，那些曾经帮助过你的人会更愿意再帮你一次。”<br>很多人怕麻烦别人，但是，不麻烦彼此，关系也就无从建立。<br>只有懂得麻烦别人，一来二去，才能慢慢熟络，成为朋友。 </p><h2 id="慢慢来，别着急"><a href="#慢慢来，别着急" class="headerlink" title="慢慢来，别着急"></a>慢慢来，别着急</h2><p>王阳明曾言：<br>“我辈致知，只是各随分限所及。今日良知见在如此，只随今日所知扩充到底。明日良知又有开悟，便从明日所知扩充到底。”<br>这句话的意思是说：每个人每天学习的东西是有限的，不要想一口吃成大胖子，做学问，必须一步一步来。<br>就像是浇树一样，刚开始萌芽的树苗，只能浇一点点水。<br>等树长大了一点了，再多浇一点。<br>如果初生的树苗用一桶水去浇灌它，就会把它泡坏了。<br>从前纪昌拜射箭高手飞卫为师学习射箭。<br>飞卫让他练好眼的基本功，再教他射箭。<br>他回去睁着眼看妻子织布，看着梭子眼睛一点不眨。<br>再后来，飞卫让他把小的东西看成大的东西。<br>他就天天盯着远处的小虫子看，直到他把虫子看成车轮大小，飞卫才开始教他射箭。<br>后来，纪昌果然成为当世有名的射箭高手。<br>饭要一口一口吃，路要一步一步走，欲速则不达。<br>在日益浮躁的今天，千万不要着急。<br>找准方向，一步一个脚印。<br>只要坚持住，所有的美好都会如约而至，属于你的一切，终将到来。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      <categories>
+          
+          <category> 文摘 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vue项目部署到非根目录</title>
+      <link href="/2020/10/14/diary-20201014-2/"/>
+      <url>/2020/10/14/diary-20201014-2/</url>
+      
+        <content type="html"><![CDATA[<p>Vue项目部署到非根目录需要修改的地方有两处。<br>例如需要向项目部署到8080端口下子目录 :8080/xlwj2020/处。</p><h2 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h2><p>config目录下的index.js内，build标签下</p><pre><code>build{    ...    assetsPublicPath: '/xlwj2020/',    ...}</code></pre><h2 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h2><p>路由router下的index.js内，添加base字段</p><pre><code>var base=process.env.NODE_DEV == 'development' ? '/' : 'xlwj2020'export default new Router({  mode: 'hash',  ...  base: base,  ...})</code></pre><h2 id="3"><a href="#3" class="headerlink" title="3."></a>3.</h2><p>npm run build</p><p>发布后部署在8080端口下xlwj2020目录,访问地址为 :8080/xlwj2020/</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Ubuntu下操作Mysql数据库(增删查改)和Kbengine编译成功后的运行</title>
+      <link href="/2020/10/14/diary-20201014-1/"/>
+      <url>/2020/10/14/diary-20201014-1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="mysql服务操作"><a href="#mysql服务操作" class="headerlink" title="mysql服务操作"></a>mysql服务操作</h2><pre><code>```sudo cat /etc/mysql/debian.cnf                     #查看安装mysql时的初始账号密码    mysql -u账号名 -p密码                            #进入mysql数据库mysql-&gt;status;                                    #查看数据库版本mysql-&gt;quit;                                        #退出当前账号mysql登陆mysql-&gt;show databases;                    #显示所有数据库mysql-&gt;use database_name;                #使用database_name数据库mysql-&gt;create database data_name;        #创建名为data_name的数据库mysql-&gt;drop database data_name;            #删除一个名为data_name的数据库mysql-&gt; show tables;                        #显示所有表mysql-&gt; drop table tab_name;            #删除名为tab_name的数据表mysql-&gt; describe tab_name;                #显示名为tab_name的表的数据结构mysql-&gt; show columns from tab_name;        #显示名为tab_name的表的数据结构mysql-&gt; delete from tab_name;            #将表tab_name中的记录清空mysql-&gt; select * from tab_name;            #显示表tab_name中的记录mysql-&gt; mysqldump -uUSER -pPASSWORD --no-data DATABASE TABLE &gt; table.sql;#复制表结构mysql-&gt; create table tab_name( id int(10) not null auto_increment primary key, name varchar(40), pwd varchar(40) ) charset=gb2312;                         #创建一个名为tab_name的新表mysql-&gt; ALTER TABLE tab_name ADD PRIMARY KEY (col_name)        #更改表得的定义把某个栏位设为主键。mysql-&gt; ALTER TABLE tab_name DROP PRIMARY KEY (col_name)     #把主键的定义删除mysql-&gt; alter table tab_name add col_name varchar(20);         #在tab_name表中增加一个名为col_name的字段且类型为varchar(20)mysql-&gt; alter table tab_name drop col_name;                    #在tab_name中将col_name字段删除执行外部sql脚本当前数据库上执行:mysql &lt; input.sql 指定数据库上执行:mysql [表名] &lt; input.sqlmysql-&gt;service mysql start;                #启动mysql服务mysql-&gt;service mysql stop;                #停止mysql服务```</code></pre><h2 id="Kbengine编译成功后的运行"><a href="#Kbengine编译成功后的运行" class="headerlink" title="Kbengine编译成功后的运行"></a>Kbengine编译成功后的运行</h2><h3 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h3><pre><code>sudo useradd kbesudo passwd kbe  </code></pre><h3 id="mysql数据库配置"><a href="#mysql数据库配置" class="headerlink" title="mysql数据库配置"></a>mysql数据库配置</h3><pre><code>mysql -u默认账号名 -p默认密码            #先用系统默认账号登陆mysqlmysql&gt; use mysql mysql&gt; delete from user where user=''; mysql&gt; FLUSH PRIVILEGES;mysql&gt; grant all privileges on *.* to kbe@'%' identified by 'pwd123456';mysql&gt; grant select,insert,update,delete,create,drop on *.* to kbe@'%' identified by 'pwd123456';mysql&gt; FLUSH PRIVILEGES;mysql&gt; create database kbe;                #创建数据库</code></pre><p>上面创建的数据库名和用户名密码都是引擎的默认值，如果你按照自己的想法用了别的名字，则需要进入引擎配置文件做相应修改：</p><pre><code>vim &lt;引擎根目录&gt;/kbe/res/server/kbengine_defaults.xml</code></pre><h3 id="启动及关闭服务器"><a href="#启动及关闭服务器" class="headerlink" title="启动及关闭服务器"></a>启动及关闭服务器</h3><p>kbengine_demos_assets文件夹是服务端资产库是后来另外下载复制进来的，一般放在&lt;引擎根目录&gt;下<br>assets下载地址： <a href="https://github.com/kbengine/kbengine_demos_assets/tree/v1.3.1" target="_blank" rel="noopener">https://github.com/kbengine/kbengine_demos_assets/tree/v1.3.1</a> </p><pre><code>cd &lt;引擎根目录&gt;/kbengine_demos_assetssh start_server.sh                        # 启动服务器，成功后会有9个进程ps -aux | grep &lt;引擎根目录&gt;                # 查看是否启动成功cd &lt;引擎根目录&gt;/kbengine_demos_assetssh kill_server.sh                         # 停止服务器</code></pre><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="https://gitee.com/seanzs/pic/raw/master/img/ubuntuKBErunningServer.jpg" alt=""></p><p>客户端连接时，服务端这边报not found dbmgr，数据库里没有表。查看loggeryibubu检查哪里有错吧。。。</p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Ubuntu </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>unity线程操作时报错解决方案</title>
+      <link href="/2020/09/28/diary-20200928-1/"/>
+      <url>/2020/09/28/diary-20200928-1/</url>
+      
+        <content type="html"><![CDATA[<p>unity3d报这个错误get_isPlaying can only be called from the main thread。<br>原因就是多线程服务中，非主线程操作，ui界面等的一些操作，就会报这个错误。<br>解决方案就是：写在Update()中监听进行修改，这样就没有错误了。</p><pre><code>参考代码：private bool rideFrontBack = false;private void DorideFrontBack() {//要做的事    Event_custom e1 = new Event_custom(Custom_Event_Type.EventCircleRide.ToString());    e1.arguments.Add("GetSign", rideSymbol);    EventManager_Custom.instance.dispatchEvent(e1);    rideFrontBack = false;}void Update(){    if (rideFrontBack) {        DorideFrontBack();    }}public void UseFun(){//欲调用的地方    rideFrontBack = true;}</code></pre><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Unity3d </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Flask快速搭建你需要的Web接口</title>
+      <link href="/2020/09/16/diary-20200916-2/"/>
+      <url>/2020/09/16/diary-20200916-2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>cmd里先通过python -m pip install flask 安装flask<br>cmd里在通过python helloflask.py 即可运行起这个简易服务端接口 </p><pre><code>from flask import Flaskimport jsonapp = Flask(__name__)@app.route('/')def index():    return "Hello World, I am chinese."@app.route('/json')def do_json():    hello = {"name":"stranger", "say":"hello"}    return json.dumps(hello)if __name__ == "__main__":    app.run(host='127.0.0.1',port=5001,debug=True)</code></pre><h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><p><a href="https://pan.baidu.com/s/1HDeXgU3n_QxHMrvEeybXOw" target="_blank">带flask的Python3.6环境包下载(20200916)</a></p><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> Flask </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python图像处理之4_Pillow</title>
+      <link href="/2020/09/16/diary-20200916-3/"/>
+      <url>/2020/09/16/diary-20200916-3/</url>
+      
+        <content type="html"><![CDATA[<p>Pillow是Python中的一个图形处理库。</p><h2 id="获取图像信息"><a href="#获取图像信息" class="headerlink" title="获取图像信息"></a>获取图像信息</h2><pre><code>from PIL import Image im = Image.open('12.jpg')im.save('red.png') print('图像的格式：', im.format)print('图像的大小：', im.size)print('图像的宽度：', im.width)print('图像的高度：', im.height) print('获取某个像素点的颜色值：', im.getpixel((100, 100))) im.show() </code></pre><h2 id="创建一个简单的图像"><a href="#创建一个简单的图像" class="headerlink" title="创建一个简单的图像"></a>创建一个简单的图像</h2><pre><code>from PIL import Image im=Image.new('RGB',(150,150),'red') im.save('red.png')</code></pre><h2 id="blend图像混合"><a href="#blend图像混合" class="headerlink" title="blend图像混合"></a>blend图像混合</h2><p>透明度混合主要是使用Image中的blend(im1, im2, alpha)方法，<br>im1：Image对象，在混合的过程中，透明度设置为（1-apha）<br>im2：Image对象，在混合的过程中，透明度设置为（apha）<br>alpha：透明度，取值是0-1。当透明度为0是，显示im1对象；当透明度为1时，显示im2对象<br>注意：im1和im2的大小必须一样，且mode都为RGB</p><pre><code>from PIL import Image# 打开im1im1 = Image.open('21.jpg').convert(mode='RGB')# 创建一个和im1大小一样的图像im2 = Image.new('RGB', im1.size, 'red')# 混合图片，并显示Image.blend(im1, im2, 0.2).show() </code></pre><h2 id="遮罩图像混合"><a href="#遮罩图像混合" class="headerlink" title="遮罩图像混合"></a>遮罩图像混合</h2><p>我们可以通过Image.composite(im1, im2, mask) 方法实现遮罩混合。三个参数都是Image对象，该方法的作用就是使用mask来混合im1和im2。<br>注意：im1、im2和mask的大小必须一样 </p><pre><code>from PIL import Imageim1 = Image.open('1.jpg')                # 打开图像1 im2 = Image.open('2.jpg')                # 打开图像2 im2.resize(im1.size)                    # 重新设置im2的大小 r, g, b = im2.split()                    # 将图像2的三个色道分离，其中r、g、b都为Image对象 Image.composite(im1, im2, b).show()     # 遮罩混合</code></pre><h2 id="图像缩放"><a href="#图像缩放" class="headerlink" title="图像缩放"></a>图像缩放</h2><p>按像素缩放通过Image.eval(im1,fun)方法实现，其中im1为我们老生常谈的Image对象了；第二个为一个方法（函数），该函数传入一个参数，即像素点。该函数会对图片中每个像素点进行函数内的操作 </p><pre><code>from PIL import Imageim = Image.open('21.jpg')                # 打开一张图像Image.eval(im, lambda x:x*2).show()        # 对该图像每个像素点进行*2处理</code></pre><p>按尺寸缩放是通过Image对象的thumbnail()方法实现 </p><pre><code>from PIL import Image im1 = Image.open('1.jpg') im2 = im1.copy() im2.thumbnail((50, 50))im2.save('result.png')print("im1的大小", im1.size)print('im2的大小', im2.size)</code></pre><h2 id="复制、剪切、粘贴"><a href="#复制、剪切、粘贴" class="headerlink" title="复制、剪切、粘贴"></a>复制、剪切、粘贴</h2><p>粘贴的实现主要是通过Image对象的paste(im,box,mask)方法，其中im为Image对象；box为要粘贴到的区域；mask为遮罩（我也不知道啥是遮罩）。其中box的参数有三种形式：<br>(x1, y1)：将im左上角对齐(x1,y1)点，其余部分粘贴，超出部分抛弃<br>(x1, x2, y1, y2)：将im粘贴至此区域<br>None：此时im必须与源图像大小一致</p><pre><code>from PIL import Imageim = Image.open('1.jpg')im1 = im.copy()                                    # 复制两份im2 = im.copy()im_crop = im1.crop((200, 200, 300, 300))        # 剪切图片im2.paste(im_crop, (30, 30))                    # 粘贴图片im2.show()im2.rotate(90).show()                            # 旋转图片</code></pre><h2 id="图像的分离和合并"><a href="#图像的分离和合并" class="headerlink" title="图像的分离和合并"></a>图像的分离和合并</h2><p>Image对象的split()方法，将图像的RGB三个通道分离，并返回三个Image对象 </p><pre><code>from PIL import Imageim = Image.open('1.jpg')r, g, b = im.split()        # 分离通道，返回3个Image对象r.show()g.show()b.show()</code></pre><p>合并是通过Image.merge(mode, bands)方法实现的，其中mode为模式，bands为通道列表，传入一个列表类型数据。 </p><pre><code>from PIL import Imageim1 = Image.open('1.jpg')im2 = Image.open('2.jpg')im2.resize(im1.size)             # 让im2大小和im1一样r1, g1, b1 = im1.split()        # 将两个图像分别分离r2, g2, b2 = im2.split() im3 = Image.merge('RGB', [r1, g2, b1])    # 合并图像im3.show()</code></pre><h2 id="几个常用图像滤镜"><a href="#几个常用图像滤镜" class="headerlink" title="几个常用图像滤镜"></a>几个常用图像滤镜</h2><p>高斯模糊也叫高斯平滑，是通常用它来减少图像噪声以及降低细节层次。这种模糊技术生成的图像，其视觉效果就像是经过一个毛玻璃在观察图像，这与镜头焦外成像效果散景以及普通照明阴影中的效果都明显不同</p><pre><code>from PIL import Image, ImageFilterim1 = Image.open('12.jpg')                                    # 打开图像img = Image.new('RGB', (im1.width*2, im1.height), 'red')    # 创建一个im1两倍宽的图像im2 = im1.filter(ImageFilter.GaussianBlur)                    # 高斯模糊滤镜#im2 = im1.filter(ImageFilter.CONTOUR)                        # 轮廓滤镜#im2 = im1.filter(ImageFilter.DETAIL)                        # 细节滤镜#im2 = im1.filter(ImageFilter.EDGE_ENHANCE)                    # 边缘增强滤镜#im2 = im1.filter(ImageFilter.EDGE_ENHANCE_MORE)            # 边缘增强plus滤镜#im2 = im1.filter(ImageFilter.EMBOSS)                        # 浮雕滤镜#im2 = im1.filter(ImageFilter.FIND_EDGES)                    # 寻找边缘滤镜 #im2 = im1.filter(ImageFilter.SMOOTH)                        # 平滑滤镜img.paste(im1, (0, 0))                                        # 将im1粘贴到img上img.paste(im2, (im1.width, 0))                                # 将im2（高斯模糊后的图像）粘贴到img上img.show()</code></pre><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> Pillow </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>OpenCV图像处理之3</title>
       <link href="/2020/09/15/diary-20200915-1/"/>
       <url>/2020/09/15/diary-20200915-1/</url>
