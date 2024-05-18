@@ -1,0 +1,1509 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="UE4备忘(二), 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="使用actor的Was Recently Rendered可以实现获取当前场景可见actor列表。  
+EventGraph事件图表编辑器里
+右键关联菜单勾选Context Sensitive后，拖拉释放菜单里会有Promote to Va">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>UE4备忘(二) | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/16.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        UE4备忘(二)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/UE4/" target="_blank">
+                                <span class="chip bg-color">UE4</span>
+                            </a>
+                        
+                            <a href="/diary/tags/HLSL/" target="_blank">
+                                <span class="chip bg-color">HLSL</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-05-11
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.9k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        14 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>使用actor的Was Recently Rendered可以实现获取当前场景可见actor列表。  </p>
+<pre><code>EventGraph事件图表编辑器里
+右键关联菜单勾选Context Sensitive后，拖拉释放菜单里会有Promote to Variable,感觉右键提示的内容会少一点。  
+右键关联菜单不勾选Context Sensitive后，拖拉释放菜单里没有Promote to Variable,感觉右键提示的内容会多一点。  </code></pre><h2 id="获得特定类型的所有Actor"><a href="#获得特定类型的所有Actor" class="headerlink" title="获得特定类型的所有Actor"></a>获得特定类型的所有Actor</h2><blockquote>
+<p>Get All Actors Of Class 获得某个类的所有Actor<br>Get All Actors with Interface 获得实现某个接口的所有Actor<br>Get All Actors with Tag 获得带有某标签的所有Actor  </p>
+</blockquote>
+<h2 id="MakeArray保存蓝图内几个actor的引用"><a href="#MakeArray保存蓝图内几个actor的引用" class="headerlink" title="MakeArray保存蓝图内几个actor的引用"></a>MakeArray保存蓝图内几个actor的引用</h2><p>将某蓝图内几个actor的引用保持在一个数组里:<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_makearray_1.JPG" alt="actor的引用保持在一个数组">  </p>
+<h2 id="购买UE4资源"><a href="#购买UE4资源" class="headerlink" title="购买UE4资源"></a>购买UE4资源</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_taobaouse.JPG" alt="购买UE4资源的使用方法"></p>
+<h2 id="交互式水流"><a href="#交互式水流" class="headerlink" title="交互式水流"></a>交互式水流</h2><p><a href="https://zhuanlan.zhihu.com/p/346606967" target="_blank" rel="noopener">UE4.26_新特性尝试_水体系统</a>  </p>
+<p><a href="https://zhuanlan.zhihu.com/p/84550677" target="_blank" rel="noopener">海水效果就是按照这本书的配色来调的</a></p>
+<h2 id="构建-烘焙-场景注意事项"><a href="#构建-烘焙-场景注意事项" class="headerlink" title="构建(烘焙)场景注意事项"></a>构建(烘焙)场景注意事项</h2><p>将UE4中的所有的素材都做好以后，材质赋予、灯光照射、场景摆放等常规操作完成以后了，我们就需要对我们的整个场景进行烘培（构建），那我们在烘培之前有一些注意事项是必须要了解清楚的，比如我们的灯光在构建的时候出现了红色的×，模型有漏光，阴影很模糊，材质没有细节等这些问题，我们在烘培之前就一定要处理好，我们来看下烘培虚幻场景的时候有哪些注意的事项。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_bake_attenation.jpg" alt="ue4构建(烘焙)场景注意事项">  </p>
+<h2 id="UE4重新编译老版本的插件"><a href="#UE4重新编译老版本的插件" class="headerlink" title="UE4重新编译老版本的插件"></a>UE4重新编译老版本的插件</h2><p>暂未尝试，以后实践UE4的c++内容后再看这部分  </p>
+<pre><code>1. 通过启动程序创建一个新版本(或您的目标版本)的C+项目(确保单击NewProject下的"C++"选项卡)。  
+2. 在新项目的目录中，创建一个"plugins"文件夹。  
+3. 通过启动程序安装您想要升级的插件，使其具有其插件的最新版本(也就是过期的插件)。  
+4. 查找引擎插件目录(对我来说是"D:\ProgramFiles(X86)\EpicGames\4.26\Engine\Plugins\Marketplace”)。  
+5. 将刚刚安装的插件目录从引擎插件(4.处)复制到项目的插件目录(2.处)。  
+6. 关闭任何打开的编辑器实例。  
+7. 打开您的新项目，它应该提示您"下面的模块丢失了[.]现在就重新构建它们吗？"。  
+8. 点"是"确认。  
+
+如果自动化过程失败，尝试以下操作:  
+
+安装VisualStudioCommunityEdition(确保在安装过程中检查特定于UE4的包！)，再试一次。  
+
+在VisualStudio中打开该项目(运行.sln文件)，在“解决方案资源管理器”窗口中，右键单击您的项目名称并选择“Clean”，当它完成重复时选择“Build”。
+</code></pre><h2 id="蓝图里的自定义事件"><a href="#蓝图里的自定义事件" class="headerlink" title="蓝图里的自定义事件"></a>蓝图里的自定义事件</h2><ol>
+<li>创建自定义事件:<br>通过右击并从关联菜单中选择 Add Custom Event（添加自定义事件），来创建一个Custom Event(自定义事件)节点。  </li>
+<li>编写自定义事件处理过程(自定义事件对应的节点网络):<br>和其他事件或执行节点一样，把其他节点附加到自定义事件的输出执行引脚上，这样当触发了自定义事件时将会开始执行那个节点网络。  </li>
+<li>触发自定义事件：<br>与常规内置Events（事件）不同，没有触发自定义事件的预制条件。要想调用您的自定义事件，请右击并从关联菜单中选择Call Function（调用函数）&gt;[自定义事件名称]。</li>
+</ol>
+<h2 id="蓝图debug"><a href="#蓝图debug" class="headerlink" title="蓝图debug"></a>蓝图debug</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/blueprint_debug.jpg" alt=""></p>
+<p>F9添加/删除断点。<br>菜单Window-&gt;Debug打开debug窗口可查看watch this value添加监视的变量。<br>大箭头表示进入断点后的当前位置。  </p>
+<pre><code>step into：单步执行，遇到子函数就进入并且继续单步执行（简而言之，进入子函数一直单步执行完再出来）  
+step over：单步执行时，遇到子函数时不会进入子函数内,也就是把子函数整个作为一步（简而言之，越过子函数，但子函数会执行）  
+step out：单步执行到子函数内时，执行完子函数余下部分，并返回到上一层函数。  
+</code></pre><h2 id="类型强制转换小技巧"><a href="#类型强制转换小技巧" class="headerlink" title="类型强制转换小技巧"></a>类型强制转换小技巧</h2><p>应该是各种Cast to节点，晕了。<br>不想记这些眼花缭乱的节点。比如想把String强制转化为Int。<br>Variables里新建一个string变量str1，新建一个int变量int2。<br>在Graph里拖一个str1的Get节点，拖一个int2的Set节点，将Get节点的数据引脚拖到Set节点的数据引脚上，会自动生成中间强制转换类型的节点。然后就可以在其他地方使用这个自动生成的节点了。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_casttovariables.jpg" alt=""><br>其他以此类推。</p>
+<h2 id="自定义蓝图节点"><a href="#自定义蓝图节点" class="headerlink" title="自定义蓝图节点"></a>自定义蓝图节点</h2><p><a href="https://zhuanlan.zhihu.com/p/84958215" target="_blank" rel="noopener">通过派生class UK2Node创建自定义蓝图节点</a></p>
+<h2 id="程序生成建筑细节"><a href="#程序生成建筑细节" class="headerlink" title="程序生成建筑细节"></a>程序生成建筑细节</h2><p><a herf="https://www.bilibili.com/read/cv2673269/">使用虚幻4&amp;Houdini，程序生成建筑细节</a></p>
+<p><a herf="http://www.cgpower.com.cn/jishufenxiang/20201221.html">游戏大场景如何制作</a></p>
+<p>在游戏开发过程中，对于场景的制作要求越来越高，区域也较广阔，至少是4×4公里的面积，还要包含很多的树木等障碍物，密集的草地，道路，丰富的建筑群，建筑里面还要有玩家要寻找的武器、道具等———这就就导致了面临的几个综合性问题：<br>巨大的模型工作量、大量需要手动进行编辑的工作、巨大的模型量导致游戏包体的膨胀，移动端渲染变慢、内存会有很大压力，意味着不可能把非常丰富的资源全部加载到场景里面。<br>最好的解决办法就是模块化方案。这几种问题都可以通过Houdini软件的程序化功能，从而得到很好的解决。  </p>
+<p>程序化技术的价值不仅在于加速了美术内容生成，同时加速了串联美术、策划以及程序的整个流程，创造了游戏世界开发更灵活的迭代方式。<br>程序化生成，这个技术主要还是依赖Houdini软件。通过输入一些简单线条、或者是多边形、或者是一些参数，就可以根据预先设定好的处理流程的资产，得到最终的模型资源。管岩石峭壁，还是房屋或者道路河流、甚至一个关卡，都可以直接生成，只需要进行简单的参数调整，就可以得到不同的效果，而且这种方式是是可逆化的，也就是说，哪里觉得不合适直接就可以进行修改，方便快捷。<br>我们可以通过资产HDA里面的参数调节得到不一样形态的模型（图一、图二），也可以直接通过参数来控制模型的数量变化（图三、图四）。  </p>
+<h3 id="Houdini地形系统"><a href="#Houdini地形系统" class="headerlink" title="Houdini地形系统"></a>Houdini地形系统</h3><p>Houdini中的程序化地形生成可以快速获得可用于游戏引擎的逼真地形地貌资产。主要通过高度场来快速迭代，添加噪波进行变形模拟。<br>地形数据树妖来源有以下两个方面：  </p>
+<ol>
+<li>Houdini基于Heightmap的数据。  </li>
+<li>游戏编辑中输出的2DMask数据。  </li>
+</ol>
+<h3 id="点云驱动程序化技术"><a href="#点云驱动程序化技术" class="headerlink" title="点云驱动程序化技术"></a>点云驱动程序化技术</h3><p>以点云为驱动的程序化技术，融合Houdini与点云系统，实现产品的高效迭代。<br>一座建筑的组件是20-30个，我们可以先通过点云组织位置信息，每个点实际上是一个建筑模块，把建筑模块和这些点云信息组织完成之后在做细化的替换。<br>一座楼房也是一样，如果想改变楼层、大小，只需要调节参数即可。如模型量占用内存过大，也可以优化缩减每个单元模型的面数、贴图的使用精度等，这样就给予了我们场景非常便利的优化条件。<br>通过这种方式，我们整个游戏场景就是一些点云组成。如树、植被、建筑包括所有的道路都是点云构成，这些点云导入虚幻引擎或者Unity引擎里面，通过实际化渲染，一个批次就可以全部渲染完。优化起来直接调节参数就可以。<br>总结一下，程序化技术其实是以点云为驱动的程序化技术。正是因为有点云的组织结构，所有的操作、所有的变化是可以通过一个Excel表就知道加了什么、减了什么，也可以通过分析Excel表或者数据表的格式，知道某个单位内的美术资源量到底消耗了多少。也是通过这种方式才有可能把非常大密度的建筑或者社区手机平台上渲染出来。  </p>
+<h2 id="UE4特效-材质篇"><a href="#UE4特效-材质篇" class="headerlink" title="UE4特效(材质篇)"></a>UE4特效(材质篇)</h2><p><a href="https://www.bilibili.com/video/BV1K7411o7vf?p=1" target="_blank" rel="noopener"> B站视频 </a><br><a href="https://www.bilibili.com/read/cv7895726/" target="_blank" rel="noopener"> 文字笔记版 </a>  </p>
+<pre><code>X反向表达式：对图片或者纹理数值进行反相操作  
+右键关联菜单寻找节点里输入1-x （Math/OneMinus）。  
+
+Clamp限制表达式：限制输入的数值(最大最小值)不超过设定的数值范围
+右键关联菜单寻找节点里输入Clamp （Math/Clamp）。  
+
+坐标平移表达式:使贴图在UV坐标方向上以一定速度位移。  
+右键关联菜单寻找节点里输入Panner （Coordinates/Panner）。  
+
+旋转表达式:使纹理贴图以一定速度旋转。  
+右键关联菜单寻找节点里输入Panner （Coordinates/Panner）。  
+
+Power表达式:增强贴图纹理，亮的地方越亮暗的地方越暗，提升细节。  
+右键关联菜单寻找节点里输入Rotator（Math/Rotator）。  
+
+Time表达式:输入0或1节点(0代表黑色1代表白色)，配合sin和cos使用达到画面一闪一闪的操作。  
+右键关联菜单寻找节点里输入Time（Constants/Time）。  
+Period周期时长就是sin函数一个周期的时长  
+
+
+乘法表达式:叠加和提取两个纹理中的共同部分,将两个材质叠加的部分合成到一张贴图上。将两个贴图相同的部分叠加到一张贴图上。  
+
+去色表达式：Desaturation节点将所有输入该节点的颜色进行去色处理淡化，而后输出黑白图  
+Fraction系数：调整去色的倍数(1是全部去色，0是完全不去除纹理底色，0.5就是去除一半的颜色)  
+
+深度表达式:（深度消退） 用来隐藏半透明对象与不透明对象相交时出现的不美观接缝。  
+右键关联菜单寻找节点里输入DepthFade（Depth/DepthFade）。  
+
+纹理表达式:导入图片纹理。  
+右键关联菜单寻找节点里输入TexutreSample（Texutre/TexutreSample）。  
+
+线性插值表达式Lerp:根据alpha融合数值，决定输出是A或是B或是介于AB之间的混合数值。  
+右键关联菜单寻找节点里输入LinearInterpolate（Math/LinearInterpolate）。  </code></pre><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_Panner_UV_animator.JPG" alt="Panner节点使材质贴图UV位移动画"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_Rotator_animator.JPG" alt="Rotator节点使材质贴图旋转动画"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_Time_shanshuo.JPG" alt="Time节点使材质闪烁基础版"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_mult_Blend.JPG" alt="乘法节点提取合并两张贴图相同的部分"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_Desaturation_node.JPG" alt="Desaturation节点去色"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_DepthFade_node.JPG" alt="DepthFade深度消退表达式"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_texture_express.JPG" alt="纹理表达式和纹理坐标表达式"><br>![线性插值表达式(../../../../images/ue4_lineardotween.JPG)<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_bianyuangaoliang.JPG" alt="某边缘高亮材质"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_bianyuangaoliang_more.JPG" alt="某边缘高亮材质(更多细节)">  </p>
+<h2 id="UE4透明贴图"><a href="#UE4透明贴图" class="headerlink" title="UE4透明贴图"></a>UE4透明贴图</h2><p>有时模型贴图的透明通道并不标准，会有一定的“白边”。<br>处理方式一般都是在PS等软件手动进行修改，如缩小“羽化半径”等。<br>还有一种方式，可以在材质中直接进行修改。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_toutie_material.PNG" alt="透明贴图材质球"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_toutie_material_demotex.jpg" alt="透明贴图-栅栏黑底样图">  </p>
+<pre><code>UE4材质的Opacity Mask取得值为，黑，白两种颜色。值越接近0（纯黑），则剔除，接近1值留下。  
+将透明通道 x 0~1的数值，连接透明即可。优化时乘以0.4。外层深灰色更接近0，内层变为深灰色，此时以深灰色灰色进行遮罩，就出现这种去除白边效果。
+
+比如制作栅栏，用黑底代表透明的透明贴图制作。调节参数可加强减弱。  
+</code></pre><h2 id="UE4一种玻璃材质球"><a href="#UE4一种玻璃材质球" class="headerlink" title="UE4一种玻璃材质球"></a>UE4一种玻璃材质球</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_simplyest_boli.jpg" alt="ue4里最简单的玻璃材质">  </p>
+<h2 id="UE4序列帧材质"><a href="#UE4序列帧材质" class="headerlink" title="UE4序列帧材质"></a>UE4序列帧材质</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_xuliezhen_material.JPG" alt="序列帧-材质球"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_xuliezhe.jpg" alt="序列帧">  </p>
+<h2 id="控制鼠标的显示隐藏"><a href="#控制鼠标的显示隐藏" class="headerlink" title="控制鼠标的显示隐藏"></a>控制鼠标的显示隐藏</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_tab_mousehideshow.JPG" alt="tab键控制鼠标的显示或隐藏">  </p>
+<h2 id="视角绑定到自己的相机"><a href="#视角绑定到自己的相机" class="headerlink" title="视角绑定到自己的相机"></a>视角绑定到自己的相机</h2><ol>
+<li><p>以Actor为父类创建了一个蓝图类，也可以以Pawn为父类，随意, 命名为ActorMyCamera。转为蓝图双击进入，点击Add Component加一个Camera进去，然后视图中就可以看到有一个相机，记得随时编译。  </p>
+</li>
+<li><p>在World Outliner里选中actor（ActorMyCamera_Blueprint），此时进入关卡蓝图里右键关联菜单上方会出现一系列操作我们选中actor的菜单项。<br>我们选择点击执行Create a Reference to ActorMyCamera_Blueprint。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_view_camera.JPG" alt="将视角设置到相机"><br>试着运行一下，会发现视角并不在相机上，因为我们还没有将视角绑定在相机上。<br>此刻视角到相机上了，但只能保持在当前视角，无法转向。我们需要创建一个游戏模式和控制器。<br>游戏模式先不管，先说一下控制器是干什么的，控制器就是响应我们键盘鼠标手柄操作的东西。  </p>
+</li>
+</ol>
+<p>3.在content里新建GameMode和GameControl，并设置。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_new_gamemodegamectr.JPG" alt="设置新的GameMode和GameControl"><br>在新建的游戏控制器myGameControl里将视角绑定到自己的相机(第2步在关卡蓝图里的操作请删除)。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_view_camera2.JPG" alt="将视角设置到相机方式2">  </p>
+<p>4.进入摄像机所在蓝图ActorMyCamera_Blueprint的EventGraph，新建自定义事件。并实现事件绑定。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_camera_lcationSee.JPG" alt="摄像机原地旋转看周围控制视角"><br>在新的游戏控制器里的EventTick里触发自定义事件，并将鼠标的x、y传入。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_gamectr_mousexy.JPG" alt="新gamecontrol里将鼠标xy传参触发自定义事件">  </p>
+<h2 id="UE4的鼠标视角控制和鼠标拾取"><a href="#UE4的鼠标视角控制和鼠标拾取" class="headerlink" title="UE4的鼠标视角控制和鼠标拾取"></a>UE4的鼠标视角控制和鼠标拾取</h2><p><a href="https://blog.csdn.net/qq_14930205/article/details/78636693" target="_blank" rel="noopener">https://blog.csdn.net/qq_14930205/article/details/78636693</a></p>
+<h2 id="按键控制物体旋转（蓝图通信触发自定义事件）"><a href="#按键控制物体旋转（蓝图通信触发自定义事件）" class="headerlink" title="按键控制物体旋转（蓝图通信触发自定义事件）"></a>按键控制物体旋转（蓝图通信触发自定义事件）</h2><p><a href="https://blog.csdn.net/Jaeger719/article/details/113881073" target="_blank" rel="noopener">https://blog.csdn.net/Jaeger719/article/details/113881073</a></p>
+<h2 id="UE4地形工具"><a href="#UE4地形工具" class="headerlink" title="UE4地形工具"></a>UE4地形工具</h2><p>工具栏Modes里可对编辑模式进行切换(shift+1和shift+2)。  </p>
+<h2 id="UE4-26系统自带水"><a href="#UE4-26系统自带水" class="headerlink" title="UE4.26系统自带水"></a>UE4.26系统自带水</h2><ol>
+<li><p>启用Water插件重启。  </p>
+</li>
+<li><p>创建地形（新建时一定要勾选Enable Edit Layers(可编辑图层)）。  </p>
+</li>
+<li><p>Place Actors里搜索water放置河流、海洋、湖泊到场景里编辑属性即可。  </p>
+</li>
+</ol>
+<h2 id="物体在场景中旋转"><a href="#物体在场景中旋转" class="headerlink" title="物体在场景中旋转"></a>物体在场景中旋转</h2><p>物体Transform的Mobility属性必须是Movable才可以旋转。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ue4_obj_rator.JPG" alt="物体旋转">  </p>
+<h2 id="UE4使用HLSL着色器"><a href="#UE4使用HLSL着色器" class="headerlink" title="UE4使用HLSL着色器"></a>UE4使用HLSL着色器</h2><h3 id="实现全屏黑白后期处理特效"><a href="#实现全屏黑白后期处理特效" class="headerlink" title="实现全屏黑白后期处理特效"></a>实现全屏黑白后期处理特效</h3><p>创建材质球，其Details下Material Domain设置为PostProcess<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/hlslPostProcess1.jpg" alt="">  </p>
+<p>添加SceneTexture节点，其Details下Scene Texture Id设置为PostProcessInput0<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/hlslPostProcess2.jpg" alt="">  </p>
+<p>添加Cutome节点，进行hlsl编写<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/hlslPostProcess3.jpg" alt="">  </p>
+<p>创建并关联PostProcessVolume，其Details下RenderingFeatures下PostProcessMaterial的Array点加号，Choose选asset reference选择之前创建的运用hlsl的材质球。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/hlslPostProcess4.jpg" alt="">  </p>
+<pre class="line-numbers language-shell"><code class="language-shell">PostProcessVolume的Unbound勾上，影响范围为整个世界，不受“PostProcessVolume”组件的大小限制  
+PostProcessVolume的Unbound不勾，影响范围为PostProcessVolume”组件的大小以内  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="实现浮雕后期镜头特效"><a href="#实现浮雕后期镜头特效" class="headerlink" title="实现浮雕后期镜头特效"></a>实现浮雕后期镜头特效</h3><pre class="line-numbers language-js"><code class="language-js">int tIndex <span class="token operator">=</span> <span class="token number">14</span><span class="token punctuation">;</span>  
+float4 s22 <span class="token operator">=</span> SceneTextureLookup <span class="token punctuation">(</span>UV<span class="token punctuation">,</span> tIndex<span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+float4 s11 <span class="token operator">=</span> SceneTextureLookup <span class="token punctuation">(</span>UV <span class="token operator">+</span> <span class="token function">float2</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">.</span>0f <span class="token operator">/</span> sW<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">.</span>0f <span class="token operator">/</span> sH<span class="token punctuation">)</span><span class="token punctuation">,</span>tIndex<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+float4 s33 <span class="token operator">=</span> SceneTextureLookup <span class="token punctuation">(</span>UV <span class="token operator">+</span> <span class="token function">float2</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">.</span>0f <span class="token operator">/</span> sW<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">.</span>0f <span class="token operator">/</span> sH<span class="token punctuation">)</span><span class="token punctuation">,</span>tIndex<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+s11<span class="token punctuation">.</span>rgb <span class="token operator">=</span> <span class="token punctuation">(</span> s11<span class="token punctuation">.</span>r <span class="token operator">+</span> s11<span class="token punctuation">.</span> g <span class="token operator">+</span> s11<span class="token punctuation">.</span>b <span class="token punctuation">)</span><span class="token punctuation">;</span>  
+s22<span class="token punctuation">.</span>rgb <span class="token operator">=</span> <span class="token punctuation">(</span> s22<span class="token punctuation">.</span>r <span class="token operator">+</span> s22<span class="token punctuation">.</span> g <span class="token operator">+</span> s22<span class="token punctuation">.</span>b <span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token operator">-</span><span class="token number">0.5</span><span class="token punctuation">;</span>  
+s33<span class="token punctuation">.</span>rgb <span class="token operator">=</span> <span class="token punctuation">(</span> s22<span class="token punctuation">.</span>r <span class="token operator">+</span> s22<span class="token punctuation">.</span> g <span class="token operator">+</span> s22<span class="token punctuation">.</span>b <span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">0.2</span> <span class="token punctuation">;</span>  
+<span class="token keyword">return</span> <span class="token punctuation">(</span> s11 <span class="token operator">+</span> s22 <span class="token operator">+</span> s33<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/%E6%B5%AE%E9%9B%95%E5%90%8E%E6%9C%9F%E9%95%9C%E5%A4%B4%E7%89%B9%E6%95%88.jpg" alt="">  </p>
+<h3 id="实现动态高斯模糊镜头特效"><a href="#实现动态高斯模糊镜头特效" class="headerlink" title="实现动态高斯模糊镜头特效"></a>实现动态高斯模糊镜头特效</h3><pre class="line-numbers language-js"><code class="language-js">int tIndex<span class="token operator">=</span><span class="token number">14</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span>Radius<span class="token operator">&lt;</span><span class="token number">1.0</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token function">SceneTextureLookup</span><span class="token punctuation">(</span>UV<span class="token punctuation">,</span>tIndex<span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+float3 OutColor<span class="token operator">=</span><span class="token punctuation">{</span><span class="token number">0.0</span><span class="token punctuation">,</span><span class="token number">0.0</span><span class="token punctuation">,</span><span class="token number">0.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+Radius<span class="token operator">=</span><span class="token function">floor</span><span class="token punctuation">(</span>Radius<span class="token punctuation">)</span><span class="token punctuation">;</span>
+float Sigma<span class="token operator">=</span>Radius<span class="token operator">/</span><span class="token number">3</span><span class="token punctuation">;</span>
+float Sigma2<span class="token operator">=</span><span class="token number">2</span><span class="token operator">*</span>Sigma<span class="token operator">*</span>Sigma<span class="token punctuation">;</span>
+int Number<span class="token operator">=</span>Radius<span class="token punctuation">;</span>
+float WeightsSum<span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span>int i<span class="token operator">=</span><span class="token operator">-</span>Number<span class="token punctuation">;</span>i<span class="token operator">&lt;=</span>Number<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span>int j<span class="token operator">=</span><span class="token operator">-</span>Number<span class="token punctuation">;</span>j<span class="token operator">&lt;=</span>Number<span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        float Weights<span class="token operator">=</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">/</span><span class="token punctuation">(</span>Sigma2<span class="token operator">*</span><span class="token number">3.1415</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token function">exp</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token punctuation">(</span>j<span class="token operator">*</span>j<span class="token operator">+</span>i<span class="token operator">*</span>i<span class="token punctuation">)</span><span class="token operator">/</span>Sigma2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        WeightsSum<span class="token operator">+</span><span class="token operator">=</span>Weights<span class="token punctuation">;</span>
+        OutColor<span class="token operator">+</span><span class="token operator">=</span>Weights<span class="token operator">*</span><span class="token function">SceneTextureLookup</span><span class="token punctuation">(</span>UV<span class="token operator">+</span><span class="token function">float2</span><span class="token punctuation">(</span>j<span class="token operator">/</span>sW<span class="token punctuation">,</span>i<span class="token operator">/</span>sH<span class="token punctuation">)</span><span class="token punctuation">,</span>tIndex<span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">.</span>xyz<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+OutColor<span class="token operator">/</span><span class="token operator">=</span>WeightsSum<span class="token punctuation">;</span>
+<span class="token keyword">return</span> <span class="token function">float4</span><span class="token punctuation">(</span>OutColor<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">.</span>0f<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/%E5%8A%A8%E6%80%81%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A%E9%95%9C%E5%A4%B4%E7%89%B9%E6%95%88.jpg" alt="">  </p>
+<pre class="line-numbers language-shell"><code class="language-shell">参考学习网址  
+
+https://docs.microsoft.com/zh-cn/windows/win32/direct3dhlsl/dx-graphics-hlsl-intrinsic-functions?redirectedfrom=MSDN （高级着色器预演HLSL）  
+
+https://blog.csdn.net/ttm2d/article/details/115247252?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_title~default-0.base&spm=1001.2101.3001.4242  
+
+https://www.pianshen.com/article/2397125278/  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/05/11/diary-20210511-3/" class="b-link-green">UE4备忘(二)</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/05/15/diary-20210515-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/6.jpg" class="responsive-img" alt="echarts">
+                        
+                        <span class="card-title">echarts</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            全局引用
+npm install echarts@4.9.0 -S  
+
+"dependencies": {
+    "echarts": "^4.9.0",
+    "vue": "^2.5.2",
+    "vue-router": "
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-15
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/echarts/" target="_blank">
+                        <span class="chip bg-color">echarts</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/05/11/diary-20210511-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/21.jpg" class="responsive-img" alt="UE4备忘">
+                        
+                        <span class="card-title">UE4备忘</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            玩家生成位置打开GameMode蓝图，在Details栏下有一个Start_Players_As_Spectators选项。如果勾选了这个选项，那么在进入游戏后，就会使用World中的某个PlayerStart的transform信息，（而
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-11
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                    <a href="/diary/tags/puerts/" target="_blank">
+                        <span class="chip bg-color">puerts</span>
+                    </a>
+                    
+                    <a href="/diary/tags/TypeScript/" target="_blank">
+                        <span class="chip bg-color">TypeScript</span>
+                    </a>
+                    
+                    <a href="/diary/tags/npm/" target="_blank">
+                        <span class="chip bg-color">npm</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

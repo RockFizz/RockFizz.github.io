@@ -1,0 +1,1402 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="UE4的探索(1)-材质, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="PBR概念初览基于物理的材质是一种以三种材质核心输入为基础的实时算法，分别是Mtallic金属感，Specualr高光度，Roughness粗糙度。利用这三项输入我们即可打造出建筑表面所需的任何照片级真实度材质。除金属感，高光度和粗糙度外还">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>UE4的探索(1)-材质 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/27.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        UE4的探索(1)-材质
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/UE4/" target="_blank">
+                                <span class="chip bg-color">UE4</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-05-02
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        9 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="PBR概念初览"><a href="#PBR概念初览" class="headerlink" title="PBR概念初览"></a>PBR概念初览</h2><p>基于物理的材质是一种以三种材质核心输入为基础的实时算法，分别是Mtallic金属感，Specualr高光度，Roughness粗糙度。利用这三项输入我们即可打造出建筑表面所需的任何照片级真实度材质。除金属感，高光度和粗糙度外还有其他输入。WorldPostionoffset（世界坐标偏移）它可以通过材质控制对象顶点。对于大部分建筑可视化场景只需调整其中部分属性，主要是金属感，高光度和粗糙度，这是PBR材质的核心材质节点。  </p>
+<p>基于物理的材质在所有光照环境中，都可以同样的完美工作，材质值相互依赖少一些，而且更加固定，从而提高了使用效率和易用性，这意味着PBR能让内容创建更加容易，而且该内容在不同的使用情景中都能一样出色。  </p>
+<p>PBR即基于物理渲染(PhysicalBasesdRendering)的缩写。，是一套尝试基于真实世界光照物理模型的渲染技术合集，使用了一种更符合物理学规律的方式来模拟光线，达到更真实的渲染效果，而且可以直接通过物理参数来直观地达到想要的结果，不用通过拙劣的各种参数调整。物理参数一般直接通过贴图来传递给Shader。允许通过调整(金属色/高光度/粗糙度)来估算材质着色(这三种属性控制着PBR的着色).PBR通常采用布尔值来处理材质的金属值,引擎中几乎所有与材质相关的操作都与此相关，几乎所有材质都基于PBR所以也把它称为统一着色(Unified Shading)。  </p>
+<p>构建建筑场景时，大部分情况下，使用的是Opaque不透明、Masked遮罩、Translucent半透明。Masked最适合树叶等对象，Translucent半透明最适合窗户之类的透明对象。  </p>
+<p>Metallic“金属感”表示对象是否为金属，它的值通常为1或0。0表示非金属，1表示金属。<br>Specular“高光度”用于控制表面高光， 默认值为0.5。<br>Roughness”粗糙度”用于控制表面粗糙程度，表面越粗糙，光照在其表面反射时漫反射程度越高。它可以用于光滑反射值为0就表示表面完全平滑，就像镜子一样。要实现完全无光泽或无反射的表面，应将粗糙度值设置为1。  </p>
+<p>大部分材质节点输入都可以通过常量或者Texture Sample纹理节点来控制。<br>Normal法线贴图，工作方式与凹凸贴图非常相似，它为网格体添加了大量细节并且没有增加几何体大小。如果你有动态光照或者对象在场景内移动那么Normal法线贴图的颜色会根据光照位置变化。  </p>
+<p>在大部分设计可视化项目中，你可能都只需使用基本功能：即TextureSample纹理样本、相乘节点、常量节点等等。虚幻引擎基于物理的渲染系统，使你能够轻松创建几乎任何材质。请记住，使用DataSmith导出VRay材质时，Unreal Studio中会自动为你重新构建这些材质。同样，如果导出标准材质，并使用FBX那么Unreal Studio也会为其执行相同的操作。在虚幻引擎中，构建材质是由浅入深的过程。  </p>
+<p>总而言之，PBR渲染技术，即是基于真实物理世界的成像规律的渲染技术。渲染包括灯光，shader, 材质，贴图以及它们之间如何交互影响。  </p>
+<h2 id="什么是PBR"><a href="#什么是PBR" class="headerlink" title="什么是PBR"></a>什么是PBR</h2><p><a href="https://blog.csdn.net/debugconsole/article/details/49797431?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&amp;spm=1001.2101.3001.4242" target="_blank" rel="noopener">https://blog.csdn.net/debugconsole/article/details/49797431?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-1&amp;spm=1001.2101.3001.4242</a>  </p>
+<h2 id="光线追踪概念初览"><a href="#光线追踪概念初览" class="headerlink" title="光线追踪概念初览"></a>光线追踪概念初览</h2><p>NVIDIA发布了一系列支持光线追踪技术的显卡。光线追踪是计算机图形学离线渲染的核心技术，顾名思义，他通过对光线进行追踪，使用遵循基本物理规律（PhysicallyPlausible）的模型，去计算光线在场景中传输过程能量的变化过程，从而用来生成具有高度真实感的图像。从现在最先进的技术来看，使用光线追踪技术完全可以生成人眼真假难辨的图片。  </p>
+<h2 id="UE4里PBR之材质-贴图"><a href="#UE4里PBR之材质-贴图" class="headerlink" title="UE4里PBR之材质(贴图)"></a>UE4里PBR之材质(贴图)</h2><p>UE4材质里面，每一个input都有着各自的特性，他们的组合成为了一个个不同属性的物理材质。  </p>
+<p>通过一个简单的Metallic参数的调整，我们就可以轻易区分两个完全不同的材质  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020001.jpg" alt="简单调节Metallic就是完全不同的材质">  </p>
+<p>物体表面的反光属性也是这样一个非常重要的参数，通过这张图片，我们就能够非常清晰的区分开来。任何表面都有高光，高光视觉感受上的强弱很大程度上取决于分散还是聚集。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020002.jpg" alt="简单调节Specular也是完全不同的材质">  </p>
+<p>那么如何制作一个高质量的PBR材质，如何选择使用的工具，如何设置灯光呢？  </p>
+<p>首先观察生活中的真实物体是非常重要的环节，它能够给你一个基本的概念，不同的材质应该有哪些不同的属性。在设计过程中，我们会有一些描述性的词语来清晰说明目标材质的属性（文字+图片），描述词汇包括  </p>
+<blockquote>
+<p>材质类型：钢，塑料，铁，玻璃，油漆<br>材质明度颜色<br>材质表面处理：打磨过的，抛光，磨砂<br>材质环境影响细节描述： 生锈的，刮擦的，磕碰的，脏的，油腻的，油漆剥落的，积灰的，崭新的  </p>
+</blockquote>
+<p>翻译这些信息到UE4对应的材质属性：  </p>
+<blockquote>
+<p>材质类型的信息来区分金属还是非金属(Metallic)<br>材质明度及颜色来定义BaseColor<br>材质表面处理关系到Roughness<br>环境影响复杂多变，牵扯到包括以上多个通道。  </p>
+</blockquote>
+<p>比如脏旧磕碰的金属掉漆的表面：掉落油漆的部分为金属，未掉落部分为油漆，在材质类型金属性的定义里区分开来；磕碰信息从法线贴图，粗糙度贴图；新旧又影响镜面反射的量和连续性，又和粗糙度贴图有关  </p>
+<p>通过创建区分材质，将一个模型不同的区域区分开来，区分大块面材质的意义在于一个物件有多种材质，必须有区分它们的Mask_id，方便随时修改不同材质区域的贴图，提供在引擎中更换不同区域的材质的可能性，为进一步在表面增加细节提供区分的通道,区分材质的信息是灰度图，不同的区域可以放在一张RGBA贴图的各个通道里；根据材质的数量可以是单张或多张。  </p>
+<p>真实的世界中，每一个材质都有许多的细节，所以接下来，为材质添加更多的细节，比如划痕，污渍，环境元素等，这些信息来自于模型起伏，法线，可以手动选取；经常由一些工具软件生成，这些工具软件可以比较只能的根据已有的模型信息判断和生成出自然的细节。  </p>
+<p>将大块面的材质区分通道和细节材质区分通道进行混合，由于大块面材质区分通道和细节材质区分通道是分离的，给混合提供了更多的自由度，这种自由度表现在可以控制哪些细节可以出现或者被屏蔽在哪些区域。  </p>
+<p>现在在市面上可以看到大量的软件工具可以帮助在UE4里面完成PBR材质的制作，在这里我们列举出了一些主流的配套工具。如Photoshop、DDO、Substance(PAINTER/B2M/DESIGNER)、Bipmap2Material、UE4….)  </p>
+<p>Substance Alchemist纹理编辑：以图像、扫描等方式，创建、编辑纹理材质。<br>Substance Painter纹理绘制：PBR材质纹理绘制。<br>Substance Designer材质设计：材质表达式网络构建PBR材质。<br>Substance Bitmap to Material位图转材质：从单个漫反射创建PBR材质。<br>Substance Source材质库：在线PBR材质库。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020003.jpg" alt="UE4中PBR材质制作主流软件工具">  </p>
+<p>UE4里PBR材质的制作过程中一些主流的配套流程如下：  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020004.jpg" alt="UE4中PBR材质制作主流流程">  </p>
+<blockquote>
+<p>1.从高模和低模，创建出NormalMap，ID Mask ，AO/Cavity<br>2.添加细节（划痕、污渍、环境特征等）<br>3.导入UE4,调整Metallic、Roughness、Specular、BasicColor  </p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020005.jpg" alt="获得ue4需要的细节MASK贴图">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020006.jpg" alt="获得ue4需要的Metallic(金属性)贴图">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020007.jpg" alt="获得ue4需要的BaseColor贴图">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020008.jpg" alt="获得ue4需要的Roughness贴图">  </p>
+<p>UE4获得这些贴图后在引擎里合并，可以让材质更为真实。  </p>
+<p>通过以下步骤，UE4可以表现多层材质：  </p>
+<blockquote>
+<p>1.导入：主MASK, 细节MASK， NORMALMAP, AO, CAVITY<br>2.创建基本材质，包括基本材质中细节添加的可能性<br>3.创建母材质，混合基本材质<br>4.添加更多变化：图案，潮湿度/多孔性<br>5.创建材质实例  </p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020009.jpg" alt="ue4表现多层材质方法1"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020010.jpg" alt="ue4表现多层材质方法2">  </p>
+<p>PBR材质是未来的标准，在传统材质转换到PBR材质的过程当中，我们会遇到很多的挑战。对于传统贴图到PBR贴图没有一键转换的工具，因为有些信息计算机是无法猜测出来的，还是需要主观去判断。目前有两种PBR流程贴图转换可以使用工具。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/202105020011.jpg" alt="传统材质转换到PBR材质，哪些变了？">  </p>
+<p>现在的灯光有直射光，阴影，也有间接光，间接反射等，所以贴图上不需要把灯光信息画上去，只要专注于表达材质属性。我们不需要画高光颜色（反色）来达到一个看上去是白色的；线性空间渲染意味着对于basecolor的明度范围大概30-50到180-250能量守恒使得高光如何怎么变都不会增加或减少，就不需要手动的来调整贴图使得粗糙的地方高光贴图暗，光滑的地方高光贴图亮。这时候就需要用已有的信息或修改后生成roughness，Cavity:来定义微表面的变化。  </p>
+<h2 id="UE4里PBR之灯光"><a href="#UE4里PBR之灯光" class="headerlink" title="UE4里PBR之灯光"></a>UE4里PBR之灯光</h2><p>PBR的关键之一灯光：创建真实的灯光环境。（这里不谈论艺术的灯光环境，仅追求真实）  </p>
+<p>真实的灯光包括直射光，非直射光，并且HDR，在灯光半径范围内的物体表面会被灯光直接照亮，并有高光点；范围外物任何照明（包括漫射和镜面反射）。  </p>
+<p>在真实世界中灯光理论上是没有范围的，虽然随着距离增加照度降低，但始终会有影响，在镜面反射上尤为明显。这种反射在UE4里需要由高动态的环境反射贴图来表现，是一种IBL的照明方式。  </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/05/02/diary-20210502-1/" class="b-link-green">UE4的探索(1)-材质</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/05/11/diary-20210511-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/21.jpg" class="responsive-img" alt="UE4备忘">
+                        
+                        <span class="card-title">UE4备忘</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            玩家生成位置打开GameMode蓝图，在Details栏下有一个Start_Players_As_Spectators选项。如果勾选了这个选项，那么在进入游戏后，就会使用World中的某个PlayerStart的transform信息，（而
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-11
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                    <a href="/diary/tags/puerts/" target="_blank">
+                        <span class="chip bg-color">puerts</span>
+                    </a>
+                    
+                    <a href="/diary/tags/TypeScript/" target="_blank">
+                        <span class="chip bg-color">TypeScript</span>
+                    </a>
+                    
+                    <a href="/diary/tags/npm/" target="_blank">
+                        <span class="chip bg-color">npm</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/04/30/diary-20210430-3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/19.jpg" class="responsive-img" alt="rtmp、hls等直播的尝试">
+                        
+                        <span class="card-title">rtmp、hls等直播的尝试</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            开头最近需要接入远程摄像头视频流，预研的都是rtmp协议，各种浏览器flash插件不支持，体验不好。国内外流媒体服务器系统在去Flash的趋势中也在不断发展，国内以NTV Media Server G3为代表的流媒体服务器产品率先完成了去F
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-30
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/rtmp/" target="_blank">
+                        <span class="chip bg-color">rtmp</span>
+                    </a>
+                    
+                    <a href="/diary/tags/hls/" target="_blank">
+                        <span class="chip bg-color">hls</span>
+                    </a>
+                    
+                    <a href="/diary/tags/webRTC/" target="_blank">
+                        <span class="chip bg-color">webRTC</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Flv-js/" target="_blank">
+                        <span class="chip bg-color">Flv.js</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

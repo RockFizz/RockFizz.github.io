@@ -1,0 +1,1533 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="c++平时实践, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="传递指针变量并避免其指向地址和值发生变化指向常量的指针void printValue(const int* ptr) {
+    std::cout &amp;lt;&amp;lt; &#34;Value: &#34; &amp;lt;&amp;lt; *ptr &amp;lt;&amp;lt; std">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>c++平时实践 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/3.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        c++平时实践
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/c/" target="_blank">
+                                <span class="chip bg-color">c++</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-03-21
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        1.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        8 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="传递指针变量并避免其指向地址和值发生变化"><a href="#传递指针变量并避免其指向地址和值发生变化" class="headerlink" title="传递指针变量并避免其指向地址和值发生变化"></a>传递指针变量并避免其指向地址和值发生变化</h2><h3 id="指向常量的指针"><a href="#指向常量的指针" class="headerlink" title="指向常量的指针"></a>指向常量的指针</h3><pre class="line-numbers language-html"><code class="language-html">void printValue(const int* ptr) {
+    std::cout &lt;&lt; "Value: " &lt;&lt; *ptr &lt;&lt; std::endl;
+    // 无法通过指针修改其指向的值
+}
+int main(int argc, char *argv[])
+{
+    int value = 5;
+    const int* ptr = <span class="token entity" title="&value;">&amp;value;</span> // 指向常量的指针
+    printValue(ptr);
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="传递指针的引用"><a href="#传递指针的引用" class="headerlink" title="传递指针的引用"></a>传递指针的引用</h3><p>通过传递指针的引用来允许函数修改指针本身所指向的地址  </p>
+<p>可以确保指针指向的原始对象(值)不变的情况下，修改指针指向新的对象(值)  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+void updatePointer(int* &amp;ptr) {
+    int newValue = 10;
+    ptr = <span class="token entity" title="&newValue;">&amp;newValue;</span> // 修改指针指向的地址为 newValue 的地址
+}
+int main() {
+    int value = 5;
+    int* ptr = <span class="token entity" title="&value;">&amp;value;</span>
+
+    std::cout &lt;&lt; "Original Value: " &lt;&lt; *ptr &lt;&lt; std::endl;
+    updatePointer(ptr); // 传递指针的引用
+    std::cout &lt;&lt; "Updated Value: " &lt;&lt; *ptr &lt;&lt; std::endl;
+
+    return 0;
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="c-11智能指针"><a href="#c-11智能指针" class="headerlink" title="c++11智能指针"></a>c++11智能指针</h3><p>C++11引入了智能指针，其中最常用的是std::shared_ptr和std::unique_ptr。这些智能指针可以帮助管理动态分配的内存，并在其生命周期结束时自动释放内存，从而避免内存泄漏。  </p>
+<p>以下是使用std::shared_ptr的例子  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>memory</span><span class="token punctuation">></span></span>
+void sharedPtrExample() {
+    std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span> ptr = std::make_shared<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span>(5); // 创建一个指向动态分配的整数的shared_ptr
+    std::cout &lt;&lt; "Value: " &lt;&lt; *ptr &lt;&lt; std::endl;
+    // 当ptr的引用计数变为0时，会自动释放动态分配的内存
+}
+int main() {
+    sharedPtrExample(); // 在函数内部创建的shared_ptr在函数结束后会自动释放内存
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以下是std::unique_ptr的例子  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>memory</span><span class="token punctuation">></span></span>
+
+void uniquePtrExample() {
+    std::unique_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span> ptr(new int(10)); // 创建一个指向动态分配的整数的unique_ptr
+    std::cout &lt;&lt; "Value: " &lt;&lt; *ptr &lt;&lt; std::endl;
+    // 在函数结束后，unique_ptr将自动释放动态分配的内存
+}
+
+int main() {
+    uniquePtrExample(); // 在函数内部创建的unique_ptr在函数结束后会自动释放内存
+    return 0;
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="std-shared-ptr和std-unique-ptr的区别"><a href="#std-shared-ptr和std-unique-ptr的区别" class="headerlink" title="std::shared_ptr和std::unique_ptr的区别"></a>std::shared_ptr和std::unique_ptr的区别</h3><ol>
+<li>所有权不同</li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">std::unique_ptr 是独占所有权的智能指针，意味着同一时间只能有一个 std::unique_ptr 指向同一块内存。当 std::unique_ptr 被销毁或重置时，它所管理的对象也会被销毁。
+std::shared_ptr 允许多个 std::shared_ptr 实例共享同一块内存。它使用引用计数来跟踪有多少个 std::shared_ptr 实例指向同一内存块，只有当最后一个 std::shared_ptr 被销毁时，才会释放内存。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>性能开销不同  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">std::shared_ptr 比 std::unique_ptr 更复杂，因为它需要维护一个引用计数，这可能导致一些额外的性能开销。另外，由于引用计数，std::shared_ptr 的内存占用比 std::unique_ptr 更大。
+std::unique_ptr 不需要引用计数，因此更加轻量级和高效。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>使用场景不同  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">如果需要多个指针共享同一块内存，可以使用 std::shared_ptr。
+如果需要确保只有一个指针拥有所有权，并且在离开作用域时自动释放内存，应该使用 std::unique_ptr。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="打印查看std-shared-pt地址"><a href="#打印查看std-shared-pt地址" class="headerlink" title="打印查看std::shared_pt地址"></a>打印查看std::shared_pt地址</h3><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>memory</span><span class="token punctuation">></span></span>
+int main() {
+    std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span> ptr = std::make_shared<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span>(42);
+    // 使用 .get() 方法获取所管理对象的地址，并打印出来
+    std::cout &lt;&lt; "Address of the managed object: " &lt;&lt; ptr.get() &lt;&lt; std::endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="避免指针指向的地址和值发生变化"><a href="#避免指针指向的地址和值发生变化" class="headerlink" title="避免指针指向的地址和值发生变化"></a>避免指针指向的地址和值发生变化</h2><h3 id="指向常量的指针-1"><a href="#指向常量的指针-1" class="headerlink" title="指向常量的指针"></a>指向常量的指针</h3><p>无法通过指针修改其指向的值</p>
+<pre class="line-numbers language-html"><code class="language-html">void printValue(const int* ptr) {
+    std::cout &lt;&lt; "Value: " &lt;&lt; *ptr &lt;&lt; std::endl;
+    // 无法通过指针修改其指向的值
+}
+
+int main(int argc, char *argv[])
+{
+    int value = 5;
+    const int* ptr = <span class="token entity" title="&value;">&amp;value;</span> // 指向常量的指针
+    printValue(ptr);
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="常量引用"><a href="#常量引用" class="headerlink" title="常量引用"></a>常量引用</h3><pre class="line-numbers language-html"><code class="language-html">void printValue(const int&amp; ref) {
+    std::cout &lt;&lt; "Value: " &lt;&lt; ref &lt;&lt; std::endl;
+    // 无法通过引用修改其引用的值
+}
+
+int main() {
+    int value = 5;
+    printValue(value);
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3><p>通过深拷贝创建对象的副本，避免原始对象的改变影响到指针指向的内容  </p>
+<pre class="line-numbers language-html"><code class="language-html">void printValue(int* ptr) {
+    std::cout &lt;&lt; "Value: " &lt;&lt; *ptr &lt;&lt; std::endl;
+    // 可以通过深拷贝创建对象的副本，避免原始对象的改变影响到指针指向的内容
+    int copiedValue = *ptr;
+    // 对副本进行操作而不影响原始对象
+}
+
+int main() {
+    int value = 5;
+    int* ptr = <span class="token entity" title="&value;">&amp;value;</span>
+    printValue(ptr);
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="由char-打印指定长度的hex字符串"><a href="#由char-打印指定长度的hex字符串" class="headerlink" title="由char*打印指定长度的hex字符串"></a>由char*打印指定长度的hex字符串</h2><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iomanip</span><span class="token punctuation">></span></span> // 用于设置输出格式
+
+void printHexFromChar(const char* data, int length) {
+    std::cout &lt;&lt; "Hexadecimal representation of the data (" &lt;&lt; length &lt;&lt; " bytes): ";
+    for (int i = 0; i &lt; length; ++i) {
+        // 将每个字符以十六进制格式打印出来
+        std::cout &lt;&lt; std::hex &lt;&lt; std::setw(2) &lt;&lt; std::setfill('0') &lt;&lt; static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span>(static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>unsigned</span> <span class="token attr-name">char</span><span class="token punctuation">></span></span>(data[i])) &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::dec &lt;&lt; std::endl; // 恢复默认的十进制输出格式
+}
+
+int main() {
+    char* data = "hello"; // 要打印的 char* 数据
+    int length = 5; // 数据的长度
+
+    printHexFromChar(data, length);
+
+    return 0;
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="C-的short-有符号、无符号-保存在byte-2字节读写"><a href="#C-的short-有符号、无符号-保存在byte-2字节读写" class="headerlink" title="C++的short(有符号、无符号)保存在byte[]2字节读写"></a>C++的short(有符号、无符号)保存在byte[]2字节读写</h2><p>signed short和unsigned short都是16位（2字节）的数据类型，<br>signed short可以表示负数和正数（-32768到32767），<br>unsigned short只能表示非负数（0到65535）<br>C++处理字节数据时通常会使用char或unsigned char数组来表示字节流  </p>
+<h3 id="signed-short到2字节数组的写入和读取"><a href="#signed-short到2字节数组的写入和读取" class="headerlink" title="signed short到2字节数组的写入和读取"></a>signed short到2字节数组的写入和读取</h3><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+// 将signed short值写入到byte数组中（小端序,低位在前）
+void writeShortToByteArray(signed short value, unsigned char* byteArray) {
+    byteArray[0] = (unsigned char)(value &amp; 0xFF);        // 获取低8位并存储
+    byteArray[1] = (unsigned char)((value >> 8) &amp; 0xFF); // 获取高8位并存储
+}
+// 从byte数组中读取signed short值（小端序）
+signed short readShortFromByteArray(const unsigned char* byteArray) {
+    return (signed short)(byteArray[0] | (byteArray[1] &lt;&lt; 8));
+}
+int main() {
+    signed short originalValue = -12345; // 示例值
+    unsigned char byteArray[2]; // 存储signed short的2字节数组
+    // 写入
+    writeShortToByteArray(originalValue, byteArray);
+    // 打印显示字节数组内容的hex字符串形式
+    for (int i = 0; i &lt; 2; ++i) {
+        std::cout &lt;&lt; std::hex &lt;&lt; std::setw(2) &lt;&lt; std::uppercase &lt;&lt;std::setfill('0') &lt;&lt; (int)(unsigned char)byteArray[i] &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+    // 读取
+    signed short readValue = readShortFromByteArray(byteArray);
+    std::cout &lt;&lt; "Read signed short: " &lt;&lt; std::dec &lt;&lt; readValue &lt;&lt; std::endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="unsigned-short到2字节数组的写入和读取"><a href="#unsigned-short到2字节数组的写入和读取" class="headerlink" title="unsigned short到2字节数组的写入和读取"></a>unsigned short到2字节数组的写入和读取</h3><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+// 将unsigned short值写入到byte数组中（小端序）
+void writeUnsignedShortToByteArray(unsigned short value, unsigned char* byteArray) {
+    byteArray[0] = (unsigned char)(value &amp; 0xFF);        // 获取低8位并存储
+    byteArray[1] = (unsigned char)((value >> 8) &amp; 0xFF); // 获取高8位并存储
+}
+// 从byte数组中读取unsigned short值（小端序）
+unsigned short readUnsignedShortFromByteArray(const unsigned char* byteArray) {
+    return (unsigned short)(byteArray[0] | (byteArray[1] &lt;&lt; 8));
+}
+int main() {
+    unsigned short originalValue = 50000; // 示例值
+    unsigned char byteArray[2]; // 存储unsigned short的2字节数组
+    // 写入
+    writeUnsignedShortToByteArray(originalValue, byteArray);
+    // 打印显示字节数组内容的hex字符串形式
+    for (int i = 0; i &lt; 2; ++i) {
+        std::cout &lt;&lt; std::hex &lt;&lt; std::setw(2) &lt;&lt; std::uppercase &lt;&lt;std::setfill('0') &lt;&lt; (int)(unsigned char)byteArray[i] &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+    // 读取
+    unsigned short readValue = readUnsignedShortFromByteArray(byteArray);
+    std::cout &lt;&lt; "Read unsigned short: " &lt;&lt; std::dec &lt;&lt; readValue &lt;&lt; std::endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2024/03/21/diary-20240321-1/" class="b-link-green">c++平时实践</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2024/04/22/diary-20240422-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/31.jpg" class="responsive-img" alt="fpga了解">
+                        
+                        <span class="card-title">fpga了解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Vivado是什么Vivado是赛灵思（Xilinx）公司推出的一款集成电路设计软件工具，主要用于FPGA（现场可编程门阵列）和SoC（片上系统）的设计、验证和实现。Vivado提供了丰富的功能和工具，包括综合、布局、布线、仿真等，帮助工程
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2024-04-22
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/FPGA/" target="_blank">
+                        <span class="chip bg-color">FPGA</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2024/02/25/diary-20240225-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/19.jpg" class="responsive-img" alt="UbuntuARM64">
+                        
+                        <span class="card-title">UbuntuARM64</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            DockerDesktop里的UbuntuARM64Docker Desktop启动镜像mynewarm64,并进入终端Open in terminal，
+uname -m 查看系统架构 
+whoami 查看当前用户
+lsb_release
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2024-02-25
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/qemu/" target="_blank">
+                        <span class="chip bg-color">qemu</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

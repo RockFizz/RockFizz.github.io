@@ -1,0 +1,2548 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="qt一月份小结复盘, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="C++动态调用DLL函数
+DLL调用方式主要分为两种：隐式（通过lib文件与头文件）/静态 与 显式（只通过DLL文件）/动态隐身调用：将lib文件及头文件导入的项目源码工程中，并通过头文件调用库中的函数显式调用：HMODULE hMod ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>qt一月份小结复盘 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/31.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        qt一月份小结复盘
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/qt/" target="_blank">
+                                <span class="chip bg-color">qt</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-02-06
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4.6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        21 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="C-动态调用DLL函数"><a href="#C-动态调用DLL函数" class="headerlink" title="C++动态调用DLL函数"></a>C++动态调用DLL函数</h2><blockquote>
+<p>DLL调用方式主要分为两种：隐式（通过lib文件与头文件）/静态 与 显式（只通过DLL文件）/动态<br>隐身调用：将lib文件及头文件导入的项目源码工程中，并通过头文件调用库中的函数<br>显式调用：HMODULE hMod = LoadLibraryA(“POS_SDK.dll”);//载入动态库 FreeLibrary(hMod);//卸载函数库<br>这里只描述显式动态调用Dll函数  </p>
+</blockquote>
+<p>Dll源文件  </p>
+<pre class="line-numbers language-html"><code class="language-html">extern "C" __declspec(dllexport)
+int add(int a, int b)
+{
+    return a + b;
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>动态调用DLL库函数  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 动态调用DLL库
+int dynamic_call(int a, int b)
+{
+    typedef int(*AddFunc)(int, int);
+
+    HMODULE module = LoadLibrary(L"DemoDLL.dll");
+    if (module == NULL)
+    {
+        cout &lt;&lt; "加载DemoDLL.dll动态库失败" &lt;&lt; endl;
+        return -1;
+    }
+
+    AddFunc add = (AddFunc)GetProcAddress(module, "add");
+    return add(a, b);
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>完整调用  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Windows.h</span><span class="token punctuation">></span></span>
+using namespace std;
+
+// 动态调用DLL库
+int dynamic_call(int a, int b)
+{
+    typedef int(*AddFunc)(int, int);
+    HMODULE module = LoadLibrary(L"DemoDLL.dll");
+    if (module == NULL)
+    {
+        cout &lt;&lt; "加载DemoDLL.dll动态库失败" &lt;&lt; endl;
+        return -1;
+    }
+    AddFunc add = (AddFunc)GetProcAddress(module, "add");
+    return add(a, b);
+}
+
+int main(int argc, char *argv[])
+{
+    int n=100,m=200;
+    cout&lt;&lt; dynamic_call(n,m) &lt;&lt; endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="qtwinmigrate制作带ui界面功能的dll"><a href="#qtwinmigrate制作带ui界面功能的dll" class="headerlink" title="qtwinmigrate制作带ui界面功能的dll"></a>qtwinmigrate制作带ui界面功能的dll</h2><p><a href="https://pan.baidu.com/s/1ug5muCi9HhJVeI__GY7jqg" target="_blank">qtwinmigrate的qtdll项目</a></p>
+<pre class="line-numbers language-html"><code class="language-html">qt版本：Desktop_Qt_5_8_0_MSVC2015_64bit  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol>
+<li>打开qtdll项目，新加qt界面类即可，编辑完成想要的功能。  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">新建界面类文件 ：uidll.h、uidll.cpp、uidll.ui  
+添加个简单交互，点击按钮改变label的值  
+在uidll.cpp中  
+uidll::uidll(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::uidll)
+{
+    ui->setupUi(this);
+
+    connect(ui->pushButton,&amp;QPushButton::clicked,[this](){
+        ui->label->setText("zzzzz");
+    });
+    // connect(发送方地址，信号函数，接收方地址，槽函数);  
+
+}
+
+uidll::~uidll()
+{
+    delete ui;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>在main.cpp里编辑对外开放的接口函数,包括引入刚才添加界面的头文件。  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>qmfcapp.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>qwinwidget.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>windows.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMessageBox</span><span class="token punctuation">></span></span>
+
+#include "uidll.h"
+QWinWidget *win = NULL;
+
+BOOL WINAPI DllMain( HINSTANCE hInstance, DWORD dwReason, LPVOID /*lpvReserved*/ )
+{
+    static bool ownApplication = FALSE;
+
+    if ( dwReason == DLL_PROCESS_ATTACH )
+    ownApplication = QMfcApp::pluginInstance( hInstance );
+    if ( dwReason == DLL_PROCESS_DETACH &amp;&amp; ownApplication )
+    delete qApp;
+
+    return TRUE;
+}
+
+/**
+ * 这个函数好像没起作用
+ */
+extern "C" __declspec(dllexport) 
+int main(int argc, char *argv[])
+{
+ QApplication a(argc, argv);
+ uidll w;                     //*****是界面类的名字，如QWidget。w不需要改变
+ w.show();
+ return a.exec();
+}
+
+extern "C" __declspec(dllexport) 
+bool showDialog(HWND parent)
+{
+    if(win != NULL){
+        delete win;
+        win = NULL;
+    }
+    win=new QWinWidget(parent);
+    win->showCentered();
+    QMessageBox::about( win, "About QtMfc", "QtMfc Version 2.0\nCopyright (C) 2003" );
+    return TRUE;
+}
+// 把新建的界面显示出来，并具备交互功能
+extern "C" __declspec(dllexport) 
+bool showDialog2(HWND parent){
+    QEventLoop loop;
+    uidll myui;
+    myui.show();
+    loop.exec();
+    return TRUE;
+}
+
+extern "C" __declspec(dllexport)
+int showDialog3(){
+    int argc=1;
+    char p1[]="/system/app/xxx.apk";
+    char *argv1=p1;
+    char p2[]="/system/app/xxx_ui.apk";
+    char *argv2=p2;
+    char* argv[]={argv1,argv2};
+
+    QApplication a(argc, argv);
+    uidll w;
+    w.show();
+    return a.exec();
+}
+
+extern "C" __declspec(dllexport)
+bool hideDialog()
+{
+    if(win != NULL){
+        delete win;
+        win = NULL;
+    }
+    return TRUE;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>构建release项目，然后生成dll依赖文件  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">进入命令行Qt 5.8 64-bit for Desktop(MSVC 2015)  
+执行 windeployqt F:\proj1\bin\Release\x64\qtdialog.dll 生成相应功能依赖文件  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>新建c++控制台程序调用上一步生成的dll库功能(将之前生成的dll及依赖文件拷贝到这个控制台程序输出的相同目录)  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Windows.h</span><span class="token punctuation">></span></span>
+using namespace std;
+
+typedef void(*showWidget)(HWND parent);
+
+int main(int argc, char *argv[])
+{
+    cout &lt;&lt; "Hello World!" &lt;&lt; endl;
+    showWidget showMine;
+    HMODULE hd=LoadLibrary(L"qtdialog.dll");
+//    HINSTANCE hd=LoadLibrary(L"qtdialog.dll");
+    if(hd==NULL){
+        cout &lt;&lt; "can not load qtdialog.dll!" &lt;&lt; endl;
+        FreeLibrary(hd);
+        return 0;
+    }
+//    showMine=(showWidget)GetProcAddress(hd,"showDialog");
+    showMine=(showWidget)GetProcAddress(hd,"showDialog2");
+    if(showMine==NULL){
+        cout &lt;&lt; "can not get fun address !" &lt;&lt; endl;
+        FreeLibrary(hd);
+        return 0;
+    }
+    showMine(GetConsoleWindow());
+    FreeLibrary(hd);
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="std-thread多线程"><a href="#std-thread多线程" class="headerlink" title="std::thread多线程"></a>std::thread多线程</h2><h3 id="创建多线程"><a href="#创建多线程" class="headerlink" title="创建多线程"></a>创建多线程</h3><blockquote>
+<p>通过函数指针，创建std::thread线程    </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+
+using namespace std;
+
+void funcThread(int x) 
+{
+    cout &lt;&lt; x &lt;&lt; endl;
+}
+
+int main() 
+{
+    std::thread tthread001(funcThread, 100);
+    tthread001.join();
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>通过Lambda函数，创建std::thread线程  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+
+using namespace std;
+
+int main() 
+{
+    std::thread tthread001(
+    [](int x)
+    {
+        cout &lt;&lt; x &lt;&lt; endl;
+    }
+    , 100);
+    tthread001.join();
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>通过Function Object（functor）创建std::thread线程  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+
+using namespace std;
+
+class ST_MSG1
+{
+public:
+    void operator()(int x) 
+    {
+        cout &lt;&lt; x &lt;&lt; endl;
+    }
+};
+
+int main() 
+{
+    thread t(ST_MSG1(), 100);
+    t.join();
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>通过非静态成员函数，创建std::thread线程  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+
+using namespace std;
+
+class ST_MSG1 
+{
+public:
+    void fun(int x)
+    {
+           cout &lt;&lt; x &lt;&lt; endl;
+    }
+};
+
+int main() 
+{
+    ST_MSG1 b;
+    thread t(&amp;ST_MSG1::fun,&amp;b, 100);
+    t.join();
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>通过静态成员函数，创建std::thread线程  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+
+using namespace std;
+
+class ST_MSG1
+ {
+public:
+    static void fun(int x)
+    {
+           cout &lt;&lt; x &lt;&lt; endl;
+    }
+};
+
+int main() 
+{
+    thread t(&amp;ST_MSG1::fun, 100);
+    t.join();
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="停止多线程"><a href="#停止多线程" class="headerlink" title="停止多线程"></a>停止多线程</h3><blockquote>
+<p>用join函数停止，一旦线程开始，我们要想等待线程完成，需要在该对象上调用join()  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+using namespace std;
+int main() 
+{
+    std::thread tthread001(
+    [](int x)
+    {
+        cout &lt;&lt; x &lt;&lt; endl;
+    }
+    , 100);
+    tthread001.join();
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>用detach函数停止，detach是分离线程，分离的线程，主线程对它没有管理权限  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+
+using namespace std;
+
+int main() 
+{
+    std::thread tthread001(
+    [](int x)
+    {
+        cout &lt;&lt; x &lt;&lt; endl;
+    }
+    , 100);
+    tthread001.detach();       
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>用std::mutex锁停止</p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+
+using namespace std;
+
+int main() 
+{
+    std::mutex mutTest;
+    std::thread tthread001(
+    [](int x)
+    {
+        // 1、加锁、解锁
+        mutTest.lock();
+        cout &lt;&lt; x &lt;&lt; endl;
+        mutTest.unlock();
+        // 2、作用域内加锁
+        {
+            lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> lock(mutTest);      // c++17后可写成 lock_guard lock(mutTest);
+            cout &lt;&lt; x &lt;&lt; endl;
+        }
+    }
+    , 100);
+    tthread001.detach();
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="多线程实例"><a href="#多线程实例" class="headerlink" title="多线程实例"></a>多线程实例</h2><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>list</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>chrono</span><span class="token punctuation">></span></span>
+using namespace std;
+
+struct ST_MSGUserInfo
+{
+    ST_MSGUserInfo() :m_nUserId(), m_nUserPhoneId(), m_strUserName() {}
+    int m_nUserId;                       // 用户id
+    int m_nUserPhoneId;                  // 用户手机id
+    string m_strUserName;                // 用户名字
+};
+
+class ObjBaseTest
+{
+    ObjBaseTest() {}
+public:
+    ~ObjBaseTest() { m_MSGUserInfoList.clear(); }
+    static ObjBaseTest&amp; get_Instance()          // 单例模式
+    {
+        static ObjBaseTest temp;
+        return temp;
+    }
+
+    /**
+     * @brief 插入队列
+     */
+    void pushUserInfo(const ST_MSGUserInfo&amp; p_objUserInfo)
+    {
+        lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> lock(m_workThreadMutex);
+        m_MSGUserInfoList.push_back(p_objUserInfo);
+    }
+
+    /**
+     * @brief 获取队列元素
+     * @param p_objUserInfo 用户信息
+     */
+    void getUserInfo(ST_MSGUserInfo&amp; p_objUserInfo)
+    {
+        lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> lock(m_workThreadMutex);
+        if (m_MSGUserInfoList.empty())
+            return;
+        p_objUserInfo = m_MSGUserInfoList.front();
+        m_MSGUserInfoList.pop_front();
+    }
+
+    /**
+     * @brief 获取队列大小
+     * @return 返回队列大小
+     */
+    int getUserinfoListSize()
+    {
+        lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> lock(m_workThreadMutex);
+        return m_MSGUserInfoList.size();
+    }
+
+    /**
+     * @brief 队列是否为空
+     * @return 返回布尔值，true：队列不为空，false：队列为空
+     */
+    bool isUserInfoEmpty()
+    {
+        lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> lock(m_workThreadMutex);
+        return m_MSGUserInfoList.empty();
+    }
+
+private:
+
+    std::list<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ST_MSGUserInfo</span><span class="token punctuation">></span></span> m_MSGUserInfoList;     // 用户信息列表
+    std::mutex m_workThreadMutex;                    // 用户信息列表锁
+};
+
+class Server_Client
+{
+    Server_Client()
+    {
+        isworkThreadFlag = false;
+        workThread = nullptr;
+    }
+public:
+    static Server_Client&amp; get_instance()
+    {
+        static Server_Client temp;
+        return temp;
+    }
+
+    ~Server_Client()
+    {
+        isworkThreadFlag = true;
+        if (workThread != nullptr)
+        {
+            if (workThread->joinable())
+                workThread->join();
+            delete workThread;
+            workThread = nullptr;
+        }
+    }
+
+    /**
+     * @brief 工作函数
+     */ 
+    void work()
+    {
+        if (workThread == nullptr)
+        {
+            workThread = new std::thread(
+                [this]()
+                {
+                    while (!isworkThreadFlag)
+                    {
+                        test_Client();
+                        test_Server();
+                        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+                    }
+                });
+        }
+    }
+
+    /**
+     * @brief 关闭线程
+     */
+    void closeThread()
+    {
+        isworkThreadFlag = true;
+        if (workThread != nullptr)
+        {
+            if (workThread->joinable())
+            {
+                workThread->join();
+            }
+            delete workThread;
+            workThread = nullptr;
+        }
+    }
+
+private:
+    /**
+     * @brief C-发送端
+     */
+    void test_Client()
+    {
+        lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> lock(workMutex);
+        ST_MSGUserInfo stUserInfo;
+        stUserInfo.m_nUserId = 1;
+        stUserInfo.m_nUserPhoneId = 2;
+        stUserInfo.m_strUserName = std::to_string(3);
+        ObjBaseTest::get_Instance().pushUserInfo(stUserInfo);
+    }
+
+    /**
+     * @brief S-接收端
+     */
+    void test_Server()
+    {
+        lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> lock(workMutex);
+        ST_MSGUserInfo stUserInfo;
+        if (!ObjBaseTest::get_Instance().isUserInfoEmpty())
+        {
+            ObjBaseTest::get_Instance().getUserInfo(stUserInfo);
+            cout &lt;&lt; "stUserInfo.userid = " &lt;&lt; stUserInfo.m_nUserId
+                &lt;&lt; " stUserInfo.userPhoneid = " &lt;&lt; stUserInfo.m_nUserPhoneId
+                &lt;&lt; " stUserInfo.username = " &lt;&lt; stUserInfo.m_strUserName &lt;&lt; endl;
+        }
+    }
+
+private:
+    std::thread* workThread;             // 工作线程
+    std::mutex workMutex;                // 工作线程锁
+    bool isworkThreadFlag;               // 工作线程关闭标识
+};
+
+void test_CS()
+{
+    Server_Client::get_instance().work();
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    Server_Client::get_instance().closeThread();
+}
+
+int main()
+{
+    test_CS();
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="std-lock-guardstd-recursive-mutex"><a href="#std-lock-guardstd-recursive-mutex" class="headerlink" title="std::lock_guardstd::recursive_mutex"></a>std::lock_guard<a href="std::recursive_mutex" target="_blank" rel="noopener">std::recursive_mutex</a></h2><p>加锁的操作需要相互嵌套，如果使用std::mutex 肯定会导致死锁，而重构代码，提取出共用部分的工作量又很大。<br>这个时候我发现了好东西 std::recursive_mutex 递归锁<br>递归锁可以允许一个线程对同一互斥量多次加锁，解锁时，需要调用与lock()相同次数的unlock()才能释放使用权<br>这边再介绍一个好东西：<br>std::lock_guard<a href="std::recursive_mutex" target="_blank" rel="noopener">std::recursive_mutex</a><br>std::lock_guard在构造函数中加锁，在析构函数中解锁，利用这个类可以减少我们对加锁可解锁操作的管理工作，专注于逻辑实现。</p>
+<h2 id="c-线程任务队列"><a href="#c-线程任务队列" class="headerlink" title="c++线程任务队列"></a>c++线程任务队列</h2><p>任务队列有点像windows的消息循环，有任务被压进队列就执行任务，否者就一直等待任务的到来。这样做的好处是外部程序不需要关心队列线程中的同步，只需要将任务压进队列即可，非常的方便。比如现在有一个下载任务要做，没有线程队列的情况下要自己创建线程，编写线程回调，在线程中下载并写文件落盘，必要的时候还要通知界面下载进度，下载完成后还要将线程销毁，有一系列的细节要处理。有了任务队列后只需要编写下载任务，然后将其压到队列中去等待执行即可，这样就屏蔽了线程相关的细节，让重点落在任务的本身。当然也会有缺点，比如任务队列繁忙的时候就要等待其他任务执行完成；比如想要多个任务并行就要创建多个任务队列等。  </p>
+<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>任务是任务队列的执行单位，一个任务应该有任务的开始入口点，这些入口点应该都一致，否者对于不同的任务任务队列就不好统一处理；任务还应该有一个停止入口，用来防止想要停止正在执行的任务。那么对于这个任务的简单抽象可以是这样的  </p>
+<pre class="line-numbers language-html"><code class="language-html">class ITask
+{
+public:
+    virtual ~ITask()
+    {
+
+    }
+
+    /** 执行任务
+    */
+    virtual void DoTask() = 0;
+
+    /** 停止任务
+    */
+    virtual void Stop() = 0;
+};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用者只要继承该接口，实现他的DoTask()和Stop()即可，如果需要参数的可以放到成员变量中去。有的时候我们希望在任务执行的过程中可以给外部一些反馈，比如下载任务通知外部下载的进度等，我们可以这样来定义任务：  </p>
+<pre class="line-numbers language-html"><code class="language-html">
+class DownTask :
+    public ITask
+{
+public:
+    DownTask(const std::function<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>void(int,int)</span><span class="token punctuation">></span></span>&amp; callback) :
+        m_callback(callback)
+    {
+
+    }
+
+    virtual ~DownTask()
+    {
+
+    }
+
+    /** 执行任务
+    */
+    virtual void DoTask()
+    {
+        // 下载的代码，可以调用CallBack来通知外界进度
+    }
+
+    /** 停止任务
+    */
+    virtual void Stop() 
+    {
+        // 如果需要的可以实现这个接口，一般是定义一个标记量flag，DoTask每次循环判断
+        // 标记，如果为假就停止
+    }
+
+
+    void CallBack(int all, int cur)
+    {
+        if (m_callback != NULL)
+        {
+            m_callback(all, cur);
+        }
+    }
+
+protected:
+    /** 回调
+    */
+    std::function<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>void(int,</span> <span class="token attr-name">int)</span><span class="token punctuation">></span></span> m_callback;
+};  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要注意的是，回调函数是在线程中执行的，访问全局资源是有同步问题的，所以一般来说最好不要在回调中访问需要同步的全局资源，或者直接在回调中封装一个任务压到另外一个队列中去，比如下载进程中可以在回调中发消息到主界面（主界面的消息循环实际上也相当与一个任务队列），对于下载进程来说可以将窗口的句柄直接给任务对象，就不需要callback了，需要说明的是这样做并不是很好，因为我们并不知道这个句柄是否还有效，它有可能已经失效了变成一个野指针（给一个无效但是不为空的句柄发消息是一个未定义行为，可以使用week_ptr来确保指针的有效，但是本文并不讨论）  </p>
+<h3 id="线程队列"><a href="#线程队列" class="headerlink" title="线程队列"></a>线程队列</h3><p>创建一个类，里面维护一个线程和一个队列，在线程的回调函数中不停的循环检测队列中是否有有效的任务，如果有就执行，没有就等待。  </p>
+<pre class="line-numbers language-html"><code class="language-html">
+class SimpleTaskQueue :
+    public NonCopyable
+{
+public:
+    /** 构造函数
+    */
+    SimpleTaskQueue();
+
+    /** 析构函数
+    */
+    ~SimpleTaskQueue();
+
+public:
+    /** 开始循环
+    @return 是否成功
+    */
+    bool Start()
+    {
+        m_pThread = new (std::nothrow) std::thread(&amp;SimpleTaskQueue::ThreadCallBack, this);
+        return (m_pThread != NULL);
+    }
+
+
+public:
+    /** 线程回调
+    */
+    virtual void ThreadCallBack()
+    {
+        while (1)
+        {
+            if (m_taskQue.size() > 0)
+            {
+                auto task = m_taskQue.front();
+                m_taskQue.pop();
+                task->DoTask();
+            }
+        }
+    }
+
+private:
+    /** 线程
+    */
+    std::thread* m_pThread;
+
+    /** 任务队列
+    */
+    std::queue&lt;std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> > m_taskQue;
+};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>有了循环后还需要将任务压进队列里的接口，在定义接口之前还要考虑一个问题，线程中一直不停的取队列，另外一个线程中向队列里压任务，那么就需要同步，将循环改成：  </p>
+<pre class="line-numbers language-html"><code class="language-html">    /** 线程回调
+    */
+    virtual void ThreadCallBack()
+    {
+        while (1)
+        {
+            std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> spTask = NULL;
+            // 取出队首
+            {
+                std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+
+                if (m_taskQue.empty())
+                {
+                    continue;
+                }
+
+                spTask = m_taskQue.front();
+                m_taskQue.pop();
+
+                if (spTask == nullptr)
+                {
+                    continue;
+                }
+            }
+
+            spTask->DoTask();
+
+        }
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要注意的是DoTask一定不能放到花括号内被mutex保护。压任务的代码：  </p>
+<pre class="line-numbers language-html"><code class="language-html">void PushTask(const std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span>&amp; task)
+{
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+    m_taskQue.push(task);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>好了简单任务队列就完成了。  </p>
+<h3 id="任务队列的润色"><a href="#任务队列的润色" class="headerlink" title="任务队列的润色"></a>任务队列的润色</h3><p>上述代码其实并没有什么用，有两个问题：  </p>
+<ol>
+<li>没有停止循环的接口，也没有停止当前任务的接口；这个问题很好解决，想要停止循环只要加上一个flag即可，想要停止当前任务只要将当前执行的任务记录下来，需要停止的时候调用任务的stop即可。解决如下  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">class SimpleTaskQueue :
+    public NonCopyable
+{
+public:
+    /** 构造函数
+    */
+    SimpleTaskQueue():m_stop(false),m_pThread(nullptr){};
+
+    /** 析构函数
+    */
+    ~SimpleTaskQueue()
+    {
+        if (m_pThread != nullptr)
+        {
+            StopAll();
+            m_pThread->join();
+            delete m_pThread;
+            m_pThread = nullptr;
+        }
+    };
+
+public:
+    /** 开始循环
+    @return 是否成功
+    */
+    bool Start()
+    {
+        m_pThread = new (std::nothrow) std::thread(&amp;SimpleTaskQueue::ThreadCallBack, this);
+        return (m_pThread != NULL);
+    }
+
+    void StopAll()
+    {
+        std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+        ClearAll();
+        m_stop = true;
+    }
+
+    void StopCurrent()
+    {
+        std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+
+        if (m_currentTask != nullptr)
+        {
+            m_currentTask->Stop();
+        }
+    }
+
+    void ClearAll()
+    {
+        std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+        StopCurrent();
+        ClearQueue();
+    }
+
+    void ClearQueue()
+    {
+        std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+        std::queue&lt;std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> > tmp = std::queue&lt;std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> >();
+        m_taskQue.swap(tmp);
+    }
+
+    void PushTask(const std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span>&amp; task)
+    {
+        std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+        m_taskQue.push(task);
+    }
+
+public:
+    /** 线程回调
+    */
+    virtual void ThreadCallBack()
+    {
+        while (1)
+        {
+
+            {
+                std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+
+                if (m_stop)
+                {
+                    break;
+                }
+            }
+
+            // 取出队首
+            {
+                std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+
+                if (m_taskQue.empty())
+                {
+                    ::Sleep(0);
+                    continue;
+                }
+
+                m_currentTask = m_taskQue.front();
+                m_taskQue.pop();
+
+                if (m_currentTask == nullptr)
+                {
+                    ::Sleep(0);
+                    continue;
+                }
+            }
+
+            m_currentTask->DoTask();
+
+
+            // 准备销毁
+            std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> tmp = m_currentTask;
+
+            {
+                std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+                m_currentTask = nullptr;
+            }
+
+        }
+    }
+
+private:
+
+    /** 互斥量
+    */
+    std::recursive_mutex m_mutex;
+
+    /** 线程
+    */
+    std::thread* m_pThread;
+
+    /** 任务队列
+    */
+    std::queue&lt;std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> > m_taskQue;
+
+    /** 是否停止了
+    */
+    bool m_stop;
+
+    /** 当前正在执行的
+    */
+    std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> m_currentTask;
+};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要注意的是：  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 准备销毁
+std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> tmp = m_currentTask;
+
+{
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+    m_currentTask = nullptr;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>智能指针的置空也需要加锁，如果没有std::shared_ptr<itask> tmp = m_currentTask;会导致内存泄露  </itask></p>
+<ol start="2">
+<li>没有任务的时候循环一直空转，占用了大量的cup。这个问题有两个解决方案  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">a:循环时没有任务时候加上Sleep(0)释放cpu的使用权。（这个方法简单却不是很好，但是可以衍生出另外一种方法  
+
+b:使用事件event，没有任务的时候等待任务，有任务的时候执行，很像生产者消费者模型，只不过只有一个消费者而已。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="事件event"><a href="#事件event" class="headerlink" title="事件event"></a>事件event</h3><p>windows中有现成的事件，但是C11没有，上文有说过event有点像生产者消费者模型，C11中的条件变量也很想生产者消费者，所以可以自己实现一个简单事件：  </p>
+<pre class="line-numbers language-html"><code class="language-html">/** 简单事件
+@note 不提供析构函数，如果当该类析构的时候，但是还处于Wait() 状态，很不幸的告诉你发生未定义行为
+*/
+class SimpleEvent :
+    public NonCopyable
+{
+public:
+    /** 等待一个信号
+    */
+    void Wait()
+    {
+        std::unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:mutex</span><span class="token punctuation">></span></span> lck(m_mutex);
+
+        if (!m_hasSignal)
+        {
+            // 不会死锁，考虑：
+            // 1、m_mutex.unlock();
+            // 2、wait()
+            // 3、m_mutex.lock();
+            // wait(lck) 相当于将1、2两步放到一个cpu周期内
+            m_con.wait(lck);
+        }
+
+        m_hasSignal = false;
+    }
+
+    /** 设置一个信号
+    */
+    void SetEvent()
+    {
+        std::unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:mutex</span><span class="token punctuation">></span></span> lck(m_mutex);
+        m_hasSignal = true;
+        m_con.notify_all();
+    }
+
+private:
+    /** 互斥量
+    */
+    std::mutex m_mutex;
+
+    /** condition_variable
+    */
+    std::condition_variable m_con;
+
+    /** 是否有信号，只是记录是否有信号，但是不记录信号次数
+    @note 主要是为了先调用SetEvent()，然后调用wait的情况。考虑在Wait()前加上::Sleep(1000);
+    */
+    bool m_hasSignal = false;
+};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>将m_hasSignal 改为int计数将会是一个好用的事件，但是对于任务队列来说，会让队列空转,所以这里使用bool类型标记一下即可。加入event后的代码：</p>
+<pre class="line-numbers language-html"><code class="language-html">/** 前置声明，简单事件，只SimpleTaskQueue用
+*/
+class SimpleEvent;
+
+/** 简单线程任务模型
+@note 有点像生产者消费者模型，只是消费者只有一个
+*/
+class SimpleTaskQueue :
+    public NonCopyable
+{
+public:
+    /** 构造函数
+    */
+    SimpleTaskQueue();
+
+    /** 析构函数
+    */
+    ~SimpleTaskQueue();
+
+public:
+    /** 开始循环
+    @return 是否成功
+    */
+    bool Start();
+
+    /** 停止所有任务
+    */
+    void StopAll();
+
+    /** 停止当前的任务
+    */
+    void StopCurrent();
+
+    /** 清空所有任务包括当前的，但不停止循环
+    */
+    void ClearAll();
+
+    /** 清空所有任务不包括当前的，但不停止循环
+    */
+    void ClearQueue();
+
+    /** 添加一个任务
+    @param [in] task 任务
+    */
+    void PushTask(const std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span>&amp; task);
+
+    /** 添加一个函数任务
+    @param [in] task 任务
+    */
+    void PushTask(const std::function<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>void()</span><span class="token punctuation">></span></span>&amp; task);
+
+public:
+    /** 线程回调
+    */
+    virtual void ThreadCallBack();
+
+private:
+    /** 线程
+    */
+    std::thread* m_pThread;
+
+    /** 互斥量
+    */
+    std::recursive_mutex m_mutex;
+
+    /** 线程事件
+    */
+    std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>SimpleEvent</span><span class="token punctuation">></span></span> m_spEvent;
+
+    /** 任务队列
+    */
+    std::queue&lt;std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> > m_taskQue;
+
+    /** 是否停止了
+    */
+    bool m_stop;
+
+    /** 当前正在执行的
+    */
+    std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> m_currentTask;
+};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>简单事件完整代码  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include "SimpleTaskQueue.h"
+
+/** 简单事件
+@note 不提供析构函数，如果当该类析构的时候，但是还处于Wait() 状态，很不幸的告诉你发生未定义行为
+*/
+class SimpleEvent :
+    public NonCopyable
+{
+public:
+    /** 等待一个信号
+    */
+    void Wait()
+    {
+        std::unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:mutex</span><span class="token punctuation">></span></span> lck(m_mutex);
+
+        if (!m_hasSignal)
+        {
+            // 不会死锁，考虑：
+            // 1、m_mutex.unlock();
+            // 2、wait()
+            // 3、m_mutex.lock();
+            // wait(lck) 相当于将1、2两步放到一个cpu周期内
+            m_con.wait(lck);
+        }
+
+        m_hasSignal = false;
+    }
+
+    /** 设置一个信号
+    */
+    void SetEvent()
+    {
+        std::unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:mutex</span><span class="token punctuation">></span></span> lck(m_mutex);
+        m_hasSignal = true;
+        m_con.notify_all();
+    }
+
+private:
+    /** 互斥量
+    */
+    std::mutex m_mutex;
+
+    /** condition_variable
+    */
+    std::condition_variable m_con;
+
+    /** 是否有信号，只是记录是否有信号，但是不记录信号次数
+    @note 主要是为了先调用SetEvent()，然后调用wait的情况。考虑在Wait()前加上::Sleep(1000);
+    */
+    bool m_hasSignal = false;
+};
+
+SimpleTaskQueue::SimpleTaskQueue() :
+    m_stop(false),
+    m_pThread(nullptr)
+{
+}
+
+SimpleTaskQueue::~SimpleTaskQueue()
+{
+    if (m_pThread != nullptr)
+    {
+        StopAll();
+        m_pThread->join();
+        delete m_pThread;
+        m_pThread = nullptr;
+    }
+}
+
+bool SimpleTaskQueue::Start()
+{
+    m_spEvent.reset(new(std::nothrow) SimpleEvent());
+    m_pThread = new (std::nothrow) std::thread(&amp;SimpleTaskQueue::ThreadCallBack, this);
+    return (m_pThread != NULL) &amp; (m_spEvent != NULL);
+}
+
+void SimpleTaskQueue::StopAll()
+{
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+    ClearAll();
+    m_stop = true;
+    m_spEvent->SetEvent();
+}
+
+void SimpleTaskQueue::StopCurrent()
+{
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+
+    if (m_currentTask != nullptr)
+    {
+        m_currentTask->Stop();
+    }
+}
+
+void SimpleTaskQueue::ClearAll()
+{
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+    StopCurrent();
+    ClearQueue();
+}
+
+void SimpleTaskQueue::ClearQueue()
+{
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+    std::queue&lt;std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> > tmp = std::queue&lt;std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> >();
+    m_taskQue.swap(tmp);
+}
+
+void SimpleTaskQueue::PushTask(const std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span>&amp; task)
+{
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+    m_taskQue.push(task);
+    m_spEvent->SetEvent();
+}
+
+void SimpleTaskQueue::PushTask(const std::function<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>void()</span><span class="token punctuation">></span></span>&amp; task)
+{
+    PushTask(std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span>(new SimpleFunTask(task)));
+}
+
+void SimpleTaskQueue::ThreadCallBack()
+{
+    while (true)
+    {
+        {
+            std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+
+            if (m_stop)
+            {
+                break;
+            }
+        }
+
+        m_spEvent->Wait();
+
+        // 将队列里的全部执行掉
+        while (true)
+        {
+            // 取出队首
+            {
+                std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+
+                if (m_taskQue.empty())
+                {
+                    break;
+                }
+
+                m_currentTask = m_taskQue.front();
+                m_taskQue.pop();
+
+                if (m_currentTask == nullptr)
+                {
+                    continue;
+                }
+            }
+
+            // 执行任务
+            m_currentTask->DoTask();
+
+            // 准备销毁
+            std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ITask</span><span class="token punctuation">></span></span> tmp = m_currentTask;
+
+            {
+                std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(m_mutex);
+                m_currentTask = nullptr;
+            }
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用示例代码"><a href="#使用示例代码" class="headerlink" title="使用示例代码"></a>使用示例代码</h3><pre class="line-numbers language-html"><code class="language-html">    void Test_taskQue1()
+    {
+        SimpleTaskQueue simpleTaskQue;
+        simpleTaskQue.Start();
+
+        bool ret = false;
+        int t1 = 0;
+        int t2 = 0;
+
+        simpleTaskQue.PushTask([&amp;]()
+        {
+            t1 = 1;
+            t2 = 2;
+            ret = true;
+        });
+
+        while (true)
+        {
+            ::Sleep(1);
+        }
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/02/06/diary-20230206-1/" class="b-link-green">qt一月份小结复盘</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/02/09/diary-20230209-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/27.jpg" class="responsive-img" alt="学习C++笔记">
+                        
+                        <span class="card-title">学习C++笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            第一章打印全局变量  
+#include &lt;iostream>
+int g_var=1;
+int main(int argc, char *argv[])
+{
+    printf("g_var= %d \n",g_var);
+   
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-02-09
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/c/" target="_blank">
+                        <span class="chip bg-color">c++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/01/28/diary-20230128-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/0.jpg" class="responsive-img" alt="高质量C和C++编程指南">
+                        
+                        <span class="card-title">高质量C和C++编程指南</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            文件结构每个c++/c程序通常分为两个文件，一个用于保存程序的声明(declaration)，称为头文件。另一个文件用于保存程序的实现(implementation)，称为定义文件(definition)。c++/c的头文件以”.h”后缀，
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-01-28
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/C-C/" target="_blank">
+                        <span class="chip bg-color">C/C++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

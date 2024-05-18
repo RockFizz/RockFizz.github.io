@@ -1,0 +1,1781 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="UE4备忘(六), 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="UE4修改C盘的缓存路径用记事本打开：引擎版本\Engine\Config\BaseEngine.ini  
+将  
+
+Local=(Type=FileSystem, ReadOnly=false,Clean=false, Flush=fa">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>UE4备忘(六) | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/15.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        UE4备忘(六)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/UE4/" target="_blank">
+                                <span class="chip bg-color">UE4</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-06-10
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        6.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        26 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="UE4修改C盘的缓存路径"><a href="#UE4修改C盘的缓存路径" class="headerlink" title="UE4修改C盘的缓存路径"></a>UE4修改C盘的缓存路径</h2><p>用记事本打开：引擎版本\Engine\Config\BaseEngine.ini  </p>
+<pre><code>将  
+
+Local=(Type=FileSystem, ReadOnly=false,Clean=false, Flush=false, PurgeTransient=true, DeleteUnused=true,UnusedFileAge=34, FoldersToClean=-1, Path="%ENGINEVERSIONAGNOSTICUSERDIR%DerivedDataCache")  
+
+替换为  
+
+Local=(Type=FileSystem, ReadOnly=false,Clean=false, Flush=false, PurgeTransient=true, DeleteUnused=true,UnusedFileAge=34, FoldersToClean=-1,Path="%GAMEDIR%DerivedDataCache")  
+
+搜索 %ENGINEVERSIONAGNOSTICUSERDIR%DerivedDataCache 查找  </code></pre><p>保存文档。这样子修改好之后重新打开项目缓存路径将会生成在你的项目文件夹内  </p>
+<p>删除联机构建SwarmAgent程序的缓存：<br>打开 UE_4.xx\Engine\Binaries\DotNET\SwarmAgent.exe<br>修改缓存路径：  如 E:\Engine\Binaries\DotNET/SwarmCache<br>然后删除C:\Users\Administrator\AppData\Local\UnrealEngine  下所有文件  </p>
+<h2 id="动态更换材质球"><a href="#动态更换材质球" class="headerlink" title="动态更换材质球"></a>动态更换材质球</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dongtaigenghuancaizhiqiu.JPG" alt="动态更换材质球"></p>
+<h2 id="Sequencer编辑"><a href="#Sequencer编辑" class="headerlink" title="Sequencer编辑"></a>Sequencer编辑</h2><p>Sequencer编辑器时虚幻引擎4内置的动画编辑工具。Sequencer使用各种专用的轨迹工具来定义你的场景组成。在Sequencer中添加一些骨架网格体轨迹，然后添加动画轨迹来驱动这些骨架网格体，再加入摄像机轨迹和摄像机剪辑轨迹以提供视角，并在多个摄像机间切换。这样，您就有了设置一个动画序列所需的全部基础。  </p>
+<p>Sequencer编辑器使用户能够用专业的多轨迹编辑器（类似于Matinee）创建游戏内过场动画。通过创建关卡序列（LevelSequences）和添加轨迹（Tracks），用户可以定义各个轨迹的组成，这样将确定场景的内容。轨迹可以包含动画（Animation）（用于将角色动画化）、变形（Transformation）（在场景中移动各个东西）、音频（Audio）（用于包括音乐或音效）和数个其他轨迹（Track）类型等。  </p>
+<h3 id="创建关卡序列"><a href="#创建关卡序列" class="headerlink" title="创建关卡序列"></a>创建关卡序列</h3><p>关卡序列（LevelSequence）是你的过场动画场景的”容器”。必须创建关卡序列才能在序列编辑器（SequencerEditor）内开始工作，通过过场动画（Cinematics）下的工具栏（Toolbar）创建关卡序列（LevelSequence）。  </p>
+<p>通过窗口（Window）菜单访问过场动画和Sequencer。  </p>
+<p>创建关卡序列后，可以选择它，并且可以在详细信息（Details）面板中操纵它的属性。在详细信息（Details）面板中，你可以定义关卡序列（LevelSequence）是否将在关卡（Level）开始时自动播放，序列（Sequence）是否应循环，序列的播放速率（PlayRateForTheSequence）和其他设置。  </p>
+<p>与Matinee(一个UE4自带控制物体状态的可视化编辑器)不同，关卡序列（LevelSequence）是自包含资源，你可以将一个关卡序列（LevelSequence）嵌入到另一个关卡序列（LevelSequence）中。例如，你可以创建具有动画角色和摄像机的关卡序列（LevelSequence）作为一个场景，而该场景是更大的过场动画序列的一部分。  </p>
+<p>单击新增（AddNew）按钮，并从动画（Animation）菜单中选择关卡序列（LevelSequence），便可在内容浏览器（ContentBrowser）中执行另一种创建关卡序列（LevelSequence）的方法。在执行此操作时，你将先创建关卡序列（LevelSequence）资源，然后再将其放置到关卡（Level）中。  </p>
+<h3 id="向Sequencer添加轨迹"><a href="#向Sequencer添加轨迹" class="headerlink" title="向Sequencer添加轨迹"></a>向Sequencer添加轨迹</h3><p>创建关卡序列（Level Sequence）后，双击它以打开 Sequencer编辑器（Sequencer Editor），这样你便可以开始创建你的过场动画。  </p>
+<p>你要做的第一件事是添加一个 轨迹（Track） 类型，可以从 轨迹（Track）加号按钮的下拉菜单执行此操作。</p>
+<p>从下拉菜单中，你将看到数个可选的轨迹（Track）类型，并可添加Actor至Sequencer（ActorToSequencer）。Actor至Sequencer（ActorToSequencer）选项将允许你将已在关卡（当时）中选定的任何Actor添加到Sequencer，以便你在场景运行期间操纵它们。  </p>
+<p>通常，如果你在创建包含了角色、动物、生物或沿着这些会动画化并移动之线条的任何东西的过场动画，则你将获得一个相关的骨架网格体，并需要将其添加到Sequencer。例如，我们有一个放在关卡（Level）中的熊的骨架网格体（Skeletal Mesh）。选择这头熊后，我们可以单击Sequencer中的 轨迹（Track） 按钮，并选择 Actor至Sequencer（Actor To Sequencer），以便我们在Sequencer编辑器（Sequencer Editor）中添加并控制它。  </p>
+<p>一旦添加了骨架网格体（Skeletal Mesh），我们就可以添加 子轨迹（Sub-tracks） 以影响该骨架网格体（Skeletal Mesh）。  </p>
+<p>根据你创建的轨迹（Track）类型，可以添加子轨迹（Sub-Track），并且可以使用添加子轨迹（Sub-Track）的功能。  </p>
+<p>比如，我们选择动画子轨迹（Animation Sub-Track），并分配一个为骨架网格体熊（Skeletal Mesh Bear）播放的动画。  </p>
+<p>要保持轨迹在关卡序列（LevelSequence）中的条理性，可以按照需要使用文件夹（Folders）来对它们进行分类和排列。选择一个文件夹（Folder）并添加一个新轨迹（Track）时，该轨迹将自动被放置在选定的文件夹中。  </p>
+<p>还可以通过在轨迹（Tracks）列表中拖放轨迹来安排和重新安排轨迹。  </p>
+<p>另一个有助于保持轨迹条理的方式将一条轨迹固定在Sequencer界面树的顶端。被固定的轨迹不会其他轨迹一样滚动，有助于在其他轨迹中查看特定轨迹。 要固定轨迹，可右键点击它并勾选 固定（Pinned）。  </p>
+<p>你也可以将一条轨迹的分段分到一个组，这样移动任何一个分段，组内的所有分段都会一同移动。要给轨迹分组，可右键轨迹并选择 分组（Group）.  </p>
+<p>你还可以从右键单击情境菜单中复制（Copy）、粘贴（Paste）或复制Sequencer内的轨迹（Duplicate Tracks within Sequencer）及其所有子轨迹。如果在序列中使用类似的Actor，这个快捷方式可以节省时间，因为你可以根据需要复制/粘贴或复制Actor并更改新Actor上的属性  </p>
+<p>通过情境菜单复制对象时，你可以将它们复制到相同的关卡序列（LevelSequence）或全新的关卡序列（LevelSequence）。可生成对象将在新的关卡序列（LevelSequence）中创建，而可拥有（Possessable）对象将只拥有复制数据。你还可以复制UMG中的动画轨迹。  </p>
+<p>你也可以一次性编辑多个轨迹。要这么做，只需要选中轨迹，并右键点击其中一条高亮显示的轨迹，打开选项菜单即可。  </p>
+<p>将Actor添加到关卡序列（Level Sequence）时，世界场景大纲视图将更新以显示将绑定Actor的关卡序列（Level Sequence）。  </p>
+<p>World Outliner（世界场景大纲视图）还将指出哪些Actor已经由以橙色闪电图标指示的Sequencer生成。  </p>
+<h3 id="获取场景的关键帧"><a href="#获取场景的关键帧" class="headerlink" title="获取场景的关键帧"></a>获取场景的关键帧</h3><p>Sequencer允许你通过添加键（Keys）（称为”关键帧”）来操作内容，并在时间轴上所需的点上定义属性。当到达时间轴中的这些键（Key）时，你在每个关键帧上定义的属性将被更新，以反映你输入的值。  </p>
+<p>你可通过以下方式添加关键帧：选择轨迹并按下 Enter，或单击各个轨迹上的 添加关键帧（Add Keyframe） 按钮。  </p>
+<p>通过单击各个属性旁的 添加关键帧（Add Keyframe） 按钮，可以直接为Actor的 详细信息（Details） 面板中的一些属性添加关键帧。  </p>
+<p>属性编辑器（Property Editor）还具有过滤器，用于 仅显示可键控属性（Show Only Keyable Properties）（仅显示可键控到关卡序列的属性）或 仅显示动画属性（Show Only Animated Properties）（即已用键动画化的轨迹）。  </p>
+<p>选择一个关键帧（或多个键或部分）时，可使用 变形键/分段（Transform Keys/Sections） 工具重新定位或重新调整你的选择。  </p>
+<p>还可按下Ctrl+M组合键来打开变形键/分段（TransformKeys/Sections）工具。这将使你能够将键/选择偏移指定幅度，或将键/分段的缩放量偏移指定时间。  </p>
+<p>可以添加或减少某个资源的变形键之间的帧，只要它们没有互相重叠的轨迹。 前往 选择/编辑选项（Select/Edit Options），选择拉伸/压缩（Stretch/Shrink）。进入想要添加（拉伸）&gt; 或减少（压缩）&lt;的帧增量，并使用箭头来修改你指定的增量数量中的帧数。要关闭工具栏，只需要将鼠标悬停在工具栏右边并点击的 X 图标即可  </p>
+<h3 id="Sequencer编辑选项"><a href="#Sequencer编辑选项" class="headerlink" title="Sequencer编辑选项"></a>Sequencer编辑选项</h3><p>当打开一个关卡序列（Level Sequence）时，你可以使用三个编辑选项来定义如何用Sequencer编辑器处理属性值  </p>
+<blockquote>
+<p>允许任何编辑（Allow Any Edits） - 允许执行任何编辑，其中有些编辑可能会产生轨迹/键或修改默认属性。<br>仅允许Sequencer编辑（Allow Sequencer Edits Only） - 任何对属性的编辑都将自动创建一个轨迹（如果不存在）和/或一个关键帧。这些更改将被隔离到你正在处理的特定镜头中，不会泄漏到其他镜头中。<br>仅允许关卡编辑（Allow Level Edits Only） - 使用此选项时，你将可直接编辑默认属性对象。当你想要执行会影响所有镜头的全局更改时，详细信息（Details）面板中将禁用已在Sequencer中具有轨迹的属性。  </p>
+</blockquote>
+<h3 id="播放范围"><a href="#播放范围" class="headerlink" title="播放范围"></a>播放范围</h3><p>Sequencer将根据已定义的Start（开始）和Stop（停止）播放范围（下方的绿色/红色标记）播放你的场景。  </p>
+<p>可以拖动 开始（Start） 和 停止播放（Stop Playback） 标记以匹配你的内容，或可以使用选项来将你的内容保持在这些范围内。你可以在 Sequencer选项（Sequencer Options） 下拉菜单下找到此选项，名为 将播放范围保持在分段边界内（Keep Playback Range In Section Bounds）。  </p>
+<p>使用镜头轨迹并查看主关卡（Master Level）（以及镜头关卡（Shot Level））中的序列（Sequence）时，我们求整个序列在其相对时间的值。在下图中，我们用两个红色标记表示播放范围的结束，其中第一个标记表示镜头的结束（从镜头关卡（Shot Level）），而第二个标记则表示主序列（Master Sequence）的结束。在此例中，我们的<code>Shot0020_001</code>设置为使用50个帧，但我们已在主关卡（Master Level）上将其设置为使用100个帧。  </p>
+<h2 id="UI设计器UMG"><a href="#UI设计器UMG" class="headerlink" title="UI设计器UMG"></a>UI设计器UMG</h2><p>虚幻4图形界面设计器UMG（UnrealMotionGraphicsUIDesigner）是一个可视化的UI创作工具，可以用来创建UI元素，如游戏中的HUD、菜单或您希望呈现给用户的其他界面相关图形。UMG的核心是控件，这些控件是一系列预先制作的函数，可用于构建界面（如按钮、复选框、滑块、进度条等）。这些控件在专门的控件蓝图中编辑，该蓝图使用两个选项卡进行构造：设计器（Designer）选项卡允许界面和基本函数的可视化布局，而图表（Graph）选项卡提供所使用控件背后的功能。  </p>
+<blockquote>
+<p>单击内容浏览器（Content Browser）中的新增（Add New）按钮:在用户界面（User Interface）下选择控件蓝图（Widget Blueprint）并将其命名为HUD。<br>双击控件蓝图进行UI元素的创建及布局，并为这些UI元素提供脚本化功能。<br>添加一个Create Widget节点，并将类（Class）设置为想要显示的控件蓝图。<br>拖出CreateWidget节点返回值，选择提升到变量，并命名为hub引用起个名字。(创建我们的HUD控件蓝图，并将其存储为一个变量，以便稍后访问。这对于以后调用函数或设置HUD的属性很有用，例如，如果您想在游戏暂停时隐藏HUD，可以通过该变量访问HUD。)<br>拖出Set节点的输出引脚，并添加Add to Viewport节点。（把指定为目标的控件蓝图添加到玩家视口中，并将其绘制在屏幕上）<br>Remove from Parent节点将从视口中移除目标控件蓝图。<br>Set Visibility节点设置控件蓝图可见与不可见。</p>
+</blockquote>
+<p>blueprint基本操作:  </p>
+<blockquote>
+<p>选定要注释的蓝图，快捷键c添加注释<br>选中要删除的蓝图连接线，点击ALT+鼠标左键，即可删除<br>选中要删除的蓝图节点，按delete键，即可删除  </p>
+</blockquote>
+<h2 id="像素流输送预览"><a href="#像素流输送预览" class="headerlink" title="像素流输送预览"></a>像素流输送预览</h2><p>无论是针对电脑平台、移动操作系统或主机进行开发，使用者均会在一台设备上运行虚幻引擎应用程序。此设备既负责运行gameplay逻辑，又负责将游戏世界渲染到屏幕上。多人联网游戏可能会将gameplay逻辑的部分分布在应用程序的多个实例中，但每个个体实例仍然负责渲染其自身玩家的游戏世界。使用HTML5部署选项来创建一个可在网页浏览器中运行的项目版本时，游戏逻辑和渲染仍在每个使用者的网页浏览器中本地发生。  </p>
+<p>利用像素流送可以在用户不可见的电脑上远程运行虚幻引擎应用程序。举例而言，这台电脑可以是机构中的一台实体电脑，也可以是云端服务提供的虚拟机。虚幻引擎将使用该电脑可用的资源（CPU、GPU、内存等）来运行游戏逻辑并渲染每一帧。它会不断将此渲染输出编码到一个媒体流送中，再通过一个轻量级的网页服务堆栈进行传递。用户即可在其他电脑和移动设备上运行的标准网页浏览器中查看直播流送。  </p>
+<h2 id="官方商城下载插件保存的位置"><a href="#官方商城下载插件保存的位置" class="headerlink" title="官方商城下载插件保存的位置"></a>官方商城下载插件保存的位置</h2><pre><code>Epic Games\UE_4.26\Engine\Plugins\Marketplace\  </code></pre><p>有时间网速不行，从已经下载的机上上拷贝到新位置上也可以使用插件，不同版本ue编辑的插件版本也不同，不通用。  </p>
+<h2 id="UE4渲染出视频"><a href="#UE4渲染出视频" class="headerlink" title="UE4渲染出视频"></a>UE4渲染出视频</h2><ol>
+<li>主工具栏点击Cinematics（电影板按钮），选择”add level sequence”。  </li>
+<li>保存序列器(Sequencer)，在Sequencer编辑器里点击摄影机按钮添加Cine Camera Actor。  </li>
+<li>在查看窗口里，选中刚才创建的摄影机CineCameraActor，隔段时间改变一下位置状态，并按S键添加关键帧。  </li>
+<li>在Sequencer编辑器里点击摄影机按钮旁边的电影板按钮，设置输出视频或序列帧的参数即可输出。  </li>
+</ol>
+<h2 id="C-与蓝图"><a href="#C-与蓝图" class="headerlink" title="C++与蓝图"></a>C++与蓝图</h2><p>UE4提供了两种创建新Gameplay元素的方法：C++和蓝图视觉脚本。程序员利用C++即可添加基础Gameplay系统，然后设计师可基于这些系统进行构建或利用这些系统为某个特定关卡或游戏本身创建自定义Gameplay。  </p>
+<p>GameplayAPI和框架类在这两个系统中都可以使用，可以单独使用，但组合使用，互补长短才能发挥出它们真正的作用。那么到底有何意义呢？这意味着，当程序员使用C++来创建Gameplay构建块，设计师利用这些块创建有趣的Gameplay时，引擎就能发挥最大作用。  </p>
+<p>程序员为设计师创建构建块的典型工作流程:创建一个类，稍后设计师或程序员可以通过蓝图扩展此类。在该类中，将创建一些设计师可以设置的属性，并且根据这些属性派生新值。  </p>
+<p>Unity每次写完C#代码保存就能运行，而UE4只能每次写完代码手动再编译和重启一次才能使用。  </p>
+<p>举例，使用类向导工具创建一个父类为Actor的类。如下  </p>
+<pre><code>// MyCubeActor.h
+// Fill out your copyright notice in the Description page of Project Settings.
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "MyCubeActor.generated.h"
+
+UCLASS()
+class MYCPP_API AMyCubeActor : public AActor
+{
+    GENERATED_BODY()
+
+public:    
+    // Sets default values for this actor's properties
+    AMyCubeActor();
+
+protected:
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
+
+public:    
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+
+};
+</code></pre><pre><code>// MyCubeActor.cpp  
+
+// Fill out your copyright notice in the Description page of Project Settings.
+#include "MyCubeActor.h"
+
+// Sets default values
+AMyCubeActor::AMyCubeActor()
+{
+     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = true;
+
+}
+
+// Called when the game starts or when spawned
+void AMyCubeActor::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// Called every frame
+void AMyCubeActor::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+}
+
+</code></pre><p>在c++里通过宏，暴露属性和函数给蓝图使用：(宏操作改变后需要vs build，ue4编辑器重新新建类生效)  </p>
+<pre><code>// MyCubeActor.h
+// Fill out your copyright notice in the Description page of Project Settings.
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "MyCubeActor.generated.h"
+
+UCLASS()
+class MYCPP_API AMyCubeActor : public AActor
+{
+    GENERATED_BODY()
+
+public:    
+    // Sets default values for this actor's properties
+    AMyCubeActor();
+
+    //用宏UPROPERTY来包裹属性，BlueprintReadWrite代表将此属性暴露给蓝图
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Damage")
+    int32 TotalDamage;
+    //用宏UFUNCTION包裹函数，将此函数暴露给蓝图，在.cpp里实现函数
+    UFUNCTION(BlueprintCallable)
+    void BlueprintCallableFunction();
+
+protected:
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
+
+public:    
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+
+};
+
+####################################################################################
+
+// MyCubeActor.cpp  
+
+// Fill out your copyright notice in the Description page of Project Settings.
+#include "MyCubeActor.h"
+
+// Sets default values
+AMyCubeActor::AMyCubeActor()
+{
+     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = true;
+
+}
+
+// Called when the game starts or when spawned
+void AMyCubeActor::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// Called every frame
+void AMyCubeActor::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+}
+
+void AMyCubeActor::BlueprintCallableFunction() {
+    //窗口OutputLog从UE4编辑器主菜单Window-&gt;Develop Tools-&gt;Output Log下打开。  
+    //UE_LOG输出打印信息。  
+    UE_LOG(LogTemp, Warning, TEXT("=====helloworld"));
+}
+</code></pre><p>项目编译出现fatal error LNK1104错误，有可能是打开了editor，这时候一些库文件被系统占用，无法参与编译。<br>关闭UE4编辑器后，生成成功。  </p>
+<h2 id="UE4调用cpp接口在空间画线"><a href="#UE4调用cpp接口在空间画线" class="headerlink" title="UE4调用cpp接口在空间画线"></a>UE4调用cpp接口在空间画线</h2><p>UE4使用cpp两个坑:  </p>
+<blockquote>
+<p>每次写完cpp代码需要手动再编译和重启一次editor才能生效。<br>vs编译build时需要关闭ue4的编辑器。  </p>
+</blockquote>
+<p>MyCubeActor.h:  </p>
+<pre><code>// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "MyCubeActor.generated.h"
+
+UCLASS()
+class MYPROJECTCPP_API AMyCubeActor : public AActor
+{
+    GENERATED_BODY()
+
+public:    
+    // Sets default values for this actor's properties
+    AMyCubeActor();
+    //用宏UPROPERTY来包裹属性，BlueprintReadWrite代表将此属性暴露给蓝图
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+    int32 TotalDamage;
+    //用宏UFUNCTION包裹函数，将此函数暴露给蓝图，在.cpp里实现函数
+    UFUNCTION(BlueprintCallable)
+    void BlueprintCallableFunction();
+
+protected:
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
+
+public:    
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+
+};
+</code></pre><p>MyCubeActor.cpp:  </p>
+<pre><code>// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "MyCubeActor.h"
+#include "Runtime/Core/Public/Math/Vector.h"
+#include "Runtime/Engine/Classes/Components/LineBatchComponent.h"
+
+// Sets default values
+AMyCubeActor::AMyCubeActor()
+{
+     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+    PrimaryActorTick.bCanEverTick = true;
+
+}
+
+// Called when the game starts or when spawned
+void AMyCubeActor::BeginPlay()
+{
+    Super::BeginPlay();
+
+}
+
+// Called every frame
+void AMyCubeActor::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+}
+
+void AMyCubeActor::BlueprintCallableFunction() {
+    //窗口OutputLog从UE4编辑器主菜单Window-&gt;Develop Tools-&gt;Output Log下打开。  
+    //UE_LOG输出打印信息。  
+    UE_LOG(LogTemp, Warning, TEXT("=====Cpp Called By Blueprint"));
+
+    TArray&lt;FBatchedLine&gt; lines;
+    TArray&lt;FVector&gt;  mVertexes;
+    mVertexes.SetNum(4);  //需要先设置个数，不然会报错，之前报了些乱七八糟的错误，经大神指点才知道需要设置
+    mVertexes[0].X = -180.f;  //这里自己随意设置数值，为了试验功能而已
+    mVertexes[0].Y = 0.f;
+    mVertexes[0].Z = 32.f;
+    mVertexes[1].X = -215.f;
+    mVertexes[1].Y = -120.f;
+    mVertexes[1].Z = 32.f;
+    mVertexes[2].X = -260.f;
+    mVertexes[2].Y = -120.f;
+    mVertexes[2].Z = 30.f;
+    mVertexes[3].X = -200.f;
+    mVertexes[3].Y = 40.f;
+    mVertexes[3].Z = 40.f;
+    ULineBatchComponent* const LineBatchComponent = GetWorld()-&gt;PersistentLineBatcher;
+    for (auto i = 0; i &lt; mVertexes.Num() - 1; i++)
+    {
+        FVector start = FVector(mVertexes[i].X, mVertexes[i].Y, mVertexes[i].Z);
+        FVector end = FVector(mVertexes[i + 1].X, mVertexes[i + 1].Y, mVertexes[i + 1].Z);
+        FBatchedLine line = FBatchedLine(start,
+            end,
+            FLinearColor(1, 0, 0, 1),  //设置颜色、透明度
+            0, // 设置显示时间。设为0，表示永久显示
+            0.3,
+            4
+        );
+        lines.Add(line);
+    }
+    LineBatchComponent-&gt;DrawLines(lines); 
+
+}
+</code></pre><p>清除线，重新画：  </p>
+<pre><code>
+LineBatchComponent-&gt;BatchedLines.Empty();
+lines.Empty();
+</code></pre><h2 id="UE4新建和删除C-类"><a href="#UE4新建和删除C-类" class="headerlink" title="UE4新建和删除C++类"></a>UE4新建和删除C++类</h2><p>新建C++类  </p>
+<pre><code>UE4编辑器-&gt;File-&gt;New C++ Class...  
+
+这样操作，会自动在项目Source目录内生成对应的.h文件和.cpp文件。  
+（其中头文件内 **.generated.h 一定要放在最后include）  
+</code></pre><p>删除C++类  </p>
+<pre><code>1. 关闭visual studio  
+2. 关闭UE4编辑器  
+3. 删除项目中Soure文件夹中的你想删除的.cpp和.h文件  
+4. 删除项目中的Binaries文件夹  
+5. 右键. uproject文件，点击Generate Visual Studio project files  
+6. 重新打开工程  
+7. 如果提示需要重新编译项目，点yes  
+</code></pre><h2 id="C-动态加载UMG界面"><a href="#C-动态加载UMG界面" class="headerlink" title="C++动态加载UMG界面"></a>C++动态加载UMG界面</h2><ol>
+<li>工程找到YourProject.Build.cs文件，添加如下代码:  </li>
+</ol>
+<pre><code>PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Slate", "SlateCore" });
+</code></pre><p>添加后完整文件如下:  </p>
+<pre><code>// YourProject.Build.cs
+// Fill out your copyright notice in the Description page of Project Settings.
+
+using UnrealBuildTool;
+
+public class YourProject : ModuleRules
+{
+    public YourProject(TargetInfo Target)
+    {
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "Slate", "SlateCore" });
+
+        PrivateDependencyModuleNames.AddRange(new string[] {  });
+
+        // Uncomment if you are using Slate UI
+        // PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
+
+        // Uncomment if you are using online features
+        // PrivateDependencyModuleNames.Add("OnlineSubsystem");
+
+        // To include OnlineSubsystemSteam, add it to the plugins section in your uproject file with the Enabled attribute set to true
+    }
+}
+</code></pre><ol start="2">
+<li>工程找到YourProject.h文件，添加如下代码:  </li>
+</ol>
+<pre><code>#include "Runtime/UMG/Public/UMG.h"
+#include "Runtime/UMG/Public/UMGStyle.h"
+#include "Runtime/UMG/Public/Slate/SObjectWidget.h"
+#include "Runtime/UMG/Public/IUMGModule.h"
+#include "Runtime/UMG/Public/Blueprint/UserWidget.h"
+</code></pre><p>添加后完整文件如下:  </p>
+<pre><code>// YourProject.h
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "Engine.h"
+
+#include "Runtime/UMG/Public/UMG.h"
+#include "Runtime/UMG/Public/UMGStyle.h"
+#include "Runtime/UMG/Public/Slate/SObjectWidget.h"
+#include "Runtime/UMG/Public/IUMGModule.h"
+#include "Runtime/UMG/Public/Blueprint/UserWidget.h"
+</code></pre><ol start="3">
+<li><p>创建一个蓝图控件WidgetBlueprint.  </p>
+</li>
+<li><p>添加动态引入的代码:  </p>
+</li>
+</ol>
+<blockquote>
+<p>此处有大坑:动态加载UClass时需要在代码结尾增加”_C”  </p>
+</blockquote>
+<p>YourGameMode.h:  </p>
+<pre><code>#pragma once
+
+#include "GameFramework/GameMode.h"
+#include "Blueprint/UserWidget.h"
+#include "YourGameMode.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class YOURGAMEMODE_API AYourGameMode : public AGameMode
+{
+    GENERATED_BODY()
+
+public:
+    // 开始游戏
+    virtual void StartPlay() override;
+
+private:
+
+    /** 在游戏开始时我们将作为菜单使用的控件类。 */
+    UPROPERTY(EditAnywhere)
+    TSubclassOf&lt;UUserWidget&gt; StartingWidgetClass;
+
+    /** 用作为界面的实例。 */
+    UPROPERTY(EditAnywhere)
+    UUserWidget* CurrentWidget; 
+};</code></pre><p>YourGameMode.cpp:  </p>
+<pre><code>// Fill out your copyright notice in the Description page of Project Settings.
+
+#include "YourGameProject.h"
+#include "YourGameModeGameMode.h"
+
+// 开始游戏
+void AYourGameMode::StartPlay()
+{
+    Super::StartPlay();
+
+    /** 游戏开始后弹出界面 */
+    /* 动态加载UClass时需要在代码结尾增加"_C" */
+    StartingWidgetClass = LoadClass&lt;UUserWidget&gt;(NULL, TEXT("Blueprint'/Game/UI/Test.Test_C'"));
+    if (StartingWidgetClass != nullptr) 
+    {
+        CurrentWidget = CreateWidget&lt;UUserWidget&gt;(GetWorld(), StartingWidgetClass);
+        if (CurrentWidget != nullptr)
+        {
+            CurrentWidget-&gt;AddToViewport();
+        }
+    }
+}</code></pre><h2 id="控制actor显隐"><a href="#控制actor显隐" class="headerlink" title="控制actor显隐"></a>控制actor显隐</h2><p>获得所有actor，遍历每个actor判断是否有子物体，判断是否是staticMeshActor的子类，若是，则SetVisibility节点控制显影。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/kongzhiactorxianyin.JPG" alt="控制actor显隐">  </p>
+<h2 id="Gameplay框架的说明"><a href="#Gameplay框架的说明" class="headerlink" title="Gameplay框架的说明"></a>Gameplay框架的说明</h2><pre><code>GameMode 设置的是游戏规则  
+
+Pawn作为世界场景中代理的Actor。Pawn可被控制器所有，且可将其设置为易于接受输入，用于执行各种各样类似于玩家的任务。请注意，Pawn不被认定为具有人的特性。  
+Character(角色)是pawn的一个特殊子类，默认情况下，它带有一个用于碰撞的胶囊组件和一个角色移动组件。它可以执行类似人类的基本动作，拥有跑跳等内置移动功能。  
+Pawn可包含自身的移动规则和其他游戏逻辑，但控制器也可拥有该功能。控制器可以是获取真人玩家输入的PlayerController或是电脑自动控制的AIController。  
+Controller控制器负责定向Pawn的Actor。它们通常有两种风格：AI控制器和玩家控制器。一个控制器可以"拥有"一个Pawn来控制它。  
+PlayerController(玩家控制器)中设置一名玩家，其同时会产生一个Pawn。Pawn 是玩家在游戏中的物理代表，控制器则拥有Pawn并设置其行为规则。  
+默认情况下，控制器（Controllers）和 Pawn 之间是一对一的关系；也就是说，每个控制器在某个时间点只能控制一个 Pawn。此外，在游戏期间生成的 Pawn 不会被控制器自动控制。  
+在 蓝图（Blueprints） 中，为Pawn以及Pawn的子类添加移动的最佳方法是调用 SetActorLocation 函数。用 SetActorLocation 时，你可以决定是瞬移还是逐渐走到某个位置。  
+HUD是指"抬头显视"或二维屏幕显示，在许多游戏中较为常用。例如显示血条、弹药指示器、枪准星等。每个玩家控制器通常都配有其中一种显示。  
+Camera（摄像机）是玩家的"眼球"  
+
+GameMode是游戏的定义，包括游戏规则和获胜条件等内容。它仅存在于服务器上。它通常不应有太多在游戏过程中会发生变化的数据，也绝对不应有客户端需要了解的临时数据。  
+GameState包含游戏的状态，其中可以包括联网玩家列表、得分、棋类游戏中棋子的位置，或者在开放世界场景中完成的任务列表。游戏状态存在于服务器和所有客户端上，可以自由复制以保持所有机器处于最新状态。  
+玩家状态是游戏玩家的状态，例如人类玩家或模拟玩家的机器人。作为游戏的一部分而存在的非玩家AI将不会拥有玩家状态。在玩家状态中适当的示例数据包括玩家姓名或得分、比赛中MOBA等的等级，或玩家当前是否在CTF游戏中携带旗帜。所有玩家的玩家状态存在于所有机器上（与玩家控制器不同），并且可以自由复制以保持同步。  
+</code></pre><p>游戏由游戏模式和游戏状态组成。加入游戏的人类玩家与玩家控制器相关联。这些玩家控制器允许玩家在游戏中拥有Pawn，这样他们就可以在关卡中拥有物理代表。玩家控制器还向玩家提供输入控制、抬头显示（HUD）， 以及用于处理摄像机视图的玩家摄像机管理器。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/GameFramework0615.JPG" alt="GameFramework">  </p>
+<p>启用引擎和运行游戏的过程。此处说明两种主要路径：编辑器路径、standalone路径。事件的一般顺序为初始化引擎、创建并初始化GameInstance、加载关卡，最后开始游戏。然而在部分被调用函数的准确排序和函数被调用的位置方面，standalone 模式和编辑器模式之间存在差异。两个平行运行的路径，它们在游戏开始之前汇聚。  </p>
+<p>在Standalone模式中（在编辑器外进行的游戏使用该模式），引擎启动和初始化之后将立即对进行游戏所需的对象进行创建和初始化。诸如GameInstance之类的对象在引擎启用之前被创建和初始化（与创建和初始化引擎不同）。引擎的启动函数被调用后，将立即加载初始地图。关卡创建适当的GameMode和GameState，然后创建其他Actors后，游戏进程便正式开始。<br>在Editor模式中(PlayInEditor和SimulateInEditor)使用，流程完全不同。引擎立即初始化并启动，因为需要它运行编辑器，但诸如GameInstance之类对象的创建和初始化将被延迟，直到玩家按下按钮启动PIE或SIE会话。此外，关卡中的Actors将被复制，使游戏中的变更不影响编辑器中的关卡，每个对象（包括GameInstance）均有每个PIE实例的单独副本。在UWorld类中游戏进程开始时，编辑器路径和standalone路径再次结合。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/GameFlowChart.png" alt="GameFlowChart">  </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/06/10/diary-20210610-1/" class="b-link-green">UE4备忘(六)</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/06/20/diary-20210620-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/0.jpg" class="responsive-img" alt="Vue集成Cesium">
+                        
+                        <span class="card-title">Vue集成Cesium</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            集成前一些说明Cesium是一个地图可视化框架，只是支持三维场景(渲染三维地球)。  
+Cesium中的图层分为两种：一种是普通图层，包含影像、线划等普通显示图层；还有一种是地形图层，用于真实的模拟地球表面的场景，Cesium会根据加载到的
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-06-20
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Vue/" target="_blank">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Cesium/" target="_blank">
+                        <span class="chip bg-color">Cesium</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/05/31/diary-20210531-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/8.jpg" class="responsive-img" alt="UE4备忘(五)">
+                        
+                        <span class="card-title">UE4备忘(五)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            第一人称
+新建蓝图类charactor。其CapsuleComponent下添加Camera。Camera的Details下选项CameraSettingsgou勾选UsePawnControlRotation。  
+
+ProjectSet
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-31
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

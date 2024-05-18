@@ -1,0 +1,1847 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="c++多线程与生产消费者模型, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="多线程C++11在早期C++11之前，C++在语言级别上并不支持多线程，要想实现多线程，必须通过第三方库或者调用平台系统函数来实现的，而不同平台的多线程的系统函数又都不一样，所以给多线程编程带来了很多麻烦。但是从C++11开始，C++终于开">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>c++多线程与生产消费者模型 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/11.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        c++多线程与生产消费者模型
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/c/" target="_blank">
+                                <span class="chip bg-color">c++</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-03-06
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        20 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="多线程C-11"><a href="#多线程C-11" class="headerlink" title="多线程C++11"></a>多线程C++11</h2><p>在早期C++11之前，C++在语言级别上并不支持多线程，要想实现多线程，必须通过第三方库或者调用平台系统函数来实现的，而不同平台的多线程的系统函数又都不一样，所以给多线程编程带来了很多麻烦。但是从C++11开始，C++终于开始在语言级别上支持多线程，我们也终于可以用一份代码在多个平台上跑了。  </p>
+<pre class="line-numbers language-html"><code class="language-html">qt添加对c++11的支持：  
+在***.pro里添加 CONFIG += c++11
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="c-跨平台多线程的诞生"><a href="#c-跨平台多线程的诞生" class="headerlink" title="c++跨平台多线程的诞生"></a>c++跨平台多线程的诞生</h3><p>最简单的c++11多线程示例如下  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+using namespace std;
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+void thread_task(){
+    cout&lt;&lt;"hello thread"&lt;&lt;endl;
+}
+int main()
+{
+    thread t(thread_task);
+    t.join();
+    cout &lt;&lt; "thread end!" &lt;&lt; endl;
+    return 0;
+}
+
+main函数是主线程  
+thread_task是子线程  
+thread t(thread_task)意思是启动这个子线程  
+join()会使主线程会被阻塞，直到子线程执行完毕，然后才退程序。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span> //std::cout
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdlib.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>chrono</span><span class="token punctuation">></span></span> //std::chrono::seconds
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span> //std::thread std::this_thread::sleep_for  
+
+using namespace std;
+
+void thread_task(int n){
+    std::this_thread::sleep_for(std::chrono::seconds(n));
+    std::cout&lt;&lt; "hello thread"
+             &lt;&lt; std::this_thread::get_id()
+             &lt;&lt; " paused "
+             &lt;&lt; n
+             &lt;&lt; " seconds "
+             &lt;&lt; std::endl;
+}
+// c++11 跨平台多线程
+/**
+ * join()函数是一个等待线程函数，主线程需等待子线程运行结束后才可以结束（注意不是才可以运行，运行是并行的），如果打算等待对应线程，则需要细心挑选调用join()的位置
+ * detach()函数是子线程的分离函数，当调用该函数后，线程就被分离到后台运行，主线程不需要等待该线程结束才结束
+ */
+int main(int argc, char *argv[])
+{
+    cout &lt;&lt; "Hello World!" &lt;&lt; endl;
+    std::thread threads[5];
+    std::cout&lt;&lt;"Spawing 5 threads...\n";
+    for(int i=0;i&lt;5;i++){
+        threads[i]=std::thread(thread_task,i+1);
+    }
+    std::cout&lt;&lt; "Done spawning theads! now wait for them to join"&lt;&lt;std::endl;
+    for(auto&amp; t:threads){
+        t.join();
+        std::cout&lt;&lt; "thread joined\n";
+    }
+    std::cout&lt;&lt; "All threads joined\n";
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="C-11用加锁保证准确性"><a href="#C-11用加锁保证准确性" class="headerlink" title="C++11用加锁保证准确性"></a>C++11用加锁保证准确性</h3><p>多线程执行由操作系统内部控制，一般通过时间片轮询执行，甚至在多核CPU下并行执行。存在数据准确性的问题<br>为解决数据准确性，在一个线程内处理完数据后才将控制权交出，诞生锁这个东西。<br>线程A在处理数据前面锁一下，当线程B来抢夺数据控制权时发现数据已被上锁，无法抢夺只能等待线程A释放，待线程A执行完操作后释放锁，线程B才能夺取数据控制权，一旦线程B获取控制权也给自己上个锁，防止线程B自己正执行关键地方操作时被别的线程夺取控制权。<br>c++使用互斥锁的方法示例如下：</p>
+<pre class="line-numbers language-html"><code class="language-html">// 在需要加锁的地方，调用metex的lock()方法，解锁的地方unloc()方法
+// 这样就可以顺序的输出了所需要的结果
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+using namespace std;
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span>
+std::mutex mt;
+void thread_task(){
+    for(int i=0;i&lt;10;i++){
+        mt.lock();
+        cout&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"print</span> <span class="token attr-name"><span class="token namespace">thread:</span></span> <span class="token attr-name">"&lt;&lt;i&lt;&lt;endl;</span>
+        <span class="token attr-name">mt.unlock();</span>
+    <span class="token attr-name">}</span>
+<span class="token attr-name">}</span>
+<span class="token attr-name">int</span> <span class="token attr-name">main()</span>
+<span class="token attr-name">{</span>
+    <span class="token attr-name">thread</span> <span class="token attr-name">t(thread_task);</span>
+    <span class="token attr-name">for(int</span> <span class="token attr-name">i</span><span class="token attr-value"><span class="token punctuation">=</span>0;i</span><span class="token punctuation">></span></span>-10;i--){
+        mt.lock();
+        cout&lt;&lt;"print main: "&lt;&lt;i&lt;&lt;endl;
+        mt.unlock();
+    }
+    t.join();
+    cout &lt;&lt; "thread end!" &lt;&lt; endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="c-11中的lock-guard"><a href="#c-11中的lock-guard" class="headerlink" title="c++11中的lock_guard"></a>c++11中的lock_guard<mutex></mutex></h3><p>C++委员会为防止使用mutex加锁解锁的时候忘记解锁unlock,搞了lock_guard<mutex> guard(mt);这个写法<br>其加锁范围是当前作用域{}<br>lock_guard的缺陷是离开当前作用域{}就会调用析构函数解锁。如果这个{}作用域很大的话锁的粒度就会很大，影响效率。</mutex></p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+using namespace std;
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span>
+std::mutex mt;
+void thread_task(){
+    for(int i=0;i&lt;10;i++){
+        lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> guard(mt);
+        cout&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"print</span> <span class="token attr-name"><span class="token namespace">thread:</span></span> <span class="token attr-name">"&lt;&lt;i&lt;&lt;endl;</span>
+    <span class="token attr-name">}</span>
+<span class="token attr-name">}</span>
+<span class="token attr-name">int</span> <span class="token attr-name">main()</span>
+<span class="token attr-name">{</span>
+    <span class="token attr-name">thread</span> <span class="token attr-name">t(thread_task);</span>
+    <span class="token attr-name">for(int</span> <span class="token attr-name">i</span><span class="token attr-value"><span class="token punctuation">=</span>0;i</span><span class="token punctuation">></span></span>-10;i--){
+        lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> guard(mt);
+        cout&lt;&lt;"print main: "&lt;&lt;i&lt;&lt;endl;
+    }
+    t.join();
+    cout &lt;&lt; "thread end!" &lt;&lt; endl;
+    return 0;
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了解决lock_guard锁的粒度过大的原因，unique_lock就出现了，这个会在构造函数加锁，然后可以利用unique.unlock()来解锁，所以当你觉得锁的粒度太多的时候，可以利用这个来解锁，而析构的时候会判断当前锁的状态来决定是否解锁，如果当前状态已经是解锁状态了，那么就不会再次解锁，而如果当前状态是加锁状态，就会自动调用unique.unlock()来解锁。而lock_guard在析构的时候一定会解锁，也没有中途解锁的功能。当然，方便肯定是有代价的，unique_lock内部会维护一个锁的状态，所以在效率上肯定会比lock_guard慢。  </p>
+<p>总感觉这个lock_guard有点鸡肋而已，完全可以用mutex来替代，mt.lock()和mt.unlock()不管是哪种情况，是肯定都可以使用的。忘记解锁的话一般都可以通过调试发现，而且一般情况下都不会忘记。仅仅只是因为怕忘记解锁这个原因的话，真的感觉有点多此一举，徒增学习成本罢了  </p>
+<h3 id="原子操作既保证准确又提高效率"><a href="#原子操作既保证准确又提高效率" class="headerlink" title="原子操作既保证准确又提高效率"></a>原子操作既保证准确又提高效率</h3><p>首先做个时间效率上的统计<br>首先不加任何互斥锁：<br>看结果，运行速度是很快，但每次结果都不一样。且不准确。  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+using namespace std;
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>time.h</span><span class="token punctuation">></span></span>
+#define MAXLENGTH 100000
+#define THREAD_COUNT 20
+int total=0;
+void thread_task(){
+    for(int i=0;i&lt;MAXLENGTH;i++){
+        total+=1;
+        total-=1;
+    }
+}
+int main()
+{
+    clock_t start=clock();
+    thread t[THREAD_COUNT];
+    for(int i=0;i&lt;THREAD_COUNT;++i){
+        t[i]=thread(thread_task);
+    }
+    for(int i=0;i&lt;THREAD_COUNT;++i){
+        t[i].join();
+    }
+    clock_t finish=clock();
+    cout &lt;&lt; "result: " &lt;&lt; total &lt;&lt; endl;
+    cout &lt;&lt; "duration: " &lt;&lt; finish - start &lt;&lt;"ms"&lt;&lt; endl;
+    return 0;
+}
+// 预想的结果应该是0的
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后对线程加上互斥锁，在观察运行时间<br>可以看到运行结果是正确的，但是时间比原来慢太多了。</p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+using namespace std;
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>time.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span>
+#define MAXLENGTH 100000
+#define THREAD_COUNT 20
+std::mutex mt;
+int total=0;
+void thread_task(){
+    for(int i=0;i&lt;MAXLENGTH;i++){
+        mt.lock();
+        total+=1;
+        total-=1;
+        mt.unlock();
+    }
+}
+int main()
+{
+    clock_t start=clock();
+    thread t[THREAD_COUNT];
+    for(int i=0;i&lt;THREAD_COUNT;++i){
+        t[i]=thread(thread_task);
+    }
+    for(int i=0;i&lt;THREAD_COUNT;++i){
+        t[i].join();
+    }
+    clock_t finish=clock();
+    cout &lt;&lt; "result: " &lt;&lt; total &lt;&lt; endl;
+    cout &lt;&lt; "duration: " &lt;&lt; finish - start &lt;&lt;"ms"&lt;&lt; endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后，引入原子操作优化，而不使用互斥锁<br>从结果看，结果准确并且性能的提升也是非常明显  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+using namespace std;
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>time.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>atomic</span><span class="token punctuation">></span></span>
+#define MAXLENGTH 100000
+#define THREAD_COUNT 20
+//原子操作
+atomic_int total(0);
+void thread_task(){
+    for(int i=0;i&lt;MAXLENGTH;i++){
+        total+=1;
+        total-=1;
+    }
+}
+int main()
+{
+    clock_t start=clock();
+    thread t[THREAD_COUNT];
+    for(int i=0;i&lt;THREAD_COUNT;++i){
+        t[i]=thread(thread_task);
+    }
+    for(int i=0;i&lt;THREAD_COUNT;++i){
+        t[i].join();
+    }
+    clock_t finish=clock();
+    cout &lt;&lt; "result: " &lt;&lt; total &lt;&lt; endl;
+    cout &lt;&lt; "duration: " &lt;&lt; finish - start &lt;&lt;"ms"&lt;&lt; endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="多线程的线程池"><a href="#多线程的线程池" class="headerlink" title="多线程的线程池"></a>多线程的线程池</h2><p>为什么我们需要线程池技术呢？多线程编程用的好好的，干嘛还要引入线程池这个东西呢？引入一个新的技术肯定不是为了装逼，肯定是为了解决某个问题的，而服务端一般都是效率问题。<br>我们可以看到多线程提高了CPU的使用率和程序的工作效率，但是如果有大量的线程，就会影响性能，因为要大量的创建与销毁，因为CPU需要在它们之间切换。线程池可以想象成一个池子，它的作用就是让每一个线程结束后，并不会销毁，而是放回到线程池中成为空闲状态，等待下一个对象来使用。<br>让人遗憾的是，C++并没有在语言级别上支持线程池技术，总感觉C++委员会对多线程的支持像是犹抱琵琶半遮面的羞羞女一样，无法完全的放开。  </p>
+<h3 id="利用条件变量和互斥锁实现线程池"><a href="#利用条件变量和互斥锁实现线程池" class="headerlink" title="利用条件变量和互斥锁实现线程池"></a>利用条件变量和互斥锁实现线程池</h3><p>虽然无法从语言级别上支持，但是我们可以利用条件变量和互斥锁自己实现一个线程池。  </p>
+<pre class="line-numbers language-html"><code class="language-html">#ifndef _THREADPOOL_H
+#define _THREADPOOL_H
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vector</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>queue</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>condition_variable</span><span class="token punctuation">></span></span>
+using namespace std;
+
+const int MAX_THREADS = 1000; //最大线程数目
+
+template <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typename</span> <span class="token attr-name">T</span><span class="token punctuation">></span></span>
+class threadPool
+{
+public:
+    threadPool(int number = 1);
+    ~threadPool();
+    bool append(T *task);
+    //工作线程需要运行的函数,不断的从任务队列中取出并执行
+    static void *worker(void *arg);
+    void run();
+
+private:
+    //工作线程
+    vector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span> workThread;
+    //任务队列
+    queue<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span> <span class="token attr-name">*</span><span class="token punctuation">></span></span> taskQueue;
+    mutex mt;
+    condition_variable condition;
+    bool stop;
+};
+
+template <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typename</span> <span class="token attr-name">T</span><span class="token punctuation">></span></span>
+threadPool<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span>::threadPool(int number) : stop(false)
+{
+    if (number &lt;= 0 || number > MAX_THREADS)
+        throw exception();
+    for (int i = 0; i &lt; number; i++)
+    {
+        cout &lt;&lt; "create thread：" &lt;&lt; i &lt;&lt; endl;
+        workThread.emplace_back(worker, this);
+    }
+}
+template <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typename</span> <span class="token attr-name">T</span><span class="token punctuation">></span></span>
+inline threadPool<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span>::~threadPool()
+{
+    {
+        unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> unique(mt);
+        stop = true;
+    }
+    condition.notify_all();
+    for (auto &amp;wt : workThread)
+        wt.join();
+}
+template <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typename</span> <span class="token attr-name">T</span><span class="token punctuation">></span></span>
+bool threadPool<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span>::append(T *task)
+{
+    //往任务队列添加任务的时候，要加锁，因为这是线程池，肯定有很多线程
+    unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> unique(mt);
+    taskQueue.push(task);
+    unique.unlock();
+    //任务添加完之后，通知阻塞线程过来消费任务，有点像生产消费者模型
+    condition.notify_one();
+    return true;
+}
+template <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typename</span> <span class="token attr-name">T</span><span class="token punctuation">></span></span>
+void *threadPool<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span>::worker(void *arg)
+{
+    threadPool *pool = (threadPool *)arg;
+    pool->run();
+    return pool;
+}
+template <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>typename</span> <span class="token attr-name">T</span><span class="token punctuation">></span></span>
+void threadPool<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span>::run()
+{
+    while (!stop)
+    {
+        unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> unique(this->mt);
+        //如果任务队列为空，就停下来等待唤醒，等待另一个线程发来的唤醒请求
+        while (this->taskQueue.empty())
+            this->condition.wait(unique);      
+        T *task = this->taskQueue.front();
+        this->taskQueue.pop();
+        if (task)
+            task->process();
+    }
+}
+#endif
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<blockquote>
+<p>这里就不得不啰嗦几句，条件变量和互斥锁就像两把利剑，几乎可以实现多线程技术中的大部分问题，不管是生产消费者模型，还是线程池，亦或是信号量，所以我们必须好好掌握好这两个工具。   </p>
+</blockquote>
+</blockquote>
+<p>对于线程池ThreadPool，必须要有构造和析构函数，构造函数中，创建N个线程(这个自己指定)，插入到工作线程当中，工作线程可以是vector结构。工作线程中的线程具体要做什么呢？进入线程的时候必要用unique_lock进程加锁处理，不能让其他线程以及主线程影响到要处理的这个线程。判断任务队列是否为空，如果为空，则利用条件变量中的wait函数来阻塞该线程，等待任务队列不为空之后唤醒它。然后取出任务队列中的任务，执行任务中的具体操作。  </p>
+<p>接着将任务放入任务队列taskQueue，这里的任务是外部根据自己的业务自己定义的，可以是对象，可以是函数，结构体等等，而任务队列这里定义为queue结构，一定要记得将任务放入任务队列的时候，要在之前加锁，放入之后在解锁，这里的加锁解锁可以用unique_lock结构，当然也可以用mutex结构，而放入任务队列之后就可以用条件变量的notify_one函数通知阻塞的线程来取任务处理了。  </p>
+<p>线程池的实现就有点像是生产消费者模型，append()就像是生产者，不断的将任务放入队列，run()函数就像消费者，不断的从任务队列中取出任务来处理，生产消费的两头分别用notify_one()和wait()来唤醒和阻塞。  </p>
+<p>最后写一个main文件来调用线程池的相关接口，main文件里定义一个任务对象，然后是main函数。  </p>
+<pre class="line-numbers language-html"><code class="language-html">
+#include "threadPool.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>
+using namespace std;
+class Task
+{
+private:
+    int total = 0;
+
+public:
+    void process();
+};
+
+//任务具体实现什么功能，由这个函数实现
+void Task::process()
+{
+    //这里就输出一个字符串
+    cout &lt;&lt; "task successful！" &lt;&lt; endl;
+    this_thread::sleep_for(chrono::seconds(1));
+}
+
+template class std::queue<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Task</span><span class="token punctuation">></span></span>;
+int main(void)
+{
+    threadPool<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Task</span><span class="token punctuation">></span></span> pool(1);
+    std::string str;
+    while (1)
+    {
+        Task *task = new Task();
+        pool.append(task);
+        delete task;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="多线程的信号量"><a href="#多线程的信号量" class="headerlink" title="多线程的信号量"></a>多线程的信号量</h2><p>C++中并没有在语言级别上支持信号量，但同样的我们可以利用条件变量和互斥锁来实现信号量  </p>
+<pre class="line-numbers language-html"><code class="language-html">#ifndef _SEMAPHORE_H
+#define _SEMAPHORE_H
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>condition_variable</span><span class="token punctuation">></span></span>
+using namespace std;
+class Semaphore
+{
+public:
+    Semaphore(long count = 0) : count(count) {}
+    //V操作，唤醒
+    void signal()
+    {
+        unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> unique(mt);
+        ++count;
+        if (count &lt;= 0)
+            cond.notify_one();
+    }
+    //P操作，阻塞
+    void wait()
+    {
+        unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span> unique(mt);
+        --count;
+        if (count &lt; 0)
+            cond.wait(unique);
+    }
+private:
+    mutex mt;
+    condition_variable cond;
+    long count;
+};
+#endif
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>信号量里面用到了一个叫PV操作的东西，P操作时阻塞，一般用wait()函数，V操作是唤醒，一般用singal()函数，至于不叫WS操作，反而为什么叫PV操作呢？网上说是因为提出这一系统方法的人狄克斯特拉用荷兰文定义的，因为在荷兰文中，通过叫passeren，释放叫vrijgeven，PV操作因此得名。对我们来说，这些也没有太大的意义，记住这些定义就好了，毕竟定义这种东西，是不以我们的意志为转移的。  </p>
+<p>写好了信号量的接口，那我们如何使用这个信号量呢？这个就需要我们在外部写一个多线程的调用函数来调用。  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include "semaphore.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+using namespace std;
+
+Semaphore sem(0);
+
+void funA()
+{
+    sem.wait();
+    //do something
+    cout &lt;&lt; "funA" &lt;&lt; endl;
+}
+
+void funB()
+{
+    this_thread::sleep_for(chrono::seconds(1));
+    //do something
+    cout &lt;&lt; "funB" &lt;&lt; endl;
+    sem.signal();
+}
+
+int main()
+{
+    thread t1(funA);
+    thread t2(funB);
+    t1.join();
+    t2.join();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>假设先开始跑funA，执行到sem.wait()的时候，进入wait函数可知，count减1，小于0，会发生阻塞，等待其他线程唤醒。<br>然后就会切换到funB，这里即使休眠了1秒也不会切换到funA，因为那边阻塞了，没有其他线程唤醒的话就会一直阻塞。funB休眠完之后，就会打印出结果，然后执行sem.signal()，进入signal函数可知，count加1，小于等于0，会唤醒其他阻塞的线程。<br>然后再切到funA，执行后面的操作，打印出结果。</p>
+<p>所以这个就一定能保证funB先执行，funA后执行。当然前提是初始化信号量对象的时候，要初始化为0(Semaphore sem(0);)。  </p>
+<p>信号量用在多线程多任务同步的，一个线程完成了某一个动作就通过信号量告诉别的线程，别的线程再进行某些动作。像这里funB完成任务之后就通过信号量的PV操作告诉funA线程可以开始任务了。<br>最后需要注意的是，信号量不仅可以用于进程也可用于线程，它比条件变量要复杂很多，条件变量仅限于线程内使用，至于进程间如何使用信号量通信，后期我们在讨论。  </p>
+<h2 id="c-多线程生产者消费者模式-链式、循环队列"><a href="#c-多线程生产者消费者模式-链式、循环队列" class="headerlink" title="(c++)多线程生产者消费者模式(链式、循环队列)"></a>(c++)多线程生产者消费者模式(链式、循环队列)</h2><p>生产者消费者问题（Producer-consumer），也称有限缓冲问题，是一个多线程同步问题的经典案例。该问题描述了两个共享固定大小缓冲区的线程——即所谓的“生产者”和“消费者”——在实际运行时会发生的问题。生产者的主要作用是生成一定量的数据放到缓冲区中，然后重复此过程。与此同时，消费者也在缓冲区消耗这些数据。该问题的关键就是要保证生产者不会在缓冲区满时加入数据，消费者也不会在缓冲区中空时消耗数据。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/SczXfzModel.jpg" alt="生产者消费者大致模型">  </p>
+<h3 id="c-11条件变量诞生"><a href="#c-11条件变量诞生" class="headerlink" title="c++11条件变量诞生"></a>c++11条件变量诞生</h3><p>在生产消费者模型当中，肯定都会用到互斥锁的机制的，当生产者往队列中放数据的瞬间，消费者是不能取数据的，那这时候可能会碰见一个问题，如果生成者因为某些原因，放数据过慢，但是消费者取数据很快，当队列中没有数据了，消费者还去取的话，就会发生异常情况。有些人可能会说，加个条件判断一下队列是否为空不就可以了。<br>这个肯定是当然可以的，但是在队列依旧没有数据的这一段时间，是要不断的循环判断这个条件，CPU肯定是会飙升的，浪费了很多不必要的资源。<br>这时候我们设想，能否设计这样的一种机制，如果在队列没有数据的时候，消费者线程能一直阻塞在那里，等待着别人给它唤醒，在生产者往队列中放入数据的时候通知一下这个等待线程，唤醒它，告诉它可以来取数据了。  </p>
+<blockquote>
+<p>于是多线程中的条件变量就横空出世  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">条件变量是多线程数据同步的一种操作，不管是用哪种框架，哪种语言实现多线程的功能，条件变量都是不得不考虑的一种情况。  
+C++中提供了#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>condition_variable</span><span class="token punctuation">></span></span>头文件，里面就包含了条件变量的相关类。  
+其中有两个非常重要的接口，wait()和notify_one()，wait()可以让线程陷入休眠状态，意思就是不干活了，notify_one()就是唤醒真正休眠状态的线程，开始干活了。  
+当然还有notify_all()这个接口，顾名思义，就是通知所有正在等待的线程，起来干活了。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="c-用链队列实现生产者消费者模式"><a href="#c-用链队列实现生产者消费者模式" class="headerlink" title="c++用链队列实现生产者消费者模式"></a>c++用链队列实现生产者消费者模式</h3><pre class="line-numbers language-html"><code class="language-html">//main.cpp  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include "Logger.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>deque</span><span class="token punctuation">></span></span>
+
+const int MAX_ITEM=20;//双端队列最大长度
+std::mutex mx;//全局锁
+std::condition_variable cv;//条件变量cv
+class Queue{
+public:
+    void put(int val,int index){
+        std::unique_lock<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:mutex</span><span class="token punctuation">></span></span> lock(mx);//类似智能指针的智能锁，不需要手工解锁
+        while(q.size()==MAX_ITEM){
+            cv.wait(lock);
+        }
+        q.push_back(val);//入队，从队尾入
+        cv.notify_all();//唤醒
+        LOG(INFO) &lt;&lt; "producer:  "&lt;&lt;index&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"</span> <span class="token attr-name"><span class="token namespace">val:</span></span> <span class="token attr-name">shengchan</span> <span class="token attr-name">"&lt;&lt;</span> <span class="token attr-name">val;</span>
+    <span class="token attr-name">}</span>
+    <span class="token attr-name">int</span> <span class="token attr-name">get(int</span> <span class="token attr-name">index){</span>
+        <span class="token attr-name"><span class="token namespace">std:</span>:unique_lock&lt;std::mutex</span><span class="token punctuation">></span></span> lock(mx);//类似智能指针的智能锁，不需要手工解锁
+        while (q.empty()) {
+            cv.wait(lock);
+        }
+        int val=q.front();//出队
+        q.pop_front();//从队头出
+        cv.notify_all();//唤醒
+        LOG(INFO) &lt;&lt; "consumer:  "&lt;&lt;index&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"</span> <span class="token attr-name"><span class="token namespace">val:</span></span> <span class="token attr-name">xiaofei</span> <span class="token attr-name">"</span> <span class="token attr-name">&lt;&lt;</span> <span class="token attr-name">val;</span>
+        <span class="token attr-name">return</span> <span class="token attr-name">val;</span>
+    <span class="token attr-name">}</span>
+<span class="token attr-name"><span class="token namespace">private:</span></span>
+    <span class="token attr-name"><span class="token namespace">std:</span>:deque&lt;int</span><span class="token punctuation">></span></span> q;
+};
+
+void producer(Queue *q,int index){
+    for(int i=0;i&lt;100;++i){
+        q->put(i,index);
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+}
+
+void consumer(Queue *q,int index){
+    for(int i=0;i&lt;100;++i){
+        q->get(i);
+        std::this_thread::sleep_for(std::chrono::milliseconds(400));
+    }
+}
+
+int main(){
+    time_t timep;
+    time(&amp;timep);
+    char tmp[256];
+//    路径不存在则输出到标准窗口
+    strftime(tmp,sizeof(tmp),"eE://FFOutput/%Y-%m-%d %H_%M_%S.log",localtime(&amp;timep));
+//    相对路径永远存在
+//    strftime(tmp,sizeof(tmp),"%Y-%m-%d %H_%M_%S.log",localtime(&amp;timep));
+    std::string fileName=tmp;
+    initLogger(fileName);
+
+    Queue *q=new Queue();
+    std::thread p1(producer,q,1);
+    std::thread p2(consumer,q,1);
+    p1.join();
+    p2.join();
+
+
+//    LOG(INFO) &lt;&lt; "info " &lt;&lt; "test";
+//    LOG(WARNING) &lt;&lt; "warning " &lt;&lt; "test";
+//    LOG(ERROR) &lt;&lt; "error " &lt;&lt; "test";
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/03/06/diary-20230306-1/" class="b-link-green">c++多线程与生产消费者模型</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/03/15/diary-20230315-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/20.jpg" class="responsive-img" alt="Android ADB Shell及其他Qt记录">
+                        
+                        <span class="card-title">Android ADB Shell及其他Qt记录</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            ADB学习安卓系统是基于Linux系统开发，也就支持常见的Linux的命令，这些命令都保存在手机 “/system/bin” 的目录下，我们连接手机就可以使用命令 adb shell 来执行这些命令。注意，连接上手机后要打开调试功能，不然就
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-03-15
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Android/" target="_blank">
+                        <span class="chip bg-color">Android</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Qt/" target="_blank">
+                        <span class="chip bg-color">Qt</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/02/17/diary-20230217-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/6.jpg" class="responsive-img" alt="c++二月份笔记">
+                        
+                        <span class="card-title">c++二月份笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            shell操作实践// 列出内核接口表，和ifconfig命令很相似
+netstat -ie
+// 列出所有socket连接，输出有|less ,可以用鼠标上下翻页
+netstat -a | less
+
+# 把一个文件设置为可执行  
+ch
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-02-17
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Ubuntu/" target="_blank">
+                        <span class="chip bg-color">Ubuntu</span>
+                    </a>
+                    
+                    <a href="/diary/tags/c/" target="_blank">
+                        <span class="chip bg-color">c++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

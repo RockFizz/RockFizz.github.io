@@ -1,0 +1,2739 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="UE4备忘, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="玩家生成位置打开GameMode蓝图，在Details栏下有一个Start_Players_As_Spectators选项。如果勾选了这个选项，那么在进入游戏后，就会使用World中的某个PlayerStart的transform信息，（而">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>UE4备忘 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/21.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        UE4备忘
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/UE4/" target="_blank">
+                                <span class="chip bg-color">UE4</span>
+                            </a>
+                        
+                            <a href="/diary/tags/puerts/" target="_blank">
+                                <span class="chip bg-color">puerts</span>
+                            </a>
+                        
+                            <a href="/diary/tags/TypeScript/" target="_blank">
+                                <span class="chip bg-color">TypeScript</span>
+                            </a>
+                        
+                            <a href="/diary/tags/npm/" target="_blank">
+                                <span class="chip bg-color">npm</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-05-11
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        11.2k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        49 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="玩家生成位置"><a href="#玩家生成位置" class="headerlink" title="玩家生成位置"></a>玩家生成位置</h2><p>打开GameMode蓝图，在Details栏下有一个Start_Players_As_Spectators选项。<br>如果勾选了这个选项，那么在进入游戏后，就会使用World中的某个PlayerStart的transform信息，（而如果World中没有放置PlayerStart，就会使用编辑界面相机的Transform信息）。<br>如果没有勾选这个选项，玩家的视角位置就会在（0,0,0）上生成。  </p>
+<h2 id="通过VaRest插件使用Http"><a href="#通过VaRest插件使用Http" class="headerlink" title="通过VaRest插件使用Http"></a>通过VaRest插件使用Http</h2><ol>
+<li>Launcher里搜索VaRest插件并安装。  </li>
+<li>打开UE4 editor，菜单Edit-&gt;Plugins里开启VaRest插件并重启。  </li>
+<li>搭建UI,构造蓝图脚本:  </li>
+</ol>
+<blockquote>
+<p>构造POST Request<br>构造Json入参对象<br>解析返回的json  </p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/vaResthttp1.jpg" alt="构造POST Request"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/vaResthttp2.jpg" alt="传参和解析结果"></p>
+<h2 id="动态材质实例才能运行时修改参数"><a href="#动态材质实例才能运行时修改参数" class="headerlink" title="动态材质实例才能运行时修改参数"></a>动态材质实例才能运行时修改参数</h2><p>这是我调节的材质，通过调节动态材质实例的boxsize参数可以实现网格裁切显示的功能。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dynamicMaterialInstance2_myMaterial.JPG" alt=""></p>
+<p>选择场景里StaticMeshActor，通过Details下Blueprint/AddScript将actor转为actor蓝图。在该蓝图的Construction里布置蓝图节点，创建相应的动态材质实例。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dynamicMaterialInstanceParamChangeWhenRunning1.JPG" alt="">  </p>
+<p>上面这个actor蓝图实现我的自定义接口，通过接口，UI获取对这个actor蓝图的访问。  </p>
+<blockquote>
+<p>（蓝图接口的定义）首先在contentBrowser里右键新建蓝图接口BlueprintInterface。新建Functions并设置形参和返回值。点击Compile。<br>(蓝图接口的实现)在actor蓝图的ClassSettings-&gt;Interfaces点击Add添加对应接口后。在这actor蓝图的EventGraph添加节点，输入选择AddEvent下对应Event接口方法名。实现接口方法。操作该蓝图内属性方法。<br>（蓝图接口的调用，使各个蓝图之间产生互动）  </p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dynamicMaterialInstance5_DefineInterface.JPG" alt="蓝图接口的定义"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dynamicMaterialInstance4_InterfaceCalcNodeInner.JPG" alt="actor蓝图实现接口方法，操作该蓝图内属性方法"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dynamicMaterialInstance3_uiUseInterface.JPG" alt="UI通过接口调用，调用actor蓝图内方法">  </p>
+<h2 id="UI控件slider操作修改材质参数"><a href="#UI控件slider操作修改材质参数" class="headerlink" title="UI控件slider操作修改材质参数"></a>UI控件slider操作修改材质参数</h2><p>UI初始化先获得欲控制的蓝图引用<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dsafdf7reh.JPG" alt="UI Evnet Construct里">  </p>
+<p>UI绑定调用各自蓝图各自实现的接口(接口是全局的)<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/grdfhtrhghfsdg8.JPG" alt="UI调用各自蓝图接口">  </p>
+<p>关卡蓝图里添加显示UI widget blueprint<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dsaewtewrgh9.JPG" alt="关卡蓝图里添加显示Widget Blueprint">    </p>
+<h2 id="UE4插件的版本转换"><a href="#UE4插件的版本转换" class="headerlink" title="UE4插件的版本转换"></a>UE4插件的版本转换</h2><p>把旧版插件MeshBooleanOperations(下级含**.uplugin)放到目标新版本UE4对应目录下</p>
+<pre><code>我的新版本目录为D:\Program Files\Epic Games\UE_4.26\Engine\Plugins\Marketplace下  
+</code></pre><p>运行lanuch，新建基于C++的新空项目(我为新项目起名newplugins，其实可以随意起名)。</p>
+<pre><code>Edit-&gt;Plugins-&gt;Boolean Mesh Operations  
+
+Enable打勾重启激活目标插件(此时是旧版的目标插件)  
+</code></pre><p>重启后，关闭UE4编辑器。<br>在新项目newplugins下新建文件夹plugins  </p>
+<pre><code>注意，plugins目录与newplugins.sln同一级。  
+把旧版插件MeshBooleanOperations放到刚才新建的plugins目录下。  
+双击newplugins.sln试图打开新项目，提示您“下面的模块丢失了[.]现在就重新构建它们吗？”
+点是，开始构建。  
+构建完成，该项目的旧版本插件已经升级到新目标版本了。  
+
+(如果没有弹窗提示重新build，把plugins目录复制一份放到Content目录下，双击newplugins.uproject试试)</code></pre><p>替换目标引擎插件的版本。  </p>
+<pre><code>将新项目newplugins中目录plugins内MeshBooleanOperations下MBO_lib.uplugin文件用notepad打开，将其中EngineVersion字段内容改变新的版本号，比如我这新版本是4.26.0。  
+
+将新项目newplugins下目录plugins内的MeshBooleanOperations内容，整体复制替换到引擎插件目录D:\Program Files\Epic Games\UE_4.26\Engine\Plugins\Marketplace下。  
+</code></pre><p>OK!旧版本插件升级完成，以后新建工程Edit-&gt;Plugins直接打勾就可以引进插件了。  </p>
+<h2 id="UE4加载外部本地图片资源"><a href="#UE4加载外部本地图片资源" class="headerlink" title="UE4加载外部本地图片资源"></a>UE4加载外部本地图片资源</h2><p>Edit-&gt;Plugins打勾启用蓝图节点扩充插件VictoryPlugin，扩展蓝图节点功能。  </p>
+<p>新建WidgetBlueprint，添加image，创建brush的绑定事件。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/newUI0.JPG" alt=""><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/newUI1.JPG" alt="">  </p>
+<p>获取本地外部图片，并显示在umg的image里。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/newUI2.JPG" alt="">  </p>
+<p>UE4蓝图扩展插件VictoryPlugin常用的功能：  </p>
+<pre><code>CreateTextureRenderTarget2D   动态创建RT  
+PointDistanceToPlane   得到点到面的距离  
+
+Conversions__StringToVector  
+Conversions__StringToRotator  
+Conversions__StringToColor         将string转换成各个类型  
+Conversions__ColorToString          Color转String  
+
+GetAllWidgetsOfClass        得到所有被加载出来的Widget  
+RemoveAllWidgetsOfClass     将所有Widget从显示中移除  
+
+GraphicsSettings__SetFrameRateCap   设置帧数  
+GetNamesOfLoadedLevels   得到已经被加载的关卡名  
+
+
+GetClosestActorOfClassInRadiusOfLocation    得到距离某点最近的Actor  
+GetClosestActorOfClassInRadiusOfActor        得到距离某Actor最近的Actor  
+
+OperatingSystem__GetCurrentPlatform    判定当前在什么平台  
+
+VictorySimulateKeyPress 模拟按键  
+
+Viewport__SetMousePosition  
+Viewport__GetMousePosition  鼠标坐标  
+
+FileIO__SaveStringTextToFile         存储字符串或字符串数组  
+FileIO__SaveStringArrayToFile      路径使用完整硬盘路径如F:\UE_4.24  
+
+VictoryPaths__Win64Dir_BinaryLocation  
+VictoryPaths__WindowsNoEditorDir  
+VictoryPaths__GameRootDirectory  
+VictoryPaths__SavedDir  
+VictoryPaths__ConfigDir  
+VictoryPaths__ScreenShotsDir  
+VictoryPaths__LogsDir             得到各路完整路径  
+
+String__ExplodeString        将string按指定字符分割成string数组  
+
+LoadTexture2D_FromDDSFile        读取T2D，有好多方法  
+
+Victory_GetPixelFromT2D        得到像素值等一系列操作，有好多方法  
+
+CaptureComponent2D_SaveImage        Capture2D保存成图片到本地  
+Capture2D_SaveImage        路径地址F:\UE_4.24\sdddd.jpg  
+</code></pre><h2 id="UE4加载外部网络图片资源"><a href="#UE4加载外部网络图片资源" class="headerlink" title="UE4加载外部网络图片资源"></a>UE4加载外部网络图片资源</h2><p>使用内置蓝图节点DownloadImage异步请求外部图片  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/newUI3.JPG" alt="">  </p>
+<h2 id="UE4实时读取模型数据插件"><a href="#UE4实时读取模型数据插件" class="headerlink" title="UE4实时读取模型数据插件"></a>UE4实时读取模型数据插件</h2><p> 使用插件   <a href="https://github.com/GameInstitute/RuntimeMeshLoader" target="_blank" rel="noopener">https://github.com/GameInstitute/RuntimeMeshLoader</a><br><a href="https://pan.baidu.com/s/1WVHLTmYQ9lJJUMS4CU22Vw" target="_blank">运行时加载外部模型RuntimeMeshLoader_Git原版.rar</a></p>
+<pre><code>
+//RuntimeMeshLoader.h里头文件包含的路径错了。需要改为下面路径
+
+#include "Runtime/Core/Public/Modules/ModuleManager.h"
+
+FMeshInfo 这个结构体名字会引起位置错误。替换成FZZMeshInfo
+
+</code></pre><p><a href="https://pan.baidu.com/s/1gpuCLL-WzcMF-YBzeqpWWg" target="_blank">运行时加载外部模型RuntimeMeshLoader426.rar（限制加载一个mesh版）</a></p>
+<p>安装RuntimeMeshLoader插件。将目录放到D:\Program Files\Epic Games\UE_4.26\Engine\Plugins\Marketplace下即完成插件安装，通过菜单打勾激活。  </p>
+<p>准备好fbx文件。  </p>
+<p>新建材质球dymicMaterialRemote，用来以后创建它的动态实例材质，在动态获取贴图后赋予给网格体。（此时仅需暴露一个贴图参数即可）<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/meshloaderdynmaterial0.JPG" alt="">  </p>
+<p>新建actor命名dyModel，添加组件ProceduralMesh，起名ProceduralMesh1,将新建的actor拖到场景里。  </p>
+<p>用蓝图加载外部fbx网格模型<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/meshloaderdynmesh1.JPG" alt="">  </p>
+<p>原版插件按上图蓝图操作重启编辑器进入后蓝图编辑器会报错，似乎插件自定义的struct-meshinfo每次打开蓝图编辑器会丢失，重新摆会好，为避免报错，下图的插件是修改过的，只加载一个mesh网格。看以后怎么把这个限制去除。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/meshloaderdynmaterial3.JPG" alt="">  </p>
+<p>用蓝图读取外部图片生成动态材质，赋予给即时生成的网格体。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/meshloaderdynmaterial2.JPG" alt="">  </p>
+<p>目前这个插件修改情况：  </p>
+<p><a href="https://pan.baidu.com/s/1qPke2NE9wTYYfhy-ksYlow" target="_blank">运行时加载外部模型RuntimeMeshLoader426.rar（修改版）</a></p>
+<pre><code>"重启编辑器进入后蓝图编辑器会报错"这个问题现在不影响功能，没报错了。  
+似乎可以加载多个网格体了，还没有实践。  
+下一步修改插件思路：  
+可能需要多个ProceduralMesh来加载多个mesh网格体(多个贴图)  
+</code></pre><p>UE4小版本不同，最好也新建c++项目将插件放到其plugins下重新编译一边后，再放到对应引擎插件的Engine\Plugins\Marketplace目录。  </p>
+<h2 id="UE4制作自己的插件"><a href="#UE4制作自己的插件" class="headerlink" title="UE4制作自己的插件"></a>UE4制作自己的插件</h2><p>工作环境: UE_4.26.2 + VS Enterprise 2019  </p>
+<ol>
+<li>创建C++新项目，Settings-&gt;Plugins-&gt;New Plugins。本例选择创建Blank类插件。  </li>
+<li>创建一个C++类继承自”Blueprint Function Library”，命名为MyBlueprintFunctionLibary  </li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/newmyselfue4plugins0.JPG" alt="">  </p>
+<pre><code>上例中，MyLib为我基于c++新建的UE4项目工程名称，HizzPlugins为我创建新插件的名称  
+
+一般情况下你会发现项目居然报错了，这个时候不要惊慌，这是因为创建的模块需要热加载进入,打开VS，按F5热加载即可。  
+</code></pre><p>在VS里编辑头文件和源文件  </p>
+<pre><code>//MyBlueprintFunctionLibrary.h  
+
+#pragma once  
+
+#include "CoreMinimal.h"  
+#include "Kismet/BlueprintFunctionLibrary.h"  
+#include "MyBlueprintFunctionLibrary.generated.h"  
+
+UCLASS()
+class HIZZPUGINS_API UMyBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
+{
+    GENERATED_BODY()
+
+public:
+    UFUNCTION(BlueprintCallable, Category = "PluginTest")
+        static void PluginFunction();
+
+};
+
+//MyBlueprintFunctionLibrary.cpp  
+
+#include "MyBlueprintFunctionLibrary.h"
+
+#include "Engine.h"
+
+void UMyBlueprintFunctionLibrary::PluginFunction()
+{
+    GEngine-&gt;AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("PluginFunciton_OK"));
+}
+</code></pre><p>保存后，VS里F5会自动生成，热加载自动打开UE4编辑器。打开关卡蓝图。可以使用刚才插件库里的工具函数PluginFunction，VS里关闭调试按钮，本次热加载打开的UE4编辑器会自动关闭。  </p>
+<h2 id="Datasmith的使用"><a href="#Datasmith的使用" class="headerlink" title="Datasmith的使用"></a>Datasmith的使用</h2><p>UE4激活DatasmithImporter可以导入Datasmith格式。<br>UE4激活DatasmithRuntime可以动态载入Datasmith格式。(插件在UE4.26均已内置)<br>安装3dmax2020，安装Datasmith导出插件。<br>建模后在3dmax导出选择Datasmith格式。<br>导入UE4，点击DatasmithImporters,选择xxx.udatasmith格式，import即可  </p>
+<h2 id="3dtiles下载工具"><a href="#3dtiles下载工具" class="headerlink" title="3dtiles下载工具"></a>3dtiles下载工具</h2><p><a href="https://pan.baidu.com/s/1fxMyDb83OY5rcZ3zCDZnwQ" target="_blank">3dtiles下载工具.zip</a>  </p>
+<pre><code>downloader.exe --url=http://earthsdk.com/v/last/Apps/assets/dayanta/tileset.json -d D:\MyDownload\dayanta  
+</code></pre><h2 id="TypeScript解决方案puerts"><a href="#TypeScript解决方案puerts" class="headerlink" title="TypeScript解决方案puerts"></a>TypeScript解决方案puerts</h2><p>腾讯已开源 <a href="https://github.com/Tencent/puerts" target="_blank" rel="noopener">https://github.com/Tencent/puerts</a><br><a href="https://pan.baidu.com/s/1SuIuGE4RXeu_w3xI5P99Gg" target="_blank">puerts-8_8.4.371.19</a>  </p>
+<br>
+<a href="https://pan.baidu.com/s/1CmronyylFgUwLgiSCZzsIg" target="_blank">my_puerts_demo_ue4.26.2.rar</a>
+
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li><p>下载puerts  </p>
+</li>
+<li><p>拷贝unreal/Puerts目录到到ceshixiangmu/Plugins目录下，(vs编译插件)<font color="#FF0000">vs编译生成的时候最好关闭ue编辑器</font>  </p>
+</li>
+<li><p>命令行进入Plugins/Puerts目录，执行如下命令即可完成该模式的开启和依赖安装，会在项目目录下生成TypeScript目录。  </p>
+</li>
+</ol>
+<pre><code>node enable_puerts_module.js  
+</code></pre><ol start="4">
+<li><p>双击ceshixiangmu.uproject打开项目，点击puerts的生成按钮（ue.d.ts），这步骤会生成UE API的TypeScript声明。  </p>
+</li>
+<li><p>VSCode打开进入ceshixiangmu目录，在TypeScript目录新建ts文件。  </p>
+</li>
+</ol>
+<p>自定义TypeScript类需要满足下面3个条件，才能被UE编辑器所使用。  </p>
+<blockquote>
+<p>这个类继承自UE的类或者另一继承UE的类<br>类名和去掉.ts后缀的文件名相同<br>把这个类export default</p>
+</blockquote>
+<pre><code>import * as UE from 'ue'  
+class TS_Player extends UE.Character{
+    MoveForward(axisValue:number):void{
+        this.AddMovementInput(this.GetActorForwardVector(),axisValue,false);
+    }
+    MoveRight(axisValue:number):void{
+        this.AddMovementInput(this.GetActorRightVector(),axisValue,false);
+    }
+}
+export default TS_Player;</code></pre><p>为实现这个示例类的移动功能，在ue编辑器Edit-&gt;ProjectSettings里添加Input的轴映射MoveForward (W1S-1)、MoveRight (D1A-1)</p>
+<p>6 将游戏WorldSettings下DefaultPawnClass换成TS_Player。  </p>
+<p>7 点击puerts的生成按钮（ue.d.ts）后play运行，TypeScript起作用了。  </p>
+<h3 id="官方示例"><a href="#官方示例" class="headerlink" title="官方示例"></a>官方示例</h3><p>puerts_unreal_demo-master.zip  </p>
+<pre><code>GameScript-&gt;Start("Myselfts", Arguments);里执行的ts其实是/Content/JavaScript/Myselfts.js。  
+目前我通过Terminal-&gt;Run Build Task...-&gt;tsc:build tsconfi.json将ts文件转化为js文件。  
+但此时感觉ue.d.ts报错。虽然没影响到现在功能。  
+</code></pre><h3 id="虚拟机切换"><a href="#虚拟机切换" class="headerlink" title="虚拟机切换"></a>虚拟机切换</h3><p>puerts同时支持V8和quickjs两种虚拟机，而V8目前有两套版本  </p>
+<p>对于UE4.24及以下，android用的是7.4.288版本的v8，其它系统用的是7.7.299版本的v8<br>对于高于4.24的版本，可以各操作性统一为8.4.371.19<br>对于包大小苛刻的场景，可以选用quickjs<br>默认提供的上述第一种V8版本。  </p>
+<p>希望使用8.4.371.19的v8的话，先到这里下载编译好的V8，解压到Plugins/Puerts/ThirdParty下，然后把JsEnv.Build.cs的UseNewV8修改为true  </p>
+<p>希望使用quickjs的话，先到这里下载编译好的V8，解压到Plugins/Puerts/ThirdParty下，然后把JsEnv.Build.cs的UseQuickjs修改为true  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/puerts_javascript_env.JPG" alt="">  </p>
+<h3 id="扩展puerts框架方法"><a href="#扩展puerts框架方法" class="headerlink" title="扩展puerts框架方法"></a>扩展puerts框架方法</h3><pre><code>const puerts_1 = require("puerts");
+let world = puerts_1.argv.getByName("GameInstance").GetWorld();
+let bpClass1 = UE.Class.Load('/Game/ABCDEFG.ABCDEFG_C');
+let bpActor = world.SpawnActor(bpClass1, undefined, UE.ESpawnActorCollisionHandlingMethod.Undefined, undefined, undefined);
+bpActor.myfun1();
+</code></pre><p>如果报错：TypeError: world.SpawnActor is not a function<br>经检查Plugins/Puerts/Typing/ue/ue.d.ts里面class World extends Object{}里并没有SpawnActor方法。<br>因为SpawnActor不是框架天然有的，需要通过扩展方法新增。  </p>
+<p>新建WorldExtensionMethods.h和WorldExtensionMethods.cpp，点击ue编辑器里的ue.d.ts然后Compile编译生成。<br>即对World对象扩展了SpawnActor方法功能  </p>
+<pre><code>// WorldExtensionMethods.h
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Engine/World.h"
+#include "ExtensionMethods.h"
+#include "WorldExtensionMethods.generated.h"
+
+UCLASS()
+class 项目名_API UWorldExtensionMethods : public UExtensionMethods
+{
+    GENERATED_BODY()
+
+    UFUNCTION(BlueprintCallable, Category = "WorldExtension")
+    static AActor *SpawnActor(UWorld *World, UClass* Class, const FTransform &amp;Transform, ESpawnActorCollisionHandlingMethod SpawnCollisionHandlingOverride, AActor *Owner, APawn *Instigator);
+
+};
+
+// WorldExtensionMethods.cpp
+
+#include "WorldExtensionMethods.h"
+
+
+AActor *UWorldExtensionMethods::SpawnActor(UWorld *World, UClass* Class, const FTransform &amp;Transform, ESpawnActorCollisionHandlingMethod SpawnCollisionHandlingOverride, AActor *Owner, APawn *Instigator)
+{
+    FActorSpawnParameters SpawnParameters;
+    SpawnParameters.SpawnCollisionHandlingOverride = SpawnCollisionHandlingOverride;
+
+    SpawnParameters.Owner = Owner;
+    SpawnParameters.Instigator = Instigator;
+
+    return World-&gt;SpawnActor&lt;AActor&gt;(Class, Transform, SpawnParameters);
+}
+</code></pre><h3 id="TypeScript和UE4引擎互相调用"><a href="#TypeScript和UE4引擎互相调用" class="headerlink" title="TypeScript和UE4引擎互相调用"></a>TypeScript和UE4引擎互相调用</h3><pre><code>//QuickStart.ts  
+import * as UE from 'ue'
+import {$ref, $unref, $set, argv, on, toManualReleaseDelegate, releaseManualReleaseDelegate} from 'puerts';
+
+let obj = new UE.MainObject();
+
+//成员访问
+console.log("----------------------------------------------------");
+console.log("before set", obj.MyString)
+obj.MyString = "PPPPP";
+console.log("after set", obj.MyString)
+
+//简单类型参数函数
+console.log("----------------------------------------------------");
+let sum = obj.Add(100, 300);
+console.log('sum', sum)
+
+//复杂类型参数函数
+console.log("----------------------------------------------------");
+obj.Bar(new UE.Vector(1, 2, 3));
+
+//引用类型参数函数
+console.log("----------------------------------------------------");
+let vectorRef = $ref(new UE.Vector(1, 2, 3))
+obj.Bar2(vectorRef);
+obj.Bar($unref(vectorRef));
+
+//静态方法
+console.log("----------------------------------------------------");
+let str1 = UE.JSBlueprintFunctionLibrary.GetName();
+let str2 = UE.JSBlueprintFunctionLibrary.Concat(', ', str1);
+UE.JSBlueprintFunctionLibrary.Hello(str2);
+
+//扩展方法，和C#的扩展方法类似
+console.log("----------------------------------------------------");
+let v = new UE.Vector(3, 2, 1)
+console.log(v.ToString());
+v.Set(8, 88, 888)
+console.log(v.ToString());
+
+//静态wrap
+console.log("----------------------------------------------------");
+let vec = new UE.Vector(1, 2, 3)
+console.log('vec', vec.ToString())
+vec.X = 3
+vec.Y = 2
+vec.Z = 1
+vec.Normalize(1)
+console.log('vec', vec.ToString())
+console.log(vec.Projection().ToString())
+console.log('vec', vec.ToString())
+
+//枚举
+console.log("----------------------------------------------------");
+obj.EnumTest(UE.EToTest.V1);
+obj.EnumTest(UE.EToTest.V13);
+
+//默认值
+console.log("----------------------------------------------------");
+obj.DefaultTest();
+obj.DefaultTest("hello john");
+obj.DefaultTest("hello john", 1024);
+obj.DefaultTest("hello john", 1024, new UE.Vector(7, 8, 9));
+
+//定长数组
+console.log("----------------------------------------------------");
+console.log("MyFixSizeArray.Num()", obj.MyFixSizeArray.Num())
+console.log("MyFixSizeArray[32]", obj.MyFixSizeArray.Get(32))
+console.log("MyFixSizeArray[33]", obj.MyFixSizeArray.Get(33))
+console.log("MyFixSizeArray[34]", obj.MyFixSizeArray.Get(34))
+obj.MyFixSizeArray.Set(33, 1000)
+console.log("MyFixSizeArray[32]", obj.MyFixSizeArray.Get(32))
+console.log("MyFixSizeArray[33]", obj.MyFixSizeArray.Get(33))
+console.log("MyFixSizeArray[34]", obj.MyFixSizeArray.Get(34))
+
+//TArray
+console.log("----------------------------------------------------");
+function printTArray&lt;T&gt;(arr: UE.TArray&lt;T&gt;)
+{
+    console.log("-----Num:", arr.Num());
+    for(var i=0; i &lt; arr.Num(); i++) {
+        console.log(i, ":", arr.Get(i));
+    }
+}
+printTArray(obj.MyArray);
+obj.MyArray.Add(888);
+obj.MyArray.Set(0, 7);
+printTArray(obj.MyArray);
+
+//TSet
+console.log("----------------------------------------------------");
+console.log(obj.MySet.Num())
+console.log(obj.MySet.Contains("John"));
+console.log(obj.MySet.Contains("Che"));
+console.log(obj.MySet.Contains("Hello"));
+
+//TMap
+console.log("----------------------------------------------------");
+console.log(obj.MyMap.Get("John"))
+console.log(obj.MyMap.Get("Che"))
+console.log(obj.MyMap.Get("Hello"))
+obj.MyMap.Add("Che", 10)
+console.log(obj.MyMap.Get("Che"))
+
+//ArrayBuffer
+console.log("----------------------------------------------------");
+let ab = obj.ArrayBuffer;
+let u8a1 = new Uint8Array(ab);
+for (var i = 0; i &lt; u8a1.length; i++) {
+    console.log(i, u8a1[i]);
+}
+obj.ArrayBufferTest(ab);
+obj.ArrayBufferTest(new Uint8Array(ab));
+let ab2 = obj.ArrayBufferTest(new Uint8Array(ab, 5));
+let u8a2 = new Uint8Array(ab2);
+console.log(u8a2.length);
+for (var i = 0; i &lt; u8a2.length; i++) {
+    console.log(i, u8a2[i]);
+}
+
+//引擎方法
+console.log("----------------------------------------------------");
+//在FJsEnv启动，调用Start时传入的参数可以通过argv获取
+let world = (argv.getByName("GameInstance") as UE.GameInstance).GetWorld();
+let actor = world.SpawnActor(UE.MainActor.StaticClass(), undefined, UE.ESpawnActorCollisionHandlingMethod.Undefined, undefined, undefined) as UE.MainActor;
+console.log(actor.GetName());
+console.log(actor.K2_GetActorLocation().ToString());
+
+//蓝图加载
+let bpClass = UE.Class.Load('/Game/StarterContent/TestBlueprint.TestBlueprint_C')
+let bpActor = world.SpawnActor(bpClass, undefined, UE.ESpawnActorCollisionHandlingMethod.Undefined, undefined, undefined) as UE.TestBlueprint_C;
+bpActor.Foo(false, 8000, 9000);
+
+//蓝图结构体加载
+let TestStruct = UE.UserDefinedStruct.Load("UserDefinedStruct'/Game/StarterContent/TestStruct.TestStruct'");
+let testStruct = UE.NewStruct(TestStruct) as UE.TestStruct;
+testStruct.age = 10;
+testStruct.speed = 5;
+bpActor.Bar(testStruct);
+
+//Delegate
+console.log("----------------------------------------------------");
+function MutiCast1(i) {
+    console.warn("MutiCast1&lt;&lt;&lt;", i);
+}
+
+function MutiCast2(i) {
+    console.warn("MutiCast2&gt;&gt;&gt;", i);
+    actor.NotifyWithInt.Remove(MutiCast2);//调用一次后就停掉
+}
+
+actor.NotifyWithInt.Add(MutiCast1)
+actor.NotifyWithInt.Add(MutiCast2)
+
+console.log("NotifyWithString.IsBound", actor.NotifyWithString.IsBound());
+console.log("NotifyWithRefString.IsBound", actor.NotifyWithRefString.IsBound());
+actor.NotifyWithRefString.Bind((strRef) =&gt; {
+    //console.error("NotifyWithRefString");
+    console.log("NotifyWithRefString", $unref(strRef));
+    $set(strRef, "out to NotifyWithRefString");//引用参数输出
+});
+console.log("NotifyWithString.IsBound", actor.NotifyWithString.IsBound());
+console.log("NotifyWithRefString.IsBound", actor.NotifyWithRefString.IsBound());
+
+actor.NotifyWithStringRet.Bind((inStr) =&gt; {
+    return "////" + inStr;
+});
+
+actor.NotifyWithInt.Broadcast(888999);
+let strRef = $ref("666");
+actor.NotifyWithRefString.Execute(strRef);
+console.log("out str:" + $unref(strRef));
+let retStr = actor.NotifyWithStringRet.Execute("console.log('hello world')");
+console.log("ret str:" + retStr);
+console.log("waiting native call script...........");
+
+//Pass JsFunction as Delegate
+function IsJohn(str:string) : boolean {
+    return str == "John";
+}
+obj.PassJsFunctionAsDelegate(toManualReleaseDelegate(IsJohn));
+//release after using
+releaseManualReleaseDelegate(IsJohn);
+
+//unhandledRejection
+on('unhandledRejection', function(reason: any) {
+    console.log('unhandledRejection~~~', reason.stack);
+});
+
+new Promise(()=&gt;{
+    throw new Error('unhandled rejection');
+});
+</code></pre><h3 id="演示容器的创建"><a href="#演示容器的创建" class="headerlink" title="演示容器的创建"></a>演示容器的创建</h3><pre><code>import * as UE from 'ue'
+
+let a1 = UE.NewArray(UE.BuiltinBool);
+
+let a2 = UE.NewArray(UE.BuiltinInt);
+
+let a3 = UE.NewArray(UE.BuiltinString);
+
+let a4 = UE.NewArray(UE.Actor);
+
+let a5 = UE.NewArray(UE.Vector);
+
+let s1 = UE.NewSet(UE.BuiltinString);
+
+let m1 = UE.NewMap(UE.BuiltinString, UE.BuiltinInt);
+
+//TArray
+console.log("----------------------------------------------------");
+
+for (var i = 0; i &lt; 10; i++) {
+    a2.Add(i + 88);
+}
+
+function printTArray&lt;T&gt;(arr: UE.TArray&lt;T&gt;)
+{
+    console.log("-----Num:", arr.Num());
+    for(var i=0; i &lt; arr.Num(); i++) {
+        console.log(i, ":", arr.Get(i));
+    }
+}
+printTArray(a2);
+a2.Add(888);
+a2.Set(0, 7);
+printTArray(a2);
+
+a5.Add(new UE.Vector(7, 8, 9));
+printTArray(a5);
+console.log(a5.Get(0).ToString());
+
+//TSet
+console.log("----------------------------------------------------");
+s1.Add("John");
+s1.Add("Che");
+console.log(s1.Num())
+console.log(s1.Contains("John"));
+console.log(s1.Contains("Che"));
+console.log(s1.Contains("Hello"));
+
+//TMap
+console.log("----------------------------------------------------");
+m1.Add("John", 0)
+m1.Add("Che", 1)
+
+console.log(m1.Get("John"))
+console.log(m1.Get("Che"))
+console.log(m1.Get("Hello"))
+m1.Add("Che", 10)
+console.log(m1.Get("Che"))
+
+
+</code></pre><h3 id="异步加载蓝图，Delay封装成async-await"><a href="#异步加载蓝图，Delay封装成async-await" class="headerlink" title="异步加载蓝图，Delay封装成async/await"></a>异步加载蓝图，Delay封装成async/await</h3><pre><code>//UTsGameInstance::OnStart里头，把QuickStart改为AsyncTest
+
+import * as UE from 'ue'
+import * as AsyncUtils from './AsyncUtils'
+import {argv} from 'puerts';
+
+let world = (argv.getByName("GameInstance") as UE.GameInstance).GetWorld();
+
+async function asyncTest() {
+    console.warn("begin to delay for 3 seconds...");
+    let latentActionState = new UE.LatentActionState();
+    UE.KismetSystemLibrary.Delay(world, 3, latentActionState.GetLatentActionInfo());
+    await AsyncUtils.WaitLatentActionState(latentActionState);
+    console.warn("delay finished");
+
+    console.warn("async loading...");
+    let cls = await AsyncUtils.AsyncLoad("/Game/StarterContent/TestBlueprint.TestBlueprint_C");
+    console.warn("loaded class:" + cls.GetName());
+}
+
+asyncTest().catch((reason) =&gt; console.log("catch " + reason));
+
+</code></pre><h3 id="加载UI、绑定事件、获取数据"><a href="#加载UI、绑定事件、获取数据" class="headerlink" title="加载UI、绑定事件、获取数据"></a>加载UI、绑定事件、获取数据</h3><pre><code>//UTsGameInstance::OnStart里头，把QuickStart改为UsingWidget
+
+import * as UE from 'ue'
+import {argv} from 'puerts'
+
+let world = (argv.getByName("GameInstance") as UE.GameInstance).GetWorld() as UE.World;
+
+let widgetClass = UE.Class.Load("/Game/StarterContent/TestWidgetBlueprint.TestWidgetBlueprint_C");
+
+let widget = UE.UMGManager.CreateWidget(world, widgetClass) as UE.TestWidgetBlueprint_C;
+
+widget.AddToViewport(0);
+
+widget.Button1.OnClicked.Add(() =&gt; {
+    console.log("button clicked!");
+    console.log("inputed text:" + widget.TextBox.GetText());
+});
+</code></pre><h2 id="UE4重新生成vs解决方案"><a href="#UE4重新生成vs解决方案" class="headerlink" title="UE4重新生成vs解决方案"></a>UE4重新生成vs解决方案</h2><p>若出现ERROR: UnrealBuildTool Exception: Unable to compile source files.错误，删除Intermediate文件夹再重新生成解决方案即可  </p>
+<p>尽量用ue4编辑器里的Compile按钮  </p>
+<pre><code>UE4项目下
+.vs  
+Binaries  
+Intermediate  
+Saved  
+这四个目录可以删除，鼠标右键*.uproject时选择Generate VisualStudio project files可以自动生成这四个目录
+
+
+若出现ERROR: UnrealBuildTool Exception: Unable to compile source files.错误，删除Intermediate文件夹再重新生成解决方案即可  
+
+
+若出现Error: ...“TAtomic is only usable with trivial types”...  
+
+Are you building from Visual Studio or by pressing the Compile button in the UE editor? I see this error often when building in VS, but it doesn’t seem to affect whether the build succeeds (when a build fails, there has always been another error). I don’t see this message when using the Compile button in the editor. Though I’m not certain what is causing it, if the build succeeds, I think you can safely ignore it.
+
+看这网友建议是忽略，尽量用ue4编辑器里的Compile按钮，避免用VS里的编译生成。  
+</code></pre><h2 id="UE4使用puerts初次尝试"><a href="#UE4使用puerts初次尝试" class="headerlink" title="UE4使用puerts初次尝试"></a>UE4使用puerts初次尝试</h2><p>GameInstance的生命周期为整个进程，全局有且中有一个。所以可存储一些全局变量等。  </p>
+<p>自定义GameInstance类:默认并没有什么必须实现的方法，本例添加一个获取本gameinstance的静态方法，可供蓝图调用，也可供C++调用。  </p>
+<pre><code>//MyGameInstance.h
+
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Engine/GameInstance.h"
+#include "MyGameInstance.generated.h"
+
+UCLASS()
+class PUERTS79_API UMyGameInstance : public UGameInstance
+{
+    GENERATED_BODY()
+
+public:
+    UFUNCTION(BlueprintCallable)
+    static UMyGameInstance* GetInstance();
+};
+
+//////////////////////////////////////////////////////////////////////////
+//MyGameInstance.cpp  
+
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "MyGameInstance.h"
+
+
+UMyGameInstance* UMyGameInstance::GetInstance()
+{
+    UMyGameInstance* instance = nullptr;
+
+    if (GEngine)
+    {
+        FWorldContext* context = GEngine-&gt;GetWorldContextFromGameViewport(GEngine-&gt;GameViewport);
+        instance = Cast&lt;UMyGameInstance&gt;(context-&gt;OwningGameInstance);
+    }
+    return instance;
+}
+
+
+
+//在C++中调用:
+//UMyGameInstance* GInstance = UMyGameInstance::GetInstance();
+
+</code></pre><p>上面，创建了一个可供蓝图调用的c++静态函数。虽然暂时还与puerts无关。  </p>
+<p>下一步，我准备用这个静态函数(方便测试使用)在GameInstance里启动一个puerts的js虚拟机。  </p>
+<p>打开ue4编辑器。创建一个继承自UObject类的C++类，起名为MyMainObject(MyMainObject.h,MyMainObject.cpp)<br>在其头文件上添加#include “ExtensionMethods.h”<br>C++类有改动，都需要点下UE4编辑器上的ue.d.ts按钮更新一下以后再编译。  </p>
+<pre><code>//MyMainObject.h
+#pragma once
+
+#include "ExtensionMethods.h"
+#include "CoreMinimal.h"
+#include "UObject/NoExportTypes.h"
+#include "MyMainObject.generated.h"
+
+
+UCLASS()
+class PUERTS79_API UMyMainObject : public UObject
+{
+    GENERATED_BODY()
+
+public:
+    UMyMainObject();
+
+    UPROPERTY()
+    FVector V;
+
+    UPROPERTY()
+    FString MyString;
+
+    UFUNCTION(BlueprintCallable, meta = (DisplayName = "Add", ScriptName = "Add", Keywords = "test"), Category = "Test")
+    int32 Add(int32 a, int32 b) const;
+
+
+};
+</code></pre><p>和</p>
+<pre><code>//MyMainObject.cpp  
+
+
+#include "MyMainObject.h"
+
+UMyMainObject::UMyMainObject() {
+    V = { 1, 2, 4 };
+}
+
+int32 UMyMainObject::Add(int32 a, int32 b) const
+{
+    //UE_LOG(LogTemp, Warning, TEXT("UMyObject::Add(%d, %d)"), a, b);
+    return a + b;
+}
+
+
+</code></pre><p>将之前新建的MyGameInstance内容修改如下：  </p>
+<pre><code>//MyGameInstance.h
+#pragma once
+
+#include "JsEnv.h"
+
+#include "CoreMinimal.h"
+#include "Engine/GameInstance.h"
+#include "MyGameInstance.generated.h"
+
+UCLASS()
+class PUERTS79_API UMyGameInstance : public UGameInstance
+{
+    GENERATED_BODY()
+
+public:
+    UFUNCTION(BlueprintCallable)
+    static UMyGameInstance* GetInstance();
+
+    virtual void Init() override;
+
+    virtual void OnStart() override;
+
+    virtual void Shutdown() override;
+
+    UFUNCTION(BlueprintCallable)
+    void MyFun1InCPP();//蓝图里可调用C++的实例方法
+
+private:
+    TSharedPtr&lt;puerts::FJsEnv&gt; GameScript;
+
+};
+
+//MyGameInstance.cpp  
+#include "MyGameInstance.h"
+
+
+UMyGameInstance* UMyGameInstance::GetInstance()
+{
+    UMyGameInstance* instance = nullptr;
+    if (GEngine)
+    {
+        FWorldContext* context = GEngine-&gt;GetWorldContextFromGameViewport(GEngine-&gt;GameViewport);
+        instance = Cast&lt;UMyGameInstance&gt;(context-&gt;OwningGameInstance);
+    }
+    return instance;
+}
+
+void UMyGameInstance::MyFun1InCPP() {
+    UE_LOG(LogTemp, Warning, TEXT("This is a CPP Function"));
+}
+
+void UMyGameInstance::Init()
+{
+}
+
+void UMyGameInstance::OnStart()
+{
+    GameScript = MakeShared&lt;puerts::FJsEnv&gt;();
+    TArray&lt;TPair&lt;FString, UObject*&gt;&gt; Arguments;
+    Arguments.Add(TPair&lt;FString, UObject*&gt;(TEXT("GameInstance"), this));  //后面在myhello.ts里通过argv.getByName("GameInstance") as UE.GameInstance 获得UE4当前这个GameInstance；
+    GameScript-&gt;Start("myhello", Arguments);
+}
+
+void UMyGameInstance::Shutdown()
+{
+    GameScript.Reset();
+}
+</code></pre><p>因为是基于GameInstance父类的，所以再Edit-&gt;ProjectSettings-&gt;GameInstace设置为MyGameInstance，会自动运行实例方法OnStart  </p>
+<p>这个实例方法里，创建了一个js虚拟机，并运行了js脚本myhello。  </p>
+<p>myhello.ts内容如下,如果puerts安装正确，通过vscode打开项目目录，Terminal-&gt;Run Build Task…-&gt;tsc:build tsconfi.json将ts文件转化为js文件  </p>
+<pre><code>//myhello.ts
+import * as UE from 'ue'
+import {$ref, $unref, $set, argv, on, toManualReleaseDelegate, releaseManualReleaseDelegate} from 'puerts';
+
+console.log(666);
+
+let obj=new UE.MyMainObject();
+console.log("before set", obj.MyString)
+obj.MyString = "PPPPP";
+console.log("after set", obj.MyString)
+
+let world = (argv.getByName("GameInstance") as UE.GameInstance).GetWorld();   //这里的GetWorld()是因为点了ue.d.ts建立一一对应后，可调用ue4原生方法UGameInstance::GetWorld
+let bpClass = UE.Class.Load('/Game/StarterContent/TestBlueprint.TestBlueprint_C')    //获得某蓝图类  
+let bpActor = world.SpawnActor(bpClass, undefined, UE.ESpawnActorCollisionHandlingMethod.Undefined, undefined, undefined) as UE.TestBlueprint_C;    //创建蓝图对象  
+bpActor.Foo(false, 8, 9); //调用蓝图方法
+
+//myhello.js  
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const UE = require("ue");
+const puerts_1 = require("puerts");
+console.log(666);
+let obj = new UE.MyMainObject();
+console.log("before set", obj.MyString);
+obj.MyString = "PPPPP";
+console.log("after set", obj.MyString);
+
+let world = puerts_1.argv.getByName("GameInstance").GetWorld();
+let bpClass = UE.Class.Load('/Game/StarterContent/TestBlueprint.TestBlueprint_C');
+let bpActor = world.SpawnActor(bpClass, undefined, UE.ESpawnActorCollisionHandlingMethod.Undefined, undefined, undefined);
+bpActor.Foo(false, 8, 9);
+
+//# sourceMappingURL=myhello.js.map  
+
+
+MyMainObject是UE4的C++类，这样便实现了js调用C++对象。  
+</code></pre><p>demo工程里Plugins不是最新的，下载最新的plugin覆盖demo工程里的，使用tsc:build转js时就不会报下面这个错  </p>
+<pre><code>error: Cannot find name '$Nullable'  
+</code></pre><h2 id="UE4蓝图通过puerts调用ts函数"><a href="#UE4蓝图通过puerts调用ts函数" class="headerlink" title="UE4蓝图通过puerts调用ts函数"></a>UE4蓝图通过puerts调用ts函数</h2><p>之前步骤里建立js虚拟机，运行指定脚本，其实就是调用ts函数了  </p>
+<pre><code>    ...  
+    GameScript = MakeShared&lt;puerts::FJsEnv&gt;();
+    TArray&lt;TPair&lt;FString, UObject*&gt;&gt; Arguments;
+    Arguments.Add(TPair&lt;FString, UObject*&gt;(TEXT("GameInstance"), this));
+    GameScript-&gt;Start("myhello", Arguments);
+    ...  
+</code></pre><h2 id="UE4用C-调用plugins里的C"><a href="#UE4用C-调用plugins里的C" class="headerlink" title="UE4用C++调用plugins里的C++"></a>UE4用C++调用plugins里的C++</h2><p>这是就是添加可供ue4使用的c++函数库  </p>
+<pre><code>第一步，引擎资源浏览器选择添加C++类，然后引擎会根据你选择的模块位置自动帮你生成cpp和h文件,其中公有还是私有取决于你要不要把这个类用到其他Module.  
+
+添加完类之后，需要关闭VS，用生成文件重新生成一下解决方案，让引擎识别新的依赖关系  
+
+第二步，在UE中，每个Project的每个Module或者Plugin都有一个build.cs文件，文件的作用是为UnrealBuildTool描述每个Module的“环境”依赖信息。    
+</code></pre><blockquote>
+<p>PublicIncludePathModuleNames：模块名称列表，包含我们模块的public文件夹下的头文件需要访问的头文件，但不需要“导入”或链接。<br>PrivateIncludePathModuleNames：模块名称列表，包含我们模块的private文件夹下的头文件需要访问的头文件，但不需要“导入”或链接。<br>PublicDependencyModuleNames：公共依赖模块名称列表（自动包含public/private目录）。 这些是我们的public source 所需的模块。需要链接<br>PrivateDependencyModuleNames：私有依赖模块名称列表。这些是我们的private代码所依赖的模块，但我们的public文件中不会有对这些模块的依赖，需要链接  </p>
+</blockquote>
+<pre><code>项目名/Source/项目名/项目名.Build.cs里：添加如下内容：  
+
+PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "JsEnv", "UMG", "Puerts" });  
+
+然后，就可以在UE4新建c++类中的头文件里直接包含插件Plugins下的头文件了  
+
+#include "JsEnv.h"  就不会报"JsEnv.h": No such file or directory 这样的错误了。  
+
+
+可能需要UE4重新生成vs解决方案
+</code></pre><h2 id="原来学习ue4还没有小结的功能点"><a href="#原来学习ue4还没有小结的功能点" class="headerlink" title="原来学习ue4还没有小结的功能点"></a>原来学习ue4还没有小结的功能点</h2><pre><code>
+UE4资源管理之UAssetManager  
+一般情况下，UE4会自动加载与卸载资源，但如果开想更精确地掌控资源发现、加载与审核的时机与方法，那就需要UAssetManager。  
+UE4静态/动态加载资源  
+UE4加载外部文件资源  
+
+源码版UE4调试源码
+https://www.pianshen.com/article/6147989687/
+</code></pre><h2 id="UE4绘制自定义网格mesh"><a href="#UE4绘制自定义网格mesh" class="headerlink" title="UE4绘制自定义网格mesh"></a>UE4绘制自定义网格mesh</h2><h3 id="CustomMeshComponent"><a href="#CustomMeshComponent" class="headerlink" title="CustomMeshComponent"></a>CustomMeshComponent</h3><p>UE4提供Custom Mesh Component创建自定义网格集合体（自定义三角面）。  </p>
+<p>AddCustomMeshComponent添加CustomMesh组件。具有相关的方法如下：  </p>
+<pre><code>AddCustomMeshTriangles(添加自定义三角面)：  
+简单来说就是把组成的网格mesh的三角形给他  
+SetCustomMeshTriangles(设置自定义三角形):  
+作用同上，注意这个是替换原有的三角面，不是增加，是覆盖。  
+ClearCustomMeshComponent(清除三角面):  
+清除三角面，重新绘制。  
+MakeCustomMeshTriangle(创建自定义三角网格mesh):  
+最关键的方法，用于创建三角面的三个顶点，是个结构体。  
+</code></pre><p>以创建要给简单四边形为例：<br>先来个顶点顺序图：<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/jiandanjuxingdingdianindex.png" alt=""><br>这里画4个三角面，免得反面看不见。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/custommeshNewTriangle.JPG" alt=""><br>支持动态创建删除和材质后续各种骚操作。  </p>
+<h3 id="ProceduralMeshComponent"><a href="#ProceduralMeshComponent" class="headerlink" title="ProceduralMeshComponent"></a>ProceduralMeshComponent</h3><p>使用ProceduralMeshComponent创建自定义三角面网格体  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/ProceduralMeshComponentTriangle.JPG" alt="输入顶点数据和三角面顶点序列，创建模型">  </p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p>Custom Mesh Component和Procedural Mesh Component都是根据顶点/面数据绘制自定义形状的3d模型。<br>区别在于ProceduralMesh可以完成更复杂的功能：  </p>
+<blockquote>
+<p>ProceduralMesh支持UV、Normal、碰撞等参数。<br>ProceduralMesh支持转换成StaticMesh</p>
+</blockquote>
+<h3 id="程序化模型转化为静态网格体"><a href="#程序化模型转化为静态网格体" class="headerlink" title="程序化模型转化为静态网格体"></a>程序化模型转化为静态网格体</h3><h4 id="使用C-自动通过ProceduralMeshComponent转staticmesh"><a href="#使用C-自动通过ProceduralMeshComponent转staticmesh" class="headerlink" title="使用C++自动通过ProceduralMeshComponent转staticmesh"></a>使用C++自动通过ProceduralMeshComponent转staticmesh</h4><p>(一路走下去，到最后蓝图方法可调用，但是ue4编辑器会奔溃，原因还没找到。。。可能跟不同版本的引擎源码差异有关。)<br>使用C++增加这一扩展功能，只有ProceduralMeshComponent才支持。<br>新建继承自Blueprint Function Library类的C++文件，用于编写将程序化模型转化为静态网格体的函数，暴露成节点给蓝图调用。<br>算法的核心就是提取ProceduralMesh中的信息，经由RawMesh将模型信息转入StaticMesh对象，最后AssetRegisterModule创建本地资源（目前还是临时资源，只存在于缓存中而不在本地磁盘中，关闭项目再次打开模型就不见了，临时状态，ue4编辑器的Content里可见，资源管理器不可见，重启ue4刚生成的staticmesh会消失）。</p>
+<p>如果数据量过大，可能开始运行后，会卡住一段时间，但其实是在绘制的  </p>
+<pre><code>项目名/Source/项目名/项目名.Build.cs里内容修改：  
+PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "JsEnv", "UMG", "Puerts","ProceduralMeshComponent","RawMesh" });</code></pre><p>新建继承自Blueprint Function Library类的C++文件PMConvertSM.h和PMConvertSM.cpp  </p>
+<pre><code>//PMConvertSM.h  
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Kismet/BlueprintFunctionLibrary.h"
+#include "PMConvertSM.generated.h"
+
+/**
+ * 
+ */
+class UStaticMesh;
+class UProceduralMeshComponent;
+UCLASS()
+class PUERTS79_API UPMConvertSM : public UBlueprintFunctionLibrary
+{
+    GENERATED_BODY()
+
+public:
+    UFUNCTION(BlueprintCallable, Category = "Procedural Mesh Component")
+    static UStaticMesh* ProceduralMeshConvertToStaticMesh(UProceduralMeshComponent* proMeshComp, FString outMeshName);//自定义绘制程序网格体转化为静态网格体
+
+
+};
+
+//PMConvertSM.cpp  
+
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "PMConvertSM.h"
+
+#include "ProceduralMeshComponent.h"
+/*在项目.build.cs和.uproject的plugin下添加"ProceduralMeshComponent"解决头文件找不到路径*/
+#include "Engine/StaticMesh.h"
+#include "RawMesh/Public/RawMesh.h"
+/*在项目.build.cs下添加"RawMesh"解决头文件找不到路径和编译错误问题*/
+#include "AssetRegistryModule.h"
+
+//改写自引擎源代码中的转化静态网格体按钮OnClickConvertToStaticMesh
+UStaticMesh* UPMConvertSM::ProceduralMeshConvertToStaticMesh(UProceduralMeshComponent* proMeshComp, FString outMeshName)
+{
+    UProceduralMeshComponent* ProMesh = proMeshComp;
+    if (ProMesh != nullptr)
+    {
+        FString PathName = FString(TEXT("/Game/Mesh/"));
+        FString PackageName = PathName + outMeshName;
+
+        //Raw mesh data we are filling in
+        FRawMesh RawMesh;
+        // Materials to apply to new mesh
+        TArray&lt;UMaterialInterface*&gt; MeshMaterials;
+
+        const int32 NumSections = ProMesh-&gt;GetNumSections();
+        int32 VertexBase = 0;
+        for (int32 SectionIdx = 0; SectionIdx &lt; NumSections; SectionIdx++)
+        {
+            FProcMeshSection* ProSection = ProMesh-&gt;GetProcMeshSection(SectionIdx);
+
+            // Copy verts
+            for (FProcMeshVertex&amp; Vert : ProSection-&gt;ProcVertexBuffer)
+            {
+                RawMesh.VertexPositions.Add(Vert.Position);
+            }
+
+            // Copy 'wedge' info
+            int32 NumIndices = ProSection-&gt;ProcIndexBuffer.Num();
+            for (int32 IndexIdx = 0; IndexIdx &lt; NumIndices; IndexIdx++)
+            {
+                int32 Index = ProSection-&gt;ProcIndexBuffer[IndexIdx];
+
+                RawMesh.WedgeIndices.Add(Index + VertexBase);
+
+                FProcMeshVertex &amp; ProcVertex = ProSection-&gt;ProcVertexBuffer[Index];
+
+                FVector TangentX = ProcVertex.Tangent.TangentX;
+                FVector TangentZ = ProcVertex.Normal;
+                FVector TangentY = (TangentX ^ TangentZ).GetSafeNormal() * (ProcVertex.Tangent.bFlipTangentY ? -1.f : 1.f);
+
+                RawMesh.WedgeTangentX.Add(TangentX);
+                RawMesh.WedgeTangentY.Add(TangentY);
+                RawMesh.WedgeTangentZ.Add(TangentZ);
+
+                RawMesh.WedgeTexCoords[0].Add(ProcVertex.UV0);
+                RawMesh.WedgeColors.Add(ProcVertex.Color);
+            }
+
+            // copy face info
+            int32 NumTris = NumIndices / 3;
+            for (int32 TriIdx = 0; TriIdx &lt; NumTris; TriIdx++)
+            {
+                RawMesh.FaceMaterialIndices.Add(SectionIdx);
+                RawMesh.FaceSmoothingMasks.Add(0); // Assume this is ignored as bRecomputeNormals is false
+            }
+
+            // Remember material
+            MeshMaterials.Add(ProMesh-&gt;GetMaterial(SectionIdx));
+
+            // Update offset for creating one big index/vertex buffer
+            VertexBase += ProSection-&gt;ProcVertexBuffer.Num();
+
+            // If we got some valid data.
+            if (RawMesh.VertexPositions.Num() &gt; 3 &amp;&amp; RawMesh.WedgeIndices.Num() &gt; 3)
+            {
+                // Then find/create it.
+                UPackage* Package = CreatePackage(NULL, *PackageName);
+                check(Package);
+
+                // Create StaticMesh object
+                UStaticMesh* StaticMesh = NewObject&lt;UStaticMesh&gt;(Package, FName(*outMeshName), RF_Public | RF_Standalone);
+                StaticMesh-&gt;InitResources();
+
+                StaticMesh-&gt;LightingGuid = FGuid::NewGuid();
+
+                // Add source to new StaticMesh
+                FStaticMeshSourceModel * SrcModel = new (StaticMesh-&gt;SourceModels) FStaticMeshSourceModel();
+                SrcModel-&gt;BuildSettings.bRecomputeNormals = false;
+                SrcModel-&gt;BuildSettings.bRecomputeTangents = false;
+                SrcModel-&gt;BuildSettings.bRemoveDegenerates = false;
+                SrcModel-&gt;BuildSettings.bUseHighPrecisionTangentBasis = false;
+                SrcModel-&gt;BuildSettings.bUseFullPrecisionUVs = false;
+                SrcModel-&gt;BuildSettings.bGenerateLightmapUVs = true;
+                SrcModel-&gt;BuildSettings.SrcLightmapIndex = 0;
+                SrcModel-&gt;BuildSettings.DstLightmapIndex = 1;
+                SrcModel-&gt;SaveRawMesh(RawMesh);
+
+                // Copy materials to new mesh
+                for (UMaterialInterface* Material : MeshMaterials)
+                {
+                    StaticMesh-&gt;StaticMaterials.Add(FStaticMaterial(Material));
+                }
+
+                //Set the Imported version before calling the build
+                StaticMesh-&gt;ImportVersion = EImportStaticMeshVersion::LastVersion;
+
+                // Build mesh from source
+                StaticMesh-&gt;Build(false);
+                StaticMesh-&gt;PostEditChange();
+
+                // Notify asset registry of new asset
+                FAssetRegistryModule::AssetCreated(StaticMesh);
+
+                return StaticMesh;
+            }
+        }
+    }
+    return nullptr;
+}
+
+</code></pre><h4 id="使用UE4编辑器在编辑态通过编辑菜单实现ProceduralMeshComponent转staticmesh"><a href="#使用UE4编辑器在编辑态通过编辑菜单实现ProceduralMeshComponent转staticmesh" class="headerlink" title="使用UE4编辑器在编辑态通过编辑菜单实现ProceduralMeshComponent转staticmesh"></a>使用UE4编辑器在编辑态通过编辑菜单实现ProceduralMeshComponent转staticmesh</h4><p>在编辑器状态下运行程序通过ProceduralMeshComponent生成自定义网格体时，Detail下选中ProceduralMesh组件，在ProceduralMesh栏下点击按钮CreateStaticMesh。在Content里找到新生成的静态网格，(注意此时不要结束编辑器的播放运行状态，或许能结束吧，没试了)，<br>鼠标右键AssetLocalization-&gt;ResetLocalizationID，然后再鼠标右键save all，就临时文件保存为本地staticmesh文件了。重启后也存在。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/save2staticmesh.jpg" alt="">  </p>
+<h2 id="UE4通过Puerts运行cesium实践1"><a href="#UE4通过Puerts运行cesium实践1" class="headerlink" title="UE4通过Puerts运行cesium实践1"></a>UE4通过Puerts运行cesium实践1</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/cesiumMini0.jpg" alt="">  </p>
+<p>根据网上这张图，我感觉包含Cesium.js就是它的主体对象。  </p>
+<pre><code>
+将cesium-1.83/Build/CesiumUnminified/Cesium.js (大概11兆左右大小)放到UE项目名/Content/JavaScript下
+
+const myCesium=require("Cesium.js");
+console.log(myCesium);
+
+ue4编辑器开始播放，在ue4编辑器的outputLog里看，还真打印出对象来了  
+//Puerts: (0x000001FC1AFDAB90) [object Object]
+//真的可以打印出来东西。。。
+
+下一步，找个调试工具调试这个puerts创建的jsruntime里的js。  
+puerts的jsruntime其实跟nodejs非常像，准备用vscode调式nodejs的方式来试试(我本地nodejs的环境配置是好的)  
+
+vscode打开puertsUE4的项目目录，在.vscode目录下新建launch.json文件。  
+
+//launch.json内容如下  
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "nodemon",
+            //"runtimeExecutable": "nodemon",
+            "program": "${workspaceFolder}/Content/JavaScript/myhello22.js",
+            "restart": true,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+}
+
+//myhello22.js内容如下（myhello22.js位置也位于UE项目名/Content/JavaScript处）  
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+console.log(111);
+console.log(222);
+var Cesium=require("./Cesium.js"); 
+//console.log(Cesium);
+console.log(Cesium.VERSION);  
+
+
+在vscode左侧Run And Debug栏，点击绿色小三角开始运行myhello22.js。(支持在js里断点)  
+调试结果如下，还真的获取了cesium主体对象和版本号。  
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/cesiumMini1.jpg" alt="">  </p>
+<p>下一步，是不是要参考基于CDN方式使用cesium的网页，剥离借鉴在无浏览器环境里使用cesium（当做工具库）？<br>更直接的下一步，初步做一些cesium不依赖cesium插件的原生功能，在ue4的对应实现？  </p>
+<pre><code>一般cesium建立其运行环境的第一步，都是获取div标签初始化cesium环境。  
+&lt;div id="cesiumContainer"&gt;&lt;/div&gt;
+var viewer=new Cesium.Viewer('cesiumContainer');
+
+需要跟到源码里看看这一步。。。看看没有浏览器环境能怎么办。。。
+
+https://blog.csdn.net/nsrainbow/article/details/82826719  
+JSDOM是用nodejs实现的用于测试的虚拟浏览器，由它生成虚拟的dom模型给cesium的viewer去初始化环境行不行？  
+https://blog.csdn.net/i042416/article/details/89283612  
+https://blog.csdn.net/linxubin321/article/details/106608249  
+
+在nodejs环境里使用浏览器环境下的document对象  
+npm install jsdom --save  安装
+但是npm安装的nodejs模块怎样才可以在前端js中直接调用？puerts现在是普通的前端js，想要使用jsdom  
+
+
+</code></pre><p>比如添加一个几何体这个功能  </p>
+<pre><code>var instance = new Cesium.GeometryInstance({
+    geometry: new Cesium.RectangleGeometry({
+        rectangle: Cesium.Rectangle.fromDegrees(105.20, 30.55, 106.20, 31.55),
+        vertexFormat:Cesium.EllipsoidSurfaceAppearance.VERTEXT_FORMAT
+    })
+});
+上面这段负责制造几何体，在puerts环境里也可执行。  
+但下面这负责显示几何体，因为浏览器div现在还不存在，viewer就没有建立成功，现在就无法运行。
+
+viewer.scene.primitives.add(new Cesium.Primitive({
+    geometryInstances: instance,
+    appearance: new Cesium.EllipsoidSurfaceAppearance({
+        material:Cesium.Material.fromType('Stripe')
+    })
+}));
+</code></pre><h2 id="手把手教你创建一个NPM包"><a href="#手把手教你创建一个NPM包" class="headerlink" title="手把手教你创建一个NPM包"></a>手把手教你创建一个NPM包</h2><p>package包，是在模块(一个js文件)基础上更进一步的抽象，将某个独立功能封装起来，用于发布，更新，依赖管理和版本控制。<br>遵循CommonJS包规范，一个包应具备如下结构:  </p>
+<ul>
+<li>一个package.json文件应该存在于包顶级目录下</li>
+<li>二进制文件应该包含在bin目录下</li>
+<li>js代码应该包含在lib目录下</li>
+<li>文档应该在doc目录下</li>
+<li>单元测试应该在test目录下</li>
+</ul>
+
+<p>在node.js中，require()函数可以引入文件模块，也可以引入符合上述规范的包。  </p>
+<p>npm：一个非官方提供的用于下载/安装/查找/更新/删除第三方node.js包的工具，同时还可以执行打包/发布模块，解决模块间依赖性等功能  </p>
+<h3 id="创建npm包"><a href="#创建npm包" class="headerlink" title="创建npm包"></a>创建npm包</h3><p>node.js中模块即使发布到npm的代码包。  </p>
+<pre><code>创建一个新模块的第一步就是创建一个package.json文件。  
+你可以用npm init来创建package.json文件。  
+这个过程中命令行会逐步提示你输入这个模块的信息，  
+其中模块的名字和版本号是必填项  
+</code></pre><p>创建好的package.json是长这样  </p>
+<pre><code>{  
+  "name": "myfirstnpmpackage",  
+  "version": "1.0.0",  
+  "description": "",  
+  "main": "index.js",  
+  "scripts": {  
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1"  
+  },  
+  "author": "",  
+  "license": "ISC"  
+}  
+</code></pre><p>你还需要一个入口文件，如果你使用默认值的话，那就会是index.js.创建完package.json文件之后，你就要开始写代码包里的内容了，这里举个最简单的例子，在默认的index.js里写一个要导出的函数，这个函数也就是别人的代码里可以import或者require的。  </p>
+<pre><code>exports.showMsg = function () {  
+  console.log("This is my first module");  
+};  
+</code></pre><p>至此，你的node模块就已经创建完成了。  </p>
+<h3 id="发布npm包"><a href="#发布npm包" class="headerlink" title="发布npm包"></a>发布npm包</h3><p>打包模块：  </p>
+<ol>
+<li>注册/登录npm官网</li>
+<li>使用npm adduser命令注册新账号或登录已有账号</li>
+<li>进入配置完成的包目录，使用 npm publish 命令发布包</li>
+<li>包就在npm官网中，以供使用了</li>
+</ol>
+
+<p><a href="https://www.npmjs.com/signup" target="_blank" rel="noopener">https://www.npmjs.com/signup</a>  注册一个账号。  </p>
+<p>新建目录，执行npm login命令登录npm，（首次需要登录,存储证书到本地,后面就不需要每次都登录，登录需要输入用户名,密码,还有邮箱,这些都是刚刚注册时候填写的）  </p>
+<p>再新建项目目录，cd进入项目目录，执行npm init来创建npm包。  </p>
+<p>创建完成后利用npm publish 命令发布你的包，在发布之前可以在npm里搜索一下有没有和你包名字 一样的包，如果执行命令出现下面这种情况，说明名字冲突，修改package.json里的name值。  </p>
+<pre><code>You do not have permission to publish "***",are you logged in as the correct user?  
+</code></pre><p>在npm上搜索，会找到刚刚发布的包。  </p>
+<pre><code>怎么使用？  
+
+npm install myfirstnpmpackage --save 咯。  
+npm install &lt;pkg&gt; @&lt;version&gt; --save  
+
+全局安装：  
+1. 安装包将保存在/usr/local下或者你node的安装目录下  
+2. 可以直接在命令行里执行，不能通过require()引入。  
+3. 主要是为了执行这个包里对外发布的可执行文件，在命令行可直接调用  
+
+本地安装： 将下载的npm包安装在当前项目工作路径  
+1. 安装包将保存在./node_modules下(运行npm命令时所在的目录)，如果没有node_modules目录，会在当前执行npm命令的目录下生成node_modules目录  
+
+2. 可以通过require()来引入本地安装的包  
+
+怎么维护？  
+
+列出本地目录已经安装的包 npm ls  
+列出全局目录已经安装的包 npm ls -g  
+列出已经安装的包的版本信息 npm ls &lt;pkg&gt;  
+查看已经安装的包的详细信息 npm info &lt;pkg&gt;  
+更新已经安装的包 npm update &lt;pkg&gt;  
+卸载已经安装的包 npm uninstall &lt;pkg&gt;  
+npm --force unpublish &lt;pkg&gt;  </code></pre><h2 id="webpack单独打包指定js文件后给前端html直接使用"><a href="#webpack单独打包指定js文件后给前端html直接使用" class="headerlink" title="webpack单独打包指定js文件后给前端html直接使用"></a>webpack单独打包指定js文件后给前端html直接使用</h2><p>webpack是一个现代JavaScript应用程序的静态模块打包器(modulebundler)。当webpack处理应用程序时，它会递归地构建一个依赖关系图(dependencygraph)，其中包含应用程序需要的每个模块，然后将所有这些模块打包成一个或多个bundle。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/webpack0000.jpg" alt="">  </p>
+<p>它包含四个核心概念  </p>
+<ul>
+<li>入口(entry)：指示webpack应该使用哪个模块，来作为构建其内部依赖图的开始。进入入口起点后，webpack会找出有哪些模块和库是入口起点（直接和间接）依赖的</li>
+<li>输出(output)：告诉webpack在哪里输出它所创建的bundles，以及如何命名这些文件，默认值为./dist</li>
+<li>loader：让webpack能够去处理那些非JavaScript文件（webpack自身只理解JavaScript）</li>
+<li>插件(plugins)：插件则可以用于执行范围更广的任务。插件的范围包括，从打包优化和压缩，一直到重新定义环境中的变量。插件接口功能极其强大，可以用来处理各种各样的任务。</li>
+</ul>
+
+<p>打包步骤:<br>大前提安装node.js就不用说了。  </p>
+<ol>
+<li>全局安装webpack</li>
+<li>创建本地项目文件夹</li>
+<li>本地安装webpack</li>
+<li>查看webpack版本</li>
+<li>创建package.json文件</li>
+<li>配置打包目录</li>
+<li>添加webpack.config.js文件</li>
+<li>运行webpack</li>
+<li>配置package.json</li>
+</ol>
+
+<p>全局安装webpack  </p>
+<pre><code>npm install webpack webpack-cli –g
+</code></pre><p>创建本地项目文件夹  </p>
+<pre><code>cd D:\MyDownload\Temp\webpacktest
+</code></pre><p>本地安装webpack  </p>
+<pre><code>npm install webpack webpack-cli --save-dev
+</code></pre><p>查看webpack版本，出现版本号，说明安装成功  </p>
+<pre><code>webpack -v
+</code></pre><p>输入如下命令，将在项目目录中自动生成package.json文件  </p>
+<pre><code>npm init -y
+</code></pre><p>配置打包目录  </p>
+<pre><code>在项目目录下:  
+新建config文件夹，用于存放配置文件；  
+新建src文件夹，用于存放源码；  
+新建out文件夹，用于存放打包生成文件；  
+</code></pre><p>添加webpack.config.js文件<br>在config文件夹中添加webpack.config.js文件，并添加如下代码  </p>
+<pre><code>const path=require('path'); //调用node.js中的路径
+module.exports={
+    entry:{
+        index:'./src/myapp.js' //需要打包的文件
+    },
+    output:{
+        filename:'myweb.js',    //输入的文件名是什么，生成的文件名也是什么
+        path:path.resolve(__dirname,'../out') //指定生成的文件目录
+    },
+    mode:"development"    //开发模式，没有对js等文件压缩，默认生成的是压缩文件
+}
+</code></pre><p>运行webpack<br>在cmd命令窗体中，输入如下命令，运行成功后，在out目录中会生成打包后的目标js  </p>
+<pre><code>webpack --config config/webpack.config.js 
+</code></pre><p>配置package.json:<br>每次输入命令webpack –config config/webpack.config.js，太长，且非常不方便，此时我们可以在package.json文件中配置，添加如下所示：  </p>
+<pre><code>项目package.json里  
+......
+
+"scripts": {
+    "test": "echo \"Error: no test specified\" &amp;&amp; exit 1",
+    "start": "webpack --config config/webpack.config.js"
+},
+
+......
+
+配置完成后，我们输入的如下命令，可以直接打包。
+npm run start</code></pre><p>简单复盘说明：  </p>
+<p>webpack的打包是基于模块来打包的，也就是说经过打包的文件代码是被打包到一个函数里，此时所有定义的变量或者方法已变成局部的。有了独立的作用域，定义变量，声明函数都不会污染全局作用域。  </p>
+<pre><code>//myapp.js:  
+var myapp = {
+    get: function(){
+        return 'feenan!';
+    }
+}
+window.myappobj=myapp;//为了被浏览器引用后使用该脚本功能
+module.exports = myapp;
+
+按上面的方法，被webpack打包后生成myweb.js后，被html直接使用：  
+//xxx.html:  
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;CesiumInUnreal&lt;/title&gt;
+&lt;meta charset="utf8"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script type="text/javascript" src="myweb.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" &gt;
+    console.log(myappobj.get());
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h3 id="包含jsdom的模块通过npm打包测试"><a href="#包含jsdom的模块通过npm打包测试" class="headerlink" title="包含jsdom的模块通过npm打包测试"></a>包含jsdom的模块通过npm打包测试</h3><p>cmd命令行里npm config ls 可以看到node的可执行程序目录  </p>
+<h4 id="打包导出给web网页使用"><a href="#打包导出给web网页使用" class="headerlink" title="打包导出给web网页使用"></a>打包导出给web网页使用</h4><p>网页的js里无法识别require，所以转用browserify  </p>
+<p>在项目目录下编写使用jsdom的js文件<br>项目目录/src/myjsdom.js  </p>
+<pre><code>//npm install jsdom --save  
+//myjsdom.js:
+var jsdom = require("jsdom");
+var JSDOM = jsdom.JSDOM;
+const dom = new JSDOM( `&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;CesiumInUnreal&lt;/title&gt;
+&lt;meta charset="utf8"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="cesiumContainer"&gt;&lt;/div&gt;
+&lt;p&gt;hello world&lt;/p&gt;
+&lt;p id="zss"&gt;hello zzs&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;`, { includeNodeLocations: true });
+
+var document=dom.window.document;
+console.log(dom.window.document.querySelector("p").textContent); // "Hello world"
+console.log(document.getElementById("zss").textContent);
+var testVaule="1234";
+
+var funobj = {
+    get: function(){
+        testVaule=document.getElementById("zss").textContent;//跟外面那个testVaule经测试并不是同一个
+        console.log(testVaule);
+    }
+}
+window.mydomobj={
+    funobj:funobj,
+    mydom:dom,
+    mydocument:document,
+    testVaule:testVaule
+};//为了被浏览器引用后使用该脚本功能,本地nodejs里调试需要注释掉这行，因为没有window对象。  
+
+module.exports = {
+    funobj:funobj,
+    mydom:dom,
+    mydocument:document,
+    testVaule:testVaule
+};
+</code></pre><p>全局安装browserify，把js文件编译一下，转成浏览器端可识别的格式。  </p>
+<pre><code>//全局安装  
+npm install -g browserify
+
+//转成浏览器端可识别的格式  
+browserify ./src/myjsdom.js -o ./out/dist.js
+</code></pre><p>在网页里引入，可使用编写的依赖jsdom的对象和方法。在浏览器console里也可以看到。  </p>
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;meta charset="utf8"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script type="text/javascript" src="dist.js?v=6"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" &gt;
+    console.log(window.mydomobj);
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h4 id="打包导出给ue4JsRuntime运行"><a href="#打包导出给ue4JsRuntime运行" class="headerlink" title="打包导出给ue4JsRuntime运行"></a>打包导出给ue4JsRuntime运行</h4><p>JavaScript 中有一个特殊的对象，称为全局对象（Global Object），它及其所有属性都可以在程序的任何地方访问，即全局变量。在浏览器 JavaScript 中，通常 window 是全局对象，而 Node.js 中的全局对象是 global，所有全局变量（除了 global 本身以外）都是 global对象的属性。  </p>
+<p>官方有句话：  </p>
+<pre><code>以下报错很多人都出现过。
+module.exports = typeof self == 'object' ? self.FormData : window.FormData;
+ReferenceError: window is not defined
+
+官方回复：browserify is for producing browser bundles, not Node bundles,  
+
+Our temporary "fix" is to replace window.FormData with this.FormData in the generated bundle.  </code></pre><p>下面代码解决了nodejs环境里没有window和dom环境，<br>但是Cesium用它给的dom初始化viewer时报警Error constructing CesiumWidget.<br>cesium报警：RuntimeError: The browser does not support WebGL.<br>下一步跟踪cesium源代码在依赖webgl的位置做屏蔽。  </p>
+<pre><code>//myjsdom.js:
+var jsdom = require("jsdom");
+var JSDOM = jsdom.JSDOM;
+const dom = new JSDOM( `&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;CesiumInUnreal&lt;/title&gt;
+&lt;meta charset="utf8"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="cesiumContainer"&gt;&lt;/div&gt;
+&lt;p&gt;hello world&lt;/p&gt;
+&lt;p id="zss"&gt;hello zzs&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;`, { includeNodeLocations: true });
+
+var document=dom.window.document;
+console.log(dom.window.document.querySelector("p").textContent); // "Hello world"
+console.log(document.getElementById("zss").textContent);
+var testVaule="1234";
+
+//global.varA = "abc";
+//global.varB = document;
+global.window=dom.window;
+global.document=document;
+
+var funobj = {
+    get: function(){
+        testVaule=document.getElementById("zss").textContent;
+        console.log(testVaule);
+    }
+}
+
+module.exports=testVaule;
+
+//打包成test9.js 通过 browserify ./src/myjsdom.js -o ./out/test9.js </code></pre><p>ue4的jsruntime里  </p>
+<pre><code>"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+
+var Cesium=require("./Cesium.js"); 
+//console.log(myCesium);
+console.log(Cesium.VERSION);
+
+var testVaule= require("./test9.js"); 
+//console.log(global.varB);
+//console.log(window);
+//console.log(document);
+//这里不会报错，说明nodejs环境里有全局变量window和document了，靠jsdom设置的全局变量。
+
+接下来执行  
+var viewer=new Cesium.Viewer('cesiumContainer');报错。
+
+Error constructing CesiumWidget.
+Visit &lt;a href="http://get.webgl.org"&gt;http://get.webgl.org&lt;/a&gt; to verify that your web browser and hardware support WebGL.  Consider trying a different web browser or updating your video drivers.  Detailed error 
+information is below:
+RuntimeError: The browser does not support WebGL.  Visit http://get.webgl.org.
+</code></pre><p>webpacka指定js脱离项目的模块化，然后在index.html中单独引用。  </p>
+<p>要使用webpack，需要前安装webpack，因为在命令行终端调用，所以选择全局安装。  </p>
+<pre><code>npm install webpack -g
+npm install webpack-cli -g
+
+我的nodejs安装在D盘。  
+
+当在控制台输入webpack的时候其实运行的是 node_modules\node_modules\webpack\bin\webpack.js这个文件  
+(C:\Users\Administrator\AppData\Roaming\npm\node_modules\webpack\bin\webpack.js，我通过前面两句执行后实际安装在这个位置。)
+
+单是webpack的学习内容就有很多，这里没有理清，以后在理。  
+</code></pre><p>在webpack引入CopyWebpackPlugin  </p>
+<pre><code>npm install copy-webpack-plugin --save  
+
+
+new CopyWebpackPlugin([
+    {from: './src/config/ip.js', to: 'ip.js'},
+])
+
+在index.html中单独引入script标签，注意要配置一个随机后缀，即：  
+
+&lt;script&gt;
+    document.write("&lt;s"+"cript type='text/javascript' src='./dist/ip.js?"+Math.random().toString(36).substr(2)+"'&gt;&lt;/scr"+"ipt&gt;");
+&lt;/script&gt;
+
+防止ip.js因为缓存导致问题加了个随机数。
+
+以上，就通过webpack引入CopyWebpackPlugin打包，解决了webpack单独打包指定js给前端html直接使用的问题。  
+</code></pre><h2 id="webpack单独打包指定js文件后给nodejs环境里直接使用"><a href="#webpack单独打包指定js文件后给nodejs环境里直接使用" class="headerlink" title="webpack单独打包指定js文件后给nodejs环境里直接使用"></a>webpack单独打包指定js文件后给nodejs环境里直接使用</h2><pre class="line-numbers language-js"><code class="language-js"><span class="token comment" spellcheck="true">//简单示例1： </span>
+<span class="token comment" spellcheck="true">//一直按照"webpack单独打包指定js文件后给前端html直接使用"的步骤操作。</span>
+<span class="token comment" spellcheck="true">//被打包的myapp.js内容：  </span>
+
+<span class="token string">'use strict'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> xx <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> addX <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> value <span class="token operator">+</span> xx<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+global<span class="token punctuation">.</span>addX<span class="token operator">=</span><span class="token keyword">function</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token number">100</span><span class="token operator">+</span>value<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+global<span class="token punctuation">.</span>xx<span class="token operator">=</span>xx<span class="token punctuation">;</span>
+module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span>xx <span class="token operator">=</span> xx<span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//非打包有用  </span>
+module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span>addX <span class="token operator">=</span> addX<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//非打包有用  </span>
+
+<span class="token comment" spellcheck="true">//将这个js打包成mynode.js后，在另一个nodejs项目里使用  </span>
+
+<span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"./mynode.js"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>global<span class="token punctuation">.</span><span class="token function">addX</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">addX</span><span class="token punctuation">(</span><span class="token number">55</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="puerts环境里npm上所有包都可用么？"><a href="#puerts环境里npm上所有包都可用么？" class="headerlink" title="puerts环境里npm上所有包都可用么？"></a>puerts环境里npm上所有包都可用么？</h2><p>js虚拟机一般不会独立存在，都会依托于某个环境，用于解决特定问题。<br>比如：<br>浏览器环境是js虚拟机加上dom操作的api。<br>NodeJs环境是js虚拟机加上编写webserver需要用到的api。<br>如果一个js包仅用了es规范的内容，这些环境下都能跑，但如果用了特定环境里特有的东西，比如用了node特有的api，就不能直接在浏览器跑，反之亦然，用了浏览器特有的dom操作api就不能在Node里跑。<br>puerts就是另外一个js环境：js虚拟机+游戏引擎。它和nodejs，浏览器的js环境是并列关系。<br>nodejs和浏览器专用的包固然没法在puerts上使用，相反如果你用了puerts特有的api做成一个包提交到npm，同样也没法在nodejs或者浏览器上跑。  </p>
+<p>理解这个，其实应用了puerts的项目开发里还是有不少npm包可以直接利用起来的。  </p>
+<h2 id="UE4寻找类的一个坑"><a href="#UE4寻找类的一个坑" class="headerlink" title="UE4寻找类的一个坑"></a>UE4寻找类的一个坑</h2><p>注意名字重复了一次才行，后面还要加了”_C”。。  </p>
+<pre><code>let world = puerts_1.argv.getByName("GameInstance").GetWorld();  
+
+let bpClass = UE.Class.Load('/Game/webglscene/websence.websence_C');  
+
+let bpActor = world.SpawnActor(bpClass, undefined, UE.ESpawnActorCollisionHandlingMethod.Undefined, undefined, undefined);  
+bpActor.ReLoad();  
+</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/05/11/diary-20210511-2/" class="b-link-green">UE4备忘</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/05/11/diary-20210511-3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/16.jpg" class="responsive-img" alt="UE4备忘(二)">
+                        
+                        <span class="card-title">UE4备忘(二)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            使用actor的Was Recently Rendered可以实现获取当前场景可见actor列表。  
+EventGraph事件图表编辑器里
+右键关联菜单勾选Context Sensitive后，拖拉释放菜单里会有Promote to Va
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-11
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                    <a href="/diary/tags/HLSL/" target="_blank">
+                        <span class="chip bg-color">HLSL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/05/02/diary-20210502-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/27.jpg" class="responsive-img" alt="UE4的探索(1)-材质">
+                        
+                        <span class="card-title">UE4的探索(1)-材质</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            PBR概念初览基于物理的材质是一种以三种材质核心输入为基础的实时算法，分别是Mtallic金属感，Specualr高光度，Roughness粗糙度。利用这三项输入我们即可打造出建筑表面所需的任何照片级真实度材质。除金属感，高光度和粗糙度外还
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-02
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

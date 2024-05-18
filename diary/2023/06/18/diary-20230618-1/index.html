@@ -1,0 +1,2389 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Qt实践, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="qt常用功能QLabel停留时间开始没有文字，然后有文字，停留几秒钟，然后文字消失  
+首先拖入一个frame，frame中拖入一个label  
+QTimer *timer;
+
+timer=new QTimer();
+connect(ti">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Qt实践 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/26.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Qt实践
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-06-18
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        5.5k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        27 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="qt常用功能"><a href="#qt常用功能" class="headerlink" title="qt常用功能"></a>qt常用功能</h2><h3 id="QLabel停留时间"><a href="#QLabel停留时间" class="headerlink" title="QLabel停留时间"></a>QLabel停留时间</h3><p>开始没有文字，然后有文字，停留几秒钟，然后文字消失  </p>
+<pre class="line-numbers language-html"><code class="language-html">首先拖入一个frame，frame中拖入一个label  
+QTimer *timer;
+
+timer=new QTimer();
+connect(timer,SIGNAL(timeout()),this,SLOT(hideMsg()));
+timer->start(3000);
+
+void A::hideMsg(){
+    ui.frame1->hide();  
+    timer->stop();
+}
+
+if(timer!=NULL){
+    delete timer;
+    timer=NULL;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt中实现防止重复点击"><a href="#qt中实现防止重复点击" class="headerlink" title="qt中实现防止重复点击"></a>qt中实现防止重复点击</h3><p>防抖思路1：只响应最后一次  </p>
+<pre class="line-numbers language-html"><code class="language-html">static bool isFastClick(QObject *target, int delayTimeMil)
+{
+    qlonglong lastTick = (target->property("tick").toLongLong());
+    qlonglong tick = GetTickCount();
+    target->setProperty("tick", tick);
+    if (tick - lastTick > delayTimeMil) 
+    {
+        return true;
+    }
+    return false;
+}
+// 调用的地方  
+void MainWindow::on_pushButton_clicked()
+{
+   bool res =isFastClick(ui->pushButton,100); //前面加上具体的按钮名称，后面是需要延时的时长
+   if(res == false)                           //目前是100ms
+   {
+       return;
+   }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>防抖思路2：一段时间内只响应一次  </p>
+<pre class="line-numbers language-html"><code class="language-html">if(!b_btnClicked){
+    b_btnClicked=true;
+    。。。。。。
+    QTimer::singleShot(600,[=](){
+        b_btnClicked=false;
+    });
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt弹窗添加背景窗口层"><a href="#qt弹窗添加背景窗口层" class="headerlink" title="qt弹窗添加背景窗口层"></a>qt弹窗添加背景窗口层</h3><p>使用方法：使用单例模式，所以可以适用于任意交互、提示警告类弹窗界面背景。  </p>
+<ol>
+<li>首先确定需要添加此背景的弹窗类，在该类的头文件中添加Mask界面类的头文件；</li>
+<li>查看弹窗类是否包含showEvent函数，如果没有就在弹窗类下重写该函数，然后再在showEvent函数中加入  <pre class="line-numbers language-html"><code class="language-html">protected:
+ void showEvent(QShowEvent *e){
+     MaskWin::GetInstance()->showMaskBg();
+ }
+ void closeEvent(QCloseEvent *e){
+     MaskWin::GetInstance()->hide();
+ }
+ void hideEvent(QHideEvent *e){
+     MaskWin::GetInstance()->hide();
+ }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ol>
+<pre><code>出现弹窗时，背景需要置灰色透明，禁用弹窗之外的点击事件，增强界面美观性及合理
+性，实现Mask界面类如下  
+
+```html  
+// maskwin.h
+#ifndef MASKWIN_H
+#define MASKWIN_H
+
+#include &lt;QWidget&gt;
+#include &lt;QMainWindow&gt;
+class MaskWin : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit MaskWin(QWidget *parent = 0);
+    static MaskWin *GetInstance();
+    static void showMaskBg();
+
+signals:
+
+public slots:
+private:
+    static MaskWin *m_maskWin;
+    static QMainWindow *m_mainWin;
+};
+
+#endif // MASKWIN_H
+
+
+// maskwin.cpp  
+
+#include "maskwin.h"
+#include "mainwindow.h"
+#include &lt;QApplication&gt;
+MaskWin::MaskWin(QWidget *parent) : QWidget(parent)
+{
+    setWindowFlags(Qt::Window|Qt::FramelessWindowHint|Qt::WindowSystemMenuHint|Qt::WindowMinimizeButtonHint|Qt::WindowMaximizeButtonHint|Qt::WindowStaysOnTopHint);
+    setWindowOpacity(0.8);
+    this-&gt;setObjectName("maskbg");
+    setStyleSheet("QWidget#maskbg{background-color:rgba(65,67,84,255);border-radius:8px;}");
+    setFixedSize(332,340);
+    hide();
+}
+MaskWin* MaskWin::m_maskWin=NULL;
+QMainWindow* MaskWin::m_mainWin=NULL;
+MaskWin* MaskWin::GetInstance(){
+    if(NULL==m_maskWin){
+        foreach (QWidget *w, QApplication::topLevelWidgets()) {
+            if(QMainWindow* mainWin=qobject_cast&lt;QMainWindow*&gt;(w)){
+                m_mainWin=mainWin;
+                m_maskWin=new MaskWin(mainWin);
+            }
+        }
+    }
+    return m_maskWin;
+}
+void MaskWin::showMaskBg(){
+    if(NULL==m_maskWin){
+       return;
+    }
+    QRect rect=m_mainWin-&gt;geometry();
+    m_maskWin-&gt;resize(rect.width(),rect.height());
+    m_maskWin-&gt;move(rect.x(),rect.y());
+    m_maskWin-&gt;show();
+}
+
+</code></pre><h3 id="qt使用外部字体"><a href="#qt使用外部字体" class="headerlink" title="qt使用外部字体"></a>qt使用外部字体</h3><pre class="line-numbers language-html"><code class="language-html">1 将PingFang Medium.ttf文件放于项目目录/fonts下  
+2 添加新建文件-Qt-QtResourceFile，建立font.qrc  
+3 选择font.qrc右键Open in Editor,编辑前缀，添加现有文件，项目目录/fonts/PingFang Medium.ttf  
+在main.cpp里将字体设置为全局字体  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QFontDatabase</span><span class="token punctuation">></span></span>  
+QApplication a(argc,argv);
+int fontId = QFontDatabase::addApplicationFont(QStringLiteral(":/font/HarmonyOS_Sans_SC_Black.ttf"));
+QStringList fontFamilies = QFontDatabase::applicationFontFamilies(fontId);
+if (fontFamilies.size() > 0)
+{
+    QFont font;
+    font.setFamily(fontFamilies[0]);//设置全局字体
+    a.setFont(font);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="自定义QRadioButton图片使用"><a href="#自定义QRadioButton图片使用" class="headerlink" title="自定义QRadioButton图片使用"></a>自定义QRadioButton图片使用</h3><pre class="line-numbers language-html"><code class="language-html">ui->radio1->setStyleSheet("QRatioButton::indicator{width:0px;}\
+QRatioButton::checked{image:url(:/icons/checked.png);}\
+QRatioButton::unchecked{image:url(:/icons/unchecked.png);}");
+
+ui->radio2->setStyleSheet("QRatioButton::indicator{width:0px;}\
+QRatioButton::checked{image:url(:/icons/checked.png);}\
+QRatioButton::unchecked{image:url(:/icons/unchecked.png);}");
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt多个子项目时国际化语言"><a href="#qt多个子项目时国际化语言" class="headerlink" title="qt多个子项目时国际化语言"></a>qt多个子项目时国际化语言</h3><pre class="line-numbers language-html"><code class="language-html">qt多个子项目时国际化语言能更新语言但不能生成qm文件
+需要手动将*.ts编译成*.qm
+进入相应命令行目录 "5.8\msvc2015_64\bin>"
+执行 lrelease E:\doc\*.ts 即可手动生成  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="std-string和QString转换"><a href="#std-string和QString转换" class="headerlink" title="std::string和QString转换"></a>std::string和QString转换</h3><pre class="line-numbers language-html"><code class="language-html">//****从std::string 到QString
+qstring = QString(QString::fromLocal8Bit(cstr.c_str()));
+
+//****从QString 到 std::string
+cstr = string((const char *)qstring.toLocal8Bit());
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="sscanf"><a href="#sscanf" class="headerlink" title="sscanf"></a>sscanf</h3><p>sscanf通常被用来解析并转换字符串  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">></span></span>
+int sscanf(const char *str, const char *format, ...);
+str为待解析的字符串  
+format为字符串格式描述
+其后是一序列数目不定的指针参数，存储解析后的数据.  
+返回结果表示数据成功转换的数目  
+
+例如整数转换  
+int year, month, day; 
+int converted = sscanf("20191103", "%04d%02d%02d", &amp;year, &amp;month, &amp;day);
+printf("converted=%d, year=%d, month=%d, day=%d/n", converted, year, month, day);
+"%04d%02d%02d"是用来解析字符串的格式，%表示格式转换的开始，d表示转换为一个整数，04作为d的修饰，表示这是一个长度为4位的整数，不足4位时以0补齐。  
+例子返回结果等于3，表示有3个数据成功转换，转换成功数目同时取决于被解析的字符串以及其转换格式，如果我们把例子中的格式改为"%04d%02d"，那么sscanf将只返回2，day的数值不会被sscanf更改。  
+
+浮点数转换  
+double longitude, latitude;
+int converted = sscanf("113.123456789 31.123456789", "%lf %lf", &amp;longitude, &amp;latitude);
+printf("converted=%d, longitude=%.9lf, latitude=%lf/n", converted, longitude, latitude);
+sscanf的格式字符串中，f表示这是一个浮点数，其修饰词l表示这是一个double的浮点数。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="线程延时"><a href="#线程延时" class="headerlink" title="线程延时"></a>线程延时</h3><pre class="line-numbers language-html"><code class="language-html">sleep_for(MMS_C11 chrono::micrseconds(500));
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="QT信号槽connect中解决自定义数据类型或数组作为函数参数的问题——QT-qRegisterMetaType-注册MetaType"><a href="#QT信号槽connect中解决自定义数据类型或数组作为函数参数的问题——QT-qRegisterMetaType-注册MetaType" class="headerlink" title="QT信号槽connect中解决自定义数据类型或数组作为函数参数的问题——QT qRegisterMetaType 注册MetaType"></a>QT信号槽connect中解决自定义数据类型或数组作为函数参数的问题——QT qRegisterMetaType 注册MetaType</h3><h3 id="计算中英文字符串长度"><a href="#计算中英文字符串长度" class="headerlink" title="计算中英文字符串长度"></a>计算中英文字符串长度</h3><p>在遇到中文或者中英文混合的字符串时，我们必须先通过 toLocal8Bit() 转为本地操作系统设置的字符集编码，然后再使用 length() 计算，才能得到正确的结果！</p>
+<pre class="line-numbers language-html"><code class="language-html">#include &lt;QtCore/QCoreApplication>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDebug</span><span class="token punctuation">></span></span>
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+
+    int length = 0;
+    QString qstrEN = "hello,world!";
+    length = qstrEN.length();//12
+    qDebug() &lt;&lt; "qstrEN.length()=" &lt;&lt; length;
+
+    qstrZH = QString::fromLocal8Bit("好好学习，天天向上！");
+    length = qstrZH.length();//10,OK!
+    qDebug() &lt;&lt; "qstrZH.length()=" &lt;&lt; length;
+
+    QString qstrMisc = QString::fromLocal8Bit("Good Good Study!天天向上！");
+    length = qstrMisc.toLocal8Bit().length();//26
+    qDebug() &lt;&lt; "qstrMisc.length()=" &lt;&lt; length;
+
+    length = qstrMisc.length();//21,OK!
+    qDebug() &lt;&lt; "qstrMisc.length()=" &lt;&lt; length;
+
+    //字符串截取
+    QByteArray bytestr = qstrMisc.toLocal8Bit().left(18);
+    qDebug() &lt;&lt; "bytestr=" &lt;&lt; bytestr;//"Good Good Study!\xCC\xEC"
+
+    QString localstr = QString::fromLocal8Bit(bytestr);
+    qDebug() &lt;&lt; "localstr=" &lt;&lt; localstr;//"Good Good Study!天"
+
+    //okey!
+    QString strOkey = qstrMisc.left(18);
+    qDebug() &lt;&lt; "strOkey=" &lt;&lt; strOkey;//"Good Good Study!天天"
+
+    return a.exec();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QLabel文本的像素长度"><a href="#QLabel文本的像素长度" class="headerlink" title="QLabel文本的像素长度"></a>QLabel文本的像素长度</h3><pre class="line-numbers language-html"><code class="language-html">width = label.fontMetrics().boundingRect(label.text()).width();
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="QLabel跑马灯效果初步"><a href="#QLabel跑马灯效果初步" class="headerlink" title="QLabel跑马灯效果初步"></a>QLabel跑马灯效果初步</h3><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDebug</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QTimer</span><span class="token punctuation">></span></span>  
+
+public:
+        QString m_string="";
+        QTimer *m_timer;
+public slots:
+    void scrollActiveLabel();  
+
+m_string="跑马灯效果1 跑马灯效果2 跑马灯效果3 跑马灯效果4 跑马灯效果5";
+m_timer=new QTimer(this);
+connect(m_timer,SIGNAL(timeout()),this,SLOT(scrollActiveLabel()));
+connect(ui->pushButton,&amp;QPushButton::released,this,[=](){
+    m_string=ui->lineEdit->text().trimmed();
+    qDebug()&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ui-</span><span class="token punctuation">></span></span>label->text().length();
+});
+m_timer->start(500);
+
+void MainWindow::scrollActiveLabel(){
+    static int nPos=0;
+    if(nPos>m_string.length()){
+        nPos=0;
+    }
+    ui->label->setText(m_string.mid(nPos));
+    nPos++;
+}
+MainWindow::~MainWindow()
+{
+    if(m_timer){
+        if(m_timer->isActive()){
+            m_timer->stop();
+        }
+        delete m_timer;
+        m_timer=NULL;
+    }
+    delete ui;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QLineEdit输入限制"><a href="#QLineEdit输入限制" class="headerlink" title="QLineEdit输入限制"></a>QLineEdit输入限制</h3><p>只允许输入字母、数字、下划线、中文  </p>
+<pre class="line-numbers language-html"><code class="language-html">//QRegExp regx("[_a-zA-Z0-9\u400-\u9fa5]+$");
+QRegExp regx("[_a-zA-Z0-9\u400-\u9fa5]{40}");
+QValidator *validator=new QRegExpValidator(regx,ui->lineEdit1);
+ui->lineEdit1->setValidator(validator);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Qt实现只运行一个程序"><a href="#Qt实现只运行一个程序" class="headerlink" title="Qt实现只运行一个程序"></a>Qt实现只运行一个程序</h3><pre class="line-numbers language-html"><code class="language-html">#include "mainwindow.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QApplication</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QSystemSemaphore</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QSharedMemory</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDebug</span><span class="token punctuation">></span></span>
+
+int main(int argc, char *argv[])
+{
+    //环境变量设置
+    QApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QApplication a(argc, argv);
+     //确保只运行一次
+    QSystemSemaphore sema("HuiGuo", 1, QSystemSemaphore::Open);
+    sema.acquire();//在临界区操作共享内存  SharedMemory
+
+    QSharedMemory mem("HuiGuoObject"); //全局对象名
+    bool bCreate = mem.create(1);
+    qDebug() &lt;&lt; "bCreate=============" &lt;&lt; bCreate;
+    if(bCreate)
+    {
+        //创建成功，说明之前没有程序在运行
+        qDebug() &lt;&lt; "create shared memory success======";
+    }
+    else
+    {
+        //创建失败，说明已经有一个程序在运行了。
+        qDebug() &lt;&lt; "An instance has already been running======";
+        sema.release();//如果是 Unix 系统，会自动释放。
+        return 0;
+    }
+    sema.release();//临界区
+
+    MainWindow w;
+    w.show();
+    return a.exec();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="无边框-圆角"><a href="#无边框-圆角" class="headerlink" title="无边框+圆角"></a>无边框+圆角</h3><ol>
+<li>最底层添加 QFrame，其他控件都布置在 frame 内 （也可以用 QWidget作为底层）  </li>
+<li>设置QFrame样式  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">QFrame
+{
+    background-color:#ffffff;
+    border:none;
+    border-radius:10px;
+}  
+3. 设置QDialog对话框属性  
+
+```html  
+    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool); // 无边框设置
+    setAttribute(Qt::WA_TranslucentBackground);// 背景透明设置
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="重写QDialog的键盘事件keyPressEvent"><a href="#重写QDialog的键盘事件keyPressEvent" class="headerlink" title="重写QDialog的键盘事件keyPressEvent"></a>重写QDialog的键盘事件keyPressEvent</h3><p>防止ESC键关闭对话框  </p>
+<pre class="line-numbers language-html"><code class="language-html">void Dialog_My_Timer::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key())
+    {
+    case Qt::Key_Escape:
+        break;
+    default:
+        QDialog::keyPressEvent(event);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QToolButton图标在上文字在下"><a href="#QToolButton图标在上文字在下" class="headerlink" title="QToolButton图标在上文字在下"></a>QToolButton图标在上文字在下</h3><pre class="line-numbers language-html"><code class="language-html">ui->toolbtn_1->setIcon(QIcon(":/icons/pic1.png"));
+ui->toolbtn_1->setIconSize(QSize(20,20));
+ui->toolbtn_1->setText(tr("start"));
+ui->toolbtn_1->setToolTip(tr("this is start"));
+ui->toolbtn_1->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
+ui->toolbtn_1->setStyleSheet("background-color:rgba(0,0,0,0);");<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Qt对话框"><a href="#Qt对话框" class="headerlink" title="Qt对话框"></a>Qt对话框</h3><p>QDialog弹出显示在父窗口居中位置<br>通过reject()或accept()来关闭  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 弹出方式  
+MacroDialog *dlg = new MacroDialog(this);
+int iRet = dlg->exec();
+// QDialog构造函数内  
+QRect rect = parent->geometry();
+int x = rect.x() + rect.width()/2 - this->width() /2;
+int y = rect.y() + rect.height()/2 - this->height() /2;
+this->move(x, y);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>模态对话框，并接收数据<br>模态对话框使用了exec()函数将其显示出来。exec()函数执行代码就会被阻塞，后面的语句也就不会被执行到。因此，对于使用了 exec()显示的模态对话框，我们可以在exec()函数之后直接从对话框的对象获取到数据值。<br>实际上，QDialog::exec() 是有返回值的，其返回值是 QDialog::Accepted或者 QDialog::Rejected。<br>模态对话框弹出后，主界面阻塞，exec()后续代码会暂停住。不可进行点击、拖动等任何操作。</p>
+<pre class="line-numbers language-html"><code class="language-html">QDialog dialog(this);
+if (dialog.exec() == QDialog::Accepted) {
+    // do something
+} else {
+    // do something else
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>非模态对话框，QDialog::show()函数会立即返回，我们换一种思路获取数据，那就是使用信号槽机制<br>非模态对话框弹出后，主界面不会被阻塞，可以进行点击、拖动等任何操作。show()之后的代码会立即执行  </p>
+<pre class="line-numbers language-html"><code class="language-html">UserAgeDialog *dialog = new UserAgeDialog(this);
+connect(dialog, &amp;UserAgeDialog::userAgeChanged, this, &amp;MainWindow::setUserAge);
+dialog->show();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>半模态对话框<br>半模态对话框弹出后，主界面阻塞，不可进行点击、拖动等任何操作。但因通过show显示出来的，show()之后的代码会立即执行</p>
+<pre class="line-numbers language-html"><code class="language-html">UserAgeDialog *dialog = new UserAgeDialog(this);
+dialog->setModal(true);
+connect(dialog, &amp;UserAgeDialog::userAgeChanged, this, &amp;MainWindow::setUserAge);
+dialog->show();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>内存泄漏  </p>
+<pre class="line-numbers language-html"><code class="language-html">函数内部的变量可以在函数结束后释放，你new的指针被释放了，但指针所指向的内存并没有被释放，造成了内存泄露，
+但如果主程序结束这部分内存还是会被释放的；
+所以要想在函数结束时立即释放，就不要用new了，如下即可：
+ThermalDialog thermaldialog;
+thermaldialog.show();  
+
+或者  
+
+thermaldialog = new ThermalDialog ;
+thermaldialog->exec();
+再加一句
+delete thermaldialog;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="我的Qt工具类"><a href="#我的Qt工具类" class="headerlink" title="我的Qt工具类"></a>我的Qt工具类</h2><h3 id="Singleton-hpp"><a href="#Singleton-hpp" class="headerlink" title="Singleton.hpp"></a>Singleton.hpp</h3><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMutex</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QScopedPointer</span><span class="token punctuation">></span></span>
+template<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>class</span> <span class="token attr-name">T</span><span class="token punctuation">></span></span>
+class Singleton
+{
+    Singleton(){}
+public:
+    static T* getInstance(){
+        static QMutex mutex;
+        static QScopedPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span> inst;
+        if(Q_UNLIKELY(!inst)){
+            mutex.lock();
+            if(!inst){
+                inst.reset(new T);
+            }
+            mutex.unlock();
+        }
+        return inst.data();
+    }
+};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="mytutil"><a href="#mytutil" class="headerlink" title="mytutil"></a>mytutil</h3><pre class="line-numbers language-html"><code class="language-html">#ifndef MYUTIL_H
+#define MYUTIL_H
+
+/*
+ * 1.类的单例使用
+ * 2.日志本地记录
+ * /
+
+
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMutex</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QString</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDir</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QFile</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QTextStream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDateTime</span><span class="token punctuation">></span></span>
+#include "Singleton.hpp"
+
+#define LOG_INIT(fmt) Singleton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyUtil</span><span class="token punctuation">></span></span>::getInstance()->initLog(fmt);
+#define LOG_INFO(fmt) Singleton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyUtil</span><span class="token punctuation">></span></span>::getInstance()->UTIL_LOG_INFO(fmt);
+#define LOG_ERROR(fmt) Singleton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyUtil</span><span class="token punctuation">></span></span>::getInstance()->UTIL_LOG_ERROR(fmt);
+
+class MyUtil
+{
+public:
+    MyUtil();
+    QMutex logLock;
+    QString logName="";
+    int WriteLog(QString type,QString content);
+    void initLog(QString name="");
+    int UTIL_LOG_INFO(QString content);
+    int UTIL_LOG_ERROR(QString content);
+};
+
+#endif // MYUTIL_H
+
+
+
+#include "myutil.h"
+
+MyUtil::MyUtil()
+{
+
+}
+
+void MyUtil::initLog(QString name){
+    if(name.isNull()||name.isEmpty()){
+        QDateTime currentTime = QDateTime::currentDateTime();
+        QString time = currentTime.toString("yyyy-MM-dd hh:mm:ss.zzz");
+        QString hour = time.mid(11, 2);
+        QString minute = time.mid(14, 2);
+        QString second = time.mid(17, 2);
+        logName=hour+minute+second;
+    }else{
+        logName=name.trimmed();
+    }
+}
+int MyUtil::WriteLog(QString type, QString content){
+    logLock.lock();
+    QDateTime currentTime = QDateTime::currentDateTime();
+    QString time = currentTime.toString("yyyy-MM-dd hh:mm:ss.zzz");
+    QString date= currentTime.toString("yyyyMMdd");
+    QString path="Logs/";
+    QString fileName = path + date + "_" + logName + ".log";
+    QString data = "[" + time +" "+ type + "]" + " " + content;
+    QDir dir;
+    if (! (dir.exists(path)))
+        dir.mkpath(path);
+
+    QFile f(fileName);
+    f.open(QIODevice::WriteOnly|QIODevice::Append) ;
+    QTextStream t(&amp;f);
+    t &lt;&lt; data&lt;&lt; endl;
+    f.close();
+    logLock.unlock();
+    return 0;
+
+}
+int MyUtil::UTIL_LOG_INFO(QString content){
+    return WriteLog("I",content);
+}
+int MyUtil::UTIL_LOG_ERROR(QString content){
+    return WriteLog("E",content);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="qt非模态提示弹框，自动关闭"><a href="#qt非模态提示弹框，自动关闭" class="headerlink" title="qt非模态提示弹框，自动关闭"></a>qt非模态提示弹框，自动关闭</h2><p>添加一个窗体文件和相应头文件和源文件：<br>reminderwidget.ui仅包含一个label即可<br>reminderwidget.h reminderwidget.cpp  </p>
+<pre class="line-numbers language-html"><code class="language-html">//reminderwidget.h  
+#ifndef REMINDERWIDGET_H
+#define REMINDERWIDGET_H
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QWidget</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QTimer</span><span class="token punctuation">></span></span>
+namespace Ui {
+class ReminderWidget;
+}
+
+class ReminderWidget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit ReminderWidget(QString text="",QWidget *parent = 0);
+    ~ReminderWidget();
+
+private:
+    Ui::ReminderWidget *ui;
+private slots:
+    void onTimeUpDestory();
+};
+#endif // REMINDERWIDGET_H
+
+// reminderwidget.cpp  
+#include "reminderwidget.h"
+#include "ui_reminderwidget.h"
+
+ReminderWidget::ReminderWidget(QString text,QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::ReminderWidget)
+{
+    ui->setupUi(this);
+    this->setWindowFlags(Qt::FramelessWindowHint|Qt::Tool|Qt::WindowStaysOnTopHint);//去边框-无任务栏图标-置顶层
+    this->setAttribute(Qt::WA_DeleteOnClose); //设置属性-关闭即销毁
+    ui->labelReminder->setText(text);
+    //设置定时关闭
+    QTimer* timer=new QTimer(this);
+    timer->setSingleShot(true);
+    timer->start(1200);
+    connect(timer,SIGNAL(timeout()),this,SLOT(onTimeUpDestory()));
+}
+
+void ReminderWidget::onTimeUpDestory(){
+    this->close();
+}
+
+ReminderWidget::~ReminderWidget()
+{
+    delete ui;
+}  
+
+//reminderwidget.ui  
+<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ui</span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>class</span><span class="token punctuation">></span></span>ReminderWidget<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>class</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QWidget<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ReminderWidget<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>geometry<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rect</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>x</span><span class="token punctuation">></span></span>0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>x</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>y</span><span class="token punctuation">></span></span>0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>y</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>width</span><span class="token punctuation">></span></span>240<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>width</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>height</span><span class="token punctuation">></span></span>50<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>height</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rect</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>windowTitle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>Form<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>styleSheet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">notr</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>background-color: rgb(255, 170, 127);<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QVBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>verticalLayout<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QLabel<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>labelReminder<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>styleSheet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">notr</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>font-size:24px;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>TextLabel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>alignment<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>set</span><span class="token punctuation">></span></span>Qt::AlignCenter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>set</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span><span class="token punctuation">/></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>connections</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ui</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>调用过程：  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include "reminderwidget.h"  
+
+void MainWindow::on_pushButton_clicked()
+{
+    ReminderWidget* p_widget=new ReminderWidget("update range success");
+    int x,y;
+    x=this->pos().x()+this->width()/2-p_widget->width()/2;
+    y=this->pos().y()+this->height()/2-p_widget->height()/2;
+    p_widget->setGeometry(x,y,p_widget->width(),p_widget->height());
+    p_widget->show();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="qt模态对话框获取输入"><a href="#qt模态对话框获取输入" class="headerlink" title="qt模态对话框获取输入"></a>qt模态对话框获取输入</h2><p>有可能通过lineedit校验器能解决spinbox之前输入数值的漏洞  </p>
+<h3 id="新建对话框类和界面"><a href="#新建对话框类和界面" class="headerlink" title="新建对话框类和界面"></a>新建对话框类和界面</h3><p>getinputparadialog.h<br>getinputparadialog.cpp<br>界面getinputparadialog.ui  </p>
+<pre class="line-numbers language-html"><code class="language-html">//getinputparadialog.h
+#ifndef GETINPUTPARADIALOG_H
+#define GETINPUTPARADIALOG_H
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDialog</span><span class="token punctuation">></span></span>
+namespace Ui {
+class GetInputParaDialog;
+}
+class GetInputParaDialog : public QDialog
+{
+    Q_OBJECT
+public:
+    explicit GetInputParaDialog(QWidget *parent = 0);
+    ~GetInputParaDialog();
+private:
+    Ui::GetInputParaDialog *ui;
+public slots:
+    void onPushBtnConfirmClick();
+    void onPushBtnCancelClick();
+};
+#endif // GETINPUTPARADIALOG_H
+
+//getinputparadialog.cpp  
+#include "getinputparadialog.h"
+#include "ui_getinputparadialog.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QSettings</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QRegExp</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QRegExpValidator</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QIntValidator</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QSizePolicy</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDebug</span><span class="token punctuation">></span></span>
+GetInputParaDialog::GetInputParaDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::GetInputParaDialog)
+{
+    ui->setupUi(this);
+//对话框去掉标题栏，保留边框
+    setWindowFlags(Qt::MSWindowsFixedSizeDialogHint|Qt::CustomizeWindowHint|Qt::Dialog);
+// 只允许输入数字
+// QRegExp regExp("[0-9]*");
+// ui->lineEdit_findZeroSpeed->setValidator(new QRegExpValidator(regExp));
+// 只允许指定输入范围内的整数
+    ui->lineEdit_findZeroSpeed->setValidator(new QIntValidator(20,70,this));
+//组件隐藏后仍占位
+    QSizePolicy sp_retain= ui->widgetSetFZS->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->widgetSetFZS->setSizePolicy(sp_retain);
+
+    connect(ui->pushButtonConfirm,&amp;QPushButton::clicked,this,&amp;GetInputParaDialog::onPushBtnConfirmClick);
+    connect(ui->pushButtonCancel,&amp;QPushButton::clicked,this,&amp;GetInputParaDialog::onPushBtnCancelClick);
+    connect(ui->checkBox_autoFindZero,&amp;QCheckBox::stateChanged,[=](){
+        if(ui->checkBox_autoFindZero->isChecked()){
+            ui->widgetSetFZS->setVisible(false);
+        }else{
+            ui->widgetSetFZS->setVisible(true);
+        }
+        ui->label_speedValidator_warning->setVisible(false);
+    });
+    connect(ui->lineEdit_findZeroSpeed,&amp;QLineEdit::textChanged,[=](){
+        ui->label_speedValidator_warning->setVisible(false);
+    });
+    ui->label_speedValidator_warning->setVisible(false);
+    QSettings setting("./config.ini",QSettings::IniFormat);
+    if(!setting.contains("findZero/Speed")){
+        setting.beginGroup("findZero");
+        setting.setValue("Speed",20);
+        setting.setValue("Mode",0);
+        setting.endGroup();
+    }
+    QSettings setting2("./config.ini",QSettings::IniFormat);
+    if(setting2.value("findZero/Mode").toInt()==0){
+        ui->checkBox_autoFindZero->setChecked(true);
+        ui->lineEdit_findZeroSpeed->setText(setting2.value("findZero/Speed").toString());
+        ui->widgetSetFZS->setVisible(false);
+    }else{
+        ui->checkBox_autoFindZero->setChecked(false);
+        ui->lineEdit_findZeroSpeed->setText(setting2.value("findZero/Speed").toString());
+        ui->widgetSetFZS->setVisible(true);
+    }
+}
+GetInputParaDialog::~GetInputParaDialog()
+{
+    delete ui;
+}
+void GetInputParaDialog::onPushBtnConfirmClick(){
+    //检查输入是否在验证器范围内
+    int val=0; if(QValidator::Acceptable!=ui->lineEdit_findZeroSpeed->validator()->validate(ui->lineEdit_findZeroSpeed->text(),val)){
+        qDebug()&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"input</span> <span class="token attr-name">data</span> <span class="token attr-name">range</span> <span class="token attr-name">error";</span>
+        <span class="token attr-name">ui-</span><span class="token punctuation">></span></span>label_speedValidator_warning->setVisible(true);
+        return;
+    }
+    QSettings setting("./config.ini",QSettings::IniFormat);
+    if(ui->checkBox_autoFindZero->isChecked()){
+       setting.setValue("findZero/Mode",0);
+    }else{
+       setting.setValue("findZero/Mode",1);
+       setting.setValue("findZero/Speed",ui->lineEdit_findZeroSpeed->text().toInt());
+    }
+    accept();
+}
+void GetInputParaDialog::onPushBtnCancelClick(){
+    reject();
+}
+
+//getinputparadialog.ui  
+<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ui</span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>class</span><span class="token punctuation">></span></span>GetInputParaDialog<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>class</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QDialog<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>GetInputParaDialog<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>geometry<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rect</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>x</span><span class="token punctuation">></span></span>0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>x</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>y</span><span class="token punctuation">></span></span>0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>y</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>width</span><span class="token punctuation">></span></span>240<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>width</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>height</span><span class="token punctuation">></span></span>137<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>height</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rect</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>windowTitle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>Dialog<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>styleSheet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">notr</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QVBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>verticalLayout_3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>leftMargin<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>number</span><span class="token punctuation">></span></span>9<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>number</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QVBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>verticalLayout_2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QCheckBox<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>checkBox_autoFindZero<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>AutoFindZero<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QWidget<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>widgetSetFZS<span class="token punctuation">"</span></span> <span class="token attr-name">native</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QVBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>verticalLayout<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QHBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>horizontalLayout_2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QLabel<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>label<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>FindZeroSpeed:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QLineEdit<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lineEdit_findZeroSpeed<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QLabel<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>label_speedValidator_warning<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>layoutDirection<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>enum</span><span class="token punctuation">></span></span>Qt::LeftToRight<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>enum</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>styleSheet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">notr</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>color: rgb(255, 0, 0);<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>speed range is 20 to 70<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>alignment<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+           <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>set</span><span class="token punctuation">></span></span>Qt::AlignCenter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>set</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QHBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>horizontalLayout<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QPushButton<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pushButtonConfirm<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>Confirm<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QPushButton<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pushButtonCancel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>Cancel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span><span class="token punctuation">/></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>connections</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ui</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><pre class="line-numbers language-html"><code class="language-html">void MainWindow::on_pushButton1_clicked()
+{
+    GetInputParaDialog dialog(this);
+    if(dialog.exec()==GetInputParaDialog::Accepted){
+        qDebug()&lt;&lt;"accepted";
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="qt提升类为"><a href="#qt提升类为" class="headerlink" title="qt提升类为"></a>qt提升类为</h2><h3 id="提升为自定义类"><a href="#提升为自定义类" class="headerlink" title="提升为自定义类"></a>提升为自定义类</h3><p>自己继承Qwidget写了一个类 MyWidget，里面有各种炫酷的功能，我们要想使用，则必须在代码中 new MyWidget()来使用，但是在界面设计时候拖拽一个widget控件，把它提升为MyWidget类，这样这个widget控件就能直接当作MyWidget类的可视化控件来用了。<br>其实提升，就是多继承的意思，使得这个类拥有了多个类的成员和方法，因为c++允许多继承，这个还是特别方便的。  </p>
+<pre class="line-numbers language-html"><code class="language-html">提升，有个 全局包含 复选框  
+打勾后，ui_xxx.h包含的时候就是&lt;>  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xxxxxx.h</span><span class="token punctuation">></span></span>，这样的话，这个头文件就是相对工程根目录的路径了
+不打勾,包含就是""
+#include "xxxxx.h"，这个就是相对工程中的当前文件夹的路径了，就可以用../../xx.h这样的访问方式
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="提升为官方的类"><a href="#提升为官方的类" class="headerlink" title="提升为官方的类"></a>提升为官方的类</h3><p>QtWebkits在Qt5.6以上版本被淘汰了，不可用，需要使用QWebEngine；<br>1.Qt WebEngine Core是基于chromium的核心<br>2.QWebEngineView只能支持msvc编译，不支持mingw，开发时候需要格外注意</p>
+<pre class="line-numbers language-html"><code class="language-html">在.pro文件中添加模块  
+QT += webenginewidgets network  
+
+添加头文件  
+#include &lt;QtWebEngineWidgets/QWebEngineView>
+
+界面设计Containers拖一个Widget控件，右键提升为QWebEngineView类  
+
+刚拖拽的控件就是QWebEngineView类的可视化控件，代码里直接使用  
+ui->widget1->setUrl(QUrl("https://www.bilibili.com/"));  
+ui->widget1->setUrl(QUrl("E:/workspace/Qt_workspace/Qt_JS_Demo/test.html"));
+ui->widget1->setZoomFactor(0.5);  //设置缩放比例
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>QWebChannel填补了c++应用程序和HTML/JavaScript应用程序之间的空白，通过将QObject派生对象发布到QWebChannel，并在HTML端使用QWebChannel.js，可以透明地访问QObject的属性、公共槽和方法。不需要手动消息传递和数据序列化，c++端的属性更新和信号发射会自动传输到可能远程运行的HTML客户端。在客户端，将为任何已发布的c++QObject创建JavaScript对象。它反映了c++对象的API，因此直观上是可用的。  </p>
+<p>c++QWebChannel的API可以与任何HTML客户端对话，这些客户端可以运行在本地甚至远程机器上。唯一的限制是HTML客户端支持qwebchannel.js使用的JavaScript特性。因此，基本上可以与任何现代HTML浏览器或独立的JavaScript运行时(如node.js)进行交互</p>
+<pre class="line-numbers language-html"><code class="language-html">https://doc.qt.io/archives/qt-5.8/qtwebengine-webenginewidgets-markdowneditor-resources-qwebchannel-js.html  
+获得官方给的qwebchannel.js  
+html里<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>qwebchannel.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="node-js服务端和QT客户端简单Socket通讯"><a href="#node-js服务端和QT客户端简单Socket通讯" class="headerlink" title="node.js服务端和QT客户端简单Socket通讯"></a>node.js服务端和QT客户端简单Socket通讯</h2><p>服务端：  </p>
+<pre class="line-numbers language-html"><code class="language-html">var net = require('net');
+var DanmuServer = net.createServer();
+DanmuServer.on('connection',function(client){
+    client.on('data',function(data){
+        console.log('Socket textData:' + data.toString());
+    });
+    client.on('end',function(){
+        console.log("断开连接");
+    });
+    client.write('Hello,client!This is Server!');
+});
+DanmuServer.listen(8081);
+console.log("Socket server running at http://127.0.0.1:8081");
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>客户端  </p>
+<pre class="line-numbers language-html"><code class="language-html">textTcpSocket = new QTcpSocket();
+textTcpSocket -> abort();
+textTcpSocket->connectToHost("127.0.0.1", 8081);
+if(textTcpSocket->waitForReadyRead(1000)){
+        QByteArray s = textTcpSocket->readAll();
+        QString ss = QVariant(s).toString();
+        ui->textEdit_rec->setText(ss);
+}
+QByteArray textData = "Hello,server!This is Client!";
+textTcpSocket->write(textData);
+textTcpSocket->close();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>卡了很久的一个错误吧，之前没有利用waitForReadyRead来进行阻塞，而是直接利用readAll函数来读取socket中的数据。发现总是报错，报错内容大概就是read is not called(记不太确定了)。接着，我用windows自带的telnet功能直接访问我的node.js文件，发现可以成功接收到服务端传递的消息。然后我想了一下，大概原因是，程序直接执行readAll函数从socket中读取数据，可是此时服务端的数据还没有发送过来，因此，读取的时候没有读到东西。导致服务端和客户端都报错。  </p>
+<h2 id="经典场景：登录密码后显示主界面"><a href="#经典场景：登录密码后显示主界面" class="headerlink" title="经典场景：登录密码后显示主界面"></a>经典场景：登录密码后显示主界面</h2><p>包括用户名密码加密保存在ini里<br>调用对话框用于登录dialoglogin.h,dialoglogin.cpp,dialoglogin.ui</p>
+<pre class="line-numbers language-html"><code class="language-html">.pro定义翻译文件  
+TRANSLATIONS += tr_zh.ts
+TRANSLATIONS += tr_en.ts
+
+//dialoglogin.h:  
+#ifndef DIALOGLOGIN_H
+#define DIALOGLOGIN_H
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDialog</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QCryptographicHash</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QSettings</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMessageBox</span><span class="token punctuation">></span></span>
+namespace Ui {
+class DialogLogin;
+}
+class DialogLogin : public QDialog
+{
+    Q_OBJECT
+public:
+    explicit DialogLogin(QWidget *parent = 0);
+    ~DialogLogin();
+private:
+    Ui::DialogLogin *ui;
+};
+#endif // DIALOGLOGIN_H
+
+// dialoglogin.cpp: 
+#include "dialoglogin.h"
+#include "ui_dialoglogin.h"
+DialogLogin::DialogLogin(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::DialogLogin)
+{
+    ui->setupUi(this);
+    setWindowFlags(Qt::Dialog|Qt::MSWindowsFixedSizeDialogHint|Qt::CustomizeWindowHint);
+
+    ui->label_username->setText(tr("username:"));
+    ui->label_password->setText(tr("password:"));
+    ui->pushButton_login->setText(tr("login"));
+    ui->pushButton_quit->setText(tr("quit"));
+
+    QSettings setting("./config.ini",QSettings::IniFormat);
+    if(!(setting.contains(tr("login/username")) &amp;&amp; setting.contains(tr("login/password")))){
+        QByteArray byteUser="zy";
+        QByteArray byteUserMd5=QCryptographicHash::hash(byteUser,QCryptographicHash::Md5);
+        QString strUserMd5=byteUserMd5.toHex();
+        QByteArray bytePwd="123456";
+        QByteArray bytePwdMd5=QCryptographicHash::hash(bytePwd,QCryptographicHash::Md5);
+        QString strPwdMd5=bytePwdMd5.toHex();
+        setting.beginGroup("login");
+        setting.setValue("username",strUserMd5);
+        setting.setValue("password",strPwdMd5);
+        setting.endGroup();
+    }
+    connect(ui->pushButton_login,&amp;QPushButton::clicked,[=](){
+        if(ui->lineEdit_username->text().isEmpty()||ui->lineEdit_password->text().isEmpty()){
+            QMessageBox::about(this,tr("prompt"),tr("username or password can not be null"));
+            return;
+        }
+        QByteArray byteUser=ui->lineEdit_username->text().toLatin1();
+        QByteArray byteUserMd5=QCryptographicHash::hash(byteUser,QCryptographicHash::Md5);
+        QString strUserMd5=byteUserMd5.toHex();
+        QByteArray bytePwd=ui->lineEdit_password->text().toLatin1();
+        QByteArray bytePwdMd5=QCryptographicHash::hash(bytePwd,QCryptographicHash::Md5);
+        QString strPwdMd5=bytePwdMd5.toHex();
+        QSettings setting2("./config.ini",QSettings::IniFormat);
+        if(strUserMd5!=setting2.value("/login/username")||strPwdMd5!=setting2.value("/login/password")){
+            QMessageBox::about(this,tr("prompt"),tr("please reCheck username or password"));
+            return;
+        }
+        accept();
+    });
+    connect(ui->pushButton_quit,&amp;QPushButton::clicked,[=](){
+
+        reject();
+    });
+}
+DialogLogin::~DialogLogin()
+{
+    delete ui;
+}
+
+//dialoglogin.ui:  
+<span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ui</span> <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>4.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>class</span><span class="token punctuation">></span></span>DialogLogin<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>class</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QDialog<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>DialogLogin<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>geometry<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>rect</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>x</span><span class="token punctuation">></span></span>0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>x</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>y</span><span class="token punctuation">></span></span>0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>y</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>width</span><span class="token punctuation">></span></span>176<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>width</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>height</span><span class="token punctuation">></span></span>148<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>height</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>rect</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>windowTitle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>Dialog<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QVBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>verticalLayout<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QHBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>horizontalLayout<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QLabel<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>label_username<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>TextLabel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QLineEdit<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lineEdit_username<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>minimumSize<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>size</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>width</span><span class="token punctuation">></span></span>90<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>width</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>height</span><span class="token punctuation">></span></span>0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>height</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>size</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>maximumSize<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>size</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>width</span><span class="token punctuation">></span></span>90<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>width</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>height</span><span class="token punctuation">></span></span>16777215<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>height</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>size</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QHBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>horizontalLayout_2<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QLabel<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>label_password<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>TextLabel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>alignment<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>set</span><span class="token punctuation">></span></span>Qt::AlignCenter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>set</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QLineEdit<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>lineEdit_password<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>minimumSize<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>size</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>width</span><span class="token punctuation">></span></span>90<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>width</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>height</span><span class="token punctuation">></span></span>0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>height</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>size</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>maximumSize<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>size</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>width</span><span class="token punctuation">></span></span>90<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>width</span><span class="token punctuation">></span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>height</span><span class="token punctuation">></span></span>16777215<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>height</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>size</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layout</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QHBoxLayout<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>horizontalLayout_3<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QPushButton<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pushButton_login<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>PushButton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>widget</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>QPushButton<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pushButton_quit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">></span></span>PushButton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layout</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>widget</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span><span class="token punctuation">/></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>connections</span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ui</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>main.cpp里调用登录对话框  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include "mainwindow.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QApplication</span><span class="token punctuation">></span></span>
+
+#include "dialoglogin.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QTranslator</span><span class="token punctuation">></span></span>
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+
+    QTranslator *transtor=new QTranslator;
+    transtor->load("./tr_zh.qm");
+    QApplication::instance()->installTranslator(transtor);
+
+    DialogLogin login;
+    if(login.exec()==QDialog::Accepted){
+        MainWindow w;
+        w.show();
+        return a.exec();
+    }else{
+        return 0;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/06/18/diary-20230618-1/" class="b-link-green">Qt实践</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/07/13/diary-20230713-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/26.jpg" class="responsive-img" alt="6月小记Qt和vs的使用">
+                        
+                        <span class="card-title">6月小记Qt和vs的使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            功能点qt键盘事件这里使用了Ctrl+M键来使窗口最大化,在键盘按下事件处理函数中,先检测Ctrl键是否按下,如果是,那么再检测M键是否按下  
+#include &lt;QKeyEvent>  
+protected:
+    void k
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-07-13
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/06/17/diary-20230617-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/16.jpg" class="responsive-img" alt="Qt通信之QByteArray及数据格式转换">
+                        
+                        <span class="card-title">Qt通信之QByteArray及数据格式转换</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            接收和发送数据QT上位机的串口通信发送和接收数据都需要用到QByteArrayQByteArray存储的是char型字符，但QByteArray提供的数组操作，比char更方便。  
+// 初始化
+QByteArray senddata(1
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-17
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/qt/" target="_blank">
+                        <span class="chip bg-color">qt</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

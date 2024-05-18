@@ -1,0 +1,1596 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="UE4备忘(四), 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="编译UE4源代码
+下载4.26.2 release源代码UnrealEngine–4.26.2-release.zip  去网址 https://github.com/EpicGames/UnrealEngine 下载源代码。  
+down">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>UE4备忘(四) | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        UE4备忘(四)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/UE4/" target="_blank">
+                                <span class="chip bg-color">UE4</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-05-24
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        19 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="编译UE4源代码"><a href="#编译UE4源代码" class="headerlink" title="编译UE4源代码"></a>编译UE4源代码</h2><ol>
+<li>下载4.26.2 release源代码<br><a href="https://pan.baidu.com/s/1O_M9V0X2CV4Y4FnebpjBtA" target="_blank" rel="noopener">UnrealEngine–4.26.2-release.zip</a>  <pre><code>去网址 https://github.com/EpicGames/UnrealEngine 下载源代码。  
+downloaded from the Internet as unsafe to execute, so right-click the zip file and select 'Properties...' and 'Unblock' before decompressing it. Third-party zip utilities don't normally do this.  </code></pre></li>
+<li>安装Visual Studio 2019  </li>
+</ol>
+<p>UE4编译需要框架”.NETFramework,Version= v4.6.2”,安装时需要选择工作负载时，除了c++的桌面开发外，还需要安装.NET桌面开发(安装详细信息里选中.NET Framework4.6.2开发工具)  </p>
+<pre><code>All desktop editions of Visual Studio 2017 can build UE4, including Visual Studio Community 2017, which is free for small teams and individual developers.  
+Be sure to include C++ support as part of the install, which is disabled by default.  
+</code></pre><ol start="3">
+<li>运行Setup.bat  </li>
+</ol>
+<pre><code>This will download binary content for the engine, as well as installing prerequisites and setting up Unreal file associations. On Windows 8, a warning from SmartScreen may appear. Click "More info", then "Run anyway" to continue.  
+
+A clean download of the engine binaries is currently 3-4gb, which may take some time to complete. Subsequent checkouts only require incremental downloads and will be much quicker.  
+</code></pre><ol start="4">
+<li>运行GenerateProjectFiles.bat  </li>
+</ol>
+<pre><code>Run GenerateProjectFiles.bat to create project files for the engine. It should take less than a minute to complete.  
+</code></pre><ol start="5">
+<li>Load the project into Visual Studio by double-clicking on the UE4.sln file.  </li>
+</ol>
+<p>5.1 Set your solution configuration to <font color="red">Development Editor</font><br>5.2 Set your solution platform to <font color="red">Win64</font><br>5.3 right click on the UE4 target and select Build. It may take anywhere between 10 and 40 minutes to finish compiling, depending on your system specs.  </p>
+<ol start="6">
+<li>After compiling finishes, you can load the editor from Visual Studio by setting your startup project to UE4 and pressing F5 to debug.  </li>
+</ol>
+<h2 id="旧版本激活Chaos插件"><a href="#旧版本激活Chaos插件" class="headerlink" title="旧版本激活Chaos插件"></a>旧版本激活Chaos插件</h2><p>If you are using Unreal Engine version 4.23, 4.24, 4.25, or 4.26 standard, follow the steps below to download the Unreal Engine Source code, build the Engine, and enable the required Chaos Destruction plugins.  </p>
+<ol>
+<li>下载源代码,解压到目标位置。  </li>
+<li>在Engine/Source目录，用notepad++编辑UE4Editor.Target.cs文件。<br>Add the following to the UE4Editor.Target.cs file and save:  <pre><code>BuildEnvironment = TargetBuildEnvironment.Unique;  
+bCompileChaos = true;  
+bUseChaos = true;  </code></pre>Your UE4Editor.Target.cs file should look like the following:  </li>
+</ol>
+<pre><code>public class UE4EditorTarget : TargetRules
+{
+    public UE4EditorTarget( TargetInfo Target ) : base(Target)
+    {
+        Type = TargetType.Editor;
+        BuildEnvironment = TargetBuildEnvironment.Unique;
+        bBuildAllModules = true;
+        ExtraModuleNames.Add("UE4Game");
+
+        bCompileChaos = true;
+        //Note that the following line is not needed for 4.23 or previous versions.
+        bUseChaos = true;
+
+    }
+}</code></pre><ol start="3">
+<li>在根目录，依次运行批处理Setup.bat和GenerateProjectFiles.bat  </li>
+<li>双击UE4.sln通过vs2019加载源代码工程，设置方案配置和方案平台。  </li>
+<li>1 Set your solution configuration to <font color="red">Development Editor</font>  </li>
+<li>2 Set your solution platform to <font color="red">Win64</font>  </li>
+<li>选中”解决方案/Engine/UE4”,右键Build生成，等待。。。  </li>
+<li>选中”解决方案/Engine/UE4”,右键设置为启动项，按F5启动项目。Create a new project and open it, then enable the following plugins from the Edit &gt; Plugins menu:  </li>
+</ol>
+<pre><code>Chaos Editor  
+Chaos Solver  
+Chaos Niagara  
+Planar Cut  
+Editable Mesh  
+Geometry  
+Geometry Cache  
+Field System  
+</code></pre><p>编译build成功，3个成功0个跳过0个失败，但运行UE4Editor.exe报错，未解决。  </p>
+<pre><code>Unable to read VR Path Registry from C:\Users\Administrator\AppData\Local\openvr\openvrpaths.vrpath</code></pre><h2 id="Niagara-Grid2D制作实时可交互流体"><a href="#Niagara-Grid2D制作实时可交互流体" class="headerlink" title="Niagara_Grid2D制作实时可交互流体"></a>Niagara_Grid2D制作实时可交互流体</h2><ol>
+<li>先创建Neighbor Grid，然后通过这个模块算出将Neighbor范围转为0-1范围的变换矩阵，供后续使用。  </li>
+<li>将粒子写入Neighbor。（可从内容示例demo中抄来）  </li>
+<li>计算SPH密度，前边一大段时遍历粒子所在NeighborGrid周围3<em>3</em>3的Grid中的粒子，（可从内容示例demo中抄来）  </li>
+<li>计算SPH的力，(压力和粘性力)  </li>
+<li>计算SPH碰到边界的力，  </li>
+<li>将力结算到速度和位置，也可以使用自带的Solve Force And Velocity，粒子受到的力有压力、粘性力】边界推力、重力。  </li>
+<li>将球形粒子光栅到Render Target，先将粒子ID写入Neighbor Grid，再用Grid 2D都NeighborGrid的ID并写入粒子属性。  </li>
+<li>最后用Grid 2D填RenderTarget  </li>
+<li>在用户参数中添加Texture Render Target,指定外部文件，利用粒子系统实时写入外部Rendertarget。<br>10 将粒子写入其所在像素对应的Neighbor Grid并筛选出该像素深度最小的粒子。  </li>
+<li>如果该像素在多个粒子半径内则选取最小深度的。并在Grid 2D写入位置和深度  </li>
+<li>然后时对深度Bilateral Filter  </li>
+<li>接下来时材质，从官方water插件里复制出来，注意平铺模式改成Clamp，用B-水底高度替换WaterDepth输入，用RG/Tiling替换UV输入  </li>
+<li>用位置减去面皮位置算得WPO,将面片拉成三维水模型，并在Niagara中添加面向相机的高面数平面。  </li>
+<li>完成基础实时可交互流体。  </li>
+</ol>
+<p>晕，暂且先记录一下。  </p>
+<h2 id="Niagara基础解析"><a href="#Niagara基础解析" class="headerlink" title="Niagara基础解析"></a>Niagara基础解析</h2><p><a href="https://zhuanlan.zhihu.com/p/138088668" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/138088668</a><br><a href="https://zhuanlan.zhihu.com/p/338810919" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/338810919</a><br><a href="https://www.zhihu.com/column/c_1323697556422369280" target="_blank" rel="noopener">https://www.zhihu.com/column/c_1323697556422369280</a>  </p>
+<p>作为UE4新粒子系统，有更简易的基础模板，有更好的timeline、system来组合效果，开放了更多的粒子属性进行精确复杂控制。  </p>
+<p>Content Browser里右键Fx菜单就是自带Niagara插件。  </p>
+<p>粒子发射器的工作逻辑  </p>
+<pre><code>一、Spawn创建粒子  
+二、Emitter  
+Initial初始化Position、Velocity、age  
+Update更新Position、Velocity、age  </code></pre><ol>
+<li>Content Browser里右键Fx，新建Niagara Emitter。(调节属性)  </li>
+<li>Content Browser里右键Fx，新建Niagara System。(依据某个Niagara Emitter)  </li>
+</ol>
+<p>Niagara Emitter添加Skeletal Mesh类型的粒子。<br>调节粒子和动态效果。  </p>
+<p>触发播放粒子系统<br>在某个蓝图里添加Spawn System Attraction节点，将System Template添加为刚才的Niagara系统。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/Niagara_helloPawn.JPG" alt="Niagara_helloPawn">  </p>
+<h2 id="SimulationStage的逻辑路线"><a href="#SimulationStage的逻辑路线" class="headerlink" title="SimulationStage的逻辑路线"></a>SimulationStage的逻辑路线</h2><p>假如我们存在这样的需求，在同一帧下我们希望所有的粒子先同时执行A，等所有粒子执行完A之后，每个粒子的属性发生了相应改变，我们再利用这些改变后的属性执行B。当所有ABC执行完毕后，我们才希望更新当前帧的粒子的表征，如位置颜色等，此时我们就必须要用到SimulationStage来实现。  </p>
+<p>我们可以往一个Emitter中添加多个SimulationStage。概念上讲，每个SimulationStage相当于是一个执行的同步等待点。每个SimulationStage做着同ParticleUpdate类似的事情，即遍历所有粒子同步执行当前SimulationStage下的所有脚本，能应用到ParticleUpdate中所有可以使用的模块。每个SimulationStage必须等待上一个SimulationStage异或最前面的ParticleUpdate所有粒子执行完毕后，再开始执行当前的SimulationStage。我们也可以粗糙地认为SimulationStage相当于在ParticleUpdate后面追加了ParticleUpdate2与ParticleUpdate3等等。  </p>
+<p>假如我们的逻辑不需要这样的等待过程，使用ParticleUpdate也能正常完成，那么SimulationStage带来的等待必然会产生一些性能上的损失，因此不是在任何的情况下都需要SimulationStage来介入。只有在我们的逻辑对当前帧其他粒子的属性或某些中间阶段性的结果有强的顺序依赖时，才需要SimulationStage。  </p>
+<p>引入SimulationStage之后还没有解决一个核心的问题，那就是我们读取其他粒子的属性还是只能通过AttributeReader，而它在SimulationStage中读取的同样是上一帧的粒子属性，因为缓存每个阶段所有粒子的属性中间值是不那么高效与优雅的，会浪费很多的资源。这意味着我们要想获得其他粒子的属性，必须创造一个额外的中间容器，来保存我们接下来所需要的中间计算结果。  </p>
+<p>为了实现这一中间缓存的目的，我们需要这一容器在当前帧的任一SimulationStage都是可在任意位置读写的，于是我们的Grid2D、Grid3D等等内容就登场了。关于它们的讲解我们会在下一篇文章单独重点展开，此时我们先明白它们存在的意义即可。  </p>
+<p>而多了这些中间内容，我们可能又不满足于只对所有的粒子进行遍历了，我们的中间内容也是大量数据的集合，而我们使用其进行数据储存后，便会自然而然地诞生针对这些计算上的中间数据做遍历处理的需求。因此，SimulationStage也追加了针对这些内容的数据结构进行遍历的功能  </p>
+<p>最后，我们可能又会有针对某段对数据的处理在同一帧反复执行多次的需求。就算我们可以直接对脚本模块进行复制粘贴，拉出一大长串相同的SimulationStage也过于不美观。因此我们的SimulationStage本身支持了对自身多次的执行。  </p>
+<p>至此，我们为粒子系统追加SimulationStage的逻辑路线就完整清晰了。  </p>
+<p>最后额外提一点的是，这种利用当前帧其他粒子中间计算结果的操作，对于没有SimulationStage的Niagara，也是可以通过跨帧运算的方式来间接实现的。当然这会让粒子的运行本身变慢，毕竟我们无法改变一帧执行一次的大前提。  </p>
+<h2 id="SimulationStage的基础使用"><a href="#SimulationStage的基础使用" class="headerlink" title="SimulationStage的基础使用"></a>SimulationStage的基础使用</h2><p>使用SimulationStage必须要先打开它，SimulationStage是以Emitter为单位开关的，同一个粒子系统下的多个Emitter可以有不同的选择。<br>点击任意一个Emitter的EmitterProperties，在右边详情页中点击下拉小箭头展开，就能看到SimulationStage栏目下的内容  </p>
+<pre><code>Emitter的EmitterProperties下SimulationStages项EnableSimulatioinStages打上勾。  
+Emitter的EmitterProperties下Emitter项SimTarget改为GPUComputeSim。()  
+</code></pre><p>打开SimulationStage后Emitter的卡片中看到在Add Event Handler下面多出来的一个Add Simulation Stage选项卡。每点击一次加号都能创建一个SimulationStage。<br>目前创建只能选择一个默认的Generic Simulation Stage，点击创建后，在Add Simulation Stage前面会出现一个新的栏目，默认初始命名都为None：<br>选中Generic Simulation Stage Setting，可以看到SimulationStage的设置选项出现在详情页：  </p>
+<pre><code>Iteration Source，默认情况下它是Particles  
+即我们对所有Particle进行遍历，而Iterations为1说明我们遍历一次。  
+
+Iteration Source可以替换成另一个选项加做Data Interface，  
+它是我们所有中间数据结构的统称，选中后，后面两项会相应变得可选。  
+其中Data Interface中我们可以指定所有在Emitter中创建的中间数据结构变量。  
+至于Emitter Reset Only则是用来指定当前SimulationStage是否为初始化时执行，即只在Emitter激活后的第一帧执行唯一一次。  
+
+Disable Partial Particle Update会屏蔽当前SimulationStage对除位置外的粒子信息的读写，只能在遍历粒子的情况下使用。本人还没想到该设置可以如何配合Debug使用。  
+
+创建多个SimulationStage后，如果想调整它们之间的执行顺序，可以直接拖动SimulationStage的名称栏来改变位置，就如同我们改变一般模块的执行顺序一样，这十分方便。  
+
+每个SimulationStage中，点击加号都可以追加任意的模块，所有能在ParticleUpdate中使用的以及不能使用的，都可以在此处添加，当然具体还是要看模块是否对SimulationStage暴露。  
+</code></pre><p>SimulationStage的使用离不开Grid2D等中间数据类型的使用，否则我们总是能用ParticleUpdate实现类似的效果。而这些中间数据类型的加入，不仅实现了我们上述所说的，增加了粒子每一帧的逻辑流程的可控性，还使得整个粒子系统彻底脱胎换骨，成为了很多效果与逻辑不可或缺的中间件。  </p>
+<h2 id="安装NiagaraSimulationStages插件"><a href="#安装NiagaraSimulationStages插件" class="headerlink" title="安装NiagaraSimulationStages插件"></a>安装NiagaraSimulationStages插件</h2><p>将NiagaraSimulationStages.uplugin放到引擎目录UE_4.26\Engine\Plugins\FX\NiagaraSimulationStages下，进入4.26引擎后通过菜单Edit/Plugins开启后重启进入。  </p>
+<pre><code>//NiagaraSimulationStages.uplugin:  
+
+{
+    "FileVersion": 3,
+    "Version": 1,
+    "VersionName": "1.0",
+    "FriendlyName": "NiagaraSimulationStages",
+    "Description": "",
+    "Category": "Other",
+    "CreatedBy": "Epic Games, Inc.",
+    "CreatedByURL": "",
+    "DocsURL": "",
+    "MarketplaceURL": "",
+    "SupportURL": "",
+    "CanContainContent": true,
+    "IsBetaVersion": false,
+    "IsExperimentalVersion": true,
+    "Installed": false,
+    "Plugins": [
+        {
+            "Name": "Niagara",
+            "Enabled": true
+        }
+    ]
+}</code></pre><h2 id="交互式水"><a href="#交互式水" class="headerlink" title="交互式水"></a>交互式水</h2><ol>
+<li>开启模拟阶段  </li>
+</ol>
+<p>新建Niagara粒子系统(empty),双击进入，右键新建Niagara粒子发射器Emitter（empty）.<br>Emitter的EmitterProperties下SimulationStages项EnableSimulatioinStages打上勾。<br>Emitter的EmitterProperties下Emitter项SimTarget改为GPUComputeSim，下方FixedBounds勾选。  </p>
+<p>Emitter的EmitterUpdate点击加号，添加SpawnBurstInstantaneous。(其中SpawnCount设置为1000)<br>Emitter的ParticleSpawn点击加号，添加BoxLocation。<br>Emitter的AddSimulationStage点击加号，添加GenericSimulationStageSettings。(其中SimualtionStageName设置为WriteNeighbor)  </p>
+<ol start="2">
+<li>模拟阶段的理解  </li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/Ns_water_emitter_lijie.JPG" alt="理解模拟时的发射器">  </p>
+<p>Niagara System在粒子系统system的Update中生成并更新Emitter。<br>Niagara Emitter在发射器emitter的Update中生成并更新Particle。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/Ns_water_emitter_lijie2.JPG" alt="对GPU粒子而言"><br>对GPU粒子而言，如上图。下面2个矩形过程就是simulationStage的过程，相比于Particle Update，Simulation能进行多次迭代。<br>由于GPU粒子时并行的，所以粒子1在更新时无法确定粒子2是否位于更新前还是更新后。<br>使用Simulation通过分阶段实现更新过程的同步。<br>Simulation还能并行处理各种数据，比如Grid2D中的每个像素、Grid3D中的每个体素。  </p>
+<ol start="3">
+<li>学习模拟阶段  </li>
+</ol>
+<p>打开官方4.26的内容示例工程。进入NiagaraAdvanced地图。逐个打开，逐模块打开，对于没有注释的，可以通过github的查找源码功能进行学习。  </p>
+<ol start="4">
+<li>开始交互水的模拟  </li>
+</ol>
+<p>首先时SPH资料。参考 <a href="https://blog.csdn.net/liuyunduo/article/details/84098884" target="_blank" rel="noopener">https://blog.csdn.net/liuyunduo/article/details/84098884</a>   </p>
+<p>先创建Neighbor Grid,然后通过这个模块算出将Neighbor范围转为0-1范围的变换矩阵，供后续使用。  </p>
+<pre><code>
+双击进入新建的Niagara粒子系统(empty),在Parameters下EmitterAttributes点击加号，添加 Neighbor Grid3D  
+
+鼠标点击新建的Neighbor Grid3D，拖拽至Emitter的EmitterSpawn，会自动在Emitter的EmitterSpawn生成Set:EMITTER New Neighbor Grid3D  
+
+ContentBrower右键新建NiagaraModuleScript，在其Script Details中将Library Visibility设为Exposed起名NM_SimulationToUnit。</code></pre><h2 id="实际现在可用的水"><a href="#实际现在可用的水" class="headerlink" title="实际现在可用的水"></a>实际现在可用的水</h2><pre><code>_Marvelmaster_infinite_reactive_water_\Blueprints\WaterBody_BP0 
+这个蓝图水体，方块，有水下体积效果，水面直接抬升
+</code></pre><p>导入Marvelmaster_infinite_reactive_water插件后，使静态网格具备浮力–新建蓝图actor添加静态网格模型，Event即可具备浮力:  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/%E6%96%B0%E5%BB%BA%E8%93%9D%E5%9B%BE%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E7%BD%91%E6%A0%BC%E6%A8%A1%E5%9E%8B%EF%BC%8C%E5%8D%B3%E5%8F%AF%E5%85%B7%E5%A4%87%E6%B5%AE%E5%8A%9B.JPG" alt="新建蓝图添加静态网格模型，即可具备浮力"></p>
+<p>Reactive_Water_V3.0_4-20_by_marvelmaster.rar  </p>
+<p>DynamicWaterFillingExample 关卡里有管道口喷水的粒子系统可用  </p>
+<p>待续。。。没搞完。</p>
+<h2 id="切换视角2后的pano相机"><a href="#切换视角2后的pano相机" class="headerlink" title="切换视角2后的pano相机"></a>切换视角2后的pano相机</h2><p>视角切换有好几种方法可以实现。第一种就是使用多个摄像机摆好位置，摄像机之间互相切换，之前实现的是这种。<br>今天要说得是一个摄像机实现镜头的切换，镜头切换主要是Possess和Set View Target With Blend两个节点，普通Camera只能使用Set View Target with Blend,无法使用Possess，Possess只能是继承自Pawn类的相机才能连接。  </p>
+<p>控制器（Controllers） 和 Pawn 之间是一对一的关系；也就是说，每个控制器在某个时间点只能控制一个 Pawn。此外，在游戏期间生成的 Pawn 不会被控制器自动控制。  </p>
+<ol>
+<li>ProjtctSettings-&gt;Input添加轴映射。  </li>
+<li>新建基于Pawn的蓝图，添加camera组件，将CameraOption下的UsePawnConrolRotation勾选。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/panoCtrInPawnCamera.JPG" alt="3.Pawn蓝图内摄像机设置pano控制"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/afterChangeView_panocamera.JPG" alt="4.蓝图内切换视角"></li>
+</ol>
+<h2 id="UltimateRiverTool河流工具的坑-根据样条曲线实时修改河流外观走向"><a href="#UltimateRiverTool河流工具的坑-根据样条曲线实时修改河流外观走向" class="headerlink" title="UltimateRiverTool河流工具的坑(根据样条曲线实时修改河流外观走向)"></a>UltimateRiverTool河流工具的坑(根据样条曲线实时修改河流外观走向)</h2><p><a href="https://pan.baidu.com/s/1Pn9gfs0-6QUnxgySmKOWjw" target="_blank" rel="noopener">UltimateRiverTool河流工具</a>  <br></p>
+<p><a href="https://pan.baidu.com/s/18UvPmqj_-TA6gCnLfmIAHQ" target="_blank" rel="noopener">河流插件UltimateRiverTool修改版</a>  </p>
+<p>主要使用蓝图BP_UltimateRiverTool类。<br>想要运行时更改样条曲线从而改变河流外观。需要把ConstructionScript函数复制到EventGraph里当做普通事件等待触发。并在函数GenerateSplineMesh里添加SetMobility节点作修改。主要是对中间产生的一个变量设置Mobility。修改处在函数SetStaticMesh前。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/%E6%B2%B3%E6%B5%81%E5%B7%A5%E5%85%B7%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8A%A8%E6%80%81%E6%94%B9%E5%8F%98%E6%B2%B3%E6%B5%81%E5%A4%96%E8%A7%82%E9%9C%80%E8%A6%81%E7%9A%84%E4%BF%AE%E6%94%B9.JPG" alt="河流工具运行时动态改变河流外观需要的修改"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/%E5%A4%8D%E5%88%B6Construction%E5%87%BD%E6%95%B0%E5%88%B0EventGraph,%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3%E8%A2%AB%E5%A4%96%E7%95%8C%E8%B0%83%E7%94%A8%EF%BC%8C%E5%AE%9E%E6%97%B6%E6%A0%B9%E6%8D%AE%E6%A0%B7%E6%9D%A1%E6%9B%B2%E7%BA%BF%E5%88%B7%E6%96%B0%E6%B2%B3%E6%B5%81%E5%A4%96%E8%A7%82.JPG" alt="复制Construction函数到EventGraph,定义接口被外界调用，实时根据样条曲线刷新河流外观"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/%E4%BF%AE%E6%94%B9%E6%A0%B7%E6%9D%A1%E6%9B%B2%E7%BA%BF%EF%BC%88%E8%BF%99%E9%87%8C%E4%B8%BE%E4%BE%8B%E5%9C%A8%E7%BA%BF%E6%9D%A1%E5%B0%BE%E9%83%A8%E5%8A%A0%E4%B8%80%E4%B8%AA%E7%82%B9%EF%BC%89%EF%BC%8C%E9%80%9A%E8%BF%87%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3%E8%A2%AB%E5%A4%96%E7%95%8C%E8%B0%83%E7%94%A8.JPG" alt="修改样条曲线（这里举例在线条尾部加一个点），通过定义接口被外界调用"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/UI%E9%80%9A%E8%BF%87%E6%8E%A5%E5%8F%A3%EF%BC%8C%E8%B0%83%E7%94%A8%E6%B2%B3%E6%B5%81%E8%93%9D%E5%9B%BE%E9%87%8C%E6%8F%90%E4%BE%9B%E7%9A%84%E5%AE%9E%E6%97%B6%E6%9B%B4%E6%96%B0%E6%B2%B3%E6%B5%81%E5%A4%96%E8%A7%82%E5%8A%9F%E8%83%BD.JPG" alt="UI通过接口，调用河流蓝图里提供的实时更新河流外观功能">  </p>
+<p>实时修改河流时需要将splineMesh保存起来，改变河流时先改变样条曲线点，删除之前的splineMesh，调用工具(参考ConstructionScript)样条曲线更改后刷新。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/spline-%E5%88%9D%E5%A7%8B%E5%8C%96%E4%BF%9D%E5%AD%98%E6%A0%B7%E6%9D%A1%E6%9B%B2%E7%BA%BF%E7%82%B9.JPG" alt="spline-初始化保存样条曲线点"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/%E6%B2%B3%E6%B5%81%E5%B7%A5%E5%85%B7-%E5%AE%9E%E6%97%B6%E4%BF%AE%E6%94%B9%E6%B2%B3%E6%B5%81%E6%97%B6%E9%9C%80%E8%A6%81%E5%B0%86splineMesh%E4%BF%9D%E5%AD%98%E8%B5%B7%E6%9D%A5.JPG" alt="河流工具-实时修改河流时需要将splineMesh保存起来"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/spline-%E6%9B%B4%E6%94%B9%E6%A0%B7%E6%9D%A1%E6%9B%B2%E7%BA%BF%E7%82%B9splinePoint.JPG" alt="spline-更改样条曲线点splinePoint"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/spline-%E6%9B%B4%E6%94%B9%E6%A0%B7%E6%9D%A1%E6%9B%B2%E7%BA%BF%E7%82%B9splinePoint%E5%8F%A6%E4%B8%80%E7%A7%8D%E7%AE%80%E5%8D%95%E6%96%B9%E5%BC%8F.JPG" alt="spline-更改样条曲线点splinePoint另一种简单方式"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/spline-%E6%B8%85%E7%90%86%E6%A0%B7%E6%9D%A1%E6%9B%B2%E7%BA%BF%E7%82%B9splinePoint%E5%92%8C%E6%A0%B7%E6%9D%A1%E6%9B%B2%E7%BA%BF%E9%9D%A2%E7%89%87splinemesh.JPG" alt="spline-清理样条曲线点splinePoint和样条曲线面片splinemesh">  </p>
+<h2 id="UltimateRiverTool河流工具的浮力系统"><a href="#UltimateRiverTool河流工具的浮力系统" class="headerlink" title="UltimateRiverTool河流工具的浮力系统"></a>UltimateRiverTool河流工具的浮力系统</h2><p>扔进来自带的Cube，Mobility设置为Movable，SimulatePhysics勾选，Collision下勾选SimulationGeneratesHitEvents和GenerateOverlapEvent。  </p>
+<p>BP_UltimateRiverTool蓝图的选项UltimateRiverTool/Main/SimulateFlowPhysics勾选。  </p>
+<p>即可漂浮效果。  </p>
+<h2 id="UltimateRiverTool河流工具的水底体积"><a href="#UltimateRiverTool河流工具的水底体积" class="headerlink" title="UltimateRiverTool河流工具的水底体积"></a>UltimateRiverTool河流工具的水底体积</h2><h2 id="打包输出exe后控制没有鼠标，这也要修改控制器和pawn"><a href="#打包输出exe后控制没有鼠标，这也要修改控制器和pawn" class="headerlink" title="打包输出exe后控制没有鼠标，这也要修改控制器和pawn"></a>打包输出exe后控制没有鼠标，这也要修改控制器和pawn</h2><h2 id="一些技巧"><a href="#一些技巧" class="headerlink" title="一些技巧"></a>一些技巧</h2><p>鼠标右键preview-&gt; play from here，可以在鼠标点击处视角开始运行  </p>
+<p>End键可以快速使物体一个面对齐另一个物体的面(依靠重力自由下落)  </p>
+<p>字符串拼接，可以使用Append节点。  </p>
+<h2 id="新建actor里监听事件"><a href="#新建actor里监听事件" class="headerlink" title="新建actor里监听事件"></a>新建actor里监听事件</h2><p>以前都在关卡蓝图里监听事件，为了方便不同工程间共享资源，新建普通蓝图actor，默认在EventGraph添加点击事件、键盘事件不起作用,需要如下修改后可以监听键盘鼠标等输入事件。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/normalActorListenInputEvent.JPG" alt="普通蓝图actor里监听事件需要初始化"></p>
+<h2 id="视图操作切换"><a href="#视图操作切换" class="headerlink" title="视图操作切换"></a>视图操作切换</h2><pre><code>
+ctrl+中键 向上划  顶视图
+ctrl+中键 向下划  底视图
+ctrl+中键 向左划  左视图
+ctrl+中键 向右划  右视图
+ctrl+中键 向右下角划  透视视图
+
+F 快速聚焦到选择物体
+f聚焦后，alt按住，鼠标左键按住，可以自由旋转观察被选中的物体
+
+鼠标中键按住，平移视图视角
+鼠标滚轮，视图视角拉近拉远
+
+鼠标右键按住，WASD QE操作跟游戏一样
+
+单独鼠标右键按住，旋转鼠标跟pano原地相机一样
+
+</code></pre><h2 id="空场景添加天空球"><a href="#空场景添加天空球" class="headerlink" title="空场景添加天空球"></a>空场景添加天空球</h2><ol>
+<li>放置BP_Sky_Sphere  </li>
+<li>放置DirectionalLight  </li>
+<li>BP_Sky_Sphere的默认设置里DirectionalLightActor设置为刚添加的方向光。  </li>
+</ol>
+<h2 id="用html开发UI"><a href="#用html开发UI" class="headerlink" title="用html开发UI"></a>用html开发UI</h2><h3 id="下载和导入插件"><a href="#下载和导入插件" class="headerlink" title="下载和导入插件"></a>下载和导入插件</h3><p>首先到官网下载对应版本的依赖库，把依赖库解压后放置在游戏引擎安装目录的Plugins目录下面  </p>
+<pre><code>
+需要登录关联了ue4的github账号  
+https://github.com/tracerinteractive/UnrealEngine/releases/  
+WebUI-4.26.zip  
+HttpLibrary-4.26.zip  
+JsonAssets-4.26.zip  
+JsonLibrary-4.26.zip  
+
+https://github.com/Mu-L/TracerInteractiveUE4Plugins  
+
+将插件放到我的目录下
+D:\Program Files\Epic Games\UE_4.26\Engine\Plugins\Runtime  
+
+Edit-&gt;Plugins，勾选刚加入项目的plugins WebUI，重启  
+
+导入插件zip里的demo项目里面两个蓝图的InterfaceHUD和WebInterface。  
+
+关于导出导入蓝图：先在需要导出的项目中选中需要导出的蓝图文件，点击右键，选择AssetAction-&gt;migrate，接着选择需要导入项目的Content路径，注意一定是要Content路径，不然蓝图会出问题。
+这样就完成了蓝图的导出导入。
+</code></pre><h3 id="UE4跟web交互，互相调用"><a href="#UE4跟web交互，互相调用" class="headerlink" title="UE4跟web交互，互相调用"></a>UE4跟web交互，互相调用</h3><p>html加上这段，方便接口调用两个蓝图。创建继承InterfaceHud的蓝图BP_HUD，或者直接使用InterfaceHUD，并在GameMode中设置使用它。  </p>
+<pre><code>
+&lt;script&gt;
+// create the global ue4(...) helper function
+"object"!=typeof ue||"object"!=typeof ue.interface?("object"!=typeof ue&amp;&amp;(ue={}),ue.interface={},ue.interface.broadcast=function(e,t){if("string"==typeof e){var o=[e,""];void 0!==t&amp;&amp;(o[1]=t);var n=encodeURIComponent(JSON.stringify(o));"object"==typeof history&amp;&amp;"function"==typeof history.pushState?(history.pushState({},"","#"+n),history.pushState({},"","#"+encodeURIComponent("[]"))):(document.location.hash=n,document.location.hash=encodeURIComponent("[]"))}}):function(e){ue.interface={},ue.interface.broadcast=function(t,o){"string"==typeof t&amp;&amp;(void 0!==o?e.broadcast(t,JSON.stringify(o)):e.broadcast(t,""))}}(ue.interface),(ue4=ue.interface.broadcast);
+&lt;/script&gt;
+</code></pre><p>js传数据到UE4:  </p>
+<p>在js中调用下面函数，第一个参数为UE4对应的接口名称，第二个参数(可选)为传入的json参数  </p>
+<p>这样就完成了js传数据给UE4，那就能实现调用UE4的函数方法了。  </p>
+<pre><code>
+ue4("callUE4Func", {"haha":999});  
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/webuiUse0.JPG" alt=""></p>
+<p>UE4调用js函数:  </p>
+<p>首先在js里定义一个函数，如下所示，setFPS为函数方法的名称  </p>
+<pre><code>
+ue.interface.setFPS = function(fps)
+{
+    // set element text
+    $("#fpsMeter").text(fps.toFixed(1) + " FPS");
+};
+</code></pre><p>在HUD蓝图中，添加CallFunction的蓝图节点，Function引脚填写js的函数名称setFPS，Data引脚为传入的json数据。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/webuiUse1.JPG" alt=""></p>
+<h3 id="Web穿透的设置"><a href="#Web穿透的设置" class="headerlink" title="Web穿透的设置"></a>Web穿透的设置</h3><p>Web穿透是WebUI很实用的功能之一，它是通过获取Web元素的透明值来判断是否执行穿透的。  </p>
+<p>打开蓝图WebInterface，在Hieracrchy窗口点选Browser，在Details窗口中，有这个属性类别Behavior-&gt;Mouse，其中Enable Transparency就是用于设置穿透web界面元素的透明度阈值。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/webuiUse2.JPG" alt="">  </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/05/24/diary-20210524-1/" class="b-link-green">UE4备忘(四)</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/05/31/diary-20210531-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/8.jpg" class="responsive-img" alt="UE4备忘(五)">
+                        
+                        <span class="card-title">UE4备忘(五)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            第一人称
+新建蓝图类charactor。其CapsuleComponent下添加Camera。Camera的Details下选项CameraSettingsgou勾选UsePawnControlRotation。  
+
+ProjectSet
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-31
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/05/18/diary-20210518-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/19.jpg" class="responsive-img" alt="UE4备忘(三)">
+                        
+                        <span class="card-title">UE4备忘(三)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一些补充“:”和”‘“键在默认运行时有显示各种调试信息的作用。Shift+F1暴露出鼠标Alt+P播放F8跳出当前Game视图可进入Scene视图(再按F8返回Game视图)F11全屏显示  
+
+DefulatPawnClass 是我们进入
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-18
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

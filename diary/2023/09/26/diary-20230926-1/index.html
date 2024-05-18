@@ -1,0 +1,2503 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Android确认框、共享公共变量、异步操作和一些androidstudio的Tips, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Android全局静态类提供公共变量// 用一个单例类存放公共变量
+public class RunTime {
+    private static volatile RunTime runTime;
+    public RunTime">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Android确认框、共享公共变量、异步操作和一些androidstudio的Tips | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Android确认框、共享公共变量、异步操作和一些androidstudio的Tips
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-26
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        28 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Android全局静态类提供公共变量"><a href="#Android全局静态类提供公共变量" class="headerlink" title="Android全局静态类提供公共变量"></a>Android全局静态类提供公共变量</h2><pre class="line-numbers language-html"><code class="language-html">// 用一个单例类存放公共变量
+public class RunTime {
+    private static volatile RunTime runTime;
+    public RunTime(){
+        bSatelliteGood=false;
+    }
+    public static RunTime getInstance(){
+        if(runTime==null){
+            synchronized (RunTime.class){
+                if(runTime==null){
+                    runTime=new RunTime();
+                }
+            }
+        }
+        return runTime;
+    }
+
+    private boolean bSatelliteGood;
+    public boolean isbSatelliteGood() {
+        return bSatelliteGood;
+    }
+    public void setbSatelliteGood(boolean bSatelliteGood) {
+        this.bSatelliteGood = bSatelliteGood;
+    }
+
+}
+
+// 别处使用全局变量时  
+    RunTime.getInstance().setbSatelliteGood(true);
+
+    if(RunTime.getInstance().isbSatelliteGood()){
+        Log.i("zztest","isbSatelliteGood true");
+    }else{
+        Log.i("zztest","isbSatelliteGood false");
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Android防误触确认对话框"><a href="#Android防误触确认对话框" class="headerlink" title="Android防误触确认对话框"></a>Android防误触确认对话框</h2><p>AlertDialog在显示的时候不会阻塞UI线程，而PopupWindow在显示的时候会阻塞UI线程</p>
+<pre class="line-numbers language-html"><code class="language-html">Button btn1= findViewById(R.id.button1);
+btn1.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("title:");
+        builder.setMessage("confirm to delete it?");
+        //正面按钮
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(),"you clicked yes",Toast.LENGTH_LONG).show();
+                dialogInterface.dismiss();
+            }
+        });
+        //反面按钮
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(),"you clicked no",Toast.LENGTH_LONG).show();
+                dialogInterface.dismiss();
+            }
+        });
+        //中立按钮
+        builder.setNeutralButton("SomeDo", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getApplicationContext(),"you clicked somedo",Toast.LENGTH_LONG).show();
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.setCancelable(true);
+        alertDialog.show();
+    }
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Android异步任务AsyncTask类"><a href="#Android异步任务AsyncTask类" class="headerlink" title="Android异步任务AsyncTask类"></a>Android异步任务AsyncTask类</h2><p>在Android开发中，我们通常将一些耗时的操作使用异步任务的方式进行处理，任务过程中，需要UI进程展示进度。</p>
+<p>Android系统为开发人员提供了一个异步任务类（AsyncTask）来实现上面所说的功能，即它会在一个子线程中执行计算任务，同时通过主线程的消息循环来获得更新应用程序界面的机会。</p>
+<pre class="line-numbers language-html"><code class="language-html">Android UI线程（主线程）有几个特点:  
+只能在UI线程操作UI视图，不能在子线程中操作  
+不能在UI线程中进行耗时操作，否则会阻塞UI线程，引起ANR、卡顿等问题  
+
+当我们定义一个类来继承 AsyncTask 这个类的时候  
+我们需要为其指定3个泛型参数  
+AsyncTask<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Params,</span> <span class="token attr-name">Progress,</span> <span class="token attr-name">Result</span><span class="token punctuation">></span></span>
+Params: 这个泛型指定的是我们传递给异步任务执行时的参数的类型  
+Progress:这个泛型指定的是我们的异步任务在执行的时候将执行的进度返回给UI线程的参数的类型。  
+Result: 这个泛型指定的异步任务执行完后返回给UI线程的结果的类型  
+
+在定义一个类继承AsyncTask类的时候，必须要指定好这三个泛型的类型，如果都不指定的话，则都将其写成void。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>使用AsyncTask的注意事项</p>
+<pre class="line-numbers language-html"><code class="language-html">1 AsyncTask 的实例必须在 UI Thread 中创建
+2 只能在 UI 线程中调用 AsyncTask 的 execute 方法  
+3 AsyncTask 被重写的四个方法是系统自动调用的,不应手动调用。  
+4 每个 AsyncTask 只能被执行一次，多次执行会引发异常。  
+5 AsyncTask的四个方法，只有doInBackground方法是运行在其他线程中,其他三个方法都运行在 UI 线程中，也就说其他三个方法都可以进行 UI 的更新操作。  
+6 AsyncTask 默认是串行执行，如果需要并行执行，使用接口 executeOnExecutor 方法
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="官方例子"><a href="#官方例子" class="headerlink" title="官方例子"></a>官方例子</h3><pre class="line-numbers language-html"><code class="language-html">private class DownloadFilesTask extends AsyncTask<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>URL,</span> <span class="token attr-name">Integer,</span> <span class="token attr-name">Long</span><span class="token punctuation">></span></span> {
+     protected Long doInBackground(URL... urls) {
+         int count = urls.length;
+         long totalSize = 0;
+         for (int i = 0; i &lt; count; i++) {
+             totalSize += Downloader.downloadFile(urls[i]);
+             publishProgress((int) ((i / (float) count) * 100));
+             // Escape early if cancel() is called
+             if (isCancelled()) break;
+         }
+         return totalSize;
+     }
+     protected void onProgressUpdate(Integer... progress) {
+         setProgressPercent(progress[0]);
+     }
+     protected void onPostExecute(Long result) {
+         showDialog("Downloaded " + result + " bytes");
+     }
+}
+
+UI主线程中创建对象并调用 execute 执行即可  
+new DownloadFilesTask().execute(url1, url2, url3);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Android线程间通信通过Handler"><a href="#Android线程间通信通过Handler" class="headerlink" title="Android线程间通信通过Handler"></a>Android线程间通信通过Handler</h2><h3 id="子-gt-主线程通信"><a href="#子-gt-主线程通信" class="headerlink" title="子->主线程通信"></a>子-&gt;主线程通信</h3><p>主线程中实例化Hander对象  </p>
+<pre class="line-numbers language-html"><code class="language-html">Handler mHandler = new Handler(){
+    @Override
+    public  void handleMessage(Message msg) {
+        super.handleMessage(msg);  
+        switch (msg.what) {
+            case 0:
+                //do something, refresh UI …
+            break;  
+            default:  
+            break; 
+        }
+    }
+};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>子线程发送消息给主线程  </p>
+<pre class="line-numbers language-html"><code class="language-html">new Thread() {
+    public void run() {
+        Message message = new Message();
+        message.obj = "子线程发送的消息";
+        mHandler.sendMessage(message);
+    };
+}.start();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="子-gt-子线程通信"><a href="#子-gt-子线程通信" class="headerlink" title="子->子线程通信"></a>子-&gt;子线程通信</h3><p>在一个子线程中创建一个Handler，回调自然就在此子线程中，然后在另一个子线程中调用这个handler来发送消息。  </p>
+<pre class="line-numbers language-html"><code class="language-html">new Thread(new Runnable() {
+    @Override
+    public void run() {
+        String msg;
+        Looper.prepare();//这里很重要
+
+        childHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                System.out.println("这是从--->>" + msg.obj+ "过来的消息");  
+                switch (msg.what) {
+                    case 0:
+
+                    break;  
+                    default:  
+                    break; 
+                }
+            }  
+        };  
+       Looper.loop();//开始轮循 这里很重要
+    }
+}).start();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>创建第二个子线程  </p>
+<pre class="line-numbers language-html"><code class="language-html">new Thread(new Runnable() {
+    @Override
+    public void run() {
+        Looper loop = Looper.myLooper();//这里很重要
+        Message msg = childHandler.obtainMessage();
+        msg.obj = " 子线程 ";
+        childHandler.sendMessage(msg);
+    }
+}).start();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="主-gt-子线程通信"><a href="#主-gt-子线程通信" class="headerlink" title="主->子线程通信"></a>主-&gt;子线程通信</h3><p>需要在子线程初始化Looper，并在主线程里创建的Handler引用子线程的Looper<br>Handler中引用哪个线程的Looper，就在那个线程里处理消息。</p>
+<pre class="line-numbers language-html"><code class="language-html">public class ThreadHandlerActivity extends Activity{     
+    //创建子线程
+    class MyThread extends Thread{
+        private Looper looper;//取出该子线程的Looper
+        public void run() {
+             Looper.prepare();//创建该子线程的Looper
+             looper = Looper.myLooper();//取出该子线程的Looper
+             Looper.loop();//只要调用了该方法才能不断循环取出消息
+         }
+    }
+
+    private Handler mHandler;//将mHandler指定轮询的Looper
+
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        // thread = new MyThread();
+        // thread.start();//开启这个线程
+
+        //实例化一个特殊的线程HandlerThread必须指定一个名字 （MyThread用不上了）
+        HandlerThread thread = new HandlerThread("handlerThread");
+        thread.start();//开启这个线程
+
+        //下面是主线程发送消息
+        mHandler = new Handler(thread.looper){//用18行，thread这里是空
+            public void handleMessage(android.os.Message msg) {
+                Log.d("当前子线程是----->",Thread.currentThread()+"");
+            };
+        };
+        mHandler.sendEmptyMessage(1);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Androidstudio开发"><a href="#Androidstudio开发" class="headerlink" title="Androidstudio开发"></a>Androidstudio开发</h2><p>build.gradle报红色波浪线警告因为”Google Play requires that apps target API level 31 or higher.”  </p>
+<pre class="line-numbers language-html"><code class="language-html">Google Play对targetAPI有最低要求，我们忽略就是了  
+把“//noinspection ExpiredTargetSdkVersion”放在targetSdkVersion xx上边，一会儿红波浪线不见了  
+//noinspection ExpiredTargetSdkVersion
+targetSdkVersion 30
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a>版本号</h3><p>版本号通常是在应用的build.gradle文件中  </p>
+<pre class="line-numbers language-html"><code class="language-html">android {
+    // ...
+    defaultConfig {
+        applicationId "com.example.myapp"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1 // 这是应用的版本号，可以根据需要更改
+        versionName "1.0" // 这是应用的版本名称，可以根据需要更改
+        // ...
+    }
+    // ...
+}
+
+在上述示例中，  
+versionCode是用于内部版本控制的整数值，  
+versionName是显示给用户的版本标识。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="指定生成Release版本apk名字"><a href="#指定生成Release版本apk名字" class="headerlink" title="指定生成Release版本apk名字"></a>指定生成Release版本apk名字</h3><p>通常是在build.gradle文件中的defaultConfig块中配置的。您可以使用applicationVariants来指定生成APK的名称。以下是一个示例  </p>
+<pre class="line-numbers language-html"><code class="language-html">android {
+    // ...
+    defaultConfig {
+        applicationId "com.example.myapp"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        // ...
+    }
+    buildTypes {
+        release {
+            // ...
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "MyApp_Release_v${defaultConfig.versionName}_${variant.buildType.name}.apk"
+                }
+            }
+        }
+    }
+    // ...
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="一套可以使用子模块的配置举例"><a href="#一套可以使用子模块的配置举例" class="headerlink" title="一套可以使用子模块的配置举例"></a>一套可以使用子模块的配置举例</h3><p>主模块gradle: build.gradle(Module:XXXX.app),这个build.gradle位于主模块app目录下    </p>
+<pre class="line-numbers language-html"><code class="language-html">plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.xxxx.cbb.xxxxdemo'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.xxxx.cbb.xxxxdemo"
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        config {
+            keyAlias "key0"
+            keyPassword "123456"
+            storeFile file("../mysignedkey.jks")
+            storePassword "123456"
+        }
+    }
+
+    buildTypes {
+        debug {
+            shrinkResources false
+            zipAlignEnabled false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+
+        release {
+            shrinkResources false
+            zipAlignEnabled false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // 生成aar，在添加到app中。
+    // implementation fileTree('libs')
+
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.6.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation  "com.amap.api:3dmap:9.6.0"
+    // implementation "com.amap.api:map2d:6.0.0"
+    // implementation "com.amap.api:search:9.5.0"
+    // implementation "com.amap.api:location:6.2.0"
+
+    // 以源码形式嵌入到APP中
+    implementation project(path: ':libraryModule')
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>子模块gradle: build.gradle(Module:XXXX.libraryModule),这个build.gradle位于子模块目录libraryModule下  </p>
+<pre class="line-numbers language-html"><code class="language-html">plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.zhd.cbb.wppsdk'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    signingConfigs {
+        config {
+            keyAlias "key0"
+            keyPassword "123456"
+            storeFile file("../mysignedkey.jks")
+            storePassword "123456"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.6.0'
+
+    implementation 'androidx.annotation:annotation:1.1.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>settings.gradle(Project Settings)，这个settings.gradle位于与项目主模块app目录同级的位置  </p>
+<pre class="line-numbers language-html"><code class="language-html">pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven {url 'https://maven.aliyun.com/repository/jcenter'}//对应jcenter()
+        maven {url 'https://maven.aliyun.com/repository/google'} //对应google()
+        maven {url 'https://maven.aliyun.com/repository/public'}//共同库
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven {url 'https://maven.aliyun.com/repository/jcenter'}//对应jcenter()
+        maven {url 'https://maven.aliyun.com/repository/google'} //对应google()
+        maven {url 'https://maven.aliyun.com/repository/public'}//共同库
+    }
+}
+rootProject.name = "XXXX"
+include ':app'
+include ':libraryModule'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>build.gradle(Project:XXXX), 这个build.gradle位于与项目主模块app目录同级的位置</p>
+<pre class="line-numbers language-html"><code class="language-html">plugins {
+    id 'com.android.application' version '7.0.3' apply false
+    id 'com.android.library' version '7.0.3' apply false
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>gradle-wrapper.properties，位于与项目主模块app目录同级目录gradle的wrapper下面  </p>
+<pre class="line-numbers language-html"><code class="language-html">distributionUrl=https\://mirrors.cloud.tencent.com/gradle/gradle-7.0.2-bin.zip
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="Android导入项目时Gradle下载速度慢"><a href="#Android导入项目时Gradle下载速度慢" class="headerlink" title="Android导入项目时Gradle下载速度慢"></a>Android导入项目时Gradle下载速度慢</h3><p>打开文件gradle-wrapper.properties换源:  </p>
+<pre class="line-numbers language-html"><code class="language-html">(classpath 'com.android.tools.build:gradle:7.0.3'对应的下面gradle)
+distributionUrl=https\://mirrors.cloud.tencent.com/gradle/gradle-7.0.1-bin.zip
+
+对应
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.6.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation  "com.amap.api:3dmap:9.6.0"
+    // implementation "com.amap.api:map2d:6.0.0"
+    // implementation "com.amap.api:search:9.5.0"
+    // implementation "com.amap.api:location:6.2.0"
+
+    implementation project(path: ':libwaypointplan')
+}
+
+对应settings.gradle换国内源：    
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven {url 'https://maven.aliyun.com/repository/jcenter'}//对应jcenter()
+        maven {url 'https://maven.aliyun.com/repository/google'} //对应google()
+        maven {url 'https://maven.aliyun.com/repository/public'}//共同库
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven {url 'https://maven.aliyun.com/repository/jcenter'}//对应jcenter()
+        maven {url 'https://maven.aliyun.com/repository/google'} //对应google()
+        maven {url 'https://maven.aliyun.com/repository/public'}//共同库
+    }
+}
+rootProject.name = "RoutePlanning"
+include ':app'
+include ':libwaypointplan'
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="build-gradle中加入maven阿里源"><a href="#build-gradle中加入maven阿里源" class="headerlink" title="build.gradle中加入maven阿里源"></a>build.gradle中加入maven阿里源</h3><pre class="line-numbers language-html"><code class="language-html">buildscript {
+    repositories {
+        maven {url 'https://maven.aliyun.com/repository/jcenter'}//对应jcenter()
+        maven {url 'https://maven.aliyun.com/repository/google'} //对应google()
+        maven {url 'https://maven.aliyun.com/repository/public'}//共同库
+//        jcenter()
+//        google()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.1'
+    }
+}
+allprojects {
+    repositories {
+        maven {url 'https://maven.aliyun.com/repository/jcenter'}//对应jcenter()
+        maven {url 'https://maven.aliyun.com/repository/google'} //对应google()
+        maven {url 'https://maven.aliyun.com/repository/public'}//共同库
+//        jcenter()
+//        google()
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="build-gradle的签名配置和Flavor配置"><a href="#build-gradle的签名配置和Flavor配置" class="headerlink" title="build.gradle的签名配置和Flavor配置"></a>build.gradle的签名配置和Flavor配置</h3><pre class="line-numbers language-html"><code class="language-html">android {
+    signingConfigs {
+        release {
+            storeFile file('your_keystore.jks') // 指定签名密钥库文件的路径
+            storePassword 'your_keystore_password' // 签名密钥库密码
+            keyAlias 'your_key_alias' // 密钥别名
+            keyPassword 'your_key_password' // 密钥密码
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release // 使用上面配置的签名信息
+            minifyEnabled false // 不启用代码混淆
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            // 可选：在Debug构建类型下的其他配置
+        }
+    }
+    /*
+    AndroidStudio使用"Build Variants"窗格选择要构建和运行的Flavor变种。  
+    这使您能够在不同的 Flavor 之间轻松切换，以测试和构建不同版本的应用程序。
+    */
+    flavorDimensions "version"
+    productFlavors {
+        free {
+            dimension "version"
+            applicationId "com.example.myapp.free" // Flavor特定的应用程序包名
+            versionCode 1 // 版本号，可为每个 Flavor 指定不同的版本号
+            versionName "1.0-free" // 版本名称
+        }
+        paid {
+            dimension "version"
+            applicationId "com.example.myapp.paid" // Flavor特定的应用程序包名
+            versionCode 2
+            versionName "1.0-paid"
+        }
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="编译警告报红：请使用-Xlint-deprecation-重新编译"><a href="#编译警告报红：请使用-Xlint-deprecation-重新编译" class="headerlink" title="编译警告报红：请使用 -Xlint:deprecation 重新编译"></a>编译警告报红：请使用 -Xlint:deprecation 重新编译</h3><p>在build.gradle(Project:xxx)找到allprojects标签内加入以下内容可消除编译警告<br>-Xlint:unchecked 使用了未经检查或不安全的操作<br>-Xlint:deprecation 使用或覆盖了已过时的API<br>所有不安全和过时api的警告，并不影响build结果  </p>
+<pre class="line-numbers language-html"><code class="language-html">allprojects {
+    repositories {
+        jcenter()
+    }
+
+// 所有不安全和过时api的警告的提示变成了错误的提示显示在build output里，
+// (并不影响build结果)
+//        gradle.projectsEvaluated {
+//            tasks.withType(JavaCompile) {
+//                options.compilerArgs &lt;&lt; "-Xlint:unchecked" &lt;&lt; "-Xlint:deprecation"
+//            }
+//        }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="同步老项目出现报红cvc-complex-type-2-4-a"><a href="#同步老项目出现报红cvc-complex-type-2-4-a" class="headerlink" title="同步老项目出现报红cvc-complex-type.2.4.a"></a>同步老项目出现报红cvc-complex-type.2.4.a</h3><p>发现了以元素xxxxxx开头的无效内容<br>解决方案就是1.替换Gradle Setting里的jdk版本 2.提高AGP版本 3.只要不影响后面可以不管它  </p>
+<pre class="line-numbers language-html"><code class="language-html">Android工程的编译jdk版本如下查看和指定  
+File->ProjectStructre->SDK Location->GradleSetting->Gradle JDK  
+老项目用的jdk可能是jdk8，而不是androidsutdio内置的jdk11
+
+
+AGP就是类似  
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.1'
+    }
+不同的AGP版本可能与不同版本的Android Gradle插件和Gradle构建工具版本兼容  
+
+Android Gradle插件的版本在
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.1'
+    }
+查看
+
+构建工具Gradle版本在 gradle-wrapper.properties里查看，如  
+distributionUrl=https\://services.gradle.org/distributions/gradle-7.4-bin.zip
+这是用于构建和管理项目的Gradle版本。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<table>
+<tbody><tr><th>Gradle Plugin插件版本</th><th>所需的最低Gradle构建工具版本</th></tr>
+<tr><td>8.1</td><td>8.0</td></tr>
+<tr><td>8.0</td><td>8.0</td></tr>
+<tr><td>7.4</td><td>7.5</td></tr>
+<tr><td>7.3</td><td>7.4</td></tr>
+<tr><td>7.2</td><td>7.3.3</td></tr>
+<tr><td>7.1</td><td>7.2</td></tr>
+<tr><td>7.0</td><td>7.0</td></tr>
+<tr><td>4.2.0+</td><td>6.7.1</td></tr>
+<tr><td>4.1.0+</td><td>6.5+</td></tr>
+<tr><td>4.0.0+</td><td>6.1.1+</td></tr>
+<tr><td>3.6.0-3.6.4</td><td>5.6.4+</td></tr>
+<tr><td>3.5.0-3.5.4</td><td>5.4.1+</td></tr>
+<tr><td>3.4.0-3.4.3</td><td>5.1.1+</td></tr>
+<tr><td>3.3.0-3.3.3</td><td>4.10.1+</td></tr>
+<tr><td>3.2.0-3.2.1</td><td>4.6+</td></tr>
+<tr><td>3.1.0+</td><td>4.4+</td></tr>
+<tr><td>3.0.0+</td><td>4.1+</td></tr>
+<tr><td>2.3.0+</td><td>3.3+</td></tr>
+<tr><td>2.1.3-2.2.3</td><td>2.14.1-3.5</td></tr>
+<tr><td>2.0.0-2.1.2</td><td>2.10-2.13</td></tr>
+<tr><td>1.5.0</td><td>2.2.1-2.13</td></tr>
+<tr><td>1.2.0-1.3.1</td><td>2.2.1-2.9</td></tr>
+<tr><td>1.0.0-1.1.3</td><td>2.2.1-2.3</td></tr>
+</tbody></table>
+
+
+
+<h3 id="工程上传svn前精减体积"><a href="#工程上传svn前精减体积" class="headerlink" title="工程上传svn前精减体积"></a>工程上传svn前精减体积</h3><p>如果仓库在window本地，那拉取地址如svn checkout “file:///C:/My SVN Repository”</p>
+<p>AndroidStudio工程上传到SVN（Subversion）版本控制时，通常可以删除一些不需要的文件和目录，以减少代码库的大小和混乱。以下是一些常见的可以安全删除的文件和目录：  </p>
+<ol>
+<li><p>build目录：<br>这是自动生成的构建文件目录，通常包含编译生成的文件。它们可以通过Gradle或其他构建工具重新生成，因此可以从版本控制中排除。</p>
+</li>
+<li><p>.idea目录：<br>这是AndroidStudio的配置目录，包含有关项目的本地配置信息。通常可以排除它，因为其他开发者可以使用他们自己的配置。</p>
+</li>
+<li><p>local.properties文件：<br>这个文件包含本地SDK路径等信息，通常不需要共享。</p>
+</li>
+<li><p>*.iml文件：<br>这些是模块文件，包含有关模块的配置信息。它们可以在构建时自动生成，因此通常不需要版本控制。</p>
+</li>
+<li><p>.gradle目录：<br>这个目录包含Gradle的缓存和其他本地文件。可以考虑将其排除在版本控制之外。</p>
+</li>
+<li><p>.DS_Store（在Mac上）或Thumbs.db（在Windows上）：<br>这些是操作系统生成的文件，可以删除。</p>
+</li>
+<li><p>build.gradle.kts（Kotlin DSL）或settings.gradle.kts文件：<br>如果您不使用Kotlin DSL进行构建和设置，可以删除这些文件。</p>
+</li>
+<li><p>app/build目录下的generated目录：<br>这里包含了一些自动生成的文件，可以从版本控制中排除。</p>
+</li>
+<li><p>Caches目录：<br>这个目录通常包含缓存文件，可以排除在版本控制之外。</p>
+</li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">//cleanBeforePushSVN.bat:
+@echo.
+@echo   清理准备导入和压缩纯代码的Android Studio项目 
+@echo   请将此文件拖入要清理项目的根目录下即可 
+@echo.        
+@Echo Off
+Echo 请选择 Y. 确认            N. 退出
+Echo.
+Set /p var=请选择:
+If /i %var%==N (Exit) 
+
+@echo 删除Gradle代码，在导入时重新添加
+rmdir .gradle /s /q
+@echo.
+@echo 删除IDE文件
+rmdir .idea /s /q
+del *.iml /f /s
+del local.properties
+@echo.
+@echo 删除构建文件夹，将重新创建
+rmdir build /s /q
+rmdir app\build /s /q
+@echo.
+@echo 删除Gradle Wrapper，将重新添加
+rmdir gradle /s /q
+@echo.
+@echo 删除Git忽略文件 
+//del .gitignore /f /s 
+//@echo.
+//@echo 删除其他Gradle文件
+//del gradle.properties
+//del gradle?.*
+@echo.
+@echo 删除libs文件夹
+//rmdir app\libs /s /q
+@echo.
+@echo 删除ProGuard规则
+//del app\proguard-rules.pro /f
+@echo.
+@echo 删除测试代码
+rmdir app\src\androidTest /s /q
+rmdir app\src\test /s /q
+@echo.
+@echo 清除只读属性
+attrib -R *.* /s
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Android中的Service"><a href="#Android中的Service" class="headerlink" title="Android中的Service"></a>Android中的Service</h2><p><a href="https://blog.csdn.net/liqingtaocsdn/article/details/129028866" target="_blank" rel="noopener">https://blog.csdn.net/liqingtaocsdn/article/details/129028866</a>  </p>
+<p>相对于Activity是一个有可见界面的、为实现交互而提供的Android应用组件，Service则是一个可以在后台长期运行但又不使用用户界面的Android应用组件。它可以和其他的组件形成一定联系，通过传达信息来联系多个组件共同执行某个操作。举个最简单的例子，你此时正在用手机听歌曲，播放歌曲的进程就是一个后台服务。</p>
+<pre class="line-numbers language-html"><code class="language-html">在Android中，Service是一种组件，通常用于执行长时间运行的操作，而不需要与用户界面进行直接交互。Services通常用于以下情况： 
+1. 后台任务：Service可用于执行后台任务，如下载文件、处理数据、定期执行操作等，而不会干扰用户的应用体验。
+2. 音乐播放：音乐播放器通常使用Service来持续播放音频，即使用户切换到其他应用。
+3. 网络请求：Service可用于执行网络请求，如向服务器发送数据或接收更新，即使用户关闭了应用。
+4. 位置更新：如果您需要在后台持续获取设备的位置信息，可以使用Service来处理位置更新，而不需要前台应用一直运行。
+5. 定时提醒：Service可用于创建定时提醒，如闹钟应用，即使用户退出应用也能正常触发提醒。
+总之，Service是Android应用的后台工作马，可以让应用执行长时间的任务而不中断用户的前台操作。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="动态申请权限"><a href="#动态申请权限" class="headerlink" title="动态申请权限"></a>动态申请权限</h2><ol>
+<li>AndroidManifest.xml添加</li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.WRITE_EXTERNAL_STORAGE<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span> 
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.READ_EXTERNAL_STORAGE<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>  
+    &lt;application 
+        android:requestLegacyExternalStorage="true"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>定义GetPermissionDynamic();放在onCreate(){}里执行  </li>
+<li>重写onRequestPermissionsResult  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">private void GetPermissionDynamic(){ 
+    if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+        ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},200); 
+    } 
+} 
+
+@Override 
+public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults); 
+    switch (requestCode){ 
+        case 200: 
+            Log.d("mymsg","xxxxxx"); 
+        break; 
+    } 
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="定时检查当前wifi强度并UI显示"><a href="#定时检查当前wifi强度并UI显示" class="headerlink" title="定时检查当前wifi强度并UI显示"></a>定时检查当前wifi强度并UI显示</h2><h3 id="添加权限"><a href="#添加权限" class="headerlink" title="添加权限"></a>添加权限</h3><p>AndroidManifest.xml添加权限</p>
+<pre class="line-numbers language-html"><code class="language-html">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.ACCESS_NETWORK_STATE<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.ACCESS_WIFI_STATE<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.CHANGE_WIFI_STATE<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    &lt;application
+        android:allowBackup="true"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>动态申请权限  </p>
+<pre class="line-numbers language-html"><code class="language-html">    private void GetPermissonDynamic(){
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_NETWORK_STATE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_NETWORK_STATE},10119);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_WIFI_STATE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_WIFI_STATE},10200);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CHANGE_WIFI_STATE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CHANGE_WIFI_STATE},10201);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 10119:
+
+                break;
+            case 10200:
+
+                break;
+            case 10201:
+
+                break;
+            default:
+                break;
+        }
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="获取当前wifi是否连接并定时UI更新强度"><a href="#获取当前wifi是否连接并定时UI更新强度" class="headerlink" title="获取当前wifi是否连接并定时UI更新强度"></a>获取当前wifi是否连接并定时UI更新强度</h3><pre class="line-numbers language-html"><code class="language-html">package com.example.testwifi;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView textwifi;
+    private ConnectivityManager cm=null;
+    private WifiManager wifi_server=null;
+
+    public Timer timer;
+    public TimerTask timerTask;
+
+    public Handler handlerSelf;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        GetPermissonDynamic();
+        textwifi=(TextView) findViewById(R.id.wifistate);
+
+        handlerSelf=new Handler(){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                if(msg.what==20001){
+                    getNowTime();
+                }else if(msg.what==20002){
+                    judgeWifiConnected();
+                }
+
+            }
+        };
+
+        if(timer!=null){
+            timer.cancel();
+        }
+        timer=new Timer();
+        timerTask=new TimerTask() {
+            @Override
+            public void run() {
+                Message updateTimeMessage=Message.obtain();
+                updateTimeMessage.what=20002;
+                updateTimeMessage.obj="confirmWIFI";
+                handlerSelf.sendMessage(updateTimeMessage);
+//                Message updateTimeMessage=Message.obtain();
+//                updateTimeMessage.what=20001;
+//                updateTimeMessage.arg1=119;
+//                updateTimeMessage.arg2=120;
+//                updateTimeMessage.obj="hello";
+//                handlerSelf.sendMessage(updateTimeMessage);
+            }
+        };
+        timer.schedule(timerTask,1000,5000);
+    }
+
+    private void getNowTime(){
+        long currentTimeMills=System.currentTimeMillis();
+        SimpleDateFormat sdf=new SimpleDateFormat();
+        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+        String formatTime=sdf.format(new Date(currentTimeMills));
+        textwifi.setText(formatTime);
+    }
+    private void judgeWifiConnected(){
+        boolean wifiConnected=false;
+        String xinhaoqiangdu="";
+        if(cm==null){
+            cm=(ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE);
+        }
+        NetworkInfo wifiInfo=cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if(wifiInfo!=null){
+            if(wifiInfo.isConnected()){
+                wifiConnected=true;
+            }else{
+                wifiConnected=false;
+            }
+        }
+        if(wifi_server==null){
+            wifi_server=(WifiManager)getApplicationContext().getSystemService(getApplicationContext().WIFI_SERVICE);
+        }
+        WifiInfo wifiinfo=wifi_server.getConnectionInfo();
+        int xinhao=wifiinfo.getRssi();
+        if(xinhao>-50&amp;&amp;xinhao&lt;=0){
+            xinhaoqiangdu="信号好";
+        }else if(xinhao>-70&amp;&amp;xinhao&lt;=-50){
+            xinhaoqiangdu="信号偏差";
+        }else if(xinhao&lt;=-70){
+            xinhaoqiangdu="信号极差";
+        }
+        if(wifiConnected){
+            textwifi.setText("wifi state: Connected "+xinhaoqiangdu);
+        }else{
+            textwifi.setText("wifi state: UnConnected");
+        }
+
+    }
+
+    private void GetPermissonDynamic(){
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_NETWORK_STATE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_NETWORK_STATE},10119);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_WIFI_STATE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_WIFI_STATE},10200);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CHANGE_WIFI_STATE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CHANGE_WIFI_STATE},10201);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 10119:
+
+                break;
+            case 10200:
+
+                break;
+            case 10201:
+
+                break;
+            default:
+                break;
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="通过监听系统广播监听wifi有无及强度"><a href="#通过监听系统广播监听wifi有无及强度" class="headerlink" title="通过监听系统广播监听wifi有无及强度"></a>通过监听系统广播监听wifi有无及强度</h3><p>需要权限跟之前一样  </p>
+<pre class="line-numbers language-html"><code class="language-html">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.ACCESS_WIFI_STATE<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.ACCESS_NETWORK_STATE<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.CHANGE_WIFI_STATE<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+
+安装上例动态权限申请  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>网上示例在onResume()里注册，在onPause()里取消监听，也适用于我的需求</p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.testwifi;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MainActivity extends AppCompatActivity {
+
+    private TextView textwifi;
+    private ConnectivityManager cm=null;
+    private WifiManager wifi_server=null;
+
+
+    public Handler handlerSelf;
+
+    private WifiScanReceiver mWifiScanReceiver;
+    private Thread mReconnectThread;
+    private boolean ContinuousReConnect;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        GetPermissonDynamic();
+        textwifi=(TextView) findViewById(R.id.wifistate);
+
+    }
+
+    // 选择在Activity生命周期方法中的onResume()中注册
+    @Override
+    protected void onResume(){
+        super.onResume();
+        // 1. 实例化BroadcastReceiver子类 &amp;  IntentFilter
+        mWifiScanReceiver=new WifiScanReceiver();
+        mWifiScanReceiver.setDisconnectedCB(new WifiScanReceiver.DisconnectedCB() {
+            @Override
+            public void disconnected() {
+                //judgeWifiConnected();
+                textwifi.setText("wifi state: DisConnected");
+            }
+
+            @Override
+            public void connected() {
+
+               // judgeWifiConnected();//恢复连接会显示不了，原因没找，反正这里之简单修改变量吧。（更应该加个定时器某值长期不变判断的条件）(而且我需求里只判断wifi断开的情况)
+                textwifi.setText("wifi state: Connected");
+
+            }
+        });
+        IntentFilter intentFilter=new IntentFilter();
+        // 2. 设置接收广播的类型
+        intentFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
+        // 3. 动态注册：调用Context的registerReceiver（）方法
+        registerReceiver(mWifiScanReceiver,intentFilter);
+
+    }
+    // 注册广播后，要在相应位置记得销毁广播
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //销毁在onResume()方法中的广播
+        if (mWifiScanReceiver != null) {
+            unregisterReceiver(mWifiScanReceiver);
+            mWifiScanReceiver.setDisconnectedCB(null);
+        }
+    }
+
+
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    private void getNowTime(){
+        long currentTimeMills=System.currentTimeMillis();
+        SimpleDateFormat sdf=new SimpleDateFormat();
+        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");
+        String formatTime=sdf.format(new Date(currentTimeMills));
+        textwifi.setText(formatTime);
+    }
+    private void judgeWifiConnected(){
+        boolean wifiConnected=false;
+        String xinhaoqiangdu="";
+        if(cm==null){
+            cm=(ConnectivityManager) getSystemService(getApplicationContext().CONNECTIVITY_SERVICE);
+        }
+        NetworkInfo wifiInfo=cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if(wifiInfo!=null){
+            if(wifiInfo.isConnected()){
+                wifiConnected=true;
+            }else{
+                wifiConnected=false;
+            }
+        }
+        if(wifi_server==null){
+            wifi_server=(WifiManager)getApplicationContext().getSystemService(getApplicationContext().WIFI_SERVICE);
+        }
+        WifiInfo wifiinfo=wifi_server.getConnectionInfo();
+        int xinhao=wifiinfo.getRssi();
+        if(xinhao>-50&amp;&amp;xinhao&lt;=0){
+            xinhaoqiangdu="信号好";
+        }else if(xinhao>-70&amp;&amp;xinhao&lt;=-50){
+            xinhaoqiangdu="信号偏差";
+        }else if(xinhao&lt;=-70){
+            xinhaoqiangdu="信号极差";
+        }
+        if(wifiConnected){
+            textwifi.setText("wifi state: Connected "+xinhaoqiangdu);
+        }else{
+            textwifi.setText("wifi state: UnConnected");
+        }
+
+    }
+
+    private void GetPermissonDynamic(){
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_NETWORK_STATE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_NETWORK_STATE},10119);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_WIFI_STATE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_WIFI_STATE},10200);
+        }
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CHANGE_WIFI_STATE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CHANGE_WIFI_STATE},10201);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 10119:
+
+                break;
+            case 10200:
+
+                break;
+            case 10201:
+
+                break;
+            default:
+                break;
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="自定义BroadcastReceiver子类"><a href="#自定义BroadcastReceiver子类" class="headerlink" title="自定义BroadcastReceiver子类"></a>自定义BroadcastReceiver子类</h4><pre class="line-numbers language-html"><code class="language-html">package com.example.hdsy.hs;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.net.wifi.SupplicantState;
+import android.net.wifi.WifiManager;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+public class WifiScanReceiver extends BroadcastReceiver {
+    private static final String TAG = "WifiScanReceiver";
+    /**
+     * 监听到wifi连接断开事件的回调
+     */
+    private DisconnectedCB mDisconnectedCB;
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (intent == null) {
+            return;
+        }
+
+        String act = intent.getAction();
+        if (WifiManager.SUPPLICANT_STATE_CHANGED_ACTION.equals(act))  {
+            handleSupplicantState(intent);
+        }
+    }
+
+    public void setDisconnectedCB(@Nullable DisconnectedCB disconnectedCB) {
+        mDisconnectedCB = disconnectedCB;
+    }
+
+    private void handleSupplicantState(Intent intent) {
+        // 获取连接状态
+        SupplicantState supplicantState = intent.getParcelableExtra(WifiManager.EXTRA_NEW_STATE);
+
+        switch (supplicantState) {
+            // 成功
+            case COMPLETED:
+                // wifiManager.connectionInfo?.ssid?.replace("\"", "")?.let {
+                // connectListener.invoke(it, false);
+                // }
+                Log.i(TAG, "获取连接状态：成功");
+                break;
+
+            // 不活跃的
+            case INACTIVE:
+                Log.i(TAG, "获取连接状态：不活跃的");
+                break;
+            // 接口禁用
+            case INTERFACE_DISABLED: {
+                Log.i(TAG, "获取连接状态：接口禁用");
+                break;
+            }
+            case DISCONNECTED: {
+                Log.i(TAG, "获取连接状态：断开连接");
+                if (mDisconnectedCB != null) {
+                    mDisconnectedCB.disconnected();
+                }
+                break;
+            }
+            case SCANNING: {
+                Log.i(TAG, "获取连接状态：正在扫描");
+                break;
+            }
+            case AUTHENTICATING: {
+                Log.i(TAG, "获取连接状态：正在验证");
+                break;
+            }
+            case ASSOCIATING: {
+                Log.i(TAG, "获取连接状态：正在关联");
+                break;
+            }
+            case ASSOCIATED: {
+                Log.i(TAG, "获取连接状态：已经关联");
+                break;
+            }
+            case FOUR_WAY_HANDSHAKE: {
+                Log.i(TAG, "获取连接状态：四次握手");
+                break;
+            }
+            case GROUP_HANDSHAKE: {
+                Log.i(TAG, "获取连接状态：组握手");
+                break;
+            }
+            case DORMANT:
+                Log.i(TAG, "获取连接状态：休眠");
+                break;
+            case UNINITIALIZED:
+                Log.i(TAG, "获取连接状态：未初始化");
+                break;
+            case INVALID:
+                Log.i(TAG, "获取连接状态：无效的");
+                break;
+            default:
+                Log.i(TAG, "wifi连接结果通知");
+                break;
+        }
+    }
+
+    /**
+     * 简单处理WIFI断开事件的回调。
+     */
+    public interface DisconnectedCB {
+        void disconnected();
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/09/26/diary-20230926-1/" class="b-link-green">Android确认框、共享公共变量、异步操作和一些androidstudio的Tips</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/09/27/diary-20230927-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/30.jpg" class="responsive-img" alt="Android本地调用、混淆反编译和GeoServer发布服务">
+                        
+                        <span class="card-title">Android本地调用、混淆反编译和GeoServer发布服务</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            GeoServer的MBTiles插件和跨域win10安装JDK17双击运行jdk-17_windows-x64_bin.msi
+新建系统变量JAVA_HOME值为D:\Java\JDK-17
+编辑系统变量Path，添加%JAVA_HOME
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-09-27
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/NDK/" target="_blank">
+                        <span class="chip bg-color">NDK</span>
+                    </a>
+                    
+                    <a href="/diary/tags/GeoServer/" target="_blank">
+                        <span class="chip bg-color">GeoServer</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/09/21/diary-20230921-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/16.jpg" class="responsive-img" alt="Node中的Buffer和TcpUdp、文件传输">
+                        
+                        <span class="card-title">Node中的Buffer和TcpUdp、文件传输</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Node的Buffer转数字const buf=Buffer.allocUnsafe(4)
+buf.writeUInt32BE(156)
+console.log(buf) //&lt;Buffer 01 02 03 04>
+console.
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-09-21
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/NodeRPC/" target="_blank">
+                        <span class="chip bg-color">NodeRPC</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

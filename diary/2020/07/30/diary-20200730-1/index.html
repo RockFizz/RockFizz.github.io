@@ -1,0 +1,2809 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="低功耗蓝牙BLE的GATT协议和广播消息解析, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="蓝牙作为短距离无线通讯技术，可实现设备与设备之间的数据交换。一般将蓝牙3.0之前的BR/EDR称为传统蓝牙，将蓝牙4.0规范的BLE蓝牙称为低功耗蓝牙。
+
+现在蓝牙实际上分为三类：单模、双模和经典。
+单模蓝牙(ble低功耗蓝牙)使用GATT">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>低功耗蓝牙BLE的GATT协议和广播消息解析 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/22.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        低功耗蓝牙BLE的GATT协议和广播消息解析
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/BLE/" target="_blank">
+                                <span class="chip bg-color">BLE</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-07-30
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        9.1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        44 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>蓝牙作为短距离无线通讯技术，可实现设备与设备之间的数据交换。一般将蓝牙3.0之前的BR/EDR称为传统蓝牙，将蓝牙4.0规范的BLE蓝牙称为低功耗蓝牙。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/bluetoothtype.jpg" alt="蓝牙分类"></p>
+<ul>
+<li>现在蓝牙实际上分为三类：单模、双模和经典。</li>
+<li>单模蓝牙(ble低功耗蓝牙)使用GATT传输协议进行数据传输，传统蓝牙通过Socket进行数据传输。因此Android用传统蓝牙链接方式无法和低功耗蓝牙ble建立通信通道。通信协议不同。</li>
+<li>经典蓝牙发现其它经典蓝牙设备的方式是调用BluetoothAdapter的startDiscovery()方法。蓝牙最初的设计意图，是打电话放音乐。3.0版本以下的蓝牙，都称为“经典蓝牙”。功耗高、传输数据量大、传输距离只有10米。</li>
+<li>低功耗蓝牙ble引入主设备Central和从设备Peripheral的概念。主设备调用发现设备的方法，通过BluetoothAdapter的startLeScan()方法实现。从设备作为被发现方，发出广播以供发现。这个startLeScan()方法仅能发现ble设备。低功耗，数据量小，距离50米左右。</li>
+<li>Android4.3(API18)版本以下对应传统蓝牙，Android4.3引入BLE核心功能并提供相应api，应用程序通过这些API扫描蓝牙设备、查询服务services、读写设备属性特征characteristics。Android4.3及以上版本才支持低功耗ble的开发，而且Android4.3版本至5.0版本的调用方法和Android5.0以上版本的调用方法还不一样。Android6.0以上必须运行时申请模糊定位的权限开启才能扫描ble广播。</li>
+</ul>
+<h2 id="一、中央BluetoothGatt和周边BluetoothGattServer的实现"><a href="#一、中央BluetoothGatt和周边BluetoothGattServer的实现" class="headerlink" title="一、中央BluetoothGatt和周边BluetoothGattServer的实现"></a>一、中央BluetoothGatt和周边BluetoothGattServer的实现</h2><p>Android4.3规范了BLE的API，但是直到目前的Android4.4，还有些功能不完善。直到目前最新的Android4.4.2，Android手机只能作为中央来使用和处理数据；那数据从哪儿来？从BLE设备来，现在的很多可穿戴设备都是用BLE来提供数据的。一个中央可以同时连接多个周边，但是一个周边某一时刻只能连接一个中央。<br>Android BLE SDK的四个关键类(class):</p>
+<ul>
+<li>BluetoothGattServer作为周边来提供数据。代表周边。</li>
+<li>BluetoothGattServerCallback返回周边的状态。</li>
+<li>BluetoothGatt作为中央来使用和处理数据。代表中央。</li>
+<li>BluetoothGattCallback返回中央的状态和周边提供的数据。</li>
+</ul>
+<h3 id="1-1-创建周边"><a href="#1-1-创建周边" class="headerlink" title="1.1 创建周边"></a>1.1 创建周边</h3><p>虽然周边API是在设备内工作，并不在Android手机上工作，但还是可以看看。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/zhoubianble.jpg" alt="周边"><br>每一个周边BluetoothGattServer，包含多个服务Service，每一个Service包含多个特征Characteristic。<br>new一个特征</p>
+<pre><code>character = new BluetoothGattCharacteristic(UUID.fromString(characteristicUUID),BluetoothGattCharacteristic.PROPERTY_NOTIFY,BluetoothGattCharacteristic.PERMISSION_READ);</code></pre><p>new一个服务</p>
+<pre><code>service = new BluetoothGattService(UUID.fromString(serviceUUID),BluetoothGattService.SERVICE_TYPE_PRIMARY);</code></pre><p>把特征添加到服务</p>
+<pre><code>service.addCharacteristic(character);</code></pre><p>获取BluetoothManager</p>
+<pre><code>manager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);</code></pre><p>获取/打开周边</p>
+<pre><code>BluetoothGattServer server = manager.openGattServer(this,new BluetoothGattServerCallback(){...}); </code></pre><p>把service添加到周边</p>
+<pre><code>server.addService(service);</code></pre><p>开始广播</p>
+<pre><code>//Google还没有广播Service的API，等吧！！！！！
+//所以目前我们还不能让一个Android手机作为周边来提供数据。</code></pre><h3 id="1-2-创建中央"><a href="#1-2-创建中央" class="headerlink" title="1.2 创建中央"></a>1.2 创建中央</h3><p>在Android手机里运行，成功创建后可以连接到周边<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/centerble.jpg" alt="Center"></p>
+<p>首先拿到BluetoothManager</p>
+<pre><code>bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);</code></pre><p>再拿到BluetoothAdapt</p>
+<pre><code>btAdapter = bluetoothManager.getAdapter();</code></pre><p>开始扫描</p>
+<pre><code>btAdapter.startLeScan( BluetoothAdapter.LeScanCallback);</code></pre><p>从LeScanCallback中得到BluetoothDevice</p>
+<pre><code>public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {.....}</code></pre><p>用BluetoothDevice得到BluetoothGatt</p>
+<pre><code>gatt = device.connectGatt(this, true, gattCallback);</code></pre><p>终于拿到中央BluetoothGatt，通过调用BluetoothGatt的一堆方法api,通过BluetoothGattCallback和周边BluetoothGattServer交互进行通信。</p>
+<h2 id="二、BLE数据发送"><a href="#二、BLE数据发送" class="headerlink" title="二、BLE数据发送"></a>二、BLE数据发送</h2><p>BluetoothGattCallback回调函数先准备好。</p>
+<pre><code>    private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
+    @Override
+    public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {//连接状态改变
+
+        Log.e("BluetoothGatt中中中", "连接状态:" + newState);
+        /**
+         * 连接状态：
+         *    * The profile is in disconnected state   *public static final int STATE_DISCONNECTED  = 0;
+         *    * The profile is in connecting state     *public static final int STATE_CONNECTING    = 1;
+         *    * The profile is in connected state      *public static final int STATE_CONNECTED    = 2;
+         *    * The profile is in disconnecting state  *public static final int STATE_DISCONNECTING = 3;
+         *
+         */
+
+        if (BluetoothGatt.STATE_CONNECTED == newState) {
+            Log.e("onConnec中中中", "连接成功:");
+            gatt.discoverServices();//必须有，可以让onServicesDiscovered显示所有Services
+            Toast.makeText(mContext, "连接成功", Toast.LENGTH_SHORT).show();
+        }else if (BluetoothGatt.STATE_DISCONNECTED == newState){
+            Log.e("断开 中中中", "断开连接:");
+            Toast.makeText(mContext, "断开连接", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onServicesDiscovered(BluetoothGatt gatt, int status) {//发现服务，在蓝牙连接的时候会调用
+        List&lt;BluetoothGattService&gt; list = mBluetoothGatt.getServices();
+        for (BluetoothGattService bluetoothGattService:list){
+            String str = bluetoothGattService.getUuid().toString();
+            Log.e("onServicesDisc中中中", " ：" + str);
+            List&lt;BluetoothGattCharacteristic&gt; gattCharacteristics = bluetoothGattService.getCharacteristics();
+            for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
+                Log.e("onServicesDisc中中中", " ：" + gattCharacteristic.getUuid());
+                if("0000ffe1-0000-1000-8000-00805f9b34fb".equals(gattCharacteristic.getUuid().toString())){
+                    linkLossService=bluetoothGattService;
+                    alertLevel=gattCharacteristic;
+                    Log.e("daole",alertLevel.getUuid().toString());
+                }
+            }
+
+        }
+        enableNotification(true,gatt,alertLevel);//必须要有，否则接收不到数据
+    }
+
+    @Override
+    public void onCharacteristicRead(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic, int status) {
+        Log.e("onCharacteristicRead中", "数据接收了哦"+bytesToHexString(characteristic.getValue()));
+    }
+
+    /**
+     *  发送数据后的回调
+     * @param gatt
+     * @param characteristic
+     * @param status
+     */
+    @Override
+    public void onCharacteristicWrite(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic, int status) {//发送数据时调用
+        Log.e("onCharacteristicWrite中", "数据发送了哦");
+        Log.e("onCharacteristicWrite中", bytesToHexString(characteristic.getValue()));
+        if(status == BluetoothGatt.GATT_SUCCESS){//写入成功
+            Log.e("onCharacteristicWrite中", "写入成功");
+        }else if (status == BluetoothGatt.GATT_FAILURE){
+            Log.e("onCharacteristicWrite中", "写入失败");
+        }else if (status == BluetoothGatt.GATT_WRITE_NOT_PERMITTED){
+            Log.e("onCharacteristicWrite中", "没权限");
+        }
+
+    }
+
+    @Override
+    public void onDescriptorRead(BluetoothGatt gatt,BluetoothGattDescriptor descriptor, int status) {//descriptor读
+        //Log.e("onCDescripticRead中", "数据接收了哦"+bytesToHexString(characteristic.getValue()));
+    }
+
+    @Override
+    public void onCharacteristicChanged(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic) {// Characteristic 改变，数据接收会调用
+        Log.e("CharacteristicChanged中", "数据接收了哦"+bytesToHexString(characteristic.getValue()));
+        tx_receive.append(bytesToHexString(characteristic.getValue()) + "\n");
+    }
+
+    @Override
+    public void onDescriptorWrite(BluetoothGatt gatt,BluetoothGattDescriptor descriptor, int status) {//descriptor写
+
+    }
+
+    @Override
+    public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
+
+    }
+
+    @Override
+    public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) { //读Rssi
+
+    }
+
+    @Override
+    public void onMtuChanged(BluetoothGatt gatt, int mtu, int status) {
+
+    }
+
+};
+</code></pre><p>先要定义mBluetoothGatt ，然后在连接ble的时候写上上面这个回调函数。这样会把蓝牙的相关信息传到回调函数，才能进行接下来的数据发送与接收。<br>通过BluetoothDevice连接ble，得到mBluetoothGatt，如下</p>
+<pre><code>    /**
+     * 蓝牙连接
+     * @param device
+     */
+    public void connect(BluetoothDevice device) {
+        Log.e("connect中中中","开始连接:");
+        mBluetoothGatt = device.connectGatt(mContext, false, mGattCallback);
+    }</code></pre><ul>
+<li>BluetoothGattCallback回调中的onConnectionStateChange是判断蓝牙ble连接是否成功。</li>
+<li>BluetoothGattCallback回调中的onServicesDiscovered先遍历ble设备的所有服务，然后遍历所有服务的所有特征。目的就是为了找到特定的服务和特征<pre><code>linkLossService=bluetoothGattService; 
+alertLevel=gattCharacteristic;</code></pre>这两句，把需要的服务中的Characteristic找到，为什么呢，因为发送数据需要，如果你不知道你的设备中可读写的Characteristic的uuid你需要先知道目标特征的uuid是多少。<br>既然已经找到需要的特征Characteristic，那么就可以用于发送数据了。<pre><code>  /**
+   * 向蓝牙发送数据
+   */
+  public void dataSend(){
+      //byte[] send={(byte) 0xaa,0x01,0x01,(byte)0x81,(byte) 0xff};
+      byte[] send = new byte[20];
+      send = hexStringToBytes(et_send.getText().toString());
+      byte[] sendData=new byte[send.length+2];
+      sendData[0]=(byte) 0xaa;
+      sendData[sendData.length-1]=(byte) 0xff;
+      for(int i=1;i&lt;sendData.length-1;i++){
+          sendData[i]=send[i-1];
+      }
+      Log.e("dataSend", bytesToHexString(sendData));
+      Log.e("dataSend", linkLossService +"");
+      alertLevel.setValue(sendData);
+      boolean status = mBluetoothGatt.writeCharacteristic(alertLevel);
+      Log.e("dataSend", status+"");
+  }</code></pre></li>
+</ul>
+<p>硬件设备接收的都是byte类型的数据，所以我们发送的也就是byte，我这里是从editview中获取数据，然后加工成byte类型。这里我在每条指令前加了0xaa，末尾加了0xff，因为底层硬件要求的数据帧为这种格式，具体发送的时候要按照具体情况来。 </p>
+<h2 id="三、BLE数据接收"><a href="#三、BLE数据接收" class="headerlink" title="三、BLE数据接收"></a>三、BLE数据接收</h2><p>想要接收到数据必须先要使能通知。</p>
+<pre><code>        @Override
+        public void onServicesDiscovered(BluetoothGatt gatt, int status) {//发现服务，在蓝牙连接的时候会调用
+            List&lt;BluetoothGattService&gt; list = mBluetoothGatt.getServices();
+            for (BluetoothGattService bluetoothGattService:list){
+                String str = bluetoothGattService.getUuid().toString();
+                Log.e("onServicesDisc中中中", " ：" + str);
+                List&lt;BluetoothGattCharacteristic&gt; gattCharacteristics = bluetoothGattService.getCharacteristics();
+                for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
+                    Log.e("onServicesDisc中中中", " ：" + gattCharacteristic.getUuid());
+                    if("0000ffe1-0000-1000-8000-00805f9b34fb".equals(gattCharacteristic.getUuid().toString())){
+                        linkLossService=bluetoothGattService;
+                        alertLevel=gattCharacteristic;
+                        Log.e("daole",alertLevel.getUuid().toString());
+                    }
+                }
+
+            }
+            enableNotification(true,gatt,alertLevel);//必须要有，否则接收不到数据
+            //Log.e("onServicesDisc中中中", " ：" + mBluetoothGatt.getServices().toString());
+        }</code></pre><p>就是enableNotification(true,gatt,alertLevel);这句话，这个必须要有不然接收数据的那个回调函数会毫无反应。</p>
+<pre><code>    private void enableNotification(boolean enable, BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+        if (gatt == null || characteristic == null)
+            return; //这一步必须要有 否则收不到通知 
+        gatt.setCharacteristicNotification(characteristic, enable);
+    }</code></pre><p>这些都做完了以后，在发送了指令后，如果有数据返回，就会接收到数据</p>
+<pre><code>    @Override
+    public void onCharacteristicChanged(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic) {// Characteristic 改变，数据接收会调用
+        Log.e("CharacteristicChanged中", "数据接收了哦"+bytesToHexString(characteristic.getValue()));
+        tx_receive.append(bytesToHexString(characteristic.getValue()) + "\n");
+    }</code></pre><p>下面是写入状态的回调函数，写入成功后就会显示写入成功与否</p>
+<pre><code>    @Override
+    public void onCharacteristicWrite(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic, int status) {//发送数据时调用
+        Log.e("onCharacteristicWrite中", "数据发送了哦");
+        Log.e("onCharacteristicWrite中", bytesToHexString(characteristic.getValue()));
+        if(status == BluetoothGatt.GATT_SUCCESS){//写入成功
+            Log.e("onCharacteristicWrite中", "写入成功");
+            tx_display.append("写入成功");
+        }else if (status == BluetoothGatt.GATT_FAILURE){
+            Log.e("onCharacteristicWrite中", "写入失败");
+        }else if (status == BluetoothGatt.GATT_WRITE_NOT_PERMITTED){
+            Log.e("onCharacteristicWrite中", "没权限");
+        }
+    }
+</code></pre><h2 id="四、BLE总结"><a href="#四、BLE总结" class="headerlink" title="四、BLE总结"></a>四、BLE总结</h2><p>(打开蓝牙-&gt;搜索设备-&gt;发现设备-&gt;建立连接-&gt;数据通信)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/blekaifaliucheng2.jpg" alt="ble蓝牙开发流程"></p>
+<h3 id="4-1-Android-BLE-API简介"><a href="#4-1-Android-BLE-API简介" class="headerlink" title="4.1 Android BLE API简介"></a>4.1 Android BLE API简介</h3><pre><code>+ GATT
+描述了一个框架，该框架定义了服务(Server)和服务属性(characteristic)的过程(Procedure)及格式Procedure定义了characteristic的发现、读、写、通知(Notifing)、指示(Indicating)及配置characteristic的广播。
+GATT中最上层是Profile，Profile由一个或多个服务(Service)组成服务是由Characteristics组成，或是其他服务的引用(Reference)Characteristic包含一个值(Value)，可能包含该Value的相关信息。
+
++ Server
+一个低功耗蓝牙设备可以定义许多 Service, Service可以理解为一个功能的集合。设备中每一个不同的Service都有一个128bit的UUID作为这个Service的独立标志。蓝牙核心规范制定了两种不同的UUID，一种是基本的UUID，一种是代替基本UUID的16位UUID。所有的蓝牙技术联盟定义UUID共用了一个基本的UUID：0x0000xxxx-0000-1000-8000-00805F9B34FB，为了进一步简化基本UUID，每一个蓝牙技术联盟定义的属性有一个唯一的16位UUID，以代替上面的基本UUID的‘x’部分。例如，心率测量特性使用0X2A37作为它的16位UUID，因此它完整的128位UUID为：0x00002A37-0000-1000-8000-00805F9B34FB
+
++ Characteristic
+在Service下面，又包括了许多的独立数据项，我们把这些独立的数据项称作Characteristic。同样的，每一个Characteristic也有一个唯一的UUID作为标识符。在Android开发中，建立蓝牙连接后，我们说的通过蓝牙发送数据给外围设备就是往这些Characteristic中的Value字段写入数据；外围设备发送数据给手机就是监听这些Charateristic中的Value字段有没有变化，如果发生了变化，手机的BLE API就会收到一个监听的回调。</code></pre><h4 id="4-1-1-BluetoothAdapter"><a href="#4-1-1-BluetoothAdapter" class="headerlink" title="4.1.1 BluetoothAdapter"></a>4.1.1 BluetoothAdapter</h4><p>拥有基本的蓝牙操作，例如开启蓝牙扫描，使用已知的MAC地址（BluetoothAdapter getRemoteDevice）实例化一个 BluetoothDevice用于连接蓝牙设备的操作等</p>
+<h4 id="4-1-2-BluetoothDevice"><a href="#4-1-2-BluetoothDevice" class="headerlink" title="4.1.2 BluetoothDevice"></a>4.1.2 BluetoothDevice</h4><p>代表一个远程蓝牙设备。这个类可以让你连接所代表的蓝牙设备或者获取一些有关它的信息，例如它的名字，地址和绑定状态等等。</p>
+<h4 id="4-1-3-BluetoothGatt"><a href="#4-1-3-BluetoothGatt" class="headerlink" title="4.1.3 BluetoothGatt"></a>4.1.3 BluetoothGatt</h4><p>提供了Bluetooth GATT的基本功能。例如重新连接蓝牙设备，发现蓝牙设备的 Service 等</p>
+<h4 id="4-1-4-BluetoothGattService"><a href="#4-1-4-BluetoothGattService" class="headerlink" title="4.1.4 BluetoothGattService"></a>4.1.4 BluetoothGattService</h4><p>通过BluetoothGatt.getService获得，如果当前服务不可见那么将返回一个null。这一个类对应上面说过的Service。我们可以通过这个类的getCharacteristic(UUID uuid) 进一步获取 Characteristic 实现蓝牙数据的双向传输。</p>
+<h4 id="4-1-5-BluetoothGattCharacteristic"><a href="#4-1-5-BluetoothGattCharacteristic" class="headerlink" title="4.1.5 BluetoothGattCharacteristic"></a>4.1.5 BluetoothGattCharacteristic</h4><p>对应上面提到的 Characteristic。通过这个类定义需要往外围设备写入的数据和读取外围设备发送过来的数据。</p>
+<h2 id="五、蓝牙与BLE通讯"><a href="#五、蓝牙与BLE通讯" class="headerlink" title="五、蓝牙与BLE通讯"></a>五、蓝牙与BLE通讯</h2><h3 id="5-0思路步骤-梳理整体逻辑"><a href="#5-0思路步骤-梳理整体逻辑" class="headerlink" title="5.0思路步骤(梳理整体逻辑)"></a>5.0思路步骤(梳理整体逻辑)</h3><ul>
+<li>权限问题<br>先判断手机是否满足android4.3以上版本，再判断手机是否开启蓝牙。Android6.0以上申请运行时定位权限。</li>
+<li>搜索蓝牙<br>搜索蓝牙，回调接口中查看ble设备相关信息，一定时间停止扫描。</li>
+<li>连接蓝牙<br>首先获取到ble设备的mac地址，然后调用connect()方法进行连接。</li>
+<li>获取特征<br>蓝牙连接成功后，需要获取蓝牙的服务及特征等，然后开启接收设置。</li>
+<li>发送消息<br>writeCharacteristic()方法，发送数据给ble设备。</li>
+<li>接收消息<br>通过蓝牙的回调接口中onCharacteristicRead()方法，接收蓝牙收的消息。</li>
+<li>释放资源<br>断开连接，关闭资源。</li>
+</ul>
+<h3 id="5-1声明权限"><a href="#5-1声明权限" class="headerlink" title="5.1声明权限"></a>5.1声明权限</h3><p>AndroidManifest.xml中声明权限</p>
+<pre><code>&lt;!-- 蓝牙所需权限 --&gt;
+    &lt;uses-permission android:name="android.permission.BLUETOOTH" /&gt;
+    &lt;uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /&gt;
+    &lt;uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" /&gt;
+
+    &lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/&gt;
+    &lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/&gt;</code></pre><p>android.permission.BLUETOOTH允许程序连接到已配对的蓝牙设备。<br>android.permission.BLUETOOTH_ADMIN允许程序发现和配对蓝牙设备。<br>因为只有在API18(Android4.3)以上的手机才支持ble开发，所以还要声明一个feature。当required为true时，应用只能在支持BLE的Android设备上安装运行，required为false时，Android设备均可正常安装运行，需要在代码运行时判断设备是否支持BLE。<br>需要定位权限，不然扫描不到ble设备。</p>
+<h3 id="5-2获取蓝牙适配器"><a href="#5-2获取蓝牙适配器" class="headerlink" title="5.2获取蓝牙适配器"></a>5.2获取蓝牙适配器</h3><pre><code>  BluetoothManager  mBluetoothManager =(BluetoothManager)context.getSystemService(Context.BLUETOOTH_SERVICE);
+  BluetoothAdapter  mBluetoothAdapter = mBluetoothManager.getAdapter();</code></pre><h3 id="5-3判断手机蓝牙是否打开"><a href="#5-3判断手机蓝牙是否打开" class="headerlink" title="5.3判断手机蓝牙是否打开"></a>5.3判断手机蓝牙是否打开</h3><pre><code>mBluetoothAdapter.isEnabled()</code></pre><p>如果返回true，开始扫描。如果返回false,调用系统方法让用户打开蓝牙。</p>
+<h3 id="5-4开始扫描"><a href="#5-4开始扫描" class="headerlink" title="5.4开始扫描"></a>5.4开始扫描</h3><pre><code>    //10s后停止搜索
+    new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBluetoothAdapter.stopLeScan(mLeScanCallback);
+                    }
+                }, 1000 * 10);
+
+    UUID[] serviceUuids = {UUID.fromString(service_uuid)};
+    mBluetoothAdapter.startLeScan(serviceUuids, mLeScanCallback);</code></pre><ul>
+<li>startLeScan中，第一个参数是只扫描UUID是同一类的ble设备，第二个参数是扫描到设备后的回调。</li>
+<li>因为蓝牙扫描比较耗电，建议设置扫描时间，一定时间后停止扫描。</li>
+<li>如果不需要过滤扫描到的蓝牙设备，可用mBluetoothAdapter.startLeScan(mLeScanCallback);进行扫描。</li>
+</ul>
+<h3 id="5-5扫描的回调"><a href="#5-5扫描的回调" class="headerlink" title="5.5扫描的回调"></a>5.5扫描的回调</h3><pre><code>    //蓝牙扫描回调接口
+    private BluetoothAdapter.LeScanCallback mLeScanCallback = new BluetoothAdapter.LeScanCallback(){
+        @Override
+        public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
+            if (device.getName() == null) {
+                return;
+            }
+            Log.e("---&gt;搜索到的蓝牙名字：", device.getName());
+            //可以将扫描的设备弄成列表，点击设备连接，也可以根据每个设备不同标识，自动连接。
+
+        }
+    };</code></pre><h3 id="5-6连接蓝牙"><a href="#5-6连接蓝牙" class="headerlink" title="5.6连接蓝牙"></a>5.6连接蓝牙</h3><ul>
+<li><p>获取设备的mac地址，然后连接。</p>
+<pre><code>//获取所需地址
+String mDeviceAddress = device.getAddress();
+BluetoothGatt mBluetoothGatt = device.connectGatt(context, false, mGattCallback);</code></pre></li>
+<li><p>onConnectionStateChange()被调用<br>连接状态改变时，mGattCallback中onConnectionStateChange()方法会被调用，当连接成功时，需要调用mBluetoothGatt.discoverServices();去获取服务。</p>
+</li>
+<li><p>onServicesDiscovered()被调用<br>调用mBluetoothGatt.discoverServices();方法后，onServicesDiscovered（）这个方法会被调用，说明发现当前设备了。然后我们就可以在里面去获取BluetoothGattService和BluetoothGattCharacteristic。</p>
+</li>
+</ul>
+<p>下面就是mGattCallback回调方法。</p>
+<pre><code>    // BLE回调操作
+    private BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
+
+        @Override
+        public void onConnectionStateChange(BluetoothGatt gatt, int status,int newState){
+            super.onConnectionStateChange(gatt, status, newState);
+
+            if (newState == BluetoothProfile.STATE_CONNECTED) {
+                // 连接成功
+
+                mBluetoothGatt.discoverServices();
+            } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+                // 连接断开
+               Log.d("TAG","onConnectionStateChange fail--&gt;" + status);
+            }
+        }
+
+        @Override
+        public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+            super.onServicesDiscovered(gatt, status);
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+                //发现设备，遍历服务，初始化特征
+                initBLE(gatt);
+            } else {
+               Log.d("TAG","onServicesDiscovered fail--&gt;" + status);
+            }
+        }
+
+        @Override
+        public void onCharacteristicRead(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic, int status){
+            super.onCharacteristicRead(gatt, characteristic, status);
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+                // 收到的数据
+                byte[] receiveByte = characteristic.getValue();
+
+            }else{
+               Log.d("TAG","onCharacteristicRead fail--&gt;" + status);
+            }
+        }
+
+        @Override
+        public void onCharacteristicChanged(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic){
+            super.onCharacteristicChanged(gatt, characteristic);
+            //当特征中value值发生改变
+        }
+
+        /**
+         * 收到BLE终端写入数据回调
+         * @param gatt
+         * @param characteristic
+         * @param status
+         */
+        @Override
+        public void onCharacteristicWrite(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic, int status) {
+            super.onCharacteristicWrite(gatt, characteristic, status);
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+             // 发送成功
+
+            } else {
+             // 发送失败
+            }
+        }
+
+        @Override
+        public void onDescriptorWrite(BluetoothGatt gatt,
+                                      BluetoothGattDescriptor descriptor, int status) {
+            super.onDescriptorWrite(gatt, descriptor, status);
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+
+            }
+        }
+
+        @Override
+        public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
+            super.onReadRemoteRssi(gatt, rssi, status);
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+
+            }
+        }
+
+        @Override
+        public void onDescriptorRead(BluetoothGatt gatt,BluetoothGattDescriptor descriptor, int status) {
+            super.onDescriptorRead(gatt, descriptor, status);
+            if (status == BluetoothGatt.GATT_SUCCESS) {
+
+            }
+        }
+    };</code></pre><ul>
+<li><p>获取特征<br>确认ble设备相关的uuid，不同的ble设备的uuid不相同，请根据自己的设备初始化uuid。</p>
+<pre><code>  //写通道uuid
+  private static final UUID writeCharactUuid = UUID.fromString("0000fff6-0000-1000-8000-00805f9b34fb");
+  //通知通道 uuid
+  private static final UUID notifyCharactUuid =UUID.fromString( "0000fff7-0000-1000-8000-00805f9b34fb");</code></pre><p>获取bluetoothGattCharacteristic（因为有的设备可能存在双服务的情况，所以这里遍历所有服务）</p>
+<pre><code>  //初始化特征
+  public void initBLE(BluetoothGatt gatt) {
+      if (gatt == null) {
+          return;
+      }
+      //遍历所有服务
+      for (BluetoothGattService BluetoothGattService : gatt.getServices()) {
+          Log.e(TAG, "---&gt;BluetoothGattService" + BluetoothGattService.getUuid().toString());
+
+          //遍历所有特征
+          for (BluetoothGattCharacteristic bluetoothGattCharacteristic : BluetoothGattService.getCharacteristics()) {
+              Log.e("----&gt;gattCharacteristic", bluetoothGattCharacteristic.getUuid().toString());
+
+              String str = bluetoothGattCharacteristic.getUuid().toString();
+              if (str.equals(writeCharactUuid)) {
+                  //根据写UUID找到写特征
+                  mBluetoothGattCharacteristic = bluetoothGattCharacteristic;
+              } else if (str.equals(notifyCharactUuid)) {
+                  //根据通知UUID找到通知特征
+                  mBluetoothGattCharacteristicNotify = bluetoothGattCharacteristic;
+              }
+          }
+      }
+  }</code></pre><p>开启通知，设置开启通知之后，才能在onCharacteristicRead()这个方法中收到数据。</p>
+<pre><code>  mBluetoothGatt.setCharacteristicNotification(mGattCharacteristicNotify, true);</code></pre></li>
+<li><p>发送消息</p>
+<pre><code>  mGattCharacteristicWrite .setValue(sData);
+  if (mBluetoothGatt != null) {
+      mBluetoothGatt.setCharacteristicNotification(notifyCharactUuid , true);
+      mBluetoothGatt.writeCharacteristic(mGattCharacteristicWrite );
+  } </code></pre></li>
+<li><p>接收消息<br>接收到数据后，mGattCallback 中的onCharacteristicRead()这个方法会被调用。</p>
+<pre><code>      @Override
+      public void onCharacteristicRead(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic, int status){
+          super.onCharacteristicRead(gatt, characteristic, status);
+          if (status == BluetoothGatt.GATT_SUCCESS) {
+              // 收到的数据
+              byte[] receiveByte = characteristic.getValue();
+
+          }else{
+             Log.d("TAG","onCharacteristicRead fail--&gt;" + status);
+          }
+      }</code></pre></li>
+<li><p>释放资源<br>断开连接，关闭资源。</p>
+<pre><code>  public boolean disConnect() {
+      if (mBluetoothGatt != null) {
+          mBluetoothGatt.disconnect();
+          mBluetoothGatt.close();
+          mBluetoothGatt = null;
+          return true;
+      }
+      return false;
+  }</code></pre></li>
+</ul>
+<h2 id="六、常见问题"><a href="#六、常见问题" class="headerlink" title="六、常见问题"></a>六、常见问题</h2><ul>
+<li>通知开启后，才能读到数据，否则读不到。</li>
+<li>发送数据时，如果一包数据超过20字节，需要分包发送，一次最多发送二十字节。</li>
+<li>接收数据时，一次最多也只接收20字节的数据，需要将接收到的数据拼接起来，在数据的结尾弄一个特定的标识，去判断数据是否接受完毕。</li>
+<li>每次发送数据或者数据分包发送时， 操作间要有至少15ms的间隔。</li>
+<li>如果出现扫描不到的情况，那是因为手机没有开启定位权限，清单文件中写上定位权限，代码中在动态获取下就OK</li>
+</ul>
+<h2 id="七、我扫描ble设备并解析广播示例"><a href="#七、我扫描ble设备并解析广播示例" class="headerlink" title="七、我扫描ble设备并解析广播示例"></a>七、我扫描ble设备并解析广播示例</h2><h3 id="7-1-扫描ble设备并解析广播消息"><a href="#7-1-扫描ble设备并解析广播消息" class="headerlink" title="7.1 扫描ble设备并解析广播消息"></a>7.1 扫描ble设备并解析广播消息</h3><p>AndroidManifest.xml</p>
+<pre><code>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="my.compancy1.mybluetooth"&gt;
+
+    &lt;uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" /&gt;
+
+    &lt;uses-permission android:name="android.permission.BLUETOOTH" /&gt;
+    &lt;uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /&gt;
+    &lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /&gt;
+    &lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;
+    &lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+
+    &lt;application
+        android:networkSecurityConfig="@xml/network"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"&gt;
+        &lt;meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/network" /&gt;
+
+        &lt;activity android:name=".MainActivity"&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name="android.intent.action.MAIN" /&gt;
+
+                &lt;category android:name="android.intent.category.LAUNCHER" /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+</code></pre><p>入口函数MainActivity.java</p>
+<pre><code>package my.compancy1.mybluetooth;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothGattService;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
+import android.bluetooth.le.AdvertiseCallback;
+import android.bluetooth.le.AdvertiseData;
+import android.bluetooth.le.AdvertiseSettings;
+import android.bluetooth.le.BluetoothLeAdvertiser;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.ParcelUuid;
+import android.provider.SyncStateContract;
+import android.text.method.HideReturnsTransformationMethod;
+import android.util.Log;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.sql.BatchUpdateException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+
+public class MainActivity extends AppCompatActivity {
+    TextView textViewDebug;
+    ListView listView_content;
+    Button btnTest;
+
+
+    private String[] data={};
+    private  ArrayList&lt;String&gt; list;
+    ArrayAdapter&lt;String&gt; adapter;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        btnTest=this.findViewById(R.id.addItem);
+        btnTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("LLL","alfjl");
+              //  adapter.add("xxxxxxxx");
+              //  Toast.makeText(getApplicationContext(),"测试",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button btnConnect=findViewById(R.id.buttonConnect);
+        btnConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"click me",Toast.LENGTH_SHORT).show();
+                bleRemote= mBluetoothAdapter.getRemoteDevice("E4:B5:4A:3B:A8:55");
+                if(bleRemote==null){
+                    Log.d("zz","Device not found,Unable to connect.");
+                }else{
+                    bleRemote.connectGatt(getApplicationContext(),false,mGattCallback);
+                    Log.d("zz","Trying to create a new connection");
+                }
+            }
+        });
+
+        textViewDebug=(TextView) this.findViewById(R.id.textViewDebug);
+
+        listView_content=(ListView) this.findViewById(R.id.contentScan);
+
+        list=new ArrayList&lt;String&gt;();
+        Collections.addAll(list,data);
+        adapter=new ArrayAdapter&lt;String&gt;(MainActivity.this,R.layout.scan_item,list);
+        //ArrayAdapter&lt;String&gt; adapter=new ArrayAdapter&lt;String&gt;(MainActivity.this,R.layout.scan_item,data);
+        listView_content.setAdapter(adapter);
+
+
+       // arrayAdapter=new MyAdapter(list,MainActivity.this);
+
+       // listView_content.setAdapter(arrayAdapter);
+
+
+       // showErrorText("开始");
+        InitBluetooth();
+        GetAccessFineLocation();
+        PrepareDiscovery();
+
+
+    }
+
+
+    BluetoothAdapter mBluetoothAdapter;
+    private void InitBluetooth(){
+        final BluetoothManager bluetoothManager=(BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter= bluetoothManager.getAdapter();
+        if(mBluetoothAdapter==null||!mBluetoothAdapter.isEnabled()){
+            mBluetoothAdapter.enable();
+        }
+    }
+    Button btnStartDiscovery;
+    private void PrepareDiscovery(){
+        btnStartDiscovery=this.findViewById(R.id.btnStartD);
+        btnStartDiscovery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(getApplicationContext(),"准备扫描",Toast.LENGTH_SHORT).show();
+
+                if(mBluetoothAdapter.isDiscovering()){
+                    mBluetoothAdapter.stopLeScan(mLeScanCallback);
+                }
+                //Log.d("MyZS","开始扫描");
+               // textViewDebug.setText("开始扫描");
+                mBluetoothAdapter.startLeScan(mLeScanCallback);
+
+
+
+
+            }
+
+        });
+    }
+    ArrayList&lt;String&gt; arr;
+    private String ParseAdMsg(String _msg){
+        /*
+        020105030309B0040954583111FF0000003400005049470C2D002403D7180000000000000000000000000000000000000000000000000000000000000000
+        * */
+
+        String msg=_msg.substring(24,60);
+        arr=new ArrayList&lt;String&gt;();
+        arr.add(msg.substring(0,2));
+        arr.add(msg.substring(2,4));
+        arr.add(msg.substring(4,6));
+        arr.add(msg.substring(6,8));
+        arr.add(msg.substring(8,10));
+        arr.add(msg.substring(10,12));
+        arr.add(msg.substring(12,14));
+        arr.add(msg.substring(14,16));
+        arr.add(msg.substring(16,18));
+        arr.add(msg.substring(18,20));
+        arr.add(msg.substring(20,22));
+        arr.add(msg.substring(22,24));
+        arr.add(msg.substring(24,26));
+        arr.add(msg.substring(26,28));
+        arr.add(msg.substring(28,30));
+        arr.add(msg.substring(30,32));
+        arr.add(msg.substring(32,34));
+        arr.add(msg.substring(34,36));
+
+        String resStr="";
+        if(arr.get(7).equals("00")){
+            resStr+=" 充电:false 佩戴:false ";
+        }
+        if(arr.get(7).equals("01")){
+            resStr+=" 充电:true 佩戴:false ";
+        }
+        if(arr.get(7).equals("02")){
+            resStr+=" 充电:false 佩戴:true ";
+        }
+        if(arr.get(7).equals("03")){
+            resStr+=" 充电:true 佩戴:true ";
+        }
+        int WenDuZ=Integer.parseInt(arr.get(14),16);
+        int WenDuX=Integer.parseInt(arr.get(15),16);
+        resStr+=" 体温: "+WenDuZ+"."+WenDuX+" ";
+        int dianLiang=Integer.parseInt(arr.get(8),16);
+        resStr+=" 电量: "+dianLiang+"% ";
+        int jiBu=Integer.parseInt(arr.get(4)+arr.get(5),16);
+        resStr+=" 计步: "+jiBu+" ";
+        int hours=Integer.parseInt(arr.get(11),16);
+        int minutes=Integer.parseInt(arr.get(12),16);
+        resStr+=" 时间  "+hours+":"+minutes;
+
+        return resStr;
+    }
+
+    private String ParseAdMsgWeb(String _mac, String _msg){
+        /*
+        020105030309B0040954583111FF0000003400005049470C2D002403D7180000000000000000000000000000000000000000000000000000000000000000
+        * */
+
+        String msg=_msg.substring(24,60);
+        arr=new ArrayList&lt;String&gt;();
+        arr.add(msg.substring(0,2));
+        arr.add(msg.substring(2,4));
+        arr.add(msg.substring(4,6));
+        arr.add(msg.substring(6,8));
+        arr.add(msg.substring(8,10));
+        arr.add(msg.substring(10,12));
+        arr.add(msg.substring(12,14));
+        arr.add(msg.substring(14,16));
+        arr.add(msg.substring(16,18));
+        arr.add(msg.substring(18,20));
+        arr.add(msg.substring(20,22));
+        arr.add(msg.substring(22,24));
+        arr.add(msg.substring(24,26));
+        arr.add(msg.substring(26,28));
+        arr.add(msg.substring(28,30));
+        arr.add(msg.substring(30,32));
+        arr.add(msg.substring(32,34));
+        arr.add(msg.substring(34,36));
+
+        String battery_charging="";
+        String worn="";
+        String temperature="";
+        String electric_quantity="";
+        String step_num="";
+        String device_time="";
+
+        String resStr="";
+        if(arr.get(7).equals("00")){
+            resStr+=" 充电false 佩戴false ";
+            battery_charging="未充电";
+            worn="未佩戴";
+        }
+        if(arr.get(7).equals("01")){
+            resStr+=" 充电true 佩戴false ";
+            battery_charging="充电中";
+            worn="未佩戴";
+        }
+        if(arr.get(7).equals("02")){
+            resStr+=" 充电false 佩戴true ";
+            battery_charging="未充电";
+            worn="佩戴中";
+        }
+        if(arr.get(7).equals("03")){
+            resStr+=" 充电true 佩戴true ";
+            battery_charging="充电中";
+            worn="佩戴中";
+        }
+        int WenDuZ=Integer.parseInt(arr.get(14),16);
+        int WenDuX=Integer.parseInt(arr.get(15),16);
+        resStr+=" 体温"+WenDuZ+"."+WenDuX+" ";
+        temperature=WenDuZ+"."+WenDuX;
+        int dianLiang=Integer.parseInt(arr.get(8),16);
+        resStr+=" 电量"+dianLiang+"";
+        electric_quantity=dianLiang+"%";
+        int jiBu=Integer.parseInt(arr.get(4)+arr.get(5),16);
+        resStr+=" 计步"+jiBu+"";
+        step_num=jiBu+"";
+        int hours=Integer.parseInt(arr.get(11),16);
+        int minutes=Integer.parseInt(arr.get(12),16);
+        resStr+=" 时间"+hours+":"+minutes;
+        device_time=hours+":"+minutes;
+
+        // String battery_charging,worn,temperature,electric_quantity,step_num,device_time;
+        JSONObject json=new JSONObject();
+        try{
+
+            json.put("mac_address",_mac);
+            json.put("battery_charging",battery_charging);
+            json.put("worn",worn);
+            json.put("temperature",temperature);
+            json.put("electric_quantity",electric_quantity);
+            json.put("step_num",step_num);
+            json.put("device_time",device_time);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return String.valueOf(json);
+
+     //   return resStr;
+    }
+    public static String str2HexStr(String str) {
+        char[] chars = "0123456789ABCDEF".toCharArray();
+        StringBuilder sb = new StringBuilder("");
+        byte[] bs = str.getBytes();
+        int bit;
+        for (int i = 0; i &lt; bs.length; i++) {
+            bit = (bs[i] &amp; 0x0f0) &gt;&gt; 4;
+            sb.append(chars[bit]);
+            bit = bs[i] &amp; 0x0f;
+            sb.append(chars[bit]);
+            sb.append(' ');
+        }
+        return sb.toString().trim();
+    }
+
+    private  int tempi=0;
+    private BluetoothDevice bleRemote;
+    private  BluetoothGatt mBluetoothGatt;
+    private BluetoothDevice remoteBluetoothDevice=null;
+    private BluetoothAdapter.LeScanCallback mLeScanCallback=new BluetoothAdapter.LeScanCallback() {
+
+        @RequiresApi(api = Build.VERSION_CODES.M)
+        @Override
+        public void onLeScan(final BluetoothDevice bluetoothDevice, int i, byte[] bytes) {
+            Log.d("MyScanRSSI_ZZ:",bluetoothDevice.getAddress()+"    "+bluetoothDevice.getName()+"  ad:  "+bytesToHex(bytes));
+            handleScanResult(bytes);
+            if(bluetoothDevice.getName()!=null){
+                Log.d("ZZZZZZ",bytesToHex(bytes).substring(0,25));
+                //if(bluetoothDevice.getName().equals("TX1")){
+                    if(bytesToHex(bytes).substring(0,24).equals("020105030309B00409545831")){
+               //     adapter.add(bluetoothDevice.getAddress()+"    "+bluetoothDevice.getName()+"  数据:  "+bytesToHex(bytes));
+           //         adapter.add(bluetoothDevice.getAddress()+"    "+Integer.parseInt("0034",16) +"  截取:  "+ParseAdMsg(bytesToHex(bytes))+"  数据:  "+bytesToHex(bytes));
+              //      adapter.add(bluetoothDevice.getAddress()+"  截取:  "+ParseAdMsg(bytesToHex(bytes))+"  数据:  "+bytesToHex(bytes));
+
+//1.1 描述一个蓝牙设备，提供设备Mac地址和设备名称。
+
+                   String msg="设备地址-&gt; "+bluetoothDevice.getAddress()+" 设备名-&gt; "+bluetoothDevice.getName()+" 设备信息-&gt; "+ParseAdMsg(bytesToHex(bytes));
+
+                  String msgjson=ParseAdMsgWeb(bluetoothDevice.getAddress().toString(),bytesToHex(bytes));
+
+                    adapter.add(msg);
+
+//1.2 准备连接蓝牙设备
+                    /*
+                    if(tempi&lt;1){
+                        tempi++;
+                        bleRemote= mBluetoothAdapter.getRemoteDevice(bluetoothDevice.getAddress());
+                        if(bleRemote==null){
+                            Log.d("Tag","Device not found,Unable to connect.");
+                        }else{
+                            bleRemote.connectGatt(getApplicationContext(),false,mGattCallback);
+                            Log.d("TAG","Trying to create a new connection");
+                        }
+
+                    }
+                    */
+                 //   getWebReq("Address-"+bluetoothDevice.getAddress()+"Name-"+bluetoothDevice.getName()+""+ParseAdMsg(bytesToHex(bytes)));
+                 mypost(msgjson);
+
+                }
+
+            }
+
+           //     showErrorText(bytesToHex(bytes));
+          //  if(bluetoothDevice.getName().equals())
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                      //  Log.d("MyScanRSSI:",bluetoothDevice.getAddress()+"    "+bluetoothDevice.getName());
+                }
+            });
+        }
+    };
+
+
+
+
+
+
+    private void mypost(String str){
+        String url="http://192.168.31.112:8181";
+        OkHttpClient okHttpClient=new OkHttpClient();
+        FormBody.Builder formBody=new FormBody.Builder();
+        formBody.add("username","关云长");
+        formBody.add("msg",str);
+        Request request=new Request.Builder()
+                .url(url)
+                .post(formBody.build())
+                .build();
+        Call call=okHttpClient.newCall(request);
+        //异步请求，通过接口回调告知用户http的异步执行结果
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("OKHttpFailed",e.getMessage());
+            }
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if(response.isSuccessful()){
+                    Log.d("OKHttp",response.body().toString());
+                }
+            }
+        });
+    }
+    private void getWebReq(String _p){
+
+        String login_url="http://192.168.31.112:8081/wen.html";
+       // String p=new String(_p.getBytes("GBK"),"UTF-8");
+
+        try {
+            String lastUrl = login_url + "?dat="+ URLEncoder.encode(_p, "utf-8");
+
+            Log.d("西瓜",lastUrl);
+            URL url = new URL(lastUrl);
+            HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();//开发访问此连接
+            //设置访问时长和相应时长
+            urlConn.setConnectTimeout(5*1000);//设置连接时间为5秒
+            urlConn.setReadTimeout(6*1000);//设置读取时间为5秒
+            int code = urlConn.getResponseCode();//获得相应码
+            if(code == 200){//相应成功，获得相应的数据
+                InputStream is = urlConn.getInputStream();//得到数据流（输入流）
+                byte[] buffer = new byte[1024];
+                int length = 0;
+                String data = "";
+                while((length = is.read(buffer)) != -1){
+                    String str = new String(buffer,0,length);
+                    data += str;
+                }
+
+                Log.d("main", data);
+                //解析json，展示在ListView（GridView）
+
+
+
+            }
+
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+    }
+    private void GetAccessFineLocation(){
+        //动态申请定位权限
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){//未开启定位权限
+            //开启定位权限,200是标识码
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},200);
+        }else{
+            // startLocaion();//开始定位
+            // GetBLUETOOTH_ADMIN();
+
+            Toast.makeText(MainActivity.this,"已开启定位权限",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void showErrorText(String messageId) {
+
+        TextView view = (TextView) findViewById(R.id.textViewDebug);
+        view.setText(messageId);
+    }
+
+    //字节数据转化为Hex
+    static final char[] hexArray="0123456789ABCDEF".toCharArray();
+    private static  String bytesToHex(byte[] bytes){
+        char[] hexChars=new char[bytes.length*2];
+        for(int j=0;j&lt;bytes.length;j++){
+            int v=bytes[j]&amp;0xFF;
+            hexChars[j*2]=hexArray[v&gt;&gt;&gt;4];
+            hexChars[j*2+1]=hexArray[v&amp;0x0F];
+        }
+        return new String(hexChars);
+    }
+    //格式化UUID
+    public String parseUUID(String data){
+        String uuid="";
+        if(data.length()==32){
+            uuid=data.substring(0,8)+"-"
+                    +data.substring(8,12)+"-"
+                    +data.substring(12,16)+"-"
+                    +data.substring(16,20)+"-"
+                    +data.substring(20);
+        }else{
+            Toast.makeText(getApplicationContext(),"UUID未发现",Toast.LENGTH_SHORT).show();
+        }
+        return uuid;
+    }
+    //处理广播数据
+    private void handleScanResult(byte[] scanRecord){
+
+    }
+    /*
+    * GATT
+    * */
+
+    //1.3 连接到设备之后，获取设备服务Service和服务对应的Characteristic
+
+    //1.4 写入成功后，开始读取设备返回来的数据
+    private final BluetoothGattCallback mGattCallback=new BluetoothGattCallback() {
+        //判断连接是否成功
+        @Override
+        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            super.onConnectionStateChange(gatt, status, newState);
+
+            String intentAction;
+            if(status==BluetoothGatt.GATT_SUCCESS){
+                //连接成功时
+                Log.d("ZS","连接到GATT服务器");
+                //立即去执行发现服务
+
+                mBluetoothGatt=gatt;
+                gatt.discoverServices();
+            }else if(newState== BluetoothProfile.STATE_DISCONNECTED){
+                //断开连接
+                mBluetoothGatt=null;
+                Log.d("ZS","与Gatt服务器断开连接");
+            }
+        }
+        //发现服务
+        @Override
+        public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+            super.onServicesDiscovered(gatt, status);
+
+            List&lt;BluetoothGattService&gt; services=gatt.getServices();
+            for(BluetoothGattService service:services){
+                List&lt;BluetoothGattCharacteristic&gt; characteristics=service.getCharacteristics();
+                for(BluetoothGattCharacteristic character:characteristics){
+                    Log.d("发现服务",gatt+" serviceUUID:  "+service.getUuid()+"  characterUUID:  "+character.getUuid());
+                }
+            }
+
+            if(status==BluetoothGatt.GATT_SUCCESS){
+                Log.d("ZZ","发现服务是可以的");
+            }else{
+                Log.d("ZZ","发现接收到的服务:"+status);
+            }
+        }
+
+        //数据读取  从特征中读取数据
+        @Override
+        public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+            super.onCharacteristicRead(gatt, characteristic, status);
+            Log.d("读取出来的值",gatt+"  "+characteristic+"  "+status);
+
+        }
+
+        //向特征中写入数据
+        @Override
+        public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+            super.onCharacteristicWrite(gatt, characteristic, status);
+        }
+
+        //数据改变  连接成功后回调该方法
+        @Override
+        public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+            super.onCharacteristicChanged(gatt, characteristic);
+            byte[] value=characteristic.getValue();
+            for(int i=0;i&lt;value.length;i++){
+                Log.d("BLE","character_value="+value[i]);
+            }
+        }
+        //数据描述读取
+        @Override
+        public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+            super.onDescriptorRead(gatt, descriptor, status);
+        }
+
+        @Override
+        public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+            super.onDescriptorWrite(gatt, descriptor, status);
+
+            UUID uuid=descriptor.getCharacteristic().getUuid();
+            if(uuid.equals(UUID.fromString("0000cd01-0000-1000-8000-00805f9b34fb"))){
+
+            }
+        }
+    };
+
+    //获得特征之后，找到服务可以向下位机写指令的特征，向该特征写入指令
+    public void wirteCharacteristic(BluetoothGattCharacteristic characteristic){
+        if(mBluetoothAdapter==null||mBluetoothGatt==null){
+            Log.d("TAG","BluetoothAdapter not initialized");
+            return;
+        }
+        mBluetoothGatt.writeCharacteristic(characteristic);
+    }
+}</code></pre><h3 id="7-2-协议说明与操作结果"><a href="#7-2-协议说明与操作结果" class="headerlink" title="7.2 协议说明与操作结果"></a>7.2 协议说明与操作结果</h3><p>厂家协议说明和nRFConnect软件实际操作结果对比，如图：<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/documentinstruct1.jpg" alt="协议说明"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/nrfconnectres2.jpg" alt="nRF Connect操作结果"></p>
+<h2 id="八、GATT读写操作的一点说明"><a href="#八、GATT读写操作的一点说明" class="headerlink" title="八、GATT读写操作的一点说明"></a>八、GATT读写操作的一点说明</h2><p>bluetoothDevice.connectGatt（）方法返回的对象BluetoothGatt，这个BluetoothGatt对象非常重要，甚至可以说是最重要的。一般都是单独声明成全局变量来使用的，因为我们设备的读、写和订阅等操作都需要用到这个对象。<br>发现服务后才可以进行读写订阅等操作。读写订阅操作通过服务Service和特征值Characteristic来操作，如何获得对应的服务和特征值呢？一般硬件工程师会预先定义好uuid并告诉我们。我们通过如下方法获得服务和特征值：</p>
+<pre><code>//write_UUID_service和write_UUID_chara是硬件工程师告诉我们的
+ BluetoothGattService service=mBluetoothGatt.getService(write_UUID_service);
+ BluetoothGattCharacteristic charaWrite=service.getCharacteristic(write_UUID_chara);</code></pre><p>读取数据 </p>
+<pre><code>private void readData() {
+        BluetoothGattCharacteristic characteristic=mBluetoothGatt.getService(read_UUID_service).getCharacteristic(read_UUID_chara);
+        mBluetoothGatt.readCharacteristic(characteristic);
+}
+</code></pre><p>读取数据用的少，一般我们都是先订阅，再写入，在订阅的回调里进行数据交互。</p>
+<p>写入数据</p>
+<pre><code>private void writeData(){
+        BluetoothGattService service=mBluetoothGatt.getService(write_UUID_service);
+        BluetoothGattCharacteristic charaWrite=service.getCharacteristic(write_UUID_chara);
+        byte[] data=HexUtil.hexStringToBytes(hex);
+        if (data.length&gt;20){//数据大于个字节 分批次写入
+            Log.e(TAG, "writeData: length="+data.length);
+            int num=0;
+            if (data.length%20!=0){
+                num=data.length/20+1;
+            }else{
+                num=data.length/20;
+            }
+            for (int i=0;i&lt;num;i++){
+                byte[] tempArr;
+                if (i==num-1){
+                    tempArr=new byte[data.length-i*20];
+                    System.arraycopy(data,i*20,tempArr,0,data.length-i*20);
+                }else{
+                    tempArr=new byte[20];
+                    System.arraycopy(data,i*20,tempArr,0,20);
+                }
+                charaWrite.setValue(tempArr);
+                mBluetoothGatt.writeCharacteristic(charaWrite);
+            }
+        }else{
+            charaWrite.setValue(data);
+            mBluetoothGatt.writeCharacteristic(charaWrite);
+        }
+    }
+</code></pre><p>写操作的回调</p>
+<pre><code>        @Override
+        public void onCharacteristicWrite(BluetoothGatt gatt,BluetoothGattCharacteristic characteristic, int status) {
+                super.onCharacteristicWrite(gatt, characteristic, status);
+                Log.e(TAG,"onCharacteristicWrite()  status="+status+",value="+HexUtil.encodeHexStr(characteristic.getValue()));
+        }</code></pre><p>订阅回调</p>
+<pre><code>//订阅通知
+mBluetoothGatt.setCharacteristicNotification(mBluetoothGatt.getService(notify_UUID_service).getCharacteristic(notify_UUID_chara),true);</code></pre><p>注意一定要写在写入之前，要不然就收不到写入的数据，我一般都是在发现服务之后就订阅。关于订阅收不到这里，需要注意一下，首先你写入的和订阅的Characteristic对象一定要属于同一个Service对象，另外就是保证你写入的数据没问题，否则就可能收不到订阅回调。  </p>
+<h2 id="九、成功gatt主动连接获取数据"><a href="#九、成功gatt主动连接获取数据" class="headerlink" title="九、成功gatt主动连接获取数据"></a>九、成功gatt主动连接获取数据</h2><p><a href="https://pan.baidu.com/s/1RdOcVPtntvMVWsdAglayOA" target="_blank">ble主动连接GATT获取单车踏频信息初次成功工程.rar</a> <br>  </p>
+<p>为了主动连接Ble获取ble传过来的数据。之前，可以通过nRF Connect软件查看测试得到目标Service及下面的目标Characteristic的UUID。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/chakanserverandcharacter.jpg" alt="">  </p>
+<p>主动连接ble的关键代码如下  </p>
+<pre><code>private BluetoothDevice bleRemote;
+
+
+    bleRemote= mBluetoothAdapter.getRemoteDevice("B5:5B:1E:04:28:8F");
+    if(bleRemote==null){
+        Log.d("yyyXXX","Device not found,Unable to connect.");
+    }else{
+
+        mBluetoothGatt= bleRemote.connectGatt(getApplicationContext(),false,mGattCallback);
+        Log.d("yyyXXX","Trying to create a new connection");
+    }</code></pre><pre><code>
+private  BluetoothGattCharacteristic alertLevel;
+private  BluetoothGattService alertService;
+
+private final BluetoothGattCallback mGattCallback=new BluetoothGattCallback() {
+    //判断连接是否成功
+    @Override
+    public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+        super.onConnectionStateChange(gatt, status, newState);
+
+
+        String intentAction;
+        if(status==BluetoothGatt.GATT_SUCCESS){
+            //连接成功时
+            Log.d("XXXXXXXXXXXXXXXXXX","连接到GATT服务器");
+            //立即去执行发现服务
+
+            mBluetoothGatt=gatt;
+            gatt.discoverServices();
+        }else if(newState== BluetoothProfile.STATE_DISCONNECTED){
+            //断开连接
+
+            mBluetoothGatt=null;
+            Log.d("XXXXXXXXXXXXXXXXXX","与Gatt服务器断开连接");
+        }
+    }
+    //发现服务
+    @Override
+    public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+        super.onServicesDiscovered(gatt, status);
+
+        List&lt;BluetoothGattService&gt; services=mBluetoothGatt.getServices();
+        for(BluetoothGattService service:services){
+            List&lt;BluetoothGattCharacteristic&gt; characteristics=service.getCharacteristics();
+            for(BluetoothGattCharacteristic character:characteristics){
+                Log.d("发现服务",gatt+" serviceUUID:  "+service.getUuid().toString()+"  characterUUID:  "+character.getUuid());
+                if("0000fff1-0000-1000-8000-00805f9b34fb".equals(character.getUuid().toString())){
+                    Log.d("发现目标服务",gatt+" serviceUUID:  "+service.getUuid().toString()+"  characterUUID:  "+character.getUuid());
+                    alertService=service;
+                    alertLevel=character;
+                }
+            }
+        }
+
+        enableNotification(true,gatt,alertLevel);
+
+    }
+
+    //数据读取  从特征中读取数据
+    @Override
+    public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+        super.onCharacteristicRead(gatt, characteristic, status);
+        Log.d("读取出来的值",gatt+"  "+characteristic+"  "+status);
+
+    }
+
+    //向特征中写入数据
+    @Override
+    public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+        super.onCharacteristicWrite(gatt, characteristic, status);
+    }
+
+    //数据改变  连接成功后回调该方法
+    @Override
+    public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+        super.onCharacteristicChanged(gatt, characteristic);
+        byte[] value=characteristic.getValue();
+
+        String msg=bytesToHexStringMySelf(value);
+        Log.d("TAG","Get Data-----"+msg);
+
+    }
+    //数据描述读取
+    @Override
+    public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+        super.onDescriptorRead(gatt, descriptor, status);
+    }
+
+    @Override
+    public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+        super.onDescriptorWrite(gatt, descriptor, status);
+
+        UUID uuid=descriptor.getCharacteristic().getUuid();
+        if(uuid.equals(UUID.fromString("0000cd01-0000-1000-8000-00805f9b34fb"))){
+
+        }
+    }
+};</code></pre><pre><code>public static String bytesToHexStringMySelf(byte[] src){
+    StringBuilder stringBuilder = new StringBuilder("");
+    if (src == null || src.length &lt;= 0) {
+        return null;
+    }
+    for (int i = 0; i &lt; src.length; i++) {
+        int v = src[i] &amp; 0xFF;
+        String hv = Integer.toHexString(v);
+        if (hv.length() &lt; 2) {
+            stringBuilder.append(0);
+        }
+        stringBuilder.append(hv);
+    }
+    return stringBuilder.toString();
+}</code></pre><h2 id="整理下gatt代码"><a href="#整理下gatt代码" class="headerlink" title="整理下gatt代码"></a>整理下gatt代码</h2><p><a href="https://pan.baidu.com/s/1CUp_-KpgGCEGVhMoXx5zQA" target="_blank">一个纯gatt链接ble的例子.rar</a> ,连接ble设备后，ble自动回传单车踩踏频率等数据。  </p>
+<ol start="0">
+<li><p>gradle-wrapper.properties内修改  </p>
+<pre><code>distributionUrl=http\://localhost:8080/1/gradle-6.1.1-all.zip</code></pre></li>
+<li><p>添加权限  </p>
+<pre><code> &lt;uses-feature
+     android:name="android.hardware.bluetooth_le"
+     android:required="true" /&gt;
+ &lt;uses-permission android:name="android.permission.BLUETOOTH" /&gt;
+ &lt;uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /&gt;
+ &lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /&gt;
+ &lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;
+ &lt;uses-permission android:name="android.permission.INTERNET" /&gt;</code></pre></li>
+<li><p>MainActivity.java，单纯发起gatt链接。  </p>
+</li>
+</ol>
+<pre><code>package my.companyname1.simplebike;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothGattService;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+
+        InitBluetooth();
+        GetAccessFineLocation();
+
+        StartGatt();
+    }
+
+
+
+
+
+    BluetoothAdapter mBluetoothAdapter;
+    private void InitBluetooth(){
+        final BluetoothManager bluetoothManager=(BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter= bluetoothManager.getAdapter();
+        if(mBluetoothAdapter==null||!mBluetoothAdapter.isEnabled()){
+            mBluetoothAdapter.enable();
+        }
+    }
+    private void GetAccessFineLocation(){
+        //动态申请定位权限
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){//未开启定位权限
+            //开启定位权限,200是标识码
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},200);
+        }else{
+            // startLocaion();//开始定位
+            // GetBLUETOOTH_ADMIN();
+
+            Toast.makeText(MainActivity.this,"已开启定位权限",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private BluetoothDevice bleRemote;
+    private BluetoothGatt mBluetoothGatt;
+
+    private BluetoothGattCharacteristic alertLevel;
+    private BluetoothGattService alertService;
+
+    private  void StartGatt(){
+        bleRemote= mBluetoothAdapter.getRemoteDevice("B5:5B:1E:04:28:8F");
+        if(bleRemote==null){
+            Log.d("Tag","Device not found,Unable to connect.");
+        }else{
+            mBluetoothGatt= bleRemote.connectGatt(getApplicationContext(),false,mGattCallback);
+            Log.d("Tag","Trying to create a new connection");
+        }
+
+    }
+
+
+    private final BluetoothGattCallback mGattCallback=new BluetoothGattCallback() {
+        //判断连接是否成功
+        @Override
+        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            super.onConnectionStateChange(gatt, status, newState);
+
+
+
+            String intentAction;
+            if(status==BluetoothGatt.GATT_SUCCESS){
+                //连接成功时
+                Log.d("XXXXXXXXXXXXXXXXXX","连接到GATT服务器");
+                //立即去执行发现服务
+                mBluetoothGatt=gatt;
+                gatt.discoverServices();
+            }else if(newState== BluetoothProfile.STATE_DISCONNECTED){
+                //断开连接
+                mBluetoothGatt=null;
+                Log.d("XXXXXXXXXXXXXXXXXX","与Gatt服务器断开连接");
+            }
+        }
+        //发现服务
+        @Override
+        public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+            super.onServicesDiscovered(gatt, status);
+
+            List&lt;BluetoothGattService&gt; services=mBluetoothGatt.getServices();
+            for(BluetoothGattService service:services){
+                List&lt;BluetoothGattCharacteristic&gt; characteristics=service.getCharacteristics();
+                for(BluetoothGattCharacteristic character:characteristics){
+                    Log.d("发现服务",gatt+" serviceUUID:  "+service.getUuid().toString()+"  characterUUID:  "+character.getUuid());
+                    if("0000fff1-0000-1000-8000-00805f9b34fb".equals(character.getUuid().toString())){
+                        Log.d("发现目标服务",gatt+" serviceUUID:  "+service.getUuid().toString()+"  characterUUID:  "+character.getUuid());
+                        alertService=service;
+                        alertLevel=character;
+                    }
+                }
+            }
+
+            enableNotification(true,gatt,alertLevel);
+
+        }
+
+        //数据读取  从特征中读取数据
+        @Override
+        public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+            super.onCharacteristicRead(gatt, characteristic, status);
+            Log.d("读取出来的值",gatt+"  "+characteristic+"  "+status);
+
+        }
+
+        //向特征中写入数据
+        @Override
+        public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+            super.onCharacteristicWrite(gatt, characteristic, status);
+        }
+
+        //数据改变  连接成功后回调该方法
+        @Override
+        public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+            super.onCharacteristicChanged(gatt, characteristic);
+            byte[] value=characteristic.getValue();
+
+            String msg=bytesToHexStringMySelf(value);
+
+            // Log.d("TAG","Get Data-----"+msg);
+
+        }
+        //数据描述读取
+        @Override
+        public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+            super.onDescriptorRead(gatt, descriptor, status);
+        }
+
+        @Override
+        public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+            super.onDescriptorWrite(gatt, descriptor, status);
+
+            UUID uuid=descriptor.getCharacteristic().getUuid();
+            if(uuid.equals(UUID.fromString("0000cd01-0000-1000-8000-00805f9b34fb"))){
+
+            }
+        }
+    };
+
+
+    private void enableNotification(boolean enable,BluetoothGatt gatt,BluetoothGattCharacteristic characteristic){
+        if(gatt==null||characteristic==null){
+            return;
+        }
+        gatt.setCharacteristicNotification(characteristic,enable);
+    }
+
+    public static String bytesToHexStringMySelf(byte[] src){
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (src == null || src.length &lt;= 0) {
+            return null;
+        }
+        for (int i = 0; i &lt; src.length; i++) {
+            int v = src[i] &amp; 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() &lt; 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        parseBikeData(stringBuilder.toString());
+        return stringBuilder.toString();
+    }
+
+    public static void parseBikeData(String bikedb){
+        String _bikedb=bikedb.toUpperCase();
+        if(_bikedb.length()!=20){
+            return;
+        }
+        String[] arr=new String[10];
+        arr[0]=_bikedb.substring(0,2);
+        arr[1]=_bikedb.substring(2,4);
+        arr[2]=_bikedb.substring(4,6);
+        arr[3]=_bikedb.substring(6,8);
+        arr[4]=_bikedb.substring(8,10);
+        arr[5]=_bikedb.substring(10,12);
+        arr[6]=_bikedb.substring(12,14);
+        arr[7]=_bikedb.substring(14,16);
+        arr[8]=_bikedb.substring(16,18);
+        arr[9]=_bikedb.substring(18,20);
+        Log.d("TAG",arr[0]+" "+arr[1]+" "+arr[2]+" "+arr[3]+" "+arr[4]+" "+arr[5]+" "+arr[6]+" "+arr[7]+" "+arr[8]+" "+arr[9]+" ");
+
+        Log.d("TAG","当前踏频:"+convertBytehex2Int(arr[2])*255+convertBytehex2Int(arr[3])+"当前圈数:"+convertBytehex2Int(arr[4])*16777215+convertBytehex2Int(arr[5])*65535+convertBytehex2Int(arr[6])*255+convertBytehex2Int(arr[7]));
+
+    }
+
+    public static int convertBytehex2Int(String content){
+        int number=0;
+        String[] HighLetter={"A","B","C","D","E","F"};
+        Map&lt;String,Integer&gt; map=new HashMap&lt;&gt;();
+        for(int i = 0;i &lt;= 9;i++){
+            map.put(i+"",i);
+        }
+        for(int j= 10;j&lt;HighLetter.length+10;j++){
+            map.put(HighLetter[j-10],j);
+        }
+
+        String[] str = new String[content.length()];
+        for(int i = 0; i &lt; str.length; i++){
+            str[i] = content.substring(i,i+1);
+        }
+        for(int i = 0; i &lt; str.length; i++){
+            number += map.get(str[i])*Math.pow(16,str.length-1-i);
+        }
+        return number;
+    }
+
+}</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2020/07/30/diary-20200730-1/" class="b-link-green">低功耗蓝牙BLE的GATT协议和广播消息解析</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2020/08/04/diary-20200804-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/14.jpg" class="responsive-img" alt="婚礼流程细节安排参考">
+                        
+                        <span class="card-title">婚礼流程细节安排参考</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            婚礼流程细节安排参考
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-04
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2020/07/28/diary-20200728-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/20.jpg" class="responsive-img" alt="AndroidStudio快速实现二维码功能">
+                        
+                        <span class="card-title">AndroidStudio快速实现二维码功能</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1.1 AndroidManifest.xml内添加权限    &lt;uses-permission android:name="android.permission.CAMERA" /&gt;
+    &lt;uses-permissi
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-07-28
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/AndroidStudio/" target="_blank">
+                        <span class="chip bg-color">AndroidStudio</span>
+                    </a>
+                    
+                    <a href="/diary/tags/二维码/" target="_blank">
+                        <span class="chip bg-color">二维码</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

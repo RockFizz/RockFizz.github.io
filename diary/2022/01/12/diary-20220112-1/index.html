@@ -1,0 +1,2788 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="学习Mysql和前后端, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="MySQL概念、安装、使用MySQL为关系型数据库(Relational Database Management System), 这种所谓的”关系型”可以理解为”表格”的概念, 一个关系型数据库由一个或数个表格组成。  
+表头(heade">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>学习Mysql和前后端 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/22.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        学习Mysql和前后端
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Mysql/" target="_blank">
+                                <span class="chip bg-color">Mysql</span>
+                            </a>
+                        
+                            <a href="/diary/tags/express/" target="_blank">
+                                <span class="chip bg-color">express</span>
+                            </a>
+                        
+                            <a href="/diary/tags/断点续传/" target="_blank">
+                                <span class="chip bg-color">断点续传</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-01-12
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        8.7k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        40 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="MySQL概念、安装、使用"><a href="#MySQL概念、安装、使用" class="headerlink" title="MySQL概念、安装、使用"></a>MySQL概念、安装、使用</h2><p>MySQL为关系型数据库(Relational Database Management System), 这种所谓的”关系型”可以理解为”表格”的概念, 一个关系型数据库由一个或数个表格组成。  </p>
+<pre class="line-numbers language-html"><code class="language-html">表头(header): 每一列的名称;  
+列(row): 具有相同数据类型的数据的集合;  
+行(col): 每一行用来描述某个人/物的具体信息;  
+值(value): 行的具体信息, 每个值必须与该列的数据类型相同;  
+键(key): 表中用来识别某个特定的人\物的方法, 键的值在当前列中具有唯一性。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以MySQL 5.1免安装版为例，说明Windows下MySQL的配置  </p>
+<pre class="line-numbers language-html"><code class="language-html">下载 mysql-noinstall-5.1.69-win32.zip  
+(官方下载页:  http://dev.mysql.com/downloads/mysql/5.1.html#downloads)  
+
+1. 将下载的 mysql-noinstall-5.1.69-win32.zip 解压至需要安装的位置, 如: C:\Program Files;  
+2. 在安装文件夹下找到 my-small.ini 配置文件, 将其重命名为 my.ini , 打开进行编辑, 在 [client] 与 [mysqld] 下均添加一行: default-character-set = gbk  
+3. 打开 Windows 环境变量设置, 新建变量名 MYSQL_HOME , 变量值为 MySQL 安装目录路径, 这里为 C:\Program Files\mysql-5.1.69-win32  
+4. 在环境变量的Path变量中添加 ;%MYSQL_HOME%\bin;  
+5. 安装MySQL服务, 打开Windows命令提示符,  
+执行命令: mysqld --install MySQL --defaults-file="my.ini"  
+提示"Service successfully installed."表示成功;  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>MySQL服务的启动、停止与卸载  </p>
+<pre class="line-numbers language-html"><code class="language-html">在 Windows 命令提示符下运行:  
+启动: net start MySQL  
+停止: net stop MySQL  
+卸载: sc delete MySQL  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="MySQL脚本"><a href="#MySQL脚本" class="headerlink" title="MySQL脚本"></a>MySQL脚本</h3><p>与常规的脚本语言类似,MySQL也具有一套对字符、单词以及特殊符号的使用规定,MySQL通过执行SQL脚本来完成对数据库的操作,该脚本由一条或多条MySQL语句(SQL语句+扩展语句)组成,保存时脚本文件后缀名一般为.sql。在控制台下,MySQL客户端也可以对语句进行单句的执行而不用保存为.sql文件。  </p>
+<blockquote>
+<p>标记符  </p>
+</blockquote>
+<p>标识符用来命名一些对象,如数据库、表、列、变量等,以便在脚本中的其他地方引用。MySQL标识符命名规则稍微有点繁琐,这里我们使用万能命名规则:标识符由字母、数字或下划线(_)组成,且第一个字符必须是字母或下划线。<br>对于标识符是否区分大小写取决于当前的操作系统, Windows下是不敏感的, 但对于大多数 linux\unix 系统来说, 这些标识符大小写是敏感的。  </p>
+<blockquote>
+<p>关键字  </p>
+</blockquote>
+<p>MySQL的关键字众多, 这里不一一列出, 在学习中学习。 这些关键字有自己特定的含义, 尽量避免作为标识符。  </p>
+<blockquote>
+<p>语句  </p>
+</blockquote>
+<p>MySQL语句是组成MySQL脚本的基本单位, 每条语句能完成特定的操作, 他是由 SQL 标准语句 + MySQL 扩展语句组成。  </p>
+<blockquote>
+<p>函数  </p>
+</blockquote>
+<p>MySQL函数用来实现数据库操作的一些高级功能,这些函数大致分为以下几类:字符串函数、数学函数、日期时间函数、搜索函数、加密函数、信息函数。  </p>
+<blockquote>
+<p>数据类型  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">MySQL有三大类数据类型, 分别为数字、日期\时间、字符串, 这三大类中又更细致的划分了许多子类型:  
+
+一、数字类型：  
+1.1 整数: tinyint、smallint、mediumint、int、bigint  
+1.2 浮点数: float、double、real、decimal  
+
+二、日期和时间类型：  
+2.1 date、time、datetime、timestamp、year
+
+三、字符串类型：  
+3.1 字符串: char、varchar  
+3.2 文本: tinytext、text、mediumtext、longtext  
+3.3 二进制(可用来存储图片、音乐等)： tinyblob、blob、mediumblob、longblob  
+
+这里不能详细对这些类型进行介绍，详细另寻  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="登录到MySQL"><a href="#登录到MySQL" class="headerlink" title="登录到MySQL"></a>登录到MySQL</h3><p>MySQL服务已经运行时,我们可以通过MySQL自带的客户端工具登录到MySQL数据库  </p>
+<pre class="line-numbers language-html"><code class="language-html">环境变量的Path变量内添加mysql/bin路径前提下，打开cmd命令行  
+执行 mysql -h 127.0.0.1 -P 3306 -u root -p  
+按回车确认, 如果安装正确且MySQL正在运行, 会得到以下响应:  
+Enter password:  
+若密码存在, 输入密码登录, 不存在则直接按回车登录,  
+登录成功后你将会看到 Welecome to the MySQL monitor... 的提示语。  
+然后命令提示符会一直以 mysql> 加一个闪烁的光标等待命令的输入, 输入 exit 或 quit 退出登录。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><p>使用show databases;命令查看已经创建了哪些数据库。</p>
+<p>使用create database 语句可完成对数据库的创建, 创建命令的格式如下:  </p>
+<pre class="line-numbers language-html"><code class="language-html">create database 数据库名 [其他选项];
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>例如我们需要创建一个名为 samp_db 的数据库, 在命令行下执行以下命令:  </p>
+<pre class="line-numbers language-html"><code class="language-html">create database samp_db character set gbk;  
+
+为了便于在命令提示符下显示中文, 在创建时通过 character set gbk 将数据库字符编码指定为gbk。创建成功时会得到 Query OK, 1 row affected(0.02 sec) 的响应。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>MySQL语句以分号(;)作为语句的结束, 若在语句结尾不添加分号时, 命令提示符会以 -&gt; 提示你继续输入  </p>
+<p>登录时指定要操作的数据库  </p>
+<pre class="line-numbers language-html"><code class="language-html">在登录数据库时指定, 命令: mysql -D 所选择的数据库名 -h 主机名 -u 用户名 -p  
+例如登录时选择刚刚创建的数据库: mysql -D samp_db -u root -p  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>登录后使用use语句指定要操作的数据库,  </p>
+<pre class="line-numbers language-html"><code class="language-html">命令: use 数据库名;  
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="创建数据库表"><a href="#创建数据库表" class="headerlink" title="创建数据库表"></a>创建数据库表</h3><p>使用 create table 语句可完成对表的创建  </p>
+<blockquote>
+<p>create table 表名称(列声明);  </p>
+</blockquote>
+<p>以创建 students 表为例, 表中将存放 学号(id)、姓名(name)、性别(sex)、年龄(age)、联系电话(tel) 这些内容:  </p>
+<pre class="line-numbers language-html"><code class="language-html">create table students
+(
+    id int unsigned not null auto_increment primary key,
+    name char(8) not null,
+    sex char(4) not null,
+    age tinyint unsigned not null,
+    tel char(13) null default "-"
+);
+
+语句解说:  
+create table tablename(columns) 为创建数据库表的命令, 列的名称以及该列的数据类型将在括号内完成;  
+括号内声明了5列内容, id、name、sex、age、tel为每列的名称, 后面跟的是数据类型描述, 列与列的描述之间用逗号(,)隔开;  
+以 "id int unsigned not null auto_increment primary key" 行进行介绍:  
+1. "id" 为列的名称;  
+2. "int" 指定该列的类型为 int(取值范围为 -8388608到8388607), 在后面我们又用 "unsigned" 加以修饰, 表示该类型为无符号型, 此时该列的取值范围为 0到16777215;  
+3. "not null" 说明该列的值不能为空, 必须要填, 如果不指定该属性, 默认可为空;  
+4. "auto_increment" 需在整数列中使用, 其作用是在插入数据时若该列为 NULL, MySQL将自动产生一个比现存值更大的唯一标识符值。在每张表中仅能有一个这样的值且所在列必须为索引列。  
+5. "primary key" 表示该列是表的主键, 本列的值必须唯一, MySQL将自动索引该列。  
+
+
+对于一些较长的语句在命令提示符下可能容易输错, 因此我们可以通过任何文本编辑器将语句输入好后保存为 createtable.sql 的文件中, 通过命令提示符下的文件重定向执行执行该脚本。
+
+打开命令提示符, 输入:  
+mysql -D samp_db -u root -p &lt; createtable.sql  
+
+提示:  
+1.如果连接远程主机请加上 -h 指令;  
+2.createtable.sql文件若不在当前工作目录下需指定文件的完整路径。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="操作MySQL表数据"><a href="#操作MySQL表数据" class="headerlink" title="操作MySQL表数据"></a>操作MySQL表数据</h3><blockquote>
+<p>向表中插入数据  </p>
+</blockquote>
+<p>insert 语句可以用来将一行或多行数据插到数据库表中, 使用的一般形式如下  </p>
+<pre class="line-numbers language-html"><code class="language-html">insert [into] 表名 [(列名1, 列名2, 列名3, ...)] values (值1, 值2, 值3, ...);  
+其中 [] 内的内容是可选的, 例如, 要给 samp_db 数据库中的 students 表插入一条记录, 执行语句:  
+insert into students values(NULL, "王刚", "男", 20, "13811371377");  
+有时我们只需要插入部分数据, 或者不按照列的顺序进行插入, 可以使用这样的形式进行插入:  
+insert into students (name, sex, age) values("孙丽华", "女", 21);  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>查询表中的数据  </p>
+</blockquote>
+<p>select 语句常用来根据一定的查询规则到数据库中获取数据, 其基本的用法为  </p>
+<pre class="line-numbers language-html"><code class="language-html">select 列名称 from 表名称 [查询条件];  
+select name, age from students;  
+也可以使用通配符 * 查询表中所有的内容:  
+语句: select * from students;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>按特定条件查询  </p>
+</blockquote>
+<p>where 关键词用于指定查询条件, 用法形式为  </p>
+<pre class="line-numbers language-html"><code class="language-html">select 列名称 from 表名称 where 条件;  
+
+以查询所有性别为女的信息为例, 输入查询语句:  
+select * from students where sex="女";  
+
+where 子句不仅仅支持 "where 列名 = 值" 这种名等于值的查询形式, 对一般的比较运算的运算符都是支持的, 例如 =、>、<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>、</span><span class="token punctuation">></span></span>=、&lt;、!= 以及一些扩展运算符 is [not] null、in、like 等等。 还可以对查询条件使用 or 和 and 进行组合查询, 以后还会学到更加高级的条件查询方式, 这里不再多做介绍。  
+
+示例：  
+查询年龄在21岁以上的所有人信息: select * from students where age > 21;  
+查询名字中带有 "王" 字的所有人信息: select * from students where name like "%王%";  
+查询id小于5且年龄大于20的所有人信息: select * from students where id&lt;5 and age>20;  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>更新表中数据  </p>
+</blockquote>
+<p>update 语句可用来修改表中的数据, 基本的使用形式为<br>update 表名称 set 列名称=新值 where 更新条件;</p>
+<pre class="line-numbers language-html"><code class="language-html">将id为5的手机号改为默认的"-":  
+update students set tel=default where id=5;  
+
+将所有人的年龄增加1:  
+update students set age=age+1;  
+
+将手机号为 13288097888 的姓名改为 "张伟鹏", 年龄改为 19:  
+update students set name="张伟鹏", age=19 where tel="13288097888";
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>删除表中数据  </p>
+</blockquote>
+<p>delete 语句用于删除表中的数据, 基本用法为:<br>delete from 表名称 where 删除条件;  </p>
+<pre class="line-numbers language-html"><code class="language-html">删除id为2的行:  
+delete from students where id=2;  
+
+删除所有年龄小于21岁的数据:  
+delete from students where age&lt;20;  
+
+删除表中的所有数据:  
+delete from students;  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>创建后修改表  </p>
+</blockquote>
+<p>alter table 语句用于创建后对表的修改, 基础用法如下:  </p>
+<p>添加列  </p>
+<pre class="line-numbers language-html"><code class="language-html">基本形式: alter table 表名 add 列名 列数据类型 [after 插入位置];  
+示例：
+在表的最后追加列 address:  
+alter table students add address char(60);  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改列  </p>
+<pre class="line-numbers language-html"><code class="language-html">基本形式: alter table 表名 change 列名称 列新名称 新数据类型;  
+将表 tel 列改名为 telphone:  
+alter table students change tel telphone char(13) default "-";  
+
+将 name 列的数据类型改为 char(16):  
+alter table students change name name char(16) not null;  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>删除列  </p>
+<pre class="line-numbers language-html"><code class="language-html">基本形式: alter table 表名 drop 列名称;  
+
+示例:  
+删除 birthday 列:  
+alter table students drop birthday;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>重命名表  </p>
+<pre class="line-numbers language-html"><code class="language-html">基本形式: alter table 表名 rename 新表名;
+
+示例:
+
+重命名 students 表为 workmates:  
+alter table students rename workmates;  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>删除整张表  </p>
+<pre class="line-numbers language-html"><code class="language-html">基本形式: drop table 表名;  
+
+示例:  
+删除 workmates 表:  
+drop table workmates;  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>删除整个数据库  </p>
+<pre class="line-numbers language-html"><code class="language-html">基本形式: drop database 数据库名;
+
+示例:  
+删除 samp_db 数据库:  
+drop database samp_db;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="mysql插入当前时间"><a href="#mysql插入当前时间" class="headerlink" title="mysql插入当前时间"></a>mysql插入当前时间</h3><p>now()函数以’YYYY-MM-DD HH:MM:SS’返回当前的日期时间，可以直接存到DATETIME字段中<br>curdate()以’YYYY-MM-DD’的格式返回今天的日期，可以直接存到DATE字段中<br>curtime()以’HH:MM:SS’的格式返回当前的时间，可以直接存到TIME字段中  </p>
+<pre class="line-numbers language-html"><code class="language-html">insert into tablename (fieldname) values (now())
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="ES6模板字符串"><a href="#ES6模板字符串" class="headerlink" title="ES6模板字符串"></a>ES6模板字符串</h2><p>模板字符串以反引号开始，再以反引号结束。字符串原样输出，包括换行<br>当需要嵌入变量时，写入${}中即可,大括号里支持任何表达式的，可以三目，可以调用函数，同样可以引用对象属性  </p>
+<pre class="line-numbers language-html"><code class="language-html">var dt = new Date();
+var str = `    ${dt.getFullYear()}    ${dt.getMonth()+1}    ${dt.getDate()}    ${dt.getHours()}    ${dt.getMinutes()}    ${dt.getSeconds()}`;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="字符串换行显示"><a href="#字符串换行显示" class="headerlink" title="字符串换行显示"></a>字符串换行显示</h2><p>加了反斜杠以后，原来写在一行的字符串，可以分成多行书写。<br>但是，输出的时候还是单行，效果与写在同一行完全一样。<br>注意，反斜杠的后面必须是换行符，而不能有其他字符（比如空格），否则会报错。  </p>
+<pre class="line-numbers language-html"><code class="language-html">var longString = 'Long \
+long \
+long \
+string';  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="blob创建、使用、下载"><a href="#blob创建、使用、下载" class="headerlink" title="blob创建、使用、下载"></a>blob创建、使用、下载</h2><p>HTML5中的Blob对象和MYSQL中的BLOB类型在概念上是有点区别的。MYSQL中的BLOB类型就只是个二进制数据容器。而HTML5中的Blob对象除了存放二进制数据外还可以设置这个数据的MINE类型，这相当于对文件的储存  </p>
+<p>创建了一个Blob对象，注意Blob这个构造器的参数比较诡异，第一个参数是一组数据，所以必须是数组，即使像上面的例子一样只有一个字符串也必须用数组装起来。第二个参数是对这一Blob对象的配置属性，目前也只有一个type也就是相关的MIME需要设置，使用key-value的方式也许是为了今后的扩展。<br>那么，把数据做成Blob有什么用呢？对于Blob对象，我们可以创建出一个URL来访问它。使用URL对象的createObjectURL方法。</p>
+<p>Blob是一个HTML5中很基本的二进制数据对象，很多方法的操作参数都支持使用Blob，这个我一下也列举不出。总之，几乎所有参数类型是二进制数据的方法都支持使用Blob作为参数就对了。所以把数据做成Blob可以让之后的一些列操作变得更方便。  </p>
+<pre class="line-numbers language-html"><code class="language-html">// blob创建
+
+var data='<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>b</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">font-size</span><span class="token punctuation">:</span><span class="token number">32</span>px<span class="token punctuation">;</span><span class="token property">color</span><span class="token punctuation">:</span>red<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>次碳酸钴<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>b</span><span class="token punctuation">></span></span>';   
+var blob=new Blob([data],{"type":"text/html"});   
+
+// blob使用
+
+var iframe=document.createElement("iframe");   
+iframe.src=URL.createObjectURL(blob);   
+document.body.appendChild(iframe);   
+
+// blob下载
+
+let objUrl=URL.createObjectURL(blob)
+let elink=document.createElement('a')
+elink.setAttribute('href',objUrl)
+elink.setAttribute('download','test.html')
+elink.click()
+URL.revokeObjectURL(elink.href)
+document.body.removeChild(elink)
+
+// blob对象转arrayBuffer  
+
+var reader = new FileReader()
+reader.onload = function (e) {
+    console.log(reader.result)
+    var blob2 = new Blob([reader.result]);
+    let objUrl=URL.createObjectURL(blob2)
+    let elink=document.createElement('a')
+    elink.setAttribute('href',objUrl)
+    elink.setAttribute('download','test2.txt')
+    elink.click()
+    URL.revokeObjectURL(elink.href)
+
+}
+reader.readAsArrayBuffer(blob)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-html"><code class="language-html">var array = new Uint16Array([97, 32, 72, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100, 33])
+var blob = new Blob([array]);
+let objUrl=URL.createObjectURL(blob)
+let elink=document.createElement('a')
+elink.setAttribute('href',objUrl)
+elink.setAttribute('download','test.txt')
+elink.click()
+URL.revokeObjectURL(elink.href)
+document.body.removeChild(elink)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-html"><code class="language-html">var arrBuffer = [];
+for (var i = 0; i &lt; arrRs.length; i++) {
+     var tmp = ;
+     let arraybuffer = new Uint8Array(arrRs[i]);
+     arrBuffer.push(arraybuffer); 
+} 
+var newBuffer = Buffer.concat(arrBuffer);
+
+
+/*
+合并多个ArrayBuffer使用Buffer.concat(……)定义如下
+static concat(list:Uint8Array[], totalLength?:number):Buffer
+
+在 new Uint8Array(arrRs[i]) 部分，一定要确保 arrRs[i] 为 ArrayBuffer，
+而不是其 DataView
+
+如果是DataView不会报错，但是数据是有问题的
+可以使用 ArrayBuffer.isView(tmp) 来判断
+如果对象为视图，使用 arrRs[i].buffer 转为 ArrayBuffer
+
+*/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="字符串转为ArrayBuffer"><a href="#字符串转为ArrayBuffer" class="headerlink" title="字符串转为ArrayBuffer"></a>字符串转为ArrayBuffer</h3><pre class="line-numbers language-html"><code class="language-html">// 字符串转为ArrayBuffer对象，参数为字符串
+const str2ab = function(str) {
+  var buf = new ArrayBuffer(str.length * 2); // 每个字符占用2个字节
+  var bufView = new Uint16Array(buf);
+  for (var i = 0, strLen = str.length; i &lt; strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+  }
+  return buf;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="ArrayBuffer转字符串"><a href="#ArrayBuffer转字符串" class="headerlink" title="ArrayBuffer转字符串"></a>ArrayBuffer转字符串</h3><pre class="line-numbers language-html"><code class="language-html">// ArrayBuffer转为字符串，参数为ArrayBuffer对象, 字符串编码为一个字节
+const ab2str = function (buf) {
+  return String.fromCharCode.apply(null, new Uint8Array(buf));
+}
+
+// ArrayBuffer转为字符串，参数为ArrayBuffer对象字符串编码为js默认编码
+const ab2strU16 = function (buf) {
+  return String.fromCharCode.apply(null, new Uint16Array(buf));
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="ArrayBuffer与十六进制的互相转换"><a href="#ArrayBuffer与十六进制的互相转换" class="headerlink" title="ArrayBuffer与十六进制的互相转换"></a>ArrayBuffer与十六进制的互相转换</h3><pre class="line-numbers language-html"><code class="language-html">/**
+ * 十六进制转 bytearray
+ */
+var hex2ab = function(hex){
+  var typedArray = new Uint8Array(hex.match(/[\da-f]{2}/gi).map(function (h) {
+    return parseInt(h, 16)
+  }))
+
+  var buffer = typedArray.buffer
+  return buffer
+}
+
+ // ArrayBuffer转16进度字符串示例
+const ab2hex = function (buffer) {
+  var hexArr = Array.prototype.map.call(
+    new Uint8Array(buffer),
+    function (bit) {
+      return ('00' + bit.toString(16)).slice(-2)
+    }
+  )
+  return hexArr.join('');
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="JavaScript等待所有异步任务完成后才执行"><a href="#JavaScript等待所有异步任务完成后才执行" class="headerlink" title="JavaScript等待所有异步任务完成后才执行"></a>JavaScript等待所有异步任务完成后才执行</h2><pre class="line-numbers language-html"><code class="language-html">    let ups=[]
+    let promiseArr=[]
+    for(let [k,v] of Object.entries(e.target.files)){
+        let p=new Promise((resolove,reject)=>{
+            let reader=new FileReader()
+            reader.onloadend=function(e){
+                let base64String=e.target.result
+                ups.push({
+                    fileBase64: base64String,
+                    fileName: v.filename,
+                    fileSize: v.filesize,
+                    fileType: v.filetype,
+                    webkitRelativePath: v.webkitRelativePath
+                })
+                resolove()
+            }
+            reader.readAsDataURL(v)
+        })
+        promiseArr.push(p)
+    }
+
+    Promise.all(promiseArr).then(res=>{
+        console.log(ups)
+    })
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="小文件、批量上传、目录上传"><a href="#小文件、批量上传、目录上传" class="headerlink" title="小文件、批量上传、目录上传"></a>小文件、批量上传、目录上传</h2><blockquote>
+<p>文件以base64以字符串保存到数据库，mysql存字符串可以做到，使用MediumText类型或者，可以存16M,不建议这样做，因为一个图片转换为base64占用存储空间反而变大,你可以使用blob格式直接存储二进制格式数据，甚至你还可以通过gzip压缩一下以后再存入，减少空间占用  </p>
+</blockquote>
+<blockquote>
+<p>BLOB，二进制大对象（字节流）。可以用来存储图片，声音和视频等二进制文件.没有字符集的说法。<br>TEXT，文本大对象（字符流）。可以用来存储大量的字符串，可以理解为超大的char或者varchar类型。由于是存储字符，所以有字符集的说法。  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">根据mysql的个性，blob和text又细分为：（存储限制来自网上摘录）
+
+tinyblob，tinytext，最大存储限制255字节；
+
+blob，text，最大存储限制65k（是真的吗？）；
+
+mediumblob，mediumtext，最大存储限制16M；
+
+longblob，longtext，最大存储限制4G。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>单个文件上传行，<br>目录批量上传文件时，上传post请求后台接受时会爆服务器端报错413 (payload too large)，以字符串存base64此时不可行<br>此处以上传小图片为例  </p>
+<h3 id="搭建express服务"><a href="#搭建express服务" class="headerlink" title="搭建express服务"></a>搭建express服务</h3><pre class="line-numbers language-html"><code class="language-html">npm init //初始化项目  
+npm install express --save //安装express  
+npm install express-generator --save //安装express命令工具  
+npm install cookie-parser --save //安装一些module中间件  
+npm install morgan --save  
+npm install jade --save  
+npm install body-parser --save  
+npm install multer --save  
+
+npm install express -g  
+npm install express express-generator -g
+
+express myapp //新建express服务，会在当前目录下新建myapp目录  
+cd myapp //进入myapp目录  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在myapp目录下添加文件index.js, db.js, sqlMap.js，一个api目录，api里面建一个文件userApi.js  </p>
+<blockquote>
+<p>db.js添加 mysql配置  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">// 数据库连接配置
+module.exports = {
+    mysql: {
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'wxd',
+    port: '3306'
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>index.js——入口文件  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">// node 后端服务器
+const userApi = require('./api/userApi')
+const fs = require('fs')
+const path = require('path')
+const bodyParser = require('body-parser')
+const express = require('express')
+const app = express()
+//采用设置所有均可访问的方法解决跨域问题
+app.all("*", function (req, res, next) {
+    //设置允许跨域的域名，*代表允许任意域名跨域
+    res.header("Access-Control-Allow-Origin", "*");
+    //允许的header类型
+    res.header("Access-Control-Allow-Headers", "content-type");
+    //跨域允许的请求方式 
+    res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
+    if (req.method.toLowerCase() == 'options')
+        res.send(200); //让options尝试请求快速结束
+    else
+        next();
+})
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+// 后端api路由
+
+app.use('/api/user', userApi)
+// 监听端口
+app.listen(3000)
+console.log('success listen at port:3000......')
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>sqlMap.js——SQL 语句映射文件，供 API 调用  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">// sql语句
+
+var sqlMap = {
+    user: {
+        add: 'insert into user(name,age,insertTime) values ("zzz","18",now())'
+    }
+
+}
+
+module.exports = sqlMap
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>api/userApi.js —— 测试用 API 示例  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">var models = require('../db');
+var express = require('express');
+var router = express.Router();
+var mysql = require('mysql');
+var $sql = require('../sqlMap');
+// 连接数据库
+var conn = mysql.createConnection(models.mysql);
+conn.connect();
+var jsonWrite = function (res, ret) {
+    if (typeof ret === 'undefined') {
+        res.json({
+            code: '1', msg: '操作失败'
+        });
+    }
+    else {
+        res.json(
+            ret
+        );
+    }
+};
+// 插入单条数据
+router.post('/addUser', (req, res) => {
+    // res.send('respond with a resource');
+    // return;
+    // var sql = $sql.user.add;
+    var params = req.body;
+    // console.log(params);
+
+    // 插入一条小数据
+    var sql=`insert into user (name,age,littlebase64,fileName,webkitRelativePath,insertTime) values ('${params.username}','${params.age}','${params.littlebase64}','${params.fileName}','${params.webkitRelativePath}',now())`
+
+    // 批量插入数据可以通过拼接sql语句实现(小数据插入一万条基本问题不大)
+    // var sql="insert into user (name,age,littlebase64,fileName,insertTime) values "    
+    // sql+=`('${params.username}','${params.age}','${params.littlebase64}','${params.fileName}',now()),`
+    // sql+=`('${params.username}','${params.age}','${params.littlebase64}','${params.fileName}',now()),`
+    // sql+=`('${params.username}','${params.age}','${params.littlebase64}','${params.fileName}',now())`
+
+    conn.query(sql, [params.username, params.age], function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        if (result) {
+            console.log('result:');
+            jsonWrite(res, result);
+        }
+    })
+});
+
+// 上传目录
+router.post('/addUserByDir', (req, res) => {
+    var params = req.body;
+    console.log(params);
+
+    // 批量插入数据可以通过拼接sql语句实现(小数据插入一万条基本问题不大)
+    if(params.ups.length&lt;1){
+        return
+    }
+    var sql="insert into user (fileName,webkitRelativePath,insertTime) values "    
+    for(let i=0;i&lt;params.ups.length-1;i++){
+        sql+=`('${params.ups[i].fileName}','${params.ups[i].webkitRelativePath}',now()),`
+
+    }
+    sql+=`('${params.ups[params.ups.length-1].fileName}','${params.ups[params.ups.length-1].webkitRelativePath}',now())`
+
+    conn.query(sql, [params.username, params.age], function (err, result) {
+        if (err) {
+            console.log(err);
+        }
+        if (result) {
+            jsonWrite(res, result);
+        }
+    })
+});
+
+module.exports = router;
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>启动运行express项目  </p>
+<pre class="line-numbers language-html"><code class="language-html">npm install express mysql body-parser  
+node index    
+看到 success listen at port:3000……即服务端启动成功。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>准备好mysql数据库后  </p>
+<pre class="line-numbers language-html"><code class="language-html">PostMan 发起post请求 http://127.0.0.1:3000/api/user/addUser  
+即在本地mysql里执行了插入语句  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="前端页面"><a href="#前端页面" class="headerlink" title="前端页面"></a>前端页面</h3><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>assetManage<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>姓名<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>年龄<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>age<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>上传文件<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+            <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>textfield<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name">
+            <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">display</span><span class="token punctuation">:</span> none</span><span class="token punctuation">"</span></span>
+            <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+            <span class="token attr-name">@change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uploadPhoto($event)<span class="token punctuation">"</span></span>
+          <span class="token punctuation">/></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+            <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ <span class="token punctuation">'</span>button-actived<span class="token punctuation">'</span>: true }<span class="token punctuation">"</span></span>
+            <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+            <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>handleUploadFile()<span class="token punctuation">"</span></span>
+          <span class="token punctuation">></span></span>
+            选择
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>上传目录<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+            <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>textfields<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name">
+            <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">display</span><span class="token punctuation">:</span> none</span><span class="token punctuation">"</span></span>
+            <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+            <span class="token attr-name">webkitdirectory</span>
+            <span class="token attr-name">@change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uploadPhotoByDir($event)<span class="token punctuation">"</span></span>
+          <span class="token punctuation">/></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+            <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ <span class="token punctuation">'</span>button-actived<span class="token punctuation">'</span>: true }<span class="token punctuation">"</span></span>
+            <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+            <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>handleUploadFileByDir()<span class="token punctuation">"</span></span>
+          <span class="token punctuation">></span></span>
+            选择
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'assetManage'</span><span class="token punctuation">,</span>
+  data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      msg<span class="token punctuation">:</span> <span class="token string">'Welcome to Your assetManage'</span><span class="token punctuation">,</span>
+      fileBase64<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+      username<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+      age<span class="token punctuation">:</span> <span class="token string">''</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mounted<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token function">handleUploadFileByDir</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token keyword">var</span> fileSelectByDir <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'textfields'</span><span class="token punctuation">)</span>
+      fileSelectByDir<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token string">''</span>
+      fileSelectByDir<span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function">uploadPhotoByDir</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// console.log(e.target.files)</span>
+      <span class="token keyword">let</span> that<span class="token operator">=</span><span class="token keyword">this</span>
+      <span class="token keyword">let</span> ups<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token keyword">let</span> promiseArr<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> <span class="token punctuation">[</span>k<span class="token punctuation">,</span>v<span class="token punctuation">]</span> <span class="token keyword">of</span> Object<span class="token punctuation">.</span><span class="token function">entries</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>files<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">let</span> p<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolove<span class="token punctuation">,</span>reject<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+          <span class="token keyword">let</span> reader<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          reader<span class="token punctuation">.</span>onloadend<span class="token operator">=</span><span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">let</span> base64String<span class="token operator">=</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>result
+            <span class="token comment" spellcheck="true">// console.log(v)</span>
+            ups<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">// fileBase64: base64String,</span>
+                fileName<span class="token punctuation">:</span> v<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+                fileSize<span class="token punctuation">:</span> v<span class="token punctuation">.</span>size<span class="token punctuation">,</span>
+                fileType<span class="token punctuation">:</span> v<span class="token punctuation">.</span>type<span class="token punctuation">,</span>
+                webkitRelativePath<span class="token punctuation">:</span> v<span class="token punctuation">.</span>webkitRelativePath
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token function">resolove</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+          reader<span class="token punctuation">.</span><span class="token function">readAsDataURL</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        promiseArr<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+
+      Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>promiseArr<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>res<span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>ups<span class="token punctuation">)</span>
+        that<span class="token punctuation">.</span><span class="token function">createMediaByDir</span><span class="token punctuation">(</span>ups<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token keyword">async</span> createMediaByDir <span class="token punctuation">(</span>para<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      axios
+        <span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span>
+          <span class="token string">'http://127.0.0.1:3000/api/user/addUserByDir'</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span>
+            ups<span class="token punctuation">:</span>para
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span>
+            timeout<span class="token punctuation">:</span> <span class="token number">1000</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//单条</span>
+    handleUploadFile <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> fileSelect <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'textfield'</span><span class="token punctuation">)</span>
+      fileSelect<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token string">''</span>
+      fileSelect<span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    uploadPhoto <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>files<span class="token punctuation">)</span>
+      <span class="token keyword">const</span> file <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>file<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> filesize <span class="token operator">=</span> file<span class="token punctuation">.</span>size
+        <span class="token keyword">const</span> filename <span class="token operator">=</span> file<span class="token punctuation">.</span>name
+        <span class="token keyword">const</span> webkitRelativePath <span class="token operator">=</span> file<span class="token punctuation">.</span>webkitRelativePath
+        <span class="token keyword">let</span> filetype <span class="token operator">=</span> <span class="token string">'0'</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>file<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'video/mp4'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          filetype <span class="token operator">=</span> <span class="token string">'2'</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>
+          file<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'image/jpeg'</span> <span class="token operator">||</span>
+          file<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'image/gif'</span> <span class="token operator">||</span>
+          file<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'image/png'</span>
+        <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          filetype <span class="token operator">=</span> <span class="token string">'1'</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>file<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'application/json'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          filetype <span class="token operator">=</span> <span class="token string">'34'</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          filetype <span class="token operator">=</span> <span class="token string">'50'</span>
+          <span class="token keyword">var</span> houzui <span class="token operator">=</span> file<span class="token punctuation">.</span>name<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>houzui <span class="token operator">?</span> houzui<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'ofd'</span> <span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            filetype <span class="token operator">=</span> <span class="token string">'35'</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>houzui <span class="token operator">?</span> houzui<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'zip'</span> <span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            filetype <span class="token operator">=</span> <span class="token string">'40'</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>houzui <span class="token operator">?</span> houzui<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'xls'</span> <span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            filetype <span class="token operator">=</span> <span class="token string">'32'</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>houzui <span class="token operator">?</span> houzui<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'xlsx'</span> <span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            filetype <span class="token operator">=</span> <span class="token string">'31'</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>houzui <span class="token operator">?</span> houzui<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'csv'</span> <span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            filetype <span class="token operator">=</span> <span class="token string">'33'</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment" spellcheck="true">// 格式判断</span>
+        <span class="token comment" spellcheck="true">// if (!/image\/\w+/.test(file.type)) {</span>
+        <span class="token comment" spellcheck="true">//   this.$message.error('请上传以jpg、jpeg、png等结尾的文件')</span>
+        <span class="token comment" spellcheck="true">//   return false</span>
+        <span class="token comment" spellcheck="true">// }</span>
+        <span class="token comment" spellcheck="true">// 图片大小限制 2,621,440 2M</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>filesize <span class="token operator">></span> <span class="token number">2101440</span> <span class="token operator">*</span> <span class="token number">8</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment" spellcheck="true">// 后台mysql存base64的字段类型决定上传单个文件需小于16M</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>$message<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">'大于16MB'</span><span class="token punctuation">)</span>
+          <span class="token keyword">return</span> <span class="token boolean">false</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">var</span> reader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>file<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'application/json'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          reader<span class="token punctuation">.</span><span class="token function">readAsText</span><span class="token punctuation">(</span>file<span class="token punctuation">,</span> <span class="token string">'utf8'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          reader<span class="token punctuation">.</span><span class="token function">readAsDataURL</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">const</span> that <span class="token operator">=</span> <span class="token keyword">this</span>
+        reader<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          that<span class="token punctuation">.</span>fileBase64 <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>result
+          <span class="token keyword">const</span> para <span class="token operator">=</span> <span class="token punctuation">{</span>
+            fileBase64<span class="token punctuation">:</span> that<span class="token punctuation">.</span>fileBase64<span class="token punctuation">,</span>
+            fileName<span class="token punctuation">:</span> filename<span class="token punctuation">,</span>
+            fileSize<span class="token punctuation">:</span> filesize<span class="token punctuation">,</span>
+            fileType<span class="token punctuation">:</span> filetype<span class="token punctuation">,</span>
+            webkitRelativePath<span class="token punctuation">:</span> webkitRelativePath
+          <span class="token punctuation">}</span>
+          that<span class="token punctuation">.</span><span class="token function">createMedia</span><span class="token punctuation">(</span>JSON<span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>para<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token keyword">async</span> createMedia <span class="token punctuation">(</span>para<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> contentObj <span class="token operator">=</span> JSON<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>para<span class="token punctuation">)</span>
+      <span class="token comment" spellcheck="true">// const nowDate = Date.parse(new Date())</span>
+      <span class="token comment" spellcheck="true">// console.log(contentObj, nowDate)</span>
+      axios
+        <span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span>
+          <span class="token string">'http://127.0.0.1:3000/api/user/addUser'</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span>
+            username<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>username<span class="token punctuation">,</span>
+            age<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>age<span class="token punctuation">,</span>
+            littlebase64<span class="token punctuation">:</span> contentObj<span class="token punctuation">.</span>fileBase64<span class="token punctuation">,</span>
+            fileName<span class="token punctuation">:</span> contentObj<span class="token punctuation">.</span>fileName<span class="token punctuation">,</span>
+            webkitRelativePath<span class="token punctuation">:</span> contentObj<span class="token punctuation">.</span>webkitRelativePath
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token punctuation">{</span>
+            timeout<span class="token punctuation">:</span> <span class="token number">1000</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>response<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>response<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+
+<span class="token comment" spellcheck="true">&lt;!-- Add "scoped" attribute to limit CSS to this component only --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">scoped</span><span class="token punctuation">></span></span><span class="token style language-css">
+<span class="token selector"><span class="token class">.assetManage</span> </span><span class="token punctuation">{</span>
+  <span class="token property">font-weight</span><span class="token punctuation">:</span> normal<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="上传文件以blob类型存入mysql"><a href="#上传文件以blob类型存入mysql" class="headerlink" title="上传文件以blob类型存入mysql"></a>上传文件以blob类型存入mysql</h2><h3 id="readAsBinaryString在IE11不支持的兼容处理"><a href="#readAsBinaryString在IE11不支持的兼容处理" class="headerlink" title="readAsBinaryString在IE11不支持的兼容处理"></a>readAsBinaryString在IE11不支持的兼容处理</h3><p>input上传本地文件获取file/blob  </p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>上传文件blob<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+    <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>textfieldblob<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name">
+    <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">display</span><span class="token punctuation">:</span> none</span><span class="token punctuation">"</span></span>
+    <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+    <span class="token attr-name">@change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uploadPhotoblob($event)<span class="token punctuation">"</span></span>
+    <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+    <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ <span class="token punctuation">'</span>button-actived<span class="token punctuation">'</span>: true }<span class="token punctuation">"</span></span>
+    <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+    <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>handleUploadFileblob()<span class="token punctuation">"</span></span>
+    <span class="token punctuation">></span></span>
+    选择
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+
+
+    handleUploadFileblob() {
+      var fileSelectblob = document.getElementById("textfieldblob");
+      fileSelectblob.value = "";
+      fileSelectblob.click();
+    },
+    uploadPhotoblob(e) {
+      const file = e.target.files[0];
+      console.log(file)
+      if (window.FileReader) {
+        var reader = new FileReader();
+        // 将文件读取为base64字符串
+        // reader.readAsDataURL(e.target.files[0])
+        // 将文件读取为二进制字符串
+        reader.readAsBinaryString(e.target.files[0])
+        reader.onload = function (ee) {
+          console.log(ee.target.result);
+        }
+
+      } else {
+        alert("当前浏览器不支持!");
+      }
+
+    }
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在不支持readAsBinaryString的浏览器时，自定义函数</p>
+<pre class="line-numbers language-html"><code class="language-html">if (window.FileReader) {
+
+    var r = new FileReader();
+    if(r.readAsBinaryString === undefined){
+        FileReader.prototype.readAsBinaryString = function (fileData) { //解决ie11 大文件堆栈溢出的问题（for arrayBufferToString）
+            var binary = "";
+            var pt = this;
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var bytes = new Uint8Array(reader.result);
+                var length = bytes.byteLength;
+                for (var i = 0; i &lt; length; i++) {
+                    binary += String.fromCharCode(bytes[i]);
+                }
+                pt.content = binary;
+                //console.log("binary length:" + binary.length);
+                pt.onload(pt); //页面内data取pt.content文件内容
+            }
+            reader.readAsArrayBuffer(fileData);
+      }
+    }
+
+    // 将文件读取为二进制字符串
+    r.readAsBinaryString(e.target.files[0])
+    r.onload = function (ee) {
+      console.log(ee.target.result);
+    }
+
+} else {
+    alert("当前浏览器不支持!");
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>思路1  </p>
+</blockquote>
+<p>上传：利用输入流，每次读取5M大小的数据到内存，然后保存到数据库中的一条记录。大小为L兆的文件，保存为（L/5）或(L/5+1)条记录，每条记录有个Id字段（自增），保证有顺序。  </p>
+<p>下载：以流的方式读取mysql的数据，每次读取一条到数条记录到内存，防止一次性读取全部数据，占用太多内存。  </p>
+<blockquote>
+<p>思路2：  </p>
+</blockquote>
+<p>前端通过input框上传文件，然后通过reader读取文件，post请求后台，存储到blob字段  </p>
+<blockquote>
+<p>思路3：  </p>
+</blockquote>
+<p>上传：将文件上传到文件系统（文件流部分加载的方式），然后将文件保存路径存储到mysql。<br>下载：提供文件的url,浏览器自动下载。  </p>
+<h2 id="nodejs接收FormData原生实现上传，下载"><a href="#nodejs接收FormData原生实现上传，下载" class="headerlink" title="nodejs接收FormData原生实现上传，下载"></a>nodejs接收FormData原生实现上传，下载</h2><h3 id="express搭建服务提供文件上传"><a href="#express搭建服务提供文件上传" class="headerlink" title="express搭建服务提供文件上传"></a>express搭建服务提供文件上传</h3><pre class="line-numbers language-html"><code class="language-html">const querystring = require("querystring");
+const fs=require('fs');
+
+// node原生处理文件上传写入
+let uuid = () => {  //生成uuid方法
+    let s = [];
+    let hexDigits = "0123456789abcdef";
+    for (let i = 0; i &lt; 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] &amp; 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+
+    let uuid = s.join("");
+    return uuid;
+}
+
+router.post('/uploadfile', (req, res, next) => {  //post请求  我这边用的是express router 
+    req.setEncoding('binary');
+    let body = '';   // 文件数据
+    // 边界字符串
+    let boundary = req.headers['content-type'].split('; ')[1].replace('boundary=', '');
+
+    //接收post如data 流 buffer
+    req.on('data', function (d) {
+        body += d;
+    });
+
+    req.on('end', function () {
+        let file = querystring.parse(body, '\r\n', ':');
+        let fileInfo = file['Content-Disposition'].split('; ');
+        let fileName = '';
+        let ext = '';
+        for (let value in fileInfo) {
+            if (fileInfo[value].indexOf("filename=") != -1) {
+                fileName = fileInfo[value].substring(10, fileInfo[value].length - 1);
+
+                if (fileName.indexOf('\\') != -1) {
+                    fileName = fileName.substring(fileName.lastIndexOf('\\') + 1);
+                }
+                ext = fileName.substr(fileName.indexOf('.') + 1, fileName.length);
+            }
+        }
+
+        let upperBoundary = body.toString().indexOf(file['Content-Type'].substring(1)) + file['Content-Type'].substring(1).length;
+
+        let binaryDataAlmost = body.toString().substring(upperBoundary).replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+
+         // 上传文件重命名
+        let uuidFileName = `${uuid()}.${ext}` 
+        //上传文件 本地存放地址
+        let uploadDirFile = `./uploads/${uuidFileName}` 
+
+        //创建文件流
+        let writerStream = fs.createWriteStream(uploadDirFile);
+
+        //开始 —— 写入文件到本地
+        writerStream.write(binaryDataAlmost.substring(0, binaryDataAlmost.indexOf(`--${boundary}--`)), 'binary'); 
+        //写入完成
+        writerStream.end();
+        writerStream.on('finish', function () {
+            console.log("写入完成。");
+            //删除刚刚创建好的本地文件 -> 只有在把文件存起来的时候需要删除掉本地，否则不要用。
+            // fs.unlinkSync(uploadDirFile) 
+            res.send({ data: '服务器文件上传写入完成', code: 0, msg: 'ok' })
+        });
+    });
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="前端提交文件"><a href="#前端提交文件" class="headerlink" title="前端提交文件"></a>前端提交文件</h3><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>上传文件存服务器<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+        <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>textfieldfile<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name">
+        <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">display</span><span class="token punctuation">:</span> none</span><span class="token punctuation">"</span></span>
+        <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+        <span class="token attr-name">@change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uploadPhotofile($event)<span class="token punctuation">"</span></span>
+      <span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ <span class="token punctuation">'</span>button-actived<span class="token punctuation">'</span>: true }<span class="token punctuation">"</span></span>
+        <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+        <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>handleUploadFilefile()<span class="token punctuation">"</span></span>
+      <span class="token punctuation">></span></span>
+        选择
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+
+methods:{
+    handleUploadFilefile () {
+      var fileSelectfile = document.getElementById('textfieldfile')
+      fileSelectfile.value = ''
+      fileSelectfile.click()
+    },
+    uploadPhotofile(e){
+      const file = e.target.files[0]
+      var files=new FormData()
+      files.append('file',file)
+      axios
+            .post(
+              'http://127.0.0.1:3000/api/user/uploadfile',
+              files,
+              {
+                // timeout: 2000
+              }
+            )
+            .then(function (response) {
+              console.log(response)
+            })
+            .catch(function (error) {
+              console.log(error)
+            })
+    },
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="express静态文件托管访问"><a href="#express静态文件托管访问" class="headerlink" title="express静态文件托管访问"></a>express静态文件托管访问</h3><p>使用 Express 中的 express.static 内置中间件函数，提供诸如图像、CSS 文件和 JavaScript 文件之类的静态文件<br>通过app.use()使用中间件。例如，通过如下代码就可以将uploads目录下的图片、CSS文件、JavaScript等文件对外开放访问了：  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 后端api路由
+app.use('/api/user', userApi)  
+
+// 托管静态文件,并且加个前缀uploads,为了安全规范
+app.use('/uploads',express.static(__dirname+'/uploads'))  
+
+// 监听端口
+app.listen(3000)
+console.log('success listen at port:3000......')
+
+// http://127.0.0.1:3000/uploads/0d22ec4d-98bc-4471-9840-bb28d965cfe5.jpg
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="断点续传的学习"><a href="#断点续传的学习" class="headerlink" title="断点续传的学习"></a>断点续传的学习</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/duandianxuchuansilu.jpg" alt="断点续传实现思路">  </p>
+<h3 id="前端提交文件-1"><a href="#前端提交文件-1" class="headerlink" title="前端提交文件"></a>前端提交文件</h3><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>上传大文件断点续传<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span>
+        <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>textfieldfileBig<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name">
+        <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">display</span><span class="token punctuation">:</span> none</span><span class="token punctuation">"</span></span>
+        <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+        <span class="token attr-name">@change</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uploadPhotofileBig($event)<span class="token punctuation">"</span></span>
+      <span class="token punctuation">/></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+        <span class="token attr-name">:class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ <span class="token punctuation">'</span>button-actived<span class="token punctuation">'</span>: true }<span class="token punctuation">"</span></span>
+        <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span>
+        <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>handleUploadFilefileBig()<span class="token punctuation">"</span></span>
+      <span class="token punctuation">></span></span>
+        选择
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+
+
+
+
+
+    handleUploadFilefileBig () {
+      var fileSelectfileBig = document.getElementById('textfieldfileBig')
+      fileSelectfileBig.value = ''
+      fileSelectfileBig.click()
+    },
+
+    async uploadPhotofileBig (e) {
+      // 请求接口，查询上传文件是否存在
+      // count为0表示不存在，count不为0则已上传对应切片数
+      const handleCancel = (file) => {
+        return axios({
+          method: 'post',
+          url: 'http://127.0.0.1:3000/api/uploadGetSize',
+          headers: { 'Content-Type': 'application/json; charset = utf-8' },
+          data: {
+            fileName: file.name
+          }
+        })
+          .then((res) => {
+            return res.data.count
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+
+      const file = e.target.files[0]
+      console.log(file)
+
+      let count = 0 // 记录需要上传的文件下标
+      // 首先请求接口，获取服务器是否存在此文件
+      count = await handleCancel(file)
+      console.log(count)
+
+      // 申明存放切片的数组对象
+      let fileCurrent = []
+      // 默认切片数量
+      const sectionLength = 15.0
+      // 循环file文件对象,本例不用循环，只传一个文件
+      // 得出每个切片的大小
+      let itemSize = Math.ceil(file.size / sectionLength)
+      // 循环文件size，文件blob存入数组
+      let current = 0
+      for (current; current &lt; file.size; current += itemSize) {
+        fileCurrent.push({ file: file.slice(current, current + itemSize) })
+      }
+
+      console.log(fileCurrent)
+      // axios模拟手动取消请求
+      const CancelToken = axios.CancelToken
+      const source = CancelToken.source()
+      // 当断点续传时，处理切片数量，已上传切片则不需要再次请求上传
+      fileCurrent =
+    count === 0 ? fileCurrent : fileCurrent.slice(count, sectionLength)
+    // 循环切片请求接口
+      for (const [index, item] of fileCurrent.entries()) {
+        // 模拟请求暂停 || 网络断开
+        if (index > 200) {
+          source.cancel('取消请求')
+        }
+        // 存入文件相关信息
+        // file为切片blob对象
+        // filename为文件名
+        // index为当前切片数
+        // total为总切片数
+        let formData = new FormData()
+        formData.append('file', item.file)
+        formData.append('filename', file.name)
+        formData.append('total', sectionLength)
+        formData.append('index', index + count + 1)
+
+        await axios({
+          url: `http://127.0.0.1:3000/api/uploadBig`,
+          method: 'POST',
+          data: formData,
+          cancelToken: source.token
+        })
+          .then((response) => {
+            // 返回数据显示进度
+            console.log(`进度${((response.data.size/sectionLength)*100).toFixed(1)}%`)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }
+    },
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="express断点续传服务"><a href="#express断点续传服务" class="headerlink" title="express断点续传服务"></a>express断点续传服务</h3><p>后端服务index.js  </p>
+<pre class="line-numbers language-html"><code class="language-html">// node后端服务器通过node index启动  
+
+const fs = require('fs')
+const path = require('path')
+const bodyParser = require('body-parser')
+const express = require('express')
+const app = express()
+//采用设置所有均可访问的方法解决跨域问题
+app.all("*", function (req, res, next) {
+    //设置允许跨域的域名，*代表允许任意域名跨域
+    res.header("Access-Control-Allow-Origin", "*");
+    //允许的header类型
+    res.header("Access-Control-Allow-Headers", "content-type");
+    //跨域允许的请求方式 
+    res.header("Access-Control-Allow-Methods", "DELETE,PUT,POST,GET,OPTIONS");
+    if (req.method.toLowerCase() == 'options')
+        res.send(200); //让options尝试请求快速结束
+    else
+        next();
+})
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+
+// app.use(express.json({
+//     limit: '50mb'
+// }));
+// app.use(express.urlencoded({
+//     extended: true,
+//     limit: '50mb'
+// }));
+
+// 后端api路由
+const upload = require("./upload_file")
+// 断点续传查询是否存在
+app.use('/api/uploadGetSize',upload.getSize)
+// 上传接口
+app.use("/api/uploadBig", upload.video)
+
+app.get("/videotest2", function(req,res){
+    res.send('Hello kugou')
+});
+
+
+// 托管静态文件,并且加个前缀uploads,为了安全规范
+app.use('/uploads',express.static(__dirname+'/uploads'))
+
+// 监听端口
+app.listen(3000)
+console.log('success listen at port:3000......')
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>upload_file.js  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 文件上传模块
+const { Console } = require("console");
+const formidable = require("formidable");
+// 文件系统模块
+const fs = require("fs");
+// 系统路径模块
+const path = require("path");
+
+// 操作写入文件流
+const handleStream = (item, writeStream) => {
+  // 读取对应目录文件buffer
+  const readFile = fs.readFileSync(item);
+  // 将读取的buffer || chunk写入到stream中
+  writeStream.write(readFile);
+  // 写入完后，清除暂存的切片文件
+  fs.unlink(item, () => {});
+};
+
+// 视频上传(切片)
+module.exports.video = (req, res) => {
+  // 创建解析对象
+  const form = new formidable.IncomingForm();
+  // 设置视频文件上传路径 video目录为存放切片的临时目录
+  let dirPath = path.join(__dirname, "video");
+  form.uploadDir = dirPath;
+  // 是否保留上传文件名后缀
+  form.keepExtensions = true;
+  // err 错误对象 如果解析失败包含错误信息
+  // fields 包含除了二进制以外的formData的key-value对象
+  // file 对象类型 上传文件的信息
+  form.parse(req, async (err, fields, file) => {
+    // 获取上传文件blob对象
+    let files = file.file;
+    // 获取当前切片index
+    let index = fields.index;
+    // 获取总切片数
+    let total = fields.total;
+    // 获取文件名
+    let filename = fields.filename;
+    console.log(files)
+    // 重写上传文件名，设置暂存目录
+    let url =
+      dirPath +
+      "\\" +
+      filename.split(".")[0] +
+      `_${index}.` +
+      filename.split(".")[1];
+      console.log(url,'  0')
+    try {
+      // 同步修改上传文件名
+      fs.renameSync(files.filepath, url);
+      console.log(url,'  1');
+      // 异步处理
+      setTimeout(() => {
+        // 判断是否是最后一个切片上传完成，拼接写入全部切片
+        if (index === total) {
+          // 同步创建新目录，用以存放完整大文件
+          let newDir = __dirname + `/uploadFiles/${Date.now()}`;
+          // 创建目录
+          fs.mkdirSync(newDir);
+          // 创建可写流，用以写入文件
+          let writeStream = fs.createWriteStream(newDir + `/${filename}`);
+          let fsList = [];
+          // 取出所有切片文件，放入数组
+          for (let i = 0; i &lt; total; i++) {
+            const fsUrl =
+              dirPath +
+              "/" +
+              filename.split(".")[0] +
+              `_${i + 1}.` +
+              filename.split(".")[1];
+            fsList.push(fsUrl);
+          }
+          // 循环切片文件数组，进行stream流的写入
+          for (let item of fsList) {
+            handleStream(item, writeStream);
+          }
+          // 全部写入，关闭stream写入流
+          writeStream.end();
+        }
+      }, 100);
+    } catch (e) {
+      console.log(e);
+    }
+    res.send({
+      code: 0,
+      msg: "上传成功",
+      size: index,
+    });
+  });
+};
+
+// 获取文件切片数
+module.exports.getSize = (req, res) => {
+
+  let count = 0;
+  req.setEncoding("utf8");
+
+    // console.log(req.body.fileName)
+    let name=req.body
+    let dirPath = path.join(__dirname, "video")
+    let files = fs.readdirSync(dirPath);
+    console.log(files)
+    files.forEach((item, index) => {
+      let url =
+        name.fileName.split(".")[0] +
+        `_${index + 1}.` +
+        name.fileName.split(".")[1];
+      if (files.includes(url)) {
+        ++count;
+      }
+    });
+    res.send({
+      code: 0,
+      msg: "请继续上传",
+      count,
+    });
+
+};
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>有几个很明显需要改进的地方，比如判断服务器切片是否存在时使用md5验证唯一性  </p>
+<h2 id="上传图生成缩略图"><a href="#上传图生成缩略图" class="headerlink" title="上传图生成缩略图"></a>上传图生成缩略图</h2><pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>X-UA-Compatible<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>IE<span class="token punctuation">=</span>edge,chrome<span class="token punctuation">=</span>1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Canvas改变生成缩略图<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>description<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>keywords<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token style language-css">
+    <span class="token selector"><span class="token class">.source</span></span><span class="token punctuation">{</span>
+        <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token selector">img</span><span class="token punctuation">{</span>
+        <span class="token property">margin-top</span><span class="token punctuation">:</span> <span class="token number">20</span>px<span class="token punctuation">;</span>
+        <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid <span class="token hexcode">#f00</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token selector"><span class="token class">.change</span></span><span class="token punctuation">{</span>
+        <span class="token property">margin-left</span><span class="token punctuation">:</span> <span class="token number">10</span>px<span class="token punctuation">;</span>
+        <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token selector">i</span><span class="token punctuation">{</span>
+        <span class="token property">font-size</span><span class="token punctuation">:</span> <span class="token number">12</span>px<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>source<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>原图：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">width</span><span class="token punctuation">:</span><span class="token number">500</span>px<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>originImg<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>images/pic.png<span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>change<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span><span class="token punctuation">></span></span>选择尺寸<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>select</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>size<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100X100<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>100X100<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>200X200<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>200X200<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>300X300<span class="token punctuation">"</span></span> <span class="token attr-name">selected</span><span class="token punctuation">></span></span>300X300<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>400X400<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>400X400<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>option</span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>500X500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>500X500<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>option</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>select</span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span><span class="token punctuation">></span></span>可右击另存查看尺寸<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">alt</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>show<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span> 上传图片，生成缩略图
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>textfield<span class="token punctuation">'</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">display</span><span class="token punctuation">:</span>none</span><span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>file<span class="token punctuation">"</span></span> <span class="token attr-name">onchange</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>uploadPhoto(event)<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>handleUploadFile()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>上传<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript">
+        <span class="token keyword">var</span> show <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"show"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            originImg<span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"originImg"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            size <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"size"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            src <span class="token operator">=</span> <span class="token string">'images/pic.png'</span><span class="token punctuation">;</span>
+        size<span class="token punctuation">.</span>onchange <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">var</span> value <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+                arr <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'X'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                w <span class="token operator">=</span> arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                h <span class="token operator">=</span> arr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token function">setImage</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span>w<span class="token punctuation">,</span>h<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">function</span> <span class="token function">uploadPhoto</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">const</span> file <span class="token operator">=</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true">// 给img标签的src属性使用file文件对象  </span>
+            <span class="token comment" spellcheck="true">// img.src=window.URL.createObjectURL(file)</span>
+            originImg<span class="token punctuation">.</span>src<span class="token operator">=</span> window<span class="token punctuation">.</span>URL<span class="token punctuation">.</span><span class="token function">createObjectURL</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span>
+            <span class="token comment" spellcheck="true">// 自动生成缩略图</span>
+            <span class="token function">setImage</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>URL<span class="token punctuation">.</span><span class="token function">createObjectURL</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">function</span> <span class="token function">handleUploadFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">var</span> fileSelectfileBig <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'textfield'</span><span class="token punctuation">)</span>
+            fileSelectfileBig<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token string">''</span>
+            fileSelectfileBig<span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+
+
+
+        <span class="token keyword">const</span> setImage<span class="token operator">=</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span>w<span class="token punctuation">,</span>h<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+            <span class="token function">resizeImage</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                show<span class="token punctuation">.</span>src <span class="token operator">=</span> data<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>w<span class="token punctuation">,</span>h<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">const</span> resizeImage<span class="token operator">=</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span>callback<span class="token punctuation">,</span>w<span class="token punctuation">,</span>h<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+            <span class="token keyword">var</span> canvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"canvas"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                ctx <span class="token operator">=</span> canvas<span class="token punctuation">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token string">"2d"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                im <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                w <span class="token operator">=</span> w <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">,</span>
+                h <span class="token operator">=</span> h <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            im<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//为传入缩放尺寸用原尺寸</span>
+                <span class="token operator">!</span>w <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>w <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token operator">!</span>h <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>h <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token comment" spellcheck="true">//以长宽最大值作为最终生成图片的依据</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>w <span class="token operator">!==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">||</span> h <span class="token operator">!==</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token keyword">var</span> ratio<span class="token punctuation">;</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>w<span class="token operator">></span>h<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        ratio <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">/</span> w<span class="token punctuation">;</span>
+                        h <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height <span class="token operator">/</span> ratio<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>w<span class="token operator">===</span>h<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>width<span class="token operator">></span><span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                            ratio <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">/</span> w<span class="token punctuation">;</span>
+                            h <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height <span class="token operator">/</span> ratio<span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                            ratio <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height <span class="token operator">/</span> h<span class="token punctuation">;</span>
+                            w <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">/</span> ratio<span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                        ratio <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height <span class="token operator">/</span> h<span class="token punctuation">;</span>
+                        w <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">/</span> ratio<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+                <span class="token comment" spellcheck="true">//以传入的长宽作为最终生成图片的尺寸</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>w<span class="token operator">></span>h<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token keyword">var</span> offset <span class="token operator">=</span> <span class="token punctuation">(</span>w <span class="token operator">-</span> h<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+                    canvas<span class="token punctuation">.</span>width <span class="token operator">=</span> canvas<span class="token punctuation">.</span>height <span class="token operator">=</span> w<span class="token punctuation">;</span>
+                    ctx<span class="token punctuation">.</span><span class="token function">drawImage</span><span class="token punctuation">(</span>im<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>offset<span class="token punctuation">,</span>w<span class="token punctuation">,</span>h<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>w<span class="token operator">&lt;</span>h<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token keyword">var</span> offset <span class="token operator">=</span> <span class="token punctuation">(</span>h <span class="token operator">-</span> w<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+                    canvas<span class="token punctuation">.</span>width <span class="token operator">=</span> canvas<span class="token punctuation">.</span>height <span class="token operator">=</span> h<span class="token punctuation">;</span>
+                    ctx<span class="token punctuation">.</span><span class="token function">drawImage</span><span class="token punctuation">(</span>im<span class="token punctuation">,</span>offset<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>w<span class="token punctuation">,</span>h<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                    canvas<span class="token punctuation">.</span>width <span class="token operator">=</span> canvas<span class="token punctuation">.</span>height <span class="token operator">=</span> h<span class="token punctuation">;</span>
+                    ctx<span class="token punctuation">.</span><span class="token function">drawImage</span><span class="token punctuation">(</span>im<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span>w<span class="token punctuation">,</span>h<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>canvas<span class="token punctuation">.</span><span class="token function">toDataURL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token function">callback</span><span class="token punctuation">(</span>canvas<span class="token punctuation">.</span><span class="token function">toDataURL</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            im<span class="token punctuation">.</span>src <span class="token operator">=</span> src<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token function">setImage</span><span class="token punctuation">(</span>src<span class="token punctuation">,</span><span class="token number">60</span><span class="token punctuation">,</span><span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2022/01/12/diary-20220112-1/" class="b-link-green">学习Mysql和前后端</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2022/01/18/diary-20220118-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/20.jpg" class="responsive-img" alt="亲戚称呼">
+                        
+                        <span class="card-title">亲戚称呼</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            长辈父亲： 老té（老武汉称爸爸，蔡甸人称爹）
+母亲：姆妈
+岳父：老亲爷
+岳母 ：老亲娘
+曾祖父：太爹爹
+曾祖母：老太
+祖父 ：爹爹
+祖母：太/大
+外祖父：家公爹爹
+外祖母 ：家家、“ɡā ɡā”
+祖父的兄弟 ：伯祖父/叔祖父
+祖父的嫂子、
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-01-18
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/12/27/diary-20211227-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/6.jpg" class="responsive-img" alt="SVG介绍">
+                        
+                        <span class="card-title">SVG介绍</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            SVG Sprites与symbol元素这里的sprite其他精灵技术类似，将图标图形整合在一起，实际呈现时准确显示特定图标。目前，SVG Sprite最佳实践是使用symbol元素，symbol实际上就类似于Flash中的“影片剪辑”、或
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-12-27
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Vue/" target="_blank">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                    <a href="/diary/tags/svg/" target="_blank">
+                        <span class="chip bg-color">svg</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

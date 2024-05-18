@@ -1,0 +1,1739 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="大疆msdk实践, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="MSDK注册DJISDKManager和监听SDKManagerCallback回调gradle:  
+implementation &#39;com.dji:dji-sdk:4.6&#39;
+compileOnly &#39;com.dji:dji-sdk-pr">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>大疆msdk实践 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/29.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        大疆msdk实践
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/DJI/" target="_blank">
+                                <span class="chip bg-color">DJI</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-11-30
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        seanzs
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        1.9k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        9 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="MSDK注册DJISDKManager和监听SDKManagerCallback回调"><a href="#MSDK注册DJISDKManager和监听SDKManagerCallback回调" class="headerlink" title="MSDK注册DJISDKManager和监听SDKManagerCallback回调"></a>MSDK注册DJISDKManager和监听SDKManagerCallback回调</h2><p>gradle:  </p>
+<pre class="line-numbers language-html"><code class="language-html">implementation 'com.dji:dji-sdk:4.6'
+compileOnly 'com.dji:dji-sdk-provided:4.6'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>开始注册sdk及监听回调，通过LiveEventBus发出通知   </p>
+<pre class="line-numbers language-html"><code class="language-html">AsyncTask.execute(() -> DJISDKManager.getInstance()
+    .registerApp(getActivity(), new DJISDKManager.SDKManagerCallback() {
+
+        @Override public void onRegister(DJIError djiError) {
+            if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
+                DJISDKManager.getInstance().startConnectionToProduct();
+            }
+        }
+
+        @Override public void onProductDisconnect() {}
+        @Override public void onProductConnect(BaseProduct baseProduct) {
+     if (baseProduct.isConnected()) {
+                                    LiveEventBus.get(ProductConnectEvent.class)
+                                            .post(new ProductConnectEvent(ProductState.CONNECT));
+                                } else {
+                                    LiveEventBus.get(ProductConnectEvent.class)
+                                            .post(new ProductConnectEvent(ProductState.DISCONNECT));
+                                }
+         }
+        @Override 
+        public void onComponentChange(BaseProduct.ComponentKey componentKey, BaseComponent oldComponent, BaseComponent newComponent) {
+            if (newComponent != null) {
+                Timber.d("zzzzzzzzzzzzzzzzz"+newComponent.toString()+"  "+newComponent.isConnected());
+
+                if (componentKey == BaseProduct.ComponentKey.REMOTE_CONTROLLER) {
+//                                        DJI_Sets.newInstance().postValue_Connect_Remote_Controller(newComponent.isConnected());
+                }
+                if(componentKey == BaseProduct.ComponentKey.BATTERY){
+//                                        DJI_Sets.newInstance().postValue_Connect_Battery(newComponent.isConnected());
+                }
+            }
+
+        }
+
+    })
+);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>变量变化通知方式1:通知在合适位置监听sdk回调发出来的通知,  LiveEventBus之前发出的消息可能后来建的监听收不到通知</p>
+<pre class="line-numbers language-html"><code class="language-html">LiveEventBus.get(ProductConnectEvent.class).observeSticky(this, productConnectEvent -> {
+            switch (productConnectEvent.mProductState) {
+            case CONNECT:
+                mBinding.tvAirCraftConnect.setText(
+                        AircraftManage.getProductInstance().toString() + getString(R.string.text_product_connected));
+                mBinding.tvAirCraftConnect.setTextColor(getResources().getColor(R.color.zhd_product_connected));
+                mBinding.ivConnect.setImageResource(R.drawable.green_dot);
+                break;
+            case DISCONNECT:
+                mBinding.tvAirCraftConnect.setText(getString(R.string.text_product_disconnected));
+                mBinding.tvAirCraftConnect.setTextColor(getResources().getColor(R.color.zhd_product_disconnected));
+                mBinding.ivConnect.setImageResource(R.drawable.red_dot);
+                break;
+            }
+        });
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>变量变化通知方式2: 单独创建一个静态实例保存livedata，在合适位置监听变化，还可获取静态变量持久性的状态值。  </p>
+<pre class="line-numbers language-html"><code class="language-html">// DJI_Sets.java 
+// DJI_Sets.newInstance().startSDKRegistration(this);  
+
+package com.xxx.hiair.libdjidevice;
+
+import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
+
+import androidx.lifecycle.MutableLiveData;
+
+import com.jeremyliao.liveeventbus.LiveEventBus;
+import com.xxx.hiair.libdjidevice.enumeration.ProductState;
+import com.xxx.hiair.libdjidevice.event.ProductConnectEvent;
+
+import dji.common.airlink.SignalQualityCallback;
+import dji.common.error.DJIError;
+import dji.common.error.DJISDKError;
+import dji.sdk.airlink.AirLink;
+import dji.sdk.base.BaseComponent;
+import dji.sdk.base.BaseProduct;
+import dji.sdk.remotecontroller.RemoteController;
+import dji.sdk.sdkmanager.DJISDKInitEvent;
+import dji.sdk.sdkmanager.DJISDKManager;
+import timber.log.Timber;
+
+
+public class DJI_Sets {
+    public void startSDKRegistration(Context context){
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                DJISDKManager.getInstance()
+                        .registerApp(context.getApplicationContext(), new DJISDKManager.SDKManagerCallback() {
+                            @Override
+                            public void onRegister(DJIError djiError) {
+                                if (djiError == DJISDKError.REGISTRATION_SUCCESS) {
+                                    DJISDKManager.getInstance().startConnectionToProduct();
+                                    Timber.d("zzzzzz sdk_registration_success_message");
+                                } else {
+                                    Timber.d("zzzzzz sdk_registration_success_failed");
+                                }
+                            }
+
+                            @Override
+                            public void onProductDisconnect() {
+
+                            }
+
+                            @Override
+                            public void onProductConnect(BaseProduct baseProduct) {
+                                DJI_Sets.newInstance().postValue_Connect_Aircraft(baseProduct.isConnected());
+                                if (baseProduct.isConnected()) {
+                                    LiveEventBus.get(ProductConnectEvent.class)
+                                            .post(new ProductConnectEvent(ProductState.CONNECT));
+                                } else {
+                                    LiveEventBus.get(ProductConnectEvent.class)
+                                            .post(new ProductConnectEvent(ProductState.DISCONNECT));
+                                }
+                            }
+
+                            @Override
+                            public void onProductChanged(BaseProduct baseProduct) {
+                                DJI_Sets.newInstance().postValue_Connect_Aircraft(baseProduct.isConnected());
+                            }
+
+                            @Override
+                            public void onComponentChange(BaseProduct.ComponentKey componentKey,
+                                                          BaseComponent oldComponent,
+                                                          BaseComponent newComponent) {
+
+
+                                if (newComponent != null) {
+
+                                    Timber.d("outer commonmethod:"+newComponent.toString()+"  "+newComponent.isConnected());
+                                    newComponent.setComponentListener(new BaseComponent.ComponentListener() {
+                                        @Override
+                                        public void onConnectivityChange(boolean b) {
+                                            Timber.d("%s onConnectivity is %s",newComponent.toString(),String.valueOf(b));
+                                        }
+                                    });
+
+
+
+                                    if (componentKey == BaseProduct.ComponentKey.REMOTE_CONTROLLER) {
+                                        DJI_Sets.newInstance().postValue_Connect_Remote_Controller(newComponent.isConnected());
+                                        newComponent.setComponentListener(new BaseComponent.ComponentListener() {
+                                            @Override
+                                            public void onConnectivityChange(boolean b) {
+                                                DJI_Sets.newInstance().postValue_Connect_Remote_Controller(b);
+                                            }
+                                        });
+                                    }
+                                    if(componentKey == BaseProduct.ComponentKey.AIR_LINK){
+                                        ((AirLink)newComponent).setUplinkSignalQualityCallback(new SignalQualityCallback() {
+                                            @Override
+                                            public void onUpdate(int i) {
+                                                Timber.d("UplinkSignalQualityCallback : %s",i);
+                                            }
+                                        });
+                                    }
+                                    if(componentKey == BaseProduct.ComponentKey.BATTERY){
+                                        DJI_Sets.newInstance().postValue_Connect_Battery(newComponent.isConnected());
+                                        newComponent.setComponentListener(new BaseComponent.ComponentListener() {
+                                            @Override
+                                            public void onConnectivityChange(boolean b) {
+                                                DJI_Sets.newInstance().postValue_Connect_Battery(b);
+                                            }
+                                        });
+                                    }
+                                }
+
+                            }
+
+                            @Override
+                            public void onInitProcess(DJISDKInitEvent djisdkInitEvent, int i) {
+
+                            }
+
+                            @Override
+                            public void onDatabaseDownloadProgress(long current, long total) {
+
+                            }
+                        });
+
+            }
+        });
+    }
+
+    // 电池系统是否连接
+    MutableLiveData<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Boolean</span><span class="token punctuation">></span></span> mutableLiveData_Connect_Battery;
+    public MutableLiveData<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Boolean</span><span class="token punctuation">></span></span> getMutableLiveData_Connect_Battery(){
+        return mutableLiveData_Connect_Battery;
+    }
+    public void postValue_Connect_Battery(boolean connect){
+        mutableLiveData_Connect_Battery.postValue(connect);
+    }
+    public boolean getValue_Connect_Battery(){
+        return mutableLiveData_Connect_Battery.getValue();
+    }
+
+    // 飞行器是否连接
+    MutableLiveData<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Boolean</span><span class="token punctuation">></span></span> mutableLiveData_Connect_Aircraft;
+    public MutableLiveData<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Boolean</span><span class="token punctuation">></span></span> getMutableLiveData_Connect_Aircraft(){
+        return mutableLiveData_Connect_Aircraft;
+    }
+    public void postValue_Connect_Aircraft(boolean connect){
+        mutableLiveData_Connect_Aircraft.postValue(connect);
+    }
+    public boolean getValue_Connect_Aircraft(){
+        return mutableLiveData_Connect_Aircraft.getValue();
+    }
+
+    // 遥控器是否连接
+    MutableLiveData<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Boolean</span><span class="token punctuation">></span></span> mutableLiveData_Connect_Remote_Controller;
+    public MutableLiveData<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Boolean</span><span class="token punctuation">></span></span> getMutableLiveData_Connect_Remote_Controller(){
+        return mutableLiveData_Connect_Remote_Controller;
+    }
+    public void postValue_Connect_Remote_Controller(boolean connect){
+        mutableLiveData_Connect_Remote_Controller.postValue(connect);
+    }
+    public boolean getValue_Connect_Remote_Controller(){
+        return mutableLiveData_Connect_Remote_Controller.getValue();
+    }
+
+    public static DJI_Sets mInstance=null;
+    public static DJI_Sets newInstance() {
+        if(mInstance==null){
+            mInstance= new DJI_Sets();
+        }
+        return mInstance;
+    }
+
+    public DJI_Sets() {
+        this.mutableLiveData_Connect_Battery = new MutableLiveData&lt;>();
+        this.mutableLiveData_Connect_Battery.postValue(false);
+        this.mutableLiveData_Connect_Remote_Controller = new MutableLiveData&lt;>();
+        this.mutableLiveData_Connect_Remote_Controller.postValue(false);
+        this.mutableLiveData_Connect_Aircraft = new MutableLiveData&lt;>();
+        this.mutableLiveData_Connect_Aircraft.postValue(false);
+    }
+}
+
+
+
+// 回调中改变实例变量  
+@Override
+public void onComponentChange(BaseProduct.ComponentKey componentKey, BaseComponent oldComponent, BaseComponent newComponent) {
+    if (newComponent != null) {
+        if (componentKey == BaseProduct.ComponentKey.REMOTE_CONTROLLER) {
+            com.zhd.hiair.DJI_Sets.newInstance().postValue_Connect_Remote_Controller(newComponent.isConnected());
+        }
+    }
+}
+
+// 合适位置初始化或监听变化
+if(DJI_Sets.newInstance().getValue_Connect_Remote_Controller()){
+    SetDiagnosticState(DiagnosticType.system_remotecontrol,DiagnosticModuleStateType.normal);
+}else{
+    SetDiagnosticState(DiagnosticType.system_remotecontrol,DiagnosticModuleStateType.unknown);
+}
+
+DJI_Sets.newInstance().getMutableLiveData_Connect_Aircraft().observe(this, new      Observer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Boolean</span><span class="token punctuation">></span></span>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                SetDiagnostic_aircraftConnected(aBoolean);
+            }
+        });
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="get、set开关变量"><a href="#get、set开关变量" class="headerlink" title="get、set开关变量"></a>get、set开关变量</h2><pre class="line-numbers language-html"><code class="language-html">private FlightControllerKey mVisionPosKey;  // 某视觉定位开关
+
+// 设置开关属性
+public void setVisionPos(final boolean enabled) {
+        KeyManager.getInstance().setValue(mVisionPosKey, enabled, new SetCallback() {
+            @Override
+            public void onSuccess() {
+                 // 设置成功后的处理
+            }
+
+            @Override
+            public void onFailure(@NonNull DJIError djiError) {
+                // 设置失败后的处理
+            }
+        });
+}
+
+// 获取开关属性
+KeyManager.getInstance().getValue(mVisionPosKey, new GetCallback() {
+            @Override
+            public void onSuccess(@NonNull Object o) {
+                if (o instanceof Boolean) {
+
+                }
+            }
+            @Override
+            public void onFailure(@NonNull DJIError djiError) {
+                // djiError.getErrorCode()
+    // djiError.getDescription()
+            }
+        });
+
+// 清理  
+@Override
+    protected void onCleared() {
+        super.onCleared();
+        if (mVisionPosKey != null) {
+            KeyManager.getInstance().removeKey(mVisionPosKey);
+        }
+    }
+
+mVisionPosKey = FlightControllerKey.create(
+                FlightControllerKey.VISION_ASSISTED_POSITIONING_ENABLED);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="获取飞行总架次"><a href="#获取飞行总架次" class="headerlink" title="获取飞行总架次"></a>获取飞行总架次</h2><pre class="line-numbers language-html"><code class="language-html">    // 获取总架次
+    private void SetDiagnostic_total_sorties(boolean connected) {
+        if (connected) {
+            KeyManager.getInstance().getValue(FlightControllerKey.create(FlightControllerKey.AIRCRAFT_TOTAL_FLIGHT_TIMES), new GetCallback() {
+                @Override
+                public void onSuccess(@NonNull Object o) {
+                    if (o instanceof Long) {
+                        mBinding.diagnosticTotalSorties.setText(String.valueOf(((Long) o).intValue()));
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull DJIError djiError) {
+                }
+            });
+        } else {
+            mBinding.diagnosticTotalSorties.setText(R.string.diagnostic_total_none_label);
+        }
+
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="监听各组件上线"><a href="#监听各组件上线" class="headerlink" title="监听各组件上线"></a>监听各组件上线</h2><p>当无人机连接上MSDK后，其组件将依次连接MSDK。<br>在MSDK v4中通过SDKManagerCallback的onComponentChange可以监听到各个组件上线。<br>在MSDK v5中则需要对各大类的KeyConnection进行监听，true则为已连接，false或null则为未连接。<br>ProductKey.KeyConnection表示无人机是否连接。<br>AirLink.KeyConnection表示图传模块是否连接。<br>Camera.KeyConnection表示相机是否连接。<br>Gimbal.KeyConnection表示云台是否连接。<br>FlightController.KeyConnection表示飞控系统是否连接。<br>RemoteController.KeyConnection表示遥控器是否连接。<br>Battery.KeyConnection表示电池是否连接。</p>
+<h2 id="两种断联可能性"><a href="#两种断联可能性" class="headerlink" title="两种断联可能性"></a>两种断联可能性</h2><ol>
+<li><p>遥控器与飞行器断联，通过onComponentChange监听组件变化，如果遥控器仍然联接，飞行器断开则说明是遥控器和飞行器断联。可能原因：airlink信号弱，需要检查setUplinkSignalQualityCallback和setDownlinkSignalQualityCallback。 </p>
+</li>
+<li><p>遥控器与app断联，通过onComponentChange监听组件变化，如果遥控器断联则说明是遥控器和飞行器断联。可能原因：USB线的连接问题。  </p>
+</li>
+</ol>
+<h2 id="解决LiveData或者MutableLiveData多次回调"><a href="#解决LiveData或者MutableLiveData多次回调" class="headerlink" title="解决LiveData或者MutableLiveData多次回调"></a>解决LiveData或者MutableLiveData多次回调</h2><pre class="line-numbers language-html"><code class="language-html">import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public class SingleLiveEvent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span> extends MutableLiveData<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span> {
+    private final AtomicBoolean mPending = new AtomicBoolean(false);
+    @Override
+    public void observe(@NonNull LifecycleOwner owner, @NonNull final Observer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>?</span> <span class="token attr-name">super</span> <span class="token attr-name">T</span><span class="token punctuation">></span></span> observer) {
+        super.observe(owner, new Observer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span>() {
+            @Override
+            public void onChanged(@Nullable T t) {
+                if (mPending.compareAndSet(true, false)) {
+                    observer.onChanged(t);
+                }
+            }
+        });
+    }
+    @MainThread
+    public void setValue(@Nullable T t) {
+        mPending.set(true);
+        super.setValue(t);
+    }
+    /**
+     * Used for cases where T is Void, to make calls cleaner.
+     */
+    @MainThread
+    public void call() {
+        setValue(null);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="获取大疆飞行器属性"><a href="#获取大疆飞行器属性" class="headerlink" title="获取大疆飞行器属性"></a>获取大疆飞行器属性</h2><pre class="line-numbers language-html"><code class="language-html">在 Mobile SDK，几乎每一个组件都至少包括一个状态类，并且基本都通过组件类来获取这些状态类的实例。  
+
+一、飞行控制器的相关状态类包括飞行控制器状态类（FlightControllerState）、惯性控制单元状态类（IMUState）和重心状态类（GravityCenterState）  
+
+1.1 FlightControllerState：获取电机状态、无人机位置、无人机姿态、飞行时间、飞行模式、定位卫星状态、电量状态、返航点状态、超声波避障状态、IMU预热状态等飞行控制与状态信息。  
+
+1.2 IMUState：获取惯性测量单元的状态信息，包括陀螺仪状态、加速度计状态、IMU校准进度与状态等。  
+
+1.3 GravityCenterState：获取重心较准的状态。重心校准可通过飞行控制器类的startGravityCenterCalibration 和 stopGravityCenterCalibration 方法启动与停止。  
+
+二、遥控器的相关状态类包括遥控器的硬件状态类（HardwareState）、主辅遥控器状态类（MasterSlaveState）、对焦控制器状态类（FocusControllerState）和一控多机配对状态类（MultiDevicesPairingState）等  
+
+2.1 硬件状态类（HardwareState）：获取遥控器上各个摇杆（Stick）、转盘/拨轮（Dial）、按钮（Button）的状态。  
+
+2.2 主辅遥控器状态类（MasterSlaveState）：在支持双遥控器的机型（例如悟2、御Pro等），获取遥控器的主辅状态等信息。双遥控器模式可供两个人（飞手和云台手）控制同一台飞机。  
+
+2.3 对焦控制器状态类（FocusControllerState）：获取遥控器远程对焦状态。  
+
+三、电池的相关状态类  
+
+四、相机的相关状态类  
+
+五、云台状态类  
+
+六、附件集状态类  
+
+七、RTK基站相关状态类  
+
+八、手持云台相机状态类  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2022/11/30/diary-20221130-1/" class="b-link-green">大疆msdk实践</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2022/11/30/diary-20221130-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/19.jpg" class="responsive-img" alt="手写RxJava实践">
+                        
+                        <span class="card-title">手写RxJava实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            RxJava事件驱动型编程，以链式调用和操作符闻名，简单的操作异步切换。  
+观察者模式就好比搞公众号，你订阅了一个公众号，此时，你是观察者，公众号是被观察者。你订阅公众号简而言之就是你与公众号建立了一个联系，公众号更新文章后就会推送给所有
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-11-30
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2022/11/27/diary-20221127-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/21.jpg" class="responsive-img" alt="Android JNI实践">
+                        
+                        <span class="card-title">Android JNI实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            JNI学习使用java与本地已编译的代码交互，通常会丧失平台可移植性。但是，有些情况下这样做是可以接受的，甚至是必须的，比如，使用一些旧的库，与硬件、操作系统进行交互，或者为了提高程序的性能。JNI标准至少保证本地代码能工作在任何Java 
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-11-27
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Android/" target="_blank">
+                        <span class="chip bg-color">Android</span>
+                    </a>
+                    
+                    <a href="/diary/tags/JNI/" target="_blank">
+                        <span class="chip bg-color">JNI</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

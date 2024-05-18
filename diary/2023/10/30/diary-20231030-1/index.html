@@ -1,0 +1,2310 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="AndroidStudio默认路径和离线编译, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Androidstuio修改默认gradle路径AndroidStudio每次新建项目，都会默认在C盘生成并下载gradle相关文件，由于C盘空间有限，没多久C盘就飘红了，于是就需要把gradle相关文件转移到其他盘  
+1. 到C盘找到g">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>AndroidStudio默认路径和离线编译 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/27.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        AndroidStudio默认路径和离线编译
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-10-30
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        27 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Androidstuio修改默认gradle路径"><a href="#Androidstuio修改默认gradle路径" class="headerlink" title="Androidstuio修改默认gradle路径"></a>Androidstuio修改默认gradle路径</h2><p>AndroidStudio每次新建项目，都会默认在C盘生成并下载gradle相关文件，由于C盘空间有限，没多久C盘就飘红了，于是就需要把gradle相关文件转移到其他盘  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 到C盘找到gradle文件,具体路径一般是：C:\Users\用户\ .gradle  
+2. 关闭AndroidStudio，复制gradle(复制C:\Users\用户.gradle文件夹下内容)，到E:\Android\Gradle(目标目录)下  
+3. 配置系统变量，打开计算机系统属性→高级系统设置→环境变量→新建系统变量，  
+添加变量名 GRADLE_USER_HOME 值为 E:\Android\Gradle  
+4. 打开Android Studio ，设置gradle路径  
+在File→Settings→Build,Execution,Deployment→Build Tools→Gradle，  
+修改GeneralSetting下Gradle user home路径为：E:\Android\Gradle（以gradle实际保存路径为准）
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Androidstudio修改默认-AndroidStudio路径"><a href="#Androidstudio修改默认-AndroidStudio路径" class="headerlink" title="Androidstudio修改默认.AndroidStudio路径"></a>Androidstudio修改默认.AndroidStudio路径</h2><pre class="line-numbers language-html"><code class="language-html">.AndroidStudio配置文件夹一般在C:\{用户文件夹}\.AndroidStudio
+或者
+config: C:\Users\{用户文件夹}\AppData\Roaming\Google\.AndroidStudio 或 AndroidStudio{版本号}  
+system: C:\Users\{用户文件夹}\AppData\Local\Google\.AndroidStudio 或 AndroidStudio{版本号}  
+
+如 
+config为 C:\Users\Administrator\AppData\Roaming\Google\AndroidStudio2021.3  
+system为 C:\Users\Administrator\AppData\Local\Google\AndroidStudio2021.3  
+
+1. 关闭androidstudio  
+2. 进行cmd命令行，执行mkdir .AndroidStudio创建目录，进去继续创建config目录和system目录  
+3. 找到AndroidStudio的安装目录下idea.properties目录,编辑修改以下内容  
+idea.config.path=E:/Android/.AndroidStudio/config  
+idea.system.path=E:/Android/.AndroidStudio/system  
+idea.plugins.path=${idea.config.path}/plugins  
+idea.log.path=${idea.system.path}/log  
+4. 把原来C:\Users\Administrator\AppData\Roaming\Google\AndroidStudio2021.3目录下的内容全部迁移到E:/Android/.AndroidStudio/config下  
+5. 把原来C:\Users\Administrator\AppData\Local\Google\AndroidStudio2021.3目录下的内容全部迁移到E:/Android/.AndroidStudio/system下  
+6. 重启androidstudio
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>每次更新AndroidStudio之后，哪怕你只是在软件内更新，都可能造成idea.properties改变，这就需要你重新对它进行配置了  </p>
+</blockquote>
+<h2 id="查看Android-Studio各个依赖包下载后的存放目录"><a href="#查看Android-Studio各个依赖包下载后的存放目录" class="headerlink" title="查看Android Studio各个依赖包下载后的存放目录"></a>查看Android Studio各个依赖包下载后的存放目录</h2><h3 id="项目根目录下build-gradle文件的dependencies"><a href="#项目根目录下build-gradle文件的dependencies" class="headerlink" title="项目根目录下build.gradle文件的dependencies"></a>项目根目录下build.gradle文件的dependencies</h3><pre class="line-numbers language-html"><code class="language-html">buildscript {
+    repositories {
+        maven {url 'https://maven.aliyun.com/repository/jcenter'}//对应jcenter()
+        maven {url 'https://maven.aliyun.com/repository/google'} //对应google()
+        maven {url 'https://maven.aliyun.com/repository/public'}//共同库
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.1'
+    }
+}
+
+allprojects {
+    repositories {
+        maven {url 'https://maven.aliyun.com/repository/jcenter'}//对应jcenter()
+        maven {url 'https://maven.aliyun.com/repository/google'} //对应google()
+        maven {url 'https://maven.aliyun.com/repository/public'}//共同库
+    }
+}
+
+依赖保存于E:\Android\Gradle\caches\modules-2\files-2.1\com.android.tools.build\gradle\3.4.1  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Module下build-gradle的dependencies"><a href="#Module下build-gradle的dependencies" class="headerlink" title="Module下build.gradle的dependencies"></a>Module下build.gradle的dependencies</h3><pre class="line-numbers language-html"><code class="language-html">apply plugin: 'com.android.application'
+
+repositories {
+   maven {
+       url "https://jitpack.io"
+   }
+}
+
+//android {
+//    lintOptions {
+//        checkReleaseBuilds false
+//        // Or, if you prefer, you can continue to check for errors in release builds,
+//        // but continue the build even when errors are found:
+//        abortOnError false
+//    }
+//}
+
+
+android {
+    compileSdkVersion 30
+    //flavorDimensions "InternalVer","ExternalVer"
+    defaultConfig {
+        applicationId "com.example.song.Level"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 10002
+        versionName "0.1.0.1"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+//        splits{
+//            abi{
+//                enable true
+//                reset()
+//                include 'x86','armeabi-v7a','x86-64'
+//                universalApk true
+//            }
+//        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        // debug {
+        //     applicationIdSuffix ".debug"
+        //     debuggable true
+        // }
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        release{
+            storeFile file('keyStroe')
+            storePassword 'hdsy1001'
+            keyAlias 'myKey'
+            keyPassword 'hdsy1001'
+        }
+    }
+//    flavorDimensions 'PM1500'
+//    productFlavors {
+//        TFtest {
+//            dimension 'PM1500'
+//            applicationId "com.example.tang.Level"
+//        }
+//        FinalVersion {
+//            dimension 'PM1500'
+//            applicationId "com.example.song.Level"
+//        }
+//    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            signingConfig signingConfigs.release
+        }
+    }
+/*
+    productFlavors{
+        volEditable{
+            dimension "InternalVer"
+        }
+        volNonEditable{
+            dimension "ExternalVer"
+        }
+    }
+*/
+/*
+    splits{
+        abi{
+            enable true
+            reset()
+            include 'x86','armeabi-v7a','x86_64'
+            universalApk true
+        }
+    }
+*/
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(path: ':lfilepickerlibrary')
+
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'
+    implementation group: 'com.jcraft', name: 'jsch', version: '0.1.55'
+}
+
+2，android自己的jar包，gradle构建时若发现本地没有该jar包则会去联网下载，放在SDK的目录下
+3，第三方jar包下载在以下目录  
+E:\Android\Gradle\caches\modules-2\files-2.1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="离线编译"><a href="#离线编译" class="headerlink" title="离线编译"></a>离线编译</h2><h3 id="0-配置gradle本地"><a href="#0-配置gradle本地" class="headerlink" title="0.配置gradle本地"></a>0.配置gradle本地</h3><pre class="line-numbers language-html"><code class="language-html">目录结构切换为project模式，打开工程目录下gradle/wrapper/gradle-wrapper.properties文件
+distributionUrl=file:///D:/gradle/wrapper/dists/gradle-5.1.1-all/gradle-5.1.1-all.zip
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="1-配置离线组件"><a href="#1-配置离线组件" class="headerlink" title="1.配置离线组件"></a>1.配置离线组件</h3><p>在.android目录下创建manual-offline-m2文件夹，</p>
+<pre class="line-numbers language-html"><code class="language-html">C:\Users\Administrator\.android\manual-offline-m2
+新建这个目录即可，其下内容由后面的.gradle压缩包缓存提供.
+
+下面这句不管也行，我的测试
+将offline-gmaven-stable.zip在此目录下解压.C:\Users\Administrator\.android\manual-offline-m2\gmaven_stable
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-配置离线文件"><a href="#2-配置离线文件" class="headerlink" title="2.配置离线文件"></a>2.配置离线文件</h3><p>在.gradle目录下新建init.d文件夹，并新建offline.gradle  </p>
+<pre class="line-numbers language-html"><code class="language-html">// E:\Android\Gradle\init.d\offline.gradle
+// offline.gradle内容:  
+def reposDir = new File("C:\\Users\\Administrator", ".android\\manual-offline-m2")
+def repos = new ArrayList()
+reposDir.eachDir {repos.add(it) }
+repos.sort()
+
+allprojects {
+  buildscript {
+    repositories {
+      for (repo in repos) {
+        maven {
+          name = "injected_offline_${repo.name}"
+          url = repo.toURI().toURL()
+        }
+      }
+    }
+  }
+  repositories {
+    for (repo in repos) {
+      maven {
+        name = "injected_offline_${repo.name}"
+        url = repo.toURI().toURL()
+      }
+    }
+  }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="3-在有外网的电脑上编译获取依赖库缓存文件"><a href="#3-在有外网的电脑上编译获取依赖库缓存文件" class="headerlink" title="3.在有外网的电脑上编译获取依赖库缓存文件"></a>3.在有外网的电脑上编译获取依赖库缓存文件</h3><p>在外网电脑正常编译，下载缓存后需要处理  </p>
+<pre class="line-numbers language-html"><code class="language-html">本质上是需要将“androidx.activity\activity\1.0.0\28eb83e6a29ac3fbb87aa632cfa0e644a313f491\activity-1.0.0-sources.jar”这样的结构处理为“androidx\activity\1.0.0\activity-1.0.0-sources.jar”
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>新建CopyTool.java,工具栏点击”Run…”，选择”Edit Configurations…”，点击”+”选择”Application”<br>jdk选择Java 8 1.8 和相应module,选择刚才新建的主类CopyTool.java，设置好点击ok运行</p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.ssss;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+
+public class CopyTool {
+    //来源jar包文件夹
+//    public final static String path = "D:\\Users\\aaa\\.gradle\\caches\\modules-2\\files-2.1";
+    public final static String path = "E:\\Android\\Gradle\\caches\\modules-2\\files-2.1";
+    //目的jar包文件夹
+    public final static String stopName = "files-2.1";
+
+    public static void main(String[] args) {
+        System.out.println("Begin to copy");
+        processDotForld();
+        copyToLastForld();
+        System.out.println("Copy finished");
+    }
+
+    /**
+     * 处理文件夹中带点好的。；例如：D:/test/com.ifind.android/
+     */
+    public static void processDotForld() {
+        File file = new File(path);
+        if (file.exists()) {
+            LinkedList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>File</span><span class="token punctuation">></span></span> list = new LinkedList&lt;>();
+            File[] files = file.listFiles();
+            for (int i = 0; i &lt; files.length; i++) {
+                File file2 = files[i];
+                if (file2.isDirectory()) {
+                    //文件夹
+                    File desFile = creatforld(file2);
+                    copyFileToDes(file2, desFile);
+                } else {
+                    //文件//目前不存在
+                }
+            }
+        }
+    }
+
+    /**
+     * 文件夹拷贝
+     *
+     * @param source
+     * @param des
+     */
+    public static void copyFileToDes(File source, File des) {
+        try {
+            copyDir(source.getPath(), des.getPath());
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    /**
+     * 文件夹拷贝
+     *
+     * @param sourcePath
+     * @param newPath
+     * @throws IOException
+     */
+    public static void copyDir(String sourcePath, String newPath) throws IOException {
+        File file = new File(sourcePath);
+        String[] filePath = file.list();
+
+        if (!(new File(newPath)).exists()) {
+            (new File(newPath)).mkdir();
+        }
+
+        for (int i = 0; i &lt; filePath.length; i++) {
+            if ((new File(sourcePath + file.separator + filePath[i])).isDirectory()) {
+                copyDir(sourcePath + file.separator + filePath[i], newPath + file.separator + filePath[i]);
+            }
+            if (new File(sourcePath + file.separator + filePath[i]).isFile()) {
+                copyFile(sourcePath + file.separator + filePath[i], newPath + file.separator + filePath[i]);
+            }
+        }
+    }
+
+    public static void copyFile(String oldPath, String newPath) throws IOException {
+        File oldFile = new File(oldPath);
+        File file = new File(newPath);
+        FileInputStream in = new FileInputStream(oldFile);
+        FileOutputStream out = new FileOutputStream(file);
+
+        byte[] buffer = new byte[2097152];
+
+        //while((in.read(buffer)) != -1){
+        //  out.write(buffer);
+        //}
+
+        DataInputStream dis = new DataInputStream(new BufferedInputStream(in));
+        DataOutputStream dos = new DataOutputStream(new BufferedOutputStream(out));
+
+        int length;
+        while ((length = dis.read(buffer)) != -1) {
+            dos.write(buffer, 0, length);
+        }
+        dos.flush();
+        dos.close();
+        dis.close();
+    }
+
+    /**
+     * 创建文件夹
+     *
+     * @param file
+     */
+    public static File creatforld(File file) {
+        String path = file.getAbsolutePath();
+        if (path != null) {
+            String temp = "files-2.1";
+            temp = stopName;
+            String temS[] = path.split(temp);
+
+            if (temS != null &amp;&amp; temS.length == 2) {
+                String firstName = temS[0];
+                String dotName = temS[1];
+                if (dotName != null) {
+                    String[] lasts = dotName.split("\\.");
+                    int count = lasts.length;
+                    if (count &lt; 2) {
+                        return null;
+                    }
+                    String pathNew = firstName + temp;
+                    for (int i = 0; i &lt; count; i++) {
+                        if (i == 0) {
+                            pathNew = pathNew + lasts[i];
+                        } else {
+                            pathNew = pathNew + "\\" + lasts[i];
+                        }
+                    }
+                    if (pathNew != null &amp;&amp; !pathNew.equals("")) {
+                        File fileForld = new File(pathNew);
+                        if (!fileForld.exists()) {
+                            fileForld.mkdirs();
+                        }
+                        return fileForld;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>File</span><span class="token punctuation">></span></span> getFile(File file) {
+        ArrayList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>File</span><span class="token punctuation">></span></span> list = new ArrayList&lt;>();
+        if (file.isDirectory()) {
+            File[] filesTemp = file.listFiles();
+            for (int i = 0; i &lt; filesTemp.length; i++) {
+                ArrayList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>File</span><span class="token punctuation">></span></span> result = getFile(filesTemp[i]);
+                list.addAll(result);
+            }
+
+        } else {
+            list.add(file);
+        }
+        return list;
+    }
+
+    // 创建目录
+    public static boolean createDir(String destDirName) {
+        File dir = new File(destDirName);
+        if (dir.exists()) {// 判断目录是否存在
+            System.out.println("创建目录失败，目标目录已存在！");
+            return false;
+        }
+        if (!destDirName.endsWith(File.separator)) {// 结尾是否以"/"结束
+            destDirName = destDirName + File.separator;
+        }
+        if (dir.mkdirs()) {// 创建目标目录
+            System.out.println("创建目录成功！" + destDirName);
+            return true;
+        } else {
+            System.out.println("创建目录失败！");
+            return false;
+        }
+    }
+
+    public static void copyToLastForld() {
+        File file = new File(path);
+        if (file.exists()) {
+            LinkedList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>File</span><span class="token punctuation">></span></span> list = new LinkedList&lt;>();
+            File[] files = file.listFiles();
+            for (int i = 0; i &lt; files.length; i++) {
+                File file2 = files[i];
+                if (file2.isDirectory()) {
+                    //文件夹
+                    proceessForld(file2);
+                } else {
+                    //文件//目前不存在
+                }
+            }
+        }
+    }
+
+    private static void proceessForld(File file) {
+        File[] files = file.listFiles();
+        for (int i = 0; i &lt; files.length; i++) {
+            File file2 = files[i];
+            if (file2.isDirectory()) {
+                //文件夹
+                proceessForld(file2);
+            } else {
+                //文件//目前不存在//判断是否进行拷贝
+                try {
+                    proceessFile(file2);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private static void proceessFile(File file) throws FileNotFoundException {
+        if (file != null) {
+            String path = file.getAbsolutePath();
+            if (path != null) {
+                String[] lasts = splitString(path);
+                if (lasts != null &amp;&amp; lasts.length > 0) {
+                    int count = lasts.length;
+                    String last = lasts[count - 1];
+                    String last2 = lasts[count - 2];
+
+                    if (last2 != null &amp;&amp; last2.length() > 20) {
+                        //拷贝到上一级目录
+                        String des = null;
+                        if (count &lt; 2) {
+                            return;
+                        }
+                        for (int i = 0; i &lt; count - 2; i++) {
+                            if (i == 0) {
+                                des = lasts[i];
+                            } else {
+                                des = des + "\\\\" + lasts[i];
+                            }
+                        }
+                        des = des + "\\\\" + last;
+                        String strParentDirectory = file.getParent();
+                        File parentFile = new File(strParentDirectory);
+                        strParentDirectory = parentFile.getParent() + "\\" + last;
+                        copy(file, path, strParentDirectory);
+                    } else {
+                        // System.out.println("source = "+path);
+                    }
+                    // System.out.println("source = "+path);
+                    // System.out.println("des = "+des);
+                }
+            }
+        }
+    }
+
+    private static String[] splitString(String path) {
+        String[] lasts = null;
+        lasts = path.split("\\\\");
+        int count = lasts.length;
+        boolean isFirst = true;
+        for (int i = 0; i &lt; count; i++) {
+            String str = lasts[i];
+            if (str != null &amp;&amp; str.contains(".")) {
+                if (isFirst) {
+                    isFirst = false;
+                    System.out.println("\n\n\n\n");
+                    System.out.println("path=" + path + "");
+                }
+                System.out.println("str=" + str + "");
+            }
+        }
+        return lasts;
+    }
+
+    /**
+     * copy动作
+     *
+     * @param file
+     * @param source
+     * @param des
+     * @throws FileNotFoundException
+     */
+    private static void copy(File file, String source, String des) throws FileNotFoundException {
+        if (file != null) {
+            FileInputStream fis = null;
+            FileOutputStream fot = null;
+            byte[] bytes = new byte[1024];
+            int temp = 0;
+            File desFile = new File(des);
+            if (desFile.exists()) {
+                return;
+            }
+            try {
+                fis = new FileInputStream(file);
+                fot = new FileOutputStream(desFile);
+                while ((temp = fis.read(bytes)) != -1) {
+                    fot.write(bytes, 0, temp);
+                    fot.flush();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (fot != null) {
+                    try {
+                        fot.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    private static String getContent(String content) {
+        String str = content;
+        if (content != null &amp;&amp; content.length() > 4) {
+            str = content.substring(0, 4);
+        }
+        return str;
+    }
+}
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-剩余操作"><a href="#4-剩余操作" class="headerlink" title="4.剩余操作"></a>4.剩余操作</h3><p>压缩得到”.gradle压缩包”：外网环境下生成的C:/users/[username]/.gradle下的文件压缩备内网使用<br>就是把我E:\Android\Gradle\caches\modules-2\files-2.1下所有文件压缩成一个压缩包，以后用</p>
+<p>将E:\Android\Gradle\caches\modules-2\files-2.1目录下文件全部复制到<br>C:\Users\Administrator.android\manual-offline-m2目录下</p>
+<p>将在线依赖注释掉，把google(),jcenter()注释掉</p>
+<p>设置studio为离线模式，设置.gradle路径</p>
+<p>点击同步  </p>
+<h2 id="通过jar或aar使用模块和gradle配置引用模块"><a href="#通过jar或aar使用模块和gradle配置引用模块" class="headerlink" title="通过jar或aar使用模块和gradle配置引用模块"></a>通过jar或aar使用模块和gradle配置引用模块</h2><p>在Android项目中，fileTree 是一个用于引入本地库文件的 Gradle 配置指令。它允许您将指定目录下的所有文件作为依赖项添加到项目中。</p>
+<pre class="line-numbers language-html"><code class="language-html">implementation fileTree(include: ['*.jar'], dir: 'libs') 和 implementation fileTree('libs') 之间的区别在于：
+
+include: ['*.jar']：这部分是使用 fileTree 的参数，通过指定 include 来筛选要添加到项目中的文件。在这个例子中，include: ['*.jar'] 表示只将扩展名为 .jar 的文件包含在内，其他类型的文件会被忽略。
+dir: 'libs'：这部分是使用 fileTree 的参数，表示要从哪个目录中查找文件。在这个例子中，dir: 'libs' 表示在项目的 libs 目录中查找文件。
+
+因此，implementation fileTree(include: ['*.jar'], dir: 'libs') 的作用是将项目中 libs 目录中扩展名为 .jar 的所有文件作为依赖项添加到项目中。而 implementation fileTree('libs') 则是将项目中 libs 目录中的所有文件作为依赖项添加到项目中，不进行文件类型的筛选。
+
+//build.gradle(:app)  
+dependencies {
+    // implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // 生成aar，在添加到app中。
+    // implementation fileTree('libs')
+
+    // 以源码形式嵌入到APP中
+    implementation project(path: ':libwaypointplan')
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation  "com.amap.api:3dmap:9.6.0"
+    // implementation "com.amap.api:map2d:6.0.0"
+    // implementation "com.amap.api:search:9.5.0"
+    // implementation "com.amap.api:location:6.2.0"
+
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="通过build-gradle和settings-gradle文件来配置模块和主项目"><a href="#通过build-gradle和settings-gradle文件来配置模块和主项目" class="headerlink" title="通过build.gradle和settings.gradle文件来配置模块和主项目"></a>通过build.gradle和settings.gradle文件来配置模块和主项目</h3><p>在AndroidStudio中，您可以通过build.gradle和settings.gradle文件来配置模块和主项目。下面我将为您介绍如何使用这两个文件进行配置：  </p>
+<ol>
+<li>配置settings.gradle文件  </li>
+</ol>
+<p>settings.gradle 文件用于声明项目中包含的模块。  </p>
+<pre class="line-numbers language-html"><code class="language-html">如果您的项目中有多个模块，您可以通过include命令将它们全部列出。这样做可以让Gradle知道项目中包含哪些模块。以下是一些常见的配置示例   
+include ':app' // 主模块
+include ':libraryModule' // 其他模块
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>配置build.gradle文件  </li>
+</ol>
+<p>每个模块都有自己的 build.gradle 文件，用于配置该模块的构建设置和依赖项  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 在主模块中引用其他模块
+dependencies {
+    implementation project(':libraryModule')
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="一套举例"><a href="#一套举例" class="headerlink" title="一套举例"></a>一套举例</h3><p>工程gradle：build.gradle(Project:XXXX)  </p>
+<pre class="line-numbers language-html"><code class="language-html">plugins {
+    id 'com.android.application' version '7.3.1' apply false
+    id 'com.android.library' version '7.3.1' apply false
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>主模块gradle: build.gradle(Module:XXXX.app)  </p>
+<pre class="line-numbers language-html"><code class="language-html">plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.xxxx.cbb.xxxxdemo'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.xxxx.cbb.xxxxdemo"
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        config {
+            keyAlias "key0"
+            keyPassword "123456"
+            storeFile file("../mysignedkey.jks")
+            storePassword "123456"
+        }
+    }
+
+    buildTypes {
+        debug {
+            shrinkResources false
+            zipAlignEnabled false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+
+        release {
+            shrinkResources false
+            zipAlignEnabled false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    // implementation fileTree(include: ['*.jar'], dir: 'libs')
+    // 生成aar，在添加到app中。
+    // implementation fileTree('libs')
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation  "com.amap.api:3dmap:9.6.0"
+    // implementation "com.amap.api:map2d:6.0.0"
+    // implementation "com.amap.api:search:9.5.0"
+    // implementation "com.amap.api:location:6.2.0"
+
+    // 以源码形式嵌入到APP中
+    implementation project(path: ':libraryModule')
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>子模块gradle: build.gradle(Module:XXXX.libraryModule)  </p>
+<pre class="line-numbers language-html"><code class="language-html">plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'com.xxxx.cbb.xxxxsdk'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // consumerProguardFiles "consumer-rules.pro"
+
+        ndk {
+            // On x86 devices that run Android API 23 or above, if the application is targeted with API 23 or
+            // above, FFmpeg lib might lead to runtime crashes or warnings.
+            abiFilters /*'armeabi-v7a', */ 'arm64-v8a'
+        }
+    }
+
+    signingConfigs {
+        config {
+            keyAlias "key0"
+            keyPassword "123456"
+            storeFile file("../mysignedkey.jks")
+            storePassword "123456"
+        }
+    }
+
+    buildTypes {
+        release {
+            zipAlignEnabled true
+            minifyEnabled true
+            // 生成aar，在添加到app中。
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // 以源码形式嵌入到APP中
+            // consumerProguardFiles "consumer-rules.pro"
+            signingConfig signingConfigs.config
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'androidx.annotation:annotation:1.1.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>settings.gradle(Project Settings)  </p>
+<pre class="line-numbers language-html"><code class="language-html">pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "xxxx"
+include ':app'
+include ':libwaypointplan'
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="AndroidStudio-Tips"><a href="#AndroidStudio-Tips" class="headerlink" title="AndroidStudio Tips"></a>AndroidStudio Tips</h2><h3 id="右边Gradle菜单栏里没有Tasks选项的解决"><a href="#右边Gradle菜单栏里没有Tasks选项的解决" class="headerlink" title="右边Gradle菜单栏里没有Tasks选项的解决"></a>右边Gradle菜单栏里没有Tasks选项的解决</h3><ol>
+<li><p>重新同步Gradle  </p>
+</li>
+<li><p>Android stdio版本为4.2.0以上默认把Gradle里的build Tasks关了<br>File-&gt; Settings… -&gt; Experimental -&gt; 去掉勾选”Do not build Gradle task list during Gradle sync”</p>
+</li>
+</ol>
+<h3 id="将module模块输出成jar包"><a href="#将module模块输出成jar包" class="headerlink" title="将module模块输出成jar包"></a>将module模块输出成jar包</h3><pre class="line-numbers language-html"><code class="language-html">plugins {
+    id 'com.android.library'
+}
+
+module模块下的build.gradle文件下的android闭包内写入  
+
+android{
+    ...
+
+    task makeJar(type: Copy) {
+        //删除存在的
+        delete 'build/libs/jarsdk.jar'
+        //设置拷贝的文件
+        // from('build/intermediates/bundles/release/')
+        from('build/intermediates/aar_main_jar/release/')
+        //打进jar包后的文件目录
+        into('build/libs/')
+        //将classes.jar放入build/libs/目录下
+        //include ,exclude参数来设置过滤
+        //（我们只关心classes.jar这个文件）
+        include('classes.jar')
+        //重命名
+        rename ('classes.jar', 'jarsdk.jar')
+    }
+    makeJar.dependsOn(build)
+
+    ...
+}    
+
+右边Gradle菜单栏里模块名下的Tasks里寻找Tasks/other/makeJar，双击运行，
+成功后，切换Project视角，在模块/build/libs下可找到对应jar包。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用jar包"><a href="#使用jar包" class="headerlink" title="使用jar包"></a>使用jar包</h3><ol>
+<li>将jar包放入app/libs目录。</li>
+<li>如果jar包有调用本地so代码的native方法，则需要先定义类先加载本地so库</li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">public class NdkTools{
+    static{
+        System.loadLibrary("ndktest-jni");
+    }
+    public static native String getStrFromNative();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>如果jar包有调用本地so代码的native方法，app-&gt;src-&gt;main目录下新建jniLibs，将so库”libndktest-jni.so”拷贝进入相应架构平台目录如”armeabi-v7a”  </li>
+<li>修改app的build.gradle  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">android{
+...
+    sourceSets{
+        main{
+            jniLibs.srcDirs = ['src/main/jniLibs','libs']
+        }
+    }
+...
+}
+
+dependencies{
+    // 只识别jar包  app/libs目录下
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    // 生成aar，在添加到app中。识别jar包和aar包
+    // implementation fileTree('libs')
+    // 以源码形式嵌入到APP中 (如果不输出jar包，以module源码形式被app引用的用此)
+    // implementation project(path: ':libwaypointplan')    
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Android-module生成aar包"><a href="#Android-module生成aar包" class="headerlink" title="Android module生成aar包"></a>Android module生成aar包</h3><blockquote>
+<p>jar包和aar包<br>*.jar：只包含了class文件与清单文件，不包含资源文件<br>*.aar：包含所有资源，class以及res资源文件全部包含。<br>如果你只是一个简单的类库那么使用生成的.jar文件即可；<br>如果你的是一个UI库，包含一些自己写的控件布局文件以及字体等资源文件那么就只能使用.aar文件  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">右边Gradle菜单栏里找到需要打包的module -> build目录下的 assemble，双击运行  
+assemble编译完成后，工程切换Project视角，bulid->outputs->aar文件夹下会生成“正式”和“测试”aar包
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="修改aar包资源文件的最简单方法"><a href="#修改aar包资源文件的最简单方法" class="headerlink" title="修改aar包资源文件的最简单方法"></a>修改aar包资源文件的最简单方法</h4><p>同时还有2个及以上的aar包的资源文件重复了，也就是路径和名称都一样，这时就尴尬了，运行项目就会提示资源文件重复，此时就需要把多的文件删除或者修改，  </p>
+<p>先将aar文件修改后缀为.zip，用好压或者winrar等解压软件双击打开查看，千万不能直接解压，直接解压的再打包AndroidStudio是引用不了的，然后删除重复的文件或者修改文件，再关闭解压软件，接着把.zip后缀改成.aar后缀，见证奇迹的时刻出现了，把修改后的aar替换项目的那个，然后运行，OK  </p>
+<h2 id="Java-Tips"><a href="#Java-Tips" class="headerlink" title="Java Tips"></a>Java Tips</h2><h3 id="Java自定义线程池的作用"><a href="#Java自定义线程池的作用" class="headerlink" title="Java自定义线程池的作用"></a>Java自定义线程池的作用</h3><p>自定义线程池在Java中具有以下作用和适用场景：</p>
+<ol>
+<li>资源管理：自定义线程池可以帮助有效地管理系统资源，控制并发线程数量，防止资源耗尽。</li>
+<li>提高性能：通过重用线程，避免频繁创建和销毁线程的开销，可以提高系统的性能和响应速度。</li>
+<li>任务调度：自定义线程池可以根据任务的优先级、类型或其他条件，合理地调度和执行任务。</li>
+<li>控制并发度：通过限制线程池的大小和任务队列的容量，可以控制并发线程的数量，避免系统过载。</li>
+</ol>
+<p>适用场景：</p>
+<ol>
+<li><p>多任务并发处理：当需要同时处理多个任务，但是又不想让线程数量无限增长时，可以使用自定义线程池。例如，在服务器端处理客户请求、批量数据处理等场景。</p>
+</li>
+<li><p>异步任务处理：当需要异步执行一些耗时的操作，并且需要控制并发线程数量，以避免对系统资源的过度占用时，可以使用自定义线程池。例如，在Web应用中处理HTTP请求、处理消息队列等场景。</p>
+</li>
+<li><p>定时任务调度：当需要按照一定的时间规则执行任务时，可以使用自定义线程池来实现定时任务的调度。例如，定时发送邮件、定时生成报表等场景。</p>
+</li>
+<li><p>资源限制：当需要限制系统对某些资源的并发访问数量时，可以使用自定义线程池。例如，数据库连接池、HTTP连接池等场景。</p>
+</li>
+</ol>
+<p>总之，自定义线程池提供了更灵活、可控的方式来管理线程执行和资源占用，适用于需要并发处理任务、控制资源使用、提高系统性能和响应速度的场景。</p>
+<h3 id="Java如何自定义线程池"><a href="#Java如何自定义线程池" class="headerlink" title="Java如何自定义线程池"></a>Java如何自定义线程池</h3><p>可以使用 java.util.concurrent 包提供的 ThreadPoolExecutor 类来自定义线程池。以下是一个简单的示例<br>首先创建了一个名为 CustomThreadPoolExample 的类，其中包含了一个 main 方法。在 main 方法中，我们创建了一个自定义线程池 threadPool，它包含2个核心线程，最多4个线程，线程空闲时间为10秒，任务队列容量为2。然后，我们向线程池提交了10个自定义任务 CustomTask，每个任务会打印执行信息，并模拟一个耗时操作。最后，我们调用 shutdown 方法关闭线程池。<br>在这个示例中，CustomTask 类实现了 Runnable 接口，代表一个自定义的任务。在run方法中，我们打印任务执行信息，并模拟任务执行过程。<br>通过自定义线程池，我们可以更好地控制线程池的大小、任务队列的容量以及线程空闲时间等参数，以满足不同场景下的需求。  </p>
+<pre class="line-numbers language-html"><code class="language-html">import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+public class CustomThreadPoolExample {
+    public static void main(String[] args) {
+        // 创建自定义线程池
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(
+                2, 4, 10, TimeUnit.SECONDS, new ArrayBlockingQueue&lt;>(2));
+
+        // 提交任务给线程池
+        for (int i = 0; i &lt; 10; i++) {
+            CustomTask task = new CustomTask("Task " + i);
+            threadPool.execute(task);
+        }
+
+        // 关闭线程池
+        threadPool.shutdown();
+    }
+
+    static class CustomTask implements Runnable {
+        private String name;
+
+        public CustomTask(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void run() {
+            System.out.println("Executing task: " + name + " in thread " + Thread.currentThread().getName());
+            try {
+                Thread.sleep(2000); // 模拟任务执行
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            System.out.println("Task: " + name + " completed");
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="部署Java应用程序"><a href="#部署Java应用程序" class="headerlink" title="部署Java应用程序"></a>部署Java应用程序</h2><pre class="line-numbers language-html"><code class="language-html">1. 确保你的Java应用程序已经完成开发和测试，并且能够在本地环境中正常运行。
+2. 打包应用程序成可执行的JAR文件。你可以使用构建工具（如Maven或Gradle）来自动化这个过程，或者使用Eclipse等IDE工具手动导出JAR文件。
+3. 准备一个服务器或云主机来部署你的应用程序。确保服务器上已经安装了Java运行时环境（JRE）或Java开发工具包（JDK）。
+4. 将JAR文件上传到服务器上的一个目录中。你可以使用FTP、SCP或其他文件传输协议将JAR文件复制到服务器上。
+5. 在服务器上打开终端或命令提示符，并导航到存放JAR文件的目录  
+运行java应用程序 java -jar your-application.jar 将启动Java虚拟机（JVM）并运行你的应用程序    
+6. 如果你希望应用程序在后台持续运行，可以使用进程管理工具（如nohup、supervisor等）来启动和监控应用程序的进程  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="java程序打包成exe在无java环境执行"><a href="#java程序打包成exe在无java环境执行" class="headerlink" title="java程序打包成exe在无java环境执行"></a>java程序打包成exe在无java环境执行</h2><h3 id="swing-打包成可执行jar包"><a href="#swing-打包成可执行jar包" class="headerlink" title="(swing)打包成可执行jar包"></a>(swing)打包成可执行jar包</h3><p>Java项目开发完成后，要在实际环境运行，就需要将程序代码打包为可执行Jar文件。对于不同类型的Java项目，需要做不同的配置和打包操作。这边介绍三种类型项目配置打包可执行Jar的方式：普通Java项目、普通Maven项目、Spring项目。  </p>
+<pre class="line-numbers language-html"><code class="language-html">Jar文件，即Java归档文件，是使用Zip压缩格式进行压缩的压缩包，所以Jar文件可以直接使用压缩工具打开的。 
+可以使用Jar命令制作Jar文件, 常见命令格式 jar cvf JARFileName File1 File2
+
+可执行Jar文件 可以在jar命令参数中添加e选项，指定程序的入口点， 即程序主类，创建可执行Jar  
+创建可执行的jar文件，如运行jar cvfe MyProgram.jar com.mycompany.mypkg.MainAppClass File1 File2
+运行可执行的jar文件，如java -jar MyProgram.jar  
+
+清单文件MANIFEST.MF，用于描述Jar文件特征，位于JAR文件META-INF子目录中。创建的可执行Jar文件实际就是在原始Jar的清单文件中添加了Main-Class的配置  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>普通Java项目使用eclipse直接可导出可执行的jar  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. Eclipse中创建一个新的Java项目。在"Eclipse"菜单中选择"File" -> "New" -> "Java Project"，输入项目名称并点击"Finish"。
+2. 在项目中创建你的Java类和代码文件。
+3. 完成了项目的开发之后，右键点击项目名称，在弹出的菜单中选择"Export"。
+4. 在弹出的对话框中，展开"Java"文件夹，并选择"Runnable JAR file"，然后点击"Next"。
+5. 在“Runnable JAR File Export”对话框中，选择你的项目名称，并选择你想要导出的"Library handling"方式（一般选择"Package required libraries into generated JAR"），然后点击"Finish"。
+6. 完成上述步骤后，Eclipse会在指定的位置生成一个可执行的JAR文件。
+
+命令行 java -jar myjar.jar 可运行
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用打包工具打包成exe"><a href="#使用打包工具打包成exe" class="headerlink" title="使用打包工具打包成exe"></a>使用打包工具打包成exe</h3><p>有一些Java打包工具可以将Java程序打包成可执行文件,并且将所需的Java运行环境一起打包进去,从而实现在没有Java环境的计算机上运行，比如使用launch4j</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/10/30/diary-20231030-1/" class="b-link-green">AndroidStudio默认路径和离线编译</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/11/17/diary-20231117-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/1.jpg" class="responsive-img" alt="VS的C/C++开发和MFC">
+                        
+                        <span class="card-title">VS的C/C++开发和MFC</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            VisualStudio操作打开编辑的文件跟解决方案资源管理器同步显示，方便定位正在查看修改的文件  
+主菜单:工具-选项-项目和解决方案-在解决方案资源管理器中跟踪活动项 勾上  
+
+vs2015关于MFC的操作相关联的.h和.cpp快速
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-11-17
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/MFC/" target="_blank">
+                        <span class="chip bg-color">MFC</span>
+                    </a>
+                    
+                    <a href="/diary/tags/libcurl/" target="_blank">
+                        <span class="chip bg-color">libcurl</span>
+                    </a>
+                    
+                    <a href="/diary/tags/共享文件夹/" target="_blank">
+                        <span class="chip bg-color">共享文件夹</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/10/07/diary-20231007-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/20.jpg" class="responsive-img" alt="Cesium重验证、GeoServer、高德地图安卓开发、Markdown">
+                        
+                        <span class="card-title">Cesium重验证、GeoServer、高德地图安卓开发、Markdown</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Cesium重验证Cesium是纯前端的代码，官方给出的源代码中，配套了nodejs的server端  
+在Cesium所在的文件夹目录，打开cmd或者bash敲入命令npm install,下载依赖的npm模块  
+最后在cmd或者bas
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-10-07
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Cesium/" target="_blank">
+                        <span class="chip bg-color">Cesium</span>
+                    </a>
+                    
+                    <a href="/diary/tags/GeoServer/" target="_blank">
+                        <span class="chip bg-color">GeoServer</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Markdown/" target="_blank">
+                        <span class="chip bg-color">Markdown</span>
+                    </a>
+                    
+                    <a href="/diary/tags/AMap/" target="_blank">
+                        <span class="chip bg-color">AMap</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

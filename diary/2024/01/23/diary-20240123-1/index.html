@@ -1,0 +1,2641 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Qt绘制波形图及VM麒麟系统c++实践, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="QCustomPlot绘制波形图QCharts模块在Qt5.5没有，在Qt5.6以后才有QCharts,所以这用第三方的绘图库。  
+QCustomPlot是开源的Qt的第三方绘图库，QCustomPlot的源码只有两个文件,添加到自己的工">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Qt绘制波形图及VM麒麟系统c++实践 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/27.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Qt绘制波形图及VM麒麟系统c++实践
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Qt/" target="_blank">
+                                <span class="chip bg-color">Qt</span>
+                            </a>
+                        
+                            <a href="/diary/tags/麒麟系统/" target="_blank">
+                                <span class="chip bg-color">麒麟系统</span>
+                            </a>
+                        
+                            <a href="/diary/tags/hexo/" target="_blank">
+                                <span class="chip bg-color">hexo</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-01-23
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        10.7k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        48 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="QCustomPlot绘制波形图"><a href="#QCustomPlot绘制波形图" class="headerlink" title="QCustomPlot绘制波形图"></a>QCustomPlot绘制波形图</h2><p>QCharts模块在Qt5.5没有，在Qt5.6以后才有QCharts,所以这用第三方的绘图库。  </p>
+<p>QCustomPlot是开源的Qt的第三方绘图库，QCustomPlot的源码只有两个文件,添加到自己的工程中就可以轻松实现柱状图、折线图、多轴、日期轴、金融图等，在其基础上，可以轻松实现曲线的平移、放大、取值、标记等功能，利用其预留的接口，自己可以派生类，随意定制自己的功能。  </p>
+<pre class="line-numbers language-html"><code class="language-html">在Qt Creator的菜单：工具-->选项-->帮助-->文档-->添加   qcustomplot\documentation\qcustomplot.qch文件，可以更方便的查看帮助文档  
+当QCustomPlot中的哪个类或函数不清楚用法，我们可以将鼠标放到（或悬浮）某个类或函数上面，然后按F1键，就能调出该函数的详细使用说明。  
+
+选择“添加现有文件”，在弹出的对话框中，选择文件“qcustomplot.h”、qcustomplot.cpp”，点击“打开”按钮，  
+这样，qcustomplot的源文件就被添加到了工程中。
+
+*.pro:  // 添加printsupport支持打印
+QT       += core gui printsupport
+
+在mainwindow.h文件中，引用头文件#include "qcustomplot.h"  
+
+进入图形设计界面，添加Widget控件行占位，  
+在所添加的Widget区域点击右键，选择“提升为”按钮，提升类名称输入“QCustomPlot” 头文件注意为"qcustomplot.h"  点击添加  
+将上面提升为QCustomPlot类的容器界面的对象widget重命名为myCustomPlot，下面对该曲线控件的操作，只需要对对此变量名操作即可  
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>详细代码如下  </p>
+<pre class="line-numbers language-html"><code class="language-html">// *.pro  
+QT       += core gui printsupport  
+SOURCES += main.cpp\
+        mainwindow.cpp \
+        qcustomplot.cpp
+
+HEADERS  += mainwindow.h \
+            qcustomplot.h
+
+// mainwindow.h  
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMainWindow</span><span class="token punctuation">></span></span>
+#include "qcustomplot.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QPushButton</span><span class="token punctuation">></span></span>
+namespace Ui {
+class MainWindow;
+}
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+public:
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+private slots:
+    void onBtn1Clicked();
+private:
+    Ui::MainWindow *ui;
+    QVector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>double</span><span class="token punctuation">></span></span> arrX; // 横轴数据
+    QVector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>double</span><span class="token punctuation">></span></span> arrY; // 纵轴数据
+};
+
+#endif // MAINWINDOW_H
+
+
+// mainwindow.cpp  
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    connect(ui->pushButton1, &amp;QPushButton::clicked, this, &amp;MainWindow::onBtn1Clicked);
+
+    //向绘图区域QCustomPlot(从widget提升来的)添加一条曲线
+    ui->myCustomPlot->addGraph();
+    //设置画笔
+    ui->myCustomPlot->graph(0)->setPen(QPen(Qt::blue));
+    //设置画刷,曲线和X轴围成面积的颜色
+    ui->myCustomPlot->graph(0)->setBrush(QBrush(QColor(255,255,0)));
+    //设置右上角图形标注名称
+    ui->myCustomPlot->graph(0)->setName("曲线");
+    //设置坐标轴标签名称
+    ui->myCustomPlot->xAxis->setLabel("x");
+    ui->myCustomPlot->yAxis->setLabel("y");
+
+    //设置坐标轴显示范围,否则我们只能看到默认的范围
+    ui->myCustomPlot->xAxis->setRange(-60,60);
+    ui->myCustomPlot->yAxis->setRange(-5000,5000);
+}
+
+// 串口或网口通信获取实时数据强度值保存到arrY中即可绘制波形图
+void MainWindow::onBtn1Clicked(){
+    //生成模拟数据
+    arrX.append(arrX.count());
+    arrY.append(qrand()%4096);
+    //传入数据，setData的两个参数类型为double
+    ui->myCustomPlot->graph(0)->setData(arrX,arrY);
+    //曲线重绘
+    ui->myCustomPlot->replot();
+}
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Qt窗口开发经验"><a href="#Qt窗口开发经验" class="headerlink" title="Qt窗口开发经验"></a>Qt窗口开发经验</h2><h3 id="QPushButton自定义图标和点击事件"><a href="#QPushButton自定义图标和点击事件" class="headerlink" title="QPushButton自定义图标和点击事件"></a>QPushButton自定义图标和点击事件</h3><pre class="line-numbers language-html"><code class="language-html">//*.h
+public:  
+  QPushButton* btn1;
+private slots:  
+  void onBtn1Clicked();
+// *.cpp  
+void XXX::onBtn1Clicked(){ ... }  
+
+btn1 =new QPushButton("",this);
+btn1->setFixedSize(16,16);
+btn1->setIcon(QIcon(QPixmap("://icon/saving.png")));
+btn1->setIconSize(QSize(16,16));
+btn1->setStyleSheet("QPushButton{background-color:transparent;border:none;}");
+
+QObject::connect(btn1, &amp;QPushButton::clicked, this, &amp;XXX::onBtn1Clicked,Qt::QueueConnection);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Qt对话框确认隐藏或关闭"><a href="#Qt对话框确认隐藏或关闭" class="headerlink" title="Qt对话框确认隐藏或关闭"></a>Qt对话框确认隐藏或关闭</h3><pre class="line-numbers language-html"><code class="language-html">重写QWidget的closeEvent
+// XXX.h  
+protected:
+    void closeEvent(QCloseEvent* e)override;
+// XXX.cpp
+void XXX::closeEvent(QCloseEvent* e){
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Confirm");
+    msgBox.setText("Please Confirm the Window is Hidden or Closed");
+    QPushButton* cancelBtn = msgBox.addButton("Cancel",QMessageBox::ActionRole);
+    QPushButton* hideBtn = msgBox.addButton("Hide",QMessageBox::ActionRole);
+    QPushButton* closelBtn = msgBox.addButton("Close",QMessageBox::ActionRole);
+    if(msgBox.clickedButton() == hideBtn){
+        this->hide();
+    }else if(msgBox.clickedButton() == closeBtn){
+        this->close();
+    }else if(msgBox.clickedButton() == cancelBtn){
+        e->ignore();
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Qt使用自定义图片"><a href="#Qt使用自定义图片" class="headerlink" title="Qt使用自定义图片"></a>Qt使用自定义图片</h3><h4 id="直接根据路径读取图片"><a href="#直接根据路径读取图片" class="headerlink" title="直接根据路径读取图片"></a>直接根据路径读取图片</h4><pre class="line-numbers language-html"><code class="language-html">// 加载图片
+QPixmap pixmap;
+pixmap.load("icon/abc.png");
+pixmap.load("D:/icon/abc.png");
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="使用qrc文件管理资源"><a href="#使用qrc文件管理资源" class="headerlink" title="使用qrc文件管理资源"></a>使用qrc文件管理资源</h4><p>使用QtResourceSystem（.qrc文件）可以方便地管理应用程序中使用的所有资源，包括图片、音频、文本文件等等。以下是一个简单的步骤  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 在Qt Creator中，右键单击项目文件夹并选择“Add New...”，然后选择“Qt”>“Qt Resource File”来创建一个.qrc文件  
+2. 将图片资源拖到.qrc文件中，并设置资源名称。例如，我们将一张名为“image.png”的图片添加到.qrc文件中，并将其命名为“my_image”  
+3. 在代码中使用.qrc文件中的资源  
+
+// 加载.qrc文件中的图片资源
+QPixmap pixmap(":/my_image");
+// 创建一个QLabel来显示图片
+QLabel label;
+label.setPixmap(pixmap);
+label.show();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QTimer提示跨线程无法停止"><a href="#QTimer提示跨线程无法停止" class="headerlink" title="QTimer提示跨线程无法停止"></a>QTimer提示跨线程无法停止</h3><p>QTimer在启动后是运行在一个单独的线程中的，如果你想停止QTimer，需要在同一线程中完成。这里给出两种解决方案。  </p>
+<pre class="line-numbers language-html"><code class="language-html">(异步感觉)方案1:通过信号槽机制来停止QTimer在你的主线程中定义一个信号槽，将该信号连接到停止QTimer的槽函数中。在需要停止QTimer的时候，发射该信号即可。  
+
+// QxxxObj.h  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QTimer</span><span class="token punctuation">></span></span>  
+signals:  
+  void timerStart();
+  void timerStop();
+private slots:  
+  void onTimer();
+  void onTimerStart();
+  void onTimerStop();
+private:  
+  QTimer* _timer;
+
+// QxxxObj.cpp  
+void QxxxObj::onTimer(){
+    // do something 
+}
+void QxxxObj::onTimerStart(){
+    _timer->setInterval(1000);
+    _timer->start();
+}
+void QxxxObj::onTimerStop(){
+    if(_timer->isActive()){
+      _timer->stop();
+    }
+}  
+QxxxObj::~QxxxObj(){
+    if(_timer->isActive()){
+      emit timeStop();
+      delete _timer;
+      _timer = NULL;
+    }
+}
+需要开始定时操作的地方 emit timerStart();
+需要解除定时操作的地方 emit timeStop();
+
+
+(同步感觉)方案2:使用QMetaObject::invokeMethod()方法来停止QTimer在主线程中调用该方法可以跨线程调用目标对象的方法。具体地，你可以在主线程中使用该方法调用QTimer的stop()函数来停止QTimer。  
+
+以下是一个使用QMetaObject::invokeMethod跨线程调用自定义对象方法的示例:  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QCoreApplication</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QThread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDebug</span><span class="token punctuation">></span></span>
+class Worker : public QObject {
+    Q_OBJECT
+public slots:
+    void printMessage(const QString&amp; message) {
+        qDebug() &lt;&lt; "Worker thread ID: " &lt;&lt; QThread::currentThreadId();
+        qDebug() &lt;&lt; message;
+    }
+};
+
+int main(int argc, char *argv[]) {
+    QCoreApplication app(argc, argv);
+    // 在另一个线程中创建Worker对象
+    QThread workerThread;
+    Worker worker;
+    worker.moveToThread(&amp;workerThread);
+    workerThread.start();
+    // 通过QMetaObject::invokeMethod跨线程调用printMessage方法
+    const QString message = "Hello, from the main thread!";
+    QMetaObject::invokeMethod(&amp;worker, "printMessage", Qt::QueuedConnection,
+                              Q_ARG(QString, message));
+
+    return app.exec();
+}
+#include "main.moc"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="C语言获取本地文件大小"><a href="#C语言获取本地文件大小" class="headerlink" title="C语言获取本地文件大小"></a>C语言获取本地文件大小</h3><p>C语言中，你可以使用标准库函数fseek()和ftell()来获取本地文件的大小  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">></span></span>
+long getFileSize(const char* filename) {
+    FILE* file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Failed to open the file.\n");
+        return -1;
+    }
+    fseek(file, 0, SEEK_END); // 将文件指针移动到文件末尾
+    long size = ftell(file); // 获取文件指针的偏移量，即文件大小
+    fclose(file);
+    return size;
+}
+int main() {
+    const char* filename = "example.txt";
+    long size = getFileSize(filename);
+    if (size != -1) {
+        printf("The size of %s is %ld bytes\n", filename, size);
+    }
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="C语言计时以秒数"><a href="#C语言计时以秒数" class="headerlink" title="C语言计时以秒数"></a>C语言计时以秒数</h3><p>点击按钮获取当前时间开始计时，并在再次点击按钮时获取距离开始时间的秒数，你可以使用&lt;time.h&gt;头文件中的函数来获取时间并进行计时  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>time.h</span><span class="token punctuation">></span></span>
+time_t start_time;
+void startTimer() {
+    start_time = time(NULL); // 获取当前时间并保存为开始时间
+}
+void getElapsedTime() {
+    time_t current_time = time(NULL); // 获取当前时间
+    double seconds = difftime(current_time, start_time); // 计算距离开始时间的秒数
+    printf("Elapsed time: %.2f seconds\n", seconds);
+}
+int main() {
+    // 模拟按钮点击事件
+    startTimer(); // 第一次点击按钮开始计时
+    getElapsedTime(); // 第二次点击按钮获取距离开始时间的秒数
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="判断char是否相等"><a href="#判断char是否相等" class="headerlink" title="判断char是否相等"></a>判断char是否相等</h3><pre class="line-numbers language-html"><code class="language-html">char c1 = 0x41; // 十六进制值0x41对应ASCII码中的字符'A'
+char c2 = 0x42;
+// 使用==运算符来比较两个char类型的值是否相等
+if( c1 == c2){
+
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="c语言生成随机数"><a href="#c语言生成随机数" class="headerlink" title="c语言生成随机数"></a>c语言生成随机数</h3><p>指定范围整数  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdlib.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>time.h</span><span class="token punctuation">></span></span>
+int main() {
+    // 设置随机数种子
+    srand(time(NULL));
+    // 生成指定范围内的随机数
+    int min = 1;
+    int max = 100;
+    int range = max - min + 1;
+    int randomNum = rand() % range + min;
+    // 输出随机数
+    printf("随机数: %d\n", randomNum);
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>指定范围float数  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdlib.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>time.h</span><span class="token punctuation">></span></span>
+int main() {
+    // 设置随机数种子
+    srand(time(NULL));
+    // 生成指定范围内的随机浮点数
+    float min = 1.0;
+    float max = 10.0;
+    float randomNum = (float)rand() / RAND_MAX * (max - min) + min;
+    // 输出随机浮点数
+    printf("随机浮点数: %f\n", randomNum);
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt5编辑器编辑代码中文字符串报错"><a href="#qt5编辑器编辑代码中文字符串报错" class="headerlink" title="qt5编辑器编辑代码中文字符串报错"></a>qt5编辑器编辑代码中文字符串报错</h3><p>报错”常量中有字符串”</p>
+<pre class="line-numbers language-html"><code class="language-html">若使用了Qt相关库
+第一步：主菜单Tools->Options->Text Editor-> Behavior  
+右边File Encodings中  
+Default encoding设置为"UTF-8"  
+UTF-8 BOM设置为"Add If Encoding Is UTF-8"
+第二步：
+在使用中文的地方
+QString s=QStringLiteral("确定");
+将要输出的文本放在QStringLiteral(" ")中。因为我们输入的“中文”是char类型，而Qt中输入的文本要求是QString类型。所以就需要QStringLiteral函数将char转换为QString类型。
+
+有的Qt版本只需要第一步就够了，有的Qt版本需要两步
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="共享变量"><a href="#共享变量" class="headerlink" title="共享变量"></a>共享变量</h3><pre class="line-numbers language-html"><code class="language-html">class IntClass {
+public:
+    int value;
+public:
+    IntClass() {}
+};
+
+在需要的地方  
+auto* tmp = Singleton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>IntClass</span><span class="token punctuation">></span></span>::getInstance();
+tmp->value = 2;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="字符串-中英文-的保存与显示"><a href="#字符串-中英文-的保存与显示" class="headerlink" title="字符串(中英文)的保存与显示"></a>字符串(中英文)的保存与显示</h3><pre class="line-numbers language-html"><code class="language-html"> char newAA[] = "你好abc";
+ for(int i=0;i&lt;sizeof(newAA);i++){
+     printf("%.2hhX ",newAA[i]);
+ }
+ printf("\n");
+ cout &lt;&lt; "hex arr length: " &lt;&lt; sizeof(newAA) &lt;&lt; endl; // 长度为8
+ // newAA保存中文字符串内容为
+ // {C4 E3 BA C3 61 62 63 00} 注意末尾跟了个00
+ printf("%s\n", newAA); // c语言直接显示字符串
+ std::cout &lt;&lt; newAA &lt;&lt; std::endl; // c++直接显示字符串
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="银河麒麟系统使用Qt"><a href="#银河麒麟系统使用Qt" class="headerlink" title="银河麒麟系统使用Qt"></a>银河麒麟系统使用Qt</h2><pre class="line-numbers language-html"><code class="language-html">Kylin-4.0.2-desktop-sp2-17121818.J1-x86_64.iso  
+qt-opensource-linux-x64-5.9.0.run
+
+cd到qt-opensource-linux-x64-5.8.0.run所在的目录下  
+在命令端口中输入安装命令：sudo ./qt-opensource-linux-x64-5.8.0.run  
+如果遇到无法执行.run文件的情况，可以修改文件的权限，在命令行输入：chmod +x qt-opensource-linux-x64-5.8.0.run  
+按照安装步骤一步一步进行即可。  
+
+可能有用的：  
+安装完成后一般还要修改一些配置。  
+在命令行中输入：sudo gedit /usr/lib/x86_64-linux-gnu/qt-default/qtchooser/default.conf  
+打开default.conf文件，将第一行改为bin目录的路径，第二行改为qt5.8.0目录的路径，保存退出。  
+然后安装libgl1-mesa-dev，在命令行中输入：sudo apt-get install libgl1-mesa-dev  
+安装完成之后就可以打开Qt编程了  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="麒麟系统"><a href="#麒麟系统" class="headerlink" title="麒麟系统"></a>麒麟系统</h2><p>安装好Kylin-4.0.2-desktop-sp2_Community-20171127-x86_64.iso系统后<br>uname -a 查看发现Ubuntu，把麒麟系统当作UbuntuLinux就是了。  </p>
+<pre class="line-numbers language-html"><code class="language-html">导航到/usr/share/applications/目录。这是存储 开始栏 所有软件 应用程序快捷方式的位置
+点开始栏，在所有软件里右键可以卸载软件  
+点开始栏，所有软件里右键"固定到开始菜单"可以将此软件添加到常用软件那里去
+Qt x86架构的软件只提供到5.5.1，可以用qt-opensource-linux-x86-5.5.1.run安装    
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="更新默认软件安装源"><a href="#更新默认软件安装源" class="headerlink" title="更新默认软件安装源"></a>更新默认软件安装源</h3><p>自带软件安装源都无法访问，需修改  </p>
+<pre class="line-numbers language-html"><code class="language-html">终端sudo vim /etc/apt/sources.list  
+内容改成如下后 ESC 然后 :w 然后 :q  
+
+deb http://mirrors.aliyun.com/debian buster main contrib non-free
+deb-src http://mirrors.aliyun.com/debian buster main contrib non-free
+deb http://mirrors.aliyun.com/debian-security buster/updates main
+deb-src http://mirrors.aliyun.com/debian-security buster/updates main
+deb http://mirrors.aliyun.com/debian buster-updates main contrib non-free
+deb-src http://mirrors.aliyun.com/debian buster-updates main contrib non-free  
+
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial main restricted  
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates main restricted  
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial universe  
+deb http://cn.archive.ubuntu.com/ubuntu/ xenial-updates universe
+
+保存更改退出编辑后，sudo apt-get update  
+可以使用新配置的软件源安装软件包，比如sudo apt-get install htop
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="检查ssh是否运行"><a href="#检查ssh是否运行" class="headerlink" title="检查ssh是否运行"></a>检查ssh是否运行</h3><pre class="line-numbers language-html"><code class="language-html">service ssh status // 查看ssh.service处于active(running)  如已运行则不用继续操作
+sudo apt-get install openssh-server //安装OpenSSH服务器
+systemctl status ssh.service // 查看ssh.service处于active(running)
+service ssh status // 查看ssh.service处于active(running)  
+sudo service ssh start // 启动ssh服务  
+sudo service ssh stop // 停止ssh服务
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="麒麟系统文件共享"><a href="#麒麟系统文件共享" class="headerlink" title="麒麟系统文件共享"></a>麒麟系统文件共享</h3><ol>
+<li>使用麒麟系统自带ftp客户端。window下用quickeasyftpserver单文件FTP服务器建立服务端。  </li>
+<li>可以ssh登录就可以通过SFTP协议文件传输，使用WinSCP连接IP端口和SSH登录相同。（其它linux同理）</li>
+</ol>
+<h3 id="麒麟系统显示屏幕在VMware里太小"><a href="#麒麟系统显示屏幕在VMware里太小" class="headerlink" title="麒麟系统显示屏幕在VMware里太小"></a>麒麟系统显示屏幕在VMware里太小</h3><pre class="line-numbers language-html"><code class="language-html">主菜单-> 虚拟机(M)-> 安装VMwareTools (确保虚拟机设置里CD/ROM可用)  
+VMware会自动加载/media/用户名/VMware Tools/ 复制其下VMwareTools-10.3.10-1240692.tar.gz到另一个目录  
+终端进入相应目录 tar -zxvf ./VMwareTools-10.3.10-1240692.tar.gz  
+cd vmware-tools-distrib  
+sudo ./vmware-install.pl 按提示默认即可完成安装，然后重启  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="麒麟系统V10安装Qt和交叉编译工具链"><a href="#麒麟系统V10安装Qt和交叉编译工具链" class="headerlink" title="麒麟系统V10安装Qt和交叉编译工具链"></a>麒麟系统V10安装Qt和交叉编译工具链</h3><p>桌面端Qt5.12.8可以正常使用，交叉编译器也能编译出aarch64和arm架构的程序出来</p>
+<pre class="line-numbers language-html"><code class="language-html">// 安装常规桌面端编译器  
+sudo apt-get install build-essential
+// 安装常规开发工具  
+sudo apt install build-essential gdb  
+
+// 安装 aarch64-linux-gnu 交叉编译工具链
+sudo apt install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+确认版本  
+aarch64-linux-gnu-gcc --version  
+// aarch64-linux-gnu-gcc (Ubuntu 9.4.0-1kylin1~20.04.1) 9.4.0
+aarch64-linux-gnu-g++ --version
+// aarch64-linux-gnu-g++ (Ubuntu 9.4.0-1kylin1~20.04.1) 9.4.0
+
+// 安装 arm-linux-gnueabihf 交叉编译工具链  
+sudo apt install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+确认版本  
+arm-linux-gnueabihf-gcc --version  
+// arm-linux-gnueabihf-gcc (Ubuntu 9.4.0-1kylin1~20.04.1) 9.4.0  
+arm-linux-gnueabihf-g++ --version  
+// arm-linux-gnueabihf-g++ (Ubuntu 9.4.0-1kylin1~20.04.1) 9.4.0
+
+gcc --version  
+// gcc (Ubuntu 9.3.0-10kylin2) 9.3.0  
+g++ --version  
+// g++ (Ubuntu 9.3.0-10kylin2) 9.3.0  
+
+（qt 5.12.8建议安装前先断网，跳过那个需要注册账号的界面）
+1. 迅雷下载 http://mirrors.ustc.edu.cn/qtproject/archive/qt/5.12/5.12.8/qt-opensource-linux-x64-5.12.8.run  
+2. 上传到麒麟系统V10里去  
+3. 终端 chmod +x ./qt-opensource-linux-x64-5.12.8.run  
+4. 终端 sudo ./qt-opensource-linux-x64-5.12.8.run,按步骤完成(不用选Android架构x86或armv7等内容)安装  
+在/opt/Qt5.12.8/Tools/QtCreator/bin/qtcreator为qt5.12.8的打开入口
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Visual Studio Community 2017 安装前先安装.NET Framework 4.6.2，然后只需要安装”使用C++的桌面开发”即可<br>window下qt-opensource-windows-x86-5.12.8.exe安装前要先安装好vs2017,为了MSVC 2017 64-bit选项<br>打开vs2017，工具-扩展和更新-联机中搜索Qt Visual Studio Tools 按照提示下载<br>安装完成后菜单栏会出现一个qt vs tools，点击进入选择qt versions，找到图示路径下的qmake.exe并选择，会自动识别<br>系统的环境变量添加 *\Qt5.12.8\msvc2017_64\bin<br>VS新建项目时会多一个Qt选项</p>
+<h3 id="麒麟系统V10开始栏内图标修改"><a href="#麒麟系统V10开始栏内图标修改" class="headerlink" title="麒麟系统V10开始栏内图标修改"></a>麒麟系统V10开始栏内图标修改</h3><pre class="line-numbers language-html"><code class="language-html">vim qtcreator.desktop
+// qtcreator.desktop内容如下：  
+[Desktop Entry]  
+Version=1.0
+Type=Application
+Name=Qt Creator
+Exec=/opt/Qt5.12.8/Tools/QtCreator/bin/qtcreator
+Icon=/usr/share/icons/hicolor/48x48/apps/QtProject-qtcreator.png
+Terminal=false
+Categories=Development;IDE;
+
+sudo mv qtcreator.desktop /usr/share/applications/
+sudo mv QtProject-qtcreator.png /usr/share/icons/hicolor/48x48/apps/
+sudo update-desktop-database
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="软件安装包deb形式安装netcat-openbsd并使用"><a href="#软件安装包deb形式安装netcat-openbsd并使用" class="headerlink" title="软件安装包deb形式安装netcat-openbsd并使用"></a>软件安装包deb形式安装netcat-openbsd并使用</h3><p>通常情况下，针对amd64架构（也称为x86-64或者Intel64）编译的软件在x86_64架构上是兼容的。这是因为amd64架构和x86_64架构实际上是同一种64位处理器架构，在大多数情况下可以互相兼容。<br>Ubuntu查看硬件架构<br>uname -m<br>x86_64  </p>
+<p>国产麒麟系统apt-get在线安装netcat有问题，通常用deb形式安装软件(后来解决了，可以直接在线安装)</p>
+<pre class="line-numbers language-html"><code class="language-html">1. 下载netcat软件的.deb安装包  
+2. 打开终端，使用dpkg命令安装下载好的.deb包。假设你已经下载了netcat的.deb包，并保存在当前目录下，执行以下命令：sudo dpkg -i <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>netcat.deb</span><span class="token punctuation">></span></span>  
+3. 安装完成后，在终端中输入nc来验证netcat是否成功安装
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>下载netcat-openbsd的deb包离线安装</p>
+<pre class="line-numbers language-html"><code class="language-html">1. 下载适配版本和架构的deb，https://repo.huaweicloud.com/ubuntu/pool/main/n/netcat-openbsd/?C=M&amp;O=D  
+netcat-openbsd_1.187-1_amd64.deb  
+2. 通过ftp下载到麒麟系统里去。终端sudo dpkg -i netcat-openbsd_1.187-1_amd64.deb  
+3. 验证是否安装成功，终端 nc.openbsd -h 查看帮助信息有版本和其它指令说明
+
+4. 往指定ip的udp端口发送信息，测试如下  
+往IP为192.168.157.1的udp端口8083发送消息123  
+echo "123" | nc.openbsd -u -w1 192.168.157.1 8083  
+
+5. 往指定ip的tcp端口发送信息（建立连接）测试如下  
+往IP为192.168.157.1的tcp端口8083发送消息123  
+echo "123" | nc.openbsd 192.168.157.1 8083  
+
+安装netcat-openbsd后  
+
+监听本地udp端口  
+终端: nc -u -l -p 8084  
+-u标识udp -l标识监听模式 -p后跟端口
+
+监听本地tcp端口  
+终端: nc -l -p 8084 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="银河麒麟系统4-0-2安装qt-opensource-linux-x64-5-8-0和交叉编译工具链"><a href="#银河麒麟系统4-0-2安装qt-opensource-linux-x64-5-8-0和交叉编译工具链" class="headerlink" title="银河麒麟系统4.0.2安装qt-opensource-linux-x64-5.8.0和交叉编译工具链"></a>银河麒麟系统4.0.2安装qt-opensource-linux-x64-5.8.0和交叉编译工具链</h3><p>桌面端Qt5.8可以正常使用，交叉编译器可以安装但qt不能编译通过</p>
+<pre class="line-numbers language-html"><code class="language-html">// 安装 aarch64-linux-gnu 交叉编译工具链
+sudo apt install gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
+确认版本  
+aarch64-linux-gnu-gcc --version  
+// aarch64-linux-gnu-gcc (Debian 8.3.0-2) 8.3.0
+aarch64-linux-gnu-g++ --version
+// aarch64-linux-gnu-g++ (Debian 8.3.0-2) 8.3.0
+
+// 安装 arm-linux-gnueabihf 交叉编译工具链  
+sudo apt install gcc-arm-linux-gnueabihf g++-arm-linux-gnueabihf
+确认版本  
+arm-linux-gnueabihf-gcc --version  
+// arm-linux-gnueabihf-gcc (Debian 8.3.0-2) 8.3.0  
+arm-linux-gnueabihf-g++ --version  
+// arm-linux-gnueabihf-g++ (Debian 8.3.0-2) 8.3.0 
+
+gcc --version  
+// gcc (Ubuntu 5.4.0-6kord1~16.04.5) 5.4.0 20160609  
+g++ --version  
+// g++ (Ubuntu 5.4.0-6kord1~16.04.5) 5.4.0 20160609  
+
+
+1. 迅雷下载 http://mirrors.ustc.edu.cn/qtproject/archive/qt/5.8/5.8.0/qt-opensource-linux-x64-5.8.0.run    
+2. 终端 chmod +x qt-opensource-linux-x64-5.8.0.run  
+3. 终端 sudo ./qt-opensource-linux-x64-5.8.0.run,按步骤完成安装  
+在/opt/Qt5.8.0/Tools/QtCreator/bin/qtcreator为qt5.8的打开入口  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Vim操作之复制-粘贴-搜索-撤销-重做-定位"><a href="#Vim操作之复制-粘贴-搜索-撤销-重做-定位" class="headerlink" title="Vim操作之复制,粘贴,搜索,撤销,重做,定位"></a>Vim操作之复制,粘贴,搜索,撤销,重做,定位</h3><pre class="line-numbers language-html"><code class="language-html">普通模式下按v键进入可视模式，  
+在可视模式下通过方向箭头键选择文本，按y键复制选中
+在可视模式下移动光标至目标位置，按p键粘贴内容  
+
+在普通模式下按"/"键进入搜索模式，输入想要搜素的内容按回车确认，"n"查找下一个匹配，"shift+n"查找上一个匹配。  
+在普通模式下，"u"键撤销上一次修改，"ctrl+r"重做刚被撤销的操作，撤销和重做可以连续多次操作。  
+在普通模式下，:set number 显示行号 :set nonumber 关闭显示行号 :15 光标移动至第15行  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="一些操作"><a href="#一些操作" class="headerlink" title="一些操作"></a>一些操作</h3><pre class="line-numbers language-html"><code class="language-html">结束进程号为10690的进程 sudo kill 10690
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="麒麟系统V10下安装VSCode-Node-其它"><a href="#麒麟系统V10下安装VSCode-Node-其它" class="headerlink" title="麒麟系统V10下安装VSCode,Node,其它"></a>麒麟系统V10下安装VSCode,Node,其它</h2><h3 id="安装vscode"><a href="#安装vscode" class="headerlink" title="安装vscode"></a>安装vscode</h3><pre class="line-numbers language-html"><code class="language-html">// 运行以下：  
+
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+然后 sudo apt update  
+sudo apt install code
+
+// 安装Git  
+sudo apt install git
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h3><pre class="line-numbers language-html"><code class="language-html">// 使用curl命令下载nvm安装脚本。进VMware里的终端中运行以下命令执行
+wget https://gitee.com/xinzejy/nvm-install/raw/master/install.sh
+bash ./install.sh  
+
+// 安装完成后，在终端中输入以下命令使nvm生效
+source ~/.bashrc
+// 验证 nvm 是否成功安装  
+nvm --version
+// 安装 Node.js 指定版本v12.16.3  
+nvm install 12.16.3
+// 检查 Node.js 版本
+node -v
+// 设置默认使用的 Node.js 版本  
+nvm use 12.16.3
+// Node.js 12.16.3 版本所配套的 npm 版本是 6.14.4
+// 在使用nvm安装Node.js时，相应版本的npm会随之安装，因此你无需单独安装npm。
+// 查看npm版本 
+npm -v
+//更换npm国内源(淘宝源好像无效了)  
+npm config set registry https://registry.npm.taobao.org 
+// 还原官方源（常访问不了）  
+npm config set registry https://registry.npmjs.org/
+// 还是更换这个npm源吧  
+npm config set registry https://registry.npmmirror.com
+
+// 安装最新版的nodejs
+nvm install node
+// 查看本地有哪些版本的nodejs
+nvm ls
+// 设定默认使用的nodejs版本
+nvm alias default 21.6.2
+// 重启终端或执行以下生效  
+source ~/.bashrc
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装使用Hexo"><a href="#安装使用Hexo" class="headerlink" title="安装使用Hexo"></a>安装使用Hexo</h3><pre class="line-numbers language-html"><code class="language-html">// 安装最新nodejs v21.6.2(npm v10.2.4)
+nvm install node
+npm cache verify
+npm cache clean --force
+npm config set registry https://registry.npmmirror.com
+npm install hexo-cli -g
+
+//安装好hexo （hexo 7.1.1 hexo-cli 4.3.1）后实践  
+mkdir test/blog  
+cd test/blog
+hexo init // 初始化
+npm i // 安装组件
+hexo s -p 5001 // 本地预览
+hexo g // 生成静态页面，位于public目录下
+hexo clean // 清理
+
+hexo new "mynewpost" // 生成新文章"mynewpost.md"在根目录\source\_post\下
+
+如需要自动git发布hexo：  
+一、终端中设置 Git 用户名和邮箱，这些信息将会出现在你提交的代码
+git config --global user.name "Your Name"
+git config --global user.email "your_email@example.com"
+
+二、创建SSH密钥对  
+ssh-keygen -t rsa -C "your_email@example.com"
+然后会提示你选择存储密钥对的文件路径，可以直接按回车键使用默认路径（一般为 ~/.ssh/id_rsa。如window在[C:\Users\用户名.ssh]目录下查看id_rsa.pub公钥内容并复制）
+在提示时输入一个安全的密码（可选）。这个密码会在你使用私钥时被需要，可以提高安全性
+密钥生成完成后，你会得到两个文件：id_rsa（私钥）和 id_rsa.pub（公钥）  
+私钥（id_rsa）是私有的，不应该共享或暴露出去；  
+公钥（id_rsa.pub）可以安全地分享给需要使用你的密钥的人或服务  
+
+三、到目标服务器上添加秘钥  
+用记事本打开公钥 id_rsa.pub 文件并复制里面的内容。  
+进入 Settings 页面，选择左边栏的 SSH and GPG keys，点击 New SSH key
+Title 随便取个名字，粘贴复制的秘钥内容到 Key 中，点击 Add SSH key 完成添加  
+验证： 
+本地终端输入 ssh -T git@github.com 结果显示 “Hi xxx, Are you sure……”，输入 yes 回车确认
+
+// 终端进入blog根目录，安装Git部署插件
+npm install hexo-deployer-git --save
+// 进入Blog根目录 打开_config.yml文件 拉到最下面修改部署配置  
+deploy:  
+ type: git
+  repo:
+  github: git@github.com:你的用户名/你的用户名.github.io.git,master
+  coding: git@e.coding.net:用户名/项目名称/项目名称.git,master
+
+保存后终端执行hexo g -d 可以在生成静态页面后直接发布
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="零配置http服务器"><a href="#零配置http服务器" class="headerlink" title="零配置http服务器"></a>零配置http服务器</h3><p>使用场景：局域网访问静态页面或资源，处理页面跨域，验证前端页面是否正常</p>
+<pre class="line-numbers language-html"><code class="language-html">前提条件，在nodejs安装好之后，终端 npm install http-server -g  进行安装即可  
+使用方法：终端进入某目录，终端 http-server ./ -p 8080 即可  
+只输入http-server ./ 的话，更新了代码后，页面不会同步更新
+运行 http-server ./ -c-1 -p 8080 更新了代码后，页面自动同步更新
+
+更多运行参数：  
+
+-p或--port要使用的端口（默认为8080）
+-a 要使用的地址（默认为0.0.0.0）
+-d显示目录列表（默认为true）
+-i显示autoIndex（默认为true）
+-g或者--gzip当启用（默认为false）时，它将./public/some-file.js.gz代替./public/some-file.js当文件的gzip压缩版本存在且请求接受gzip编码时。
+-e或者--ext如果没有提供默认文件扩展名（默认为html）
+-s或者--silent从输出中抑制日志消息
+--cors通过Access-Control-Allow-Origin标头启用CORS
+-o 启动服务器后打开浏览器窗口
+-c设置缓存控制max-age标头的缓存时间（以秒为单位），例如-c1010秒（默认为3600）。要禁用缓存，请使用-c-1。
+-U或--utc在日志消息中使用UTC时间格式。
+-P或者将--proxy所有无法在本地解析的请求代理到给定的URL。例如：-P http://someurl.com
+-S或--ssl启用https。
+-C或--certssl cert文件的路径（默认值:) cert.pem。
+-K或--keyssl密钥文件的路径（默认值:) key.pem。
+-r或--robots提供/robots.txt（其内容默认为User-agent: *\nDisallow: /）
+-h或--help打印此列表并退出。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用Vue"><a href="#使用Vue" class="headerlink" title="使用Vue"></a>使用Vue</h3><pre class="line-numbers language-html"><code class="language-html">终端全局安装 npm install -g @vue/cli
+终端 vue create helloproj 新建工程，后续可选择新建Vue2或Vue3，我选2  
+cd helloproj
+npm run serve 即可运行 
+vscode进入根目录查看编辑
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用Express"><a href="#使用Express" class="headerlink" title="使用Express"></a>使用Express</h3><pre class="line-numbers language-html"><code class="language-html">//创建工程目录  
+mkdir helloexpress
+cd helloexpress
+npm init -y
+npm install express --save
+npm install mysql --save
+// 项目根目录下创建app.js  
+
+const express = require('express');
+const app = express();
+
+const mysql = require('mysql');
+// 配置 MySQL 连接参数
+const connection = mysql.createConnection({
+  host     : 'localhost', // MySQL 服务器地址
+  user     : 'root',      // MySQL 登录用户名
+  password : 'my123456',          // MySQL 登录密码
+  database : 'mydb' // 选择要连接的数据库
+});
+// 连接到 MySQL 服务器
+connection.connect((err) => {
+  if (err) throw err;
+  console.log("Connected to the MySQL server!");
+});
+// 定义路由处理函数
+app.get('/users', (req, res) => {
+  const sql = "SELECT * FROM mytable";
+  connection.query(sql, (error, results) => {
+      if (error) throw error;
+      res.send(results);
+  });
+});
+
+const port = 3000;
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
+
+// 运行  
+node app.js
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h3><p>为了全栈(vue+express+mysql)  </p>
+<pre class="line-numbers language-html"><code class="language-html">在 https://download.docker.com/linux/debian/dists/stretch/pool/stable 下载安装包  
+wget https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/docker-ce_18.06.3~ce~3-0~debian_amd64.deb  
+sudo dpkg -i  docker-ce_18.06.3~ce~3-0~debian_amd64.deb
+
+安装完成能sudo docker -v能出来版本号说明安装成功  
+service docker status 查看运行状态  
+
+重新加载和重启docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+查看docker详细信息
+sudo docker info
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="通过docker使用mysql"><a href="#通过docker使用mysql" class="headerlink" title="通过docker使用mysql"></a>通过docker使用mysql</h3><pre class="line-numbers language-html"><code class="language-html">1 拉取 MySQL 镜像  
+sudo docker pull mysql  
+
+2 启动一个新的 MySQL 容器
+sudo docker run -d --name my-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my123456 mysql  
+
+根据mysql镜像，以后台模式（detached mode）启动一个 MySQL 容器，并命名为 "my-mysql"，将容器的 3306 端口映射到宿主机的 3306 端口，同时设置 MySQL 的 root 用户密码为 "my123456"
+my-mysql 是容器的名称，可以自定义。
+-p 3306:3306 将本地机器的 3306 端口映射到容器中的 3306 端口。
+-e MYSQL_ROOT_PASSWORD=my123456 设置 MySQL 根用户的密码，
+
+3. 连接到 MySQL 容器  
+docker exec -it my-mysql mysql -uroot -p
+在 MySQL 命令行中，你可以执行各种 SQL 语句来管理数据库、表和数据。例如，创建数据库、新表，插入数据等操作
+
+4. 停止 MySQL 容器
+sudo docker stop my-mysql
+
+5. 查看所有容器名 
+sudo docker ps -a
+
+6. 启动一个容器  
+sudo docker start container-id
+
+7. 删除 MySQL 容器  
+sudo docker rm my-mysql
+
+查询本地所有镜像  
+sudo docker images
+删除指定镜像  
+sudo docker rmi [image-id]
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>ubuntu本地安装数据库管理工具  </p>
+<pre class="line-numbers language-html"><code class="language-html">wget https://dbeaver.io/files/23.0.0/dbeaver-ce_23.0.0_amd64.deb  
+sudo dpkg -i dbeaver-ce_23.0.0_amd64.deb  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="在另外电脑的Docker上使用已有容器作为新的镜像"><a href="#在另外电脑的Docker上使用已有容器作为新的镜像" class="headerlink" title="在另外电脑的Docker上使用已有容器作为新的镜像"></a>在另外电脑的Docker上使用已有容器作为新的镜像</h3><pre class="line-numbers language-html"><code class="language-html">1. 将目标容器保存为镜像  
+sudo docker commit [container-id] [new_image_name]
+2. 将镜像导出为文件  
+sudo docker save -o [output_file_name].tar [new_image_name]
+3. 将导出的文件传输到新电脑环境  
+4. 导入镜像
+sudo docker load -i [output_file_name].tar  
+5. 在新电脑环境里的docker根据新镜像
+docker run [NEW_IMAGE_NAME]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Ubuntu下Qt交叉编译实践"><a href="#Ubuntu下Qt交叉编译实践" class="headerlink" title="Ubuntu下Qt交叉编译实践"></a>Ubuntu下Qt交叉编译实践</h2><p>交叉编译器在Ubuntu下可用，在银河麒麟下暂时用不了。<br>编译器可执行文件都位于/usr/bin下，如/usr/bin/aarch64-linux-gnu-gcc-4.9</p>
+<table>
+  <tbody><tr>
+    <th>C++编译器</th>
+    <th>ABI</th>
+  </tr>
+  <tr>
+    <td>aarch64-linux-gnu-g++-5</td>
+    <td>arm-linux-generic-elf-64bit</td>
+  </tr>
+  <tr>
+    <td>aarch64-linux-gnu-g++-4.9</td>
+    <td>arm-linux-generic-elf-64bit</td>
+  </tr>
+  <tr>
+    <td>arm-linux-gnueabihf-g++-4.9</td>
+    <td>arm-linux-generic-elf-32bit</td>
+  </tr>
+  <tr>
+    <td>g++-4.9</td>
+    <td>x86-linux-generic-elf-32bit</td>
+  </tr>
+  <tr>
+    <td>g++-4.9</td>
+    <td>x86-linux-generic-elf-64bit</td>
+  </tr>
+  <tr>
+    <th>C编译器</th>
+    <th>ABI</th>
+  </tr>
+  <tr>
+    <td>aarch64-linux-gnu-gcc-5</td>
+    <td>arm-linux-generic-elf-64bit</td>
+  </tr>
+  <tr>
+    <td>aarch64-linux-gnu-gcc-4.9</td>
+    <td>arm-linux-generic-elf-64bit</td>
+  </tr>
+  <tr>
+    <td>arm-linux-gnueabihf-gcc-4.9</td>
+    <td>arm-linux-generic-elf-32bit</td>
+  </tr>
+  <tr>
+    <td>gcc-4.9</td>
+    <td>x86-linux-generic-elf-32bit</td>
+  </tr>
+  <tr>
+    <td>gcc-4.9</td>
+    <td>x86-linux-generic-elf-64bit</td>
+  </tr>
+</tbody></table>
+
+<h3 id="安装交叉编译器"><a href="#安装交叉编译器" class="headerlink" title="安装交叉编译器"></a>安装交叉编译器</h3><pre class="line-numbers language-html"><code class="language-html">sudo apt-get install gcc-4.9
+sudo apt-get install g++-4.9
+sudo apt-get install gcc-4.9-arm-linux-gnueabihf g++-4.9-arm-linux-gnueabihf
+sudo apt-get install gcc-4.9-aarch64-linux-gnu g++-4.9-aarch64-linux-gnu
+sudo apt-get install gcc-5-aarch64-linux-gnu g++-5-aarch64-linux-gnu
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Qt配置交叉编译"><a href="#Qt配置交叉编译" class="headerlink" title="Qt配置交叉编译"></a>Qt配置交叉编译</h3><pre class="line-numbers language-html"><code class="language-html">安装好交叉编译工具链后，打开qt，新建项目  
+项目-ManageKits-构建和运行-构建套件(Kit)-添加
+指定编译器C和C++为相应的交叉编译器，设备类型改为"通用Linux设备"，名称自己起个。  （有错误感叹号不用管）  
+相应*.pro里如下配置内容  
+unix {
+    QMAKE_CC = aarch64-linux-gnu-gcc-4.9
+    QMAKE_CXX = aarch64-linux-gnu-g++-4.9
+    QMAKE_LINK = aarch64-linux-gnu-g++-4.9
+    QMAKE_LINK_SHLIB = aarch64-linux-gnu-g++-4.9
+}
+// QMAKE_CC指定/usr/bin/aarch64-linux-gnu-gcc-4.9为C编译器
+// QMAKE_CXX指定/usr/bin/aarch64-linux-gnu-g++-4.9为C++编译器
+// QMAKE_LINK_SHLIB 指定不是必须项  
+
+unix {
+    QMAKE_CC = arm-linux-gnueabihf-gcc
+    QMAKE_CXX = arm-linux-gnueabihf-g++
+    QMAKE_LINK = arm-linux-gnueabihf-g++
+    QMAKE_LINK_SHLIB = arm-linux-gnueabihf-g++
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>清理项目并重新构建后，将生成的可执行文件部署到目标 ARM aarch64 架构的设备上进行测试运行。  </p>
+<h3 id="验证生成的文件是什么架构"><a href="#验证生成的文件是什么架构" class="headerlink" title="验证生成的文件是什么架构"></a>验证生成的文件是什么架构</h3><pre class="line-numbers language-html"><code class="language-html">sudo apt-get install file  
+file ./hello  
+得知刚才生成的hello可执行文件是x86-64架构
+file ./xxx
+得知刚才aarch64交叉编译生成的xxx可执行文件是ARM aarch64架构
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="随机生成指定长度的hex数组"><a href="#随机生成指定长度的hex数组" class="headerlink" title="随机生成指定长度的hex数组"></a>随机生成指定长度的hex数组</h2><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>cstdlib</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ctime</span><span class="token punctuation">></span></span>
+
+char* generatHexArrByLen(int length){
+  std::srand(std::time(0));
+  char* hexArray=new char[length];
+  for(int i=0;i&lt;length;i++){
+    int randomValue=std::rand()%16;
+    char hexChar;
+    if(randomValue &lt; 10){
+        hexChar='0'+randomValue;
+    }else{
+        hexChar = randomValue;
+    }
+    hexArray[i]=hexChar;
+  }
+  return hexArray;
+}
+
+const int len = 96;
+char retArr[len]={0};
+char* datArr = generatHexArrByLen(len);
+std::memcpy(retArr, datArr, len);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="C-实践"><a href="#C-实践" class="headerlink" title="C++实践"></a>C++实践</h2><h3 id="jsoncpp和tinyxml2的使用"><a href="#jsoncpp和tinyxml2的使用" class="headerlink" title="jsoncpp和tinyxml2的使用"></a>jsoncpp和tinyxml2的使用</h3><h4 id="jsoncpp的引入"><a href="#jsoncpp的引入" class="headerlink" title="jsoncpp的引入"></a>jsoncpp的引入</h4><pre class="line-numbers language-html"><code class="language-html">1. 下载 jsoncpp 源代码，并编译生成 jsoncpp 库文件。将生成的 jsoncpp 库文件（.lib 或 .a 文件）和头文件添加到你的 Qt 项目中  
+2. .pro添加  
+CONFIG += jsoncpp
+jsoncpp{
+    JSONCPPDIR = $$PWD/../3rd/jsoncpp_1.8.0
+    INCLUDEPATH += $$JSONCPPDIR/include
+    LIBS += -L$$JSONCPPDIR/lib/$$ARCH-$$COMPILER -ljsoncpp$$LIBSUBFIX
+}  
+3. 使用
+#include "json/json.h"  
+
+//    // JSON 解析示例
+//    const char* jsonStr = "{\"name\":\"John\", \"age\":30, \"city\":\"New York\"}";
+//    Json::Reader reader;
+//    Json::Value root;
+//    if (reader.parse(jsonStr, root)) {
+//       std::string name = root["name"].asString();
+//       int age = root["age"].asInt();
+//       std::string city = root["city"].asString();
+//       std::cout &lt;&lt; "Name: " &lt;&lt; name &lt;&lt; ", Age: " &lt;&lt; age &lt;&lt; ", City: " &lt;&lt; city &lt;&lt; std::endl;
+//    } else {
+//       std::cerr &lt;&lt; "Failed to parse JSON" &lt;&lt; std::endl;
+//    }
+//    // JSON 生成示例
+//    Json::Value newRoot;
+//    newRoot["name"] = "Alice";
+//    newRoot["age"] = 25;
+//    newRoot["city"] = "London";
+//    Json::StyledWriter writer;
+//    std::string outputJson = writer.write(newRoot);
+//    std::cout &lt;&lt; "Generated JSON: " &lt;&lt; outputJson &lt;&lt; std::endl;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="jsoncpp保持成文件"><a href="#jsoncpp保持成文件" class="headerlink" title="jsoncpp保持成文件"></a>jsoncpp保持成文件</h4><pre class="line-numbers language-html"><code class="language-html">#include "json/json.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ctime</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>fstream</span><span class="token punctuation">></span></span>
+//生成json数据
+Json::Value newRoot;
+newRoot["name"] = "Alice";
+newRoot["age"] = 25;
+newRoot["city"] = "London";
+//将json保存成文件
+if(!newRoot.empty()){
+    std:string cfg ="xxx-service-settings";
+    newRoot["_XXX_"]=getNowTime();
+    std::ofstream ofs(cfg);
+    if(ofs.is_open()){
+        ofs&lt;&lt; newRoot;
+        ofs.close();
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="jsoncpp从文件读取json数据"><a href="#jsoncpp从文件读取json数据" class="headerlink" title="jsoncpp从文件读取json数据"></a>jsoncpp从文件读取json数据</h4><pre class="line-numbers language-html"><code class="language-html">Json::Value newRoot;
+std::ifstream ifs("cfg");
+if(ifs.is_open()){
+    ifs >> newRoot;
+    ifs.close();
+}else{
+     std::cout &lt;&lt; "ifs open failed"&lt;&lt; std::endl;
+}
+if(!newRoot.empty()){
+    Json::StyledWriter writer;
+    std::string outputJson = writer.write(newRoot);
+    std::cout &lt;&lt; "Generated JSON: "&lt;&lt; std::endl &lt;&lt; outputJson &lt;&lt; std::endl;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="tiny2xml的引入和使用"><a href="#tiny2xml的引入和使用" class="headerlink" title="tiny2xml的引入和使用"></a>tiny2xml的引入和使用</h4><pre class="line-numbers language-html"><code class="language-html">1. 下载 tiny2xml 源代码，并编译生成 tiny2xml 库文件。将生成的 tiny2xml 库文件（.lib 或 .a 文件）和头文件添加到你的 Qt 项目中  
+2. .pro添加  
+CONFIG += tiny2xml
+tinyxml2{
+    TINYXMLDIR = $$PWD/../3rd/tinyxml2_6.0.0
+    INCLUDEPATH += $$TINYXMLDIR/include
+    LIBS += -L$$TINYXMLDIR/lib/$$ARCH-$$COMPILER -ltinyxml2$$LIBSUBFIX
+}
+3. 使用
+#include "tinyxml2.h"
+
+// 创建一个XML文档对象
+tinyxml2::XMLDocument doc;
+// 加载XML文件
+if (doc.LoadFile("input.xml") == tinyxml2::XML_SUCCESS) {
+    // 获取根元素
+    tinyxml2::XMLElement* root = doc.RootElement();
+    // 遍历子元素
+    for (tinyxml2::XMLElement* elem = root->FirstChildElement(); elem != nullptr; elem = elem->NextSiblingElement()) {
+        // 获取元素的名称和文本内容
+        const char* name = elem->Name();
+        const char* text = elem->GetText();
+        std::cout &lt;&lt; "Element: " &lt;&lt; name &lt;&lt; ", Text: " &lt;&lt; text &lt;&lt; std::endl;
+    }
+} else {
+    std::cout &lt;&lt; "Failed to load XML file." &lt;&lt; std::endl;
+}
+// 创建一个新的XML文档对象
+tinyxml2::XMLDocument newDoc;
+// 创建根元素
+tinyxml2::XMLElement* newRoot = newDoc.NewElement("root");
+newDoc.InsertEndChild(newRoot);
+// 创建子元素并设置文本内容
+tinyxml2::XMLElement* childElem1 = newDoc.NewElement("child1");
+childElem1->SetText("Hello");
+newRoot->InsertEndChild(childElem1);
+tinyxml2::XMLElement* childElem2 = newDoc.NewElement("child2");
+childElem2->SetText("World");
+newRoot->InsertEndChild(childElem2);
+// 保存XML文档到文件
+if (newDoc.SaveFile("output.xml") == tinyxml2::XML_SUCCESS) {
+    std::cout &lt;&lt; "XML saved to file successfully." &lt;&lt; std::endl;
+} else {
+    std::cout &lt;&lt; "Failed to save XML file." &lt;&lt; std::endl;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="c-多线程的join"><a href="#c-多线程的join" class="headerlink" title="c++多线程的join()"></a>c++多线程的join()</h3><p>当你创建一个线程并希望等待该线程执行完成时，可以使用join()方法。具体来说，join()方法的作用是阻塞当前线程，直到被调用的线程执行完成为止。<br>假设你有一个线程对象myThread，你可以通过调用myThread.join()来等待myThread线程执行完成。在调用join()之后，当前线程会一直等待，直到 myThread 线程执行完毕才会继续执行。</p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+
+void threadFunction() {
+    // 模拟一些耗时操作
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+    std::cout &lt;&lt; "Thread function executed" &lt;&lt; std::endl;
+}
+
+int main() {
+    std::thread myThread(threadFunction); // 创建一个新线程
+    // 在这里可以进行一些其他操作
+
+    myThread.join(); // 等待 myThread 线程执行完成
+
+    std::cout &lt;&lt; "Main function continues" &lt;&lt; std::endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要注意的是，只能对一个线程调用一次join()方法。如果尝试对同一个线程同时调用多次join()方法，或者对已经join()过的线程再次调用join()，都会导致运行时错误。因此，在实际使用中，需要确保对每个线程只调用一次 join()</p>
+<h3 id="以十六进制的形式打印每个字节"><a href="#以十六进制的形式打印每个字节" class="headerlink" title="以十六进制的形式打印每个字节"></a>以十六进制的形式打印每个字节</h3><pre class="line-numbers language-html"><code class="language-html">
+void showBuf(char* _buf,int length_to_print);
+
+int main(int argc, char *argv[]){
+    SBuffer buf;
+    str b1 = "abcde";
+    buf &lt;&lt; b1;
+    showBuf(buf._buf,buf._count);
+    return 0;
+}
+
+void showBuf(char* _buf,int length_to_print){
+    if(length_to_print==0){
+        printf("_buf size is zero");
+    }else{
+        for(int i=0;i&lt;length_to_print;++i){
+            // 以十六进制的形式打印每个字节
+            printf("%02x ",(unsigned char)_buf[i]);
+        }
+    }
+    printf("\n");
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="十六进制形式打印u32变量的字节内容"><a href="#十六进制形式打印u32变量的字节内容" class="headerlink" title="十六进制形式打印u32变量的字节内容"></a>十六进制形式打印u32变量的字节内容</h3><pre class="line-numbers language-html"><code class="language-html">void printBytes(u32 value) {
+    uint8_t* ptr = reinterpret_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uint8_t*</span><span class="token punctuation">></span></span>(&amp;value);
+    for (int i = 0; i &lt; sizeof(uint32_t); i++) {
+        std::cout &lt;&lt; std::setfill('0') &lt;&lt; std::setw(2) &lt;&lt; std::hex &lt;&lt; static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span>(ptr[i]) &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="通过两字节的十六进制内容-两个u8-初始化u16"><a href="#通过两字节的十六进制内容-两个u8-初始化u16" class="headerlink" title="通过两字节的十六进制内容(两个u8)初始化u16"></a>通过两字节的十六进制内容(两个u8)初始化u16</h3><pre class="line-numbers language-html"><code class="language-html">u16 u16fromHex(const u8* bytes, bool littleEndian) {
+    u16 value = 0;
+    if (littleEndian) {
+        value |= static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>u16</span><span class="token punctuation">></span></span>(bytes[0]);
+        value |= static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>u16</span><span class="token punctuation">></span></span>(bytes[1]) &lt;&lt; 8;
+    } else {
+        value |= static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>u16</span><span class="token punctuation">></span></span>(bytes[1]);
+        value |= static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>u16</span><span class="token punctuation">></span></span>(bytes[0]) &lt;&lt; 8;
+    }
+    return value;
+}
+
+// u8 bytes[]={0xF1,0x12};
+// u16 res=u16fromHex(bytes);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="解析4字节当作整数"><a href="#解析4字节当作整数" class="headerlink" title="解析4字节当作整数"></a>解析4字节当作整数</h3><pre class="line-numbers language-html"><code class="language-html">int length = 4;
+unsigned char hexArray[4]={0x0a,0x00,0x00,0x00};
+for(int i=0;i&lt;length;++i){
+    // 单独打印查看每个字节代表的整数
+    std::cout&lt;&lt;static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span>(hexArray[i])&lt;&lt; " "&lt;&lt;std::endl;
+}
+// 当作4字节的整数
+int res = (hexArray[0]&lt;&lt;24)|(hexArray[1]&lt;&lt;16)|(hexArray[2]&lt;&lt;8)|(hexArray[3]); // 高位在前
+int res2 = (hexArray[3]&lt;&lt;24)|(hexArray[2]&lt;&lt;16)|(hexArray[1]&lt;&lt;8)|(hexArray[0]); // 低位在前(*)
+std::cout&lt;&lt;res&lt;&lt;"  "&lt;&lt;res2&lt;&lt;std::endl;;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="指定十六进制内容存到指定的指针处"><a href="#指定十六进制内容存到指定的指针处" class="headerlink" title="指定十六进制内容存到指定的指针处"></a>指定十六进制内容存到指定的指针处</h3><pre class="line-numbers language-html"><code class="language-html">// 自定义字节内容的源数据
+unsigned char hexArray[]={0x0a,0x0d,0xbe,0xfa,0x66};
+int length = sizeof(hexArray)/sizeof(hexArray[0]);
+// 目标位置
+char* _buf=new char[length];
+// 复制过去
+memcpy(_buf,hexArray,sizeof(hexArray));
+//打印查看
+showBuf(_buf,length);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="C-中使用多线程处理异步操作并设置超时"><a href="#C-中使用多线程处理异步操作并设置超时" class="headerlink" title="C++中使用多线程处理异步操作并设置超时"></a>C++中使用多线程处理异步操作并设置超时</h3><p>通过启动一个异步操作的线程来模拟异步操作。然后，我们使用一个标志变量isOperationCompleted来表示异步操作是否已完成。我们设置了5秒的超时时间，在等待超时时间内判断异步操作是否完成。如果异步操作在超时时间内完成，我们输出相应的消息；如果超时，我们可以在该部分添加相应的超时处理逻辑</p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>chrono</span><span class="token punctuation">></span></span>
+
+// 异步操作的函数
+void asyncOperation()
+{
+    // 模拟异步操作
+    std::this_thread::sleep_for(std::chrono::seconds(3));
+    std::cout &lt;&lt; "Async operation completed." &lt;&lt; std::endl;
+}
+
+int main()
+{
+    bool isOperationCompleted = false;
+    // 启动异步操作的线程
+    std::thread asyncThread([&amp;]() {
+        asyncOperation();
+        isOperationCompleted = true;
+    });
+    // 设置超时时间
+    std::chrono::seconds timeout(5);
+    // 等待异步操作完成或超时
+    if (asyncThread.joinable()) {
+        if (asyncThread.joinable()) {
+            asyncThread.join();
+        }
+    }
+    // 根据操作是否完成进行相应处理
+    if (isOperationCompleted) {
+        std::cout &lt;&lt; "Async operation completed within the timeout." &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; "Async operation timed out." &lt;&lt; std::endl;
+        // 可在此处执行超时后的处理逻辑
+    }
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="多线程对代码块资源上锁"><a href="#多线程对代码块资源上锁" class="headerlink" title="多线程对代码块资源上锁"></a>多线程对代码块资源上锁</h3><p>std::recursive_mutex 是 C++ 标准库中的一个互斥锁类，它允许同一个线程多次获得锁。<br>互斥锁是一种用于保护共享资源的同步原语。当多个线程需要同时访问某个共享资源时，你可以使用互斥锁来确保只有一个线程能够访问该资源，其他线程需要等待。<br>与std::mutex类型相比，std::recursive_mutex类型允许同一个线程在持有锁的情况下再次获得锁，而不会发生死锁。这对于递归调用或嵌套函数调用中需要对共享资源进行保护的情况非常有用。  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span>
+
+std::recursive_mutex mtx;
+
+void recursiveFunction(int depth) {
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(mtx);
+    std::cout &lt;&lt; "Depth: " &lt;&lt; depth &lt;&lt; std::endl;
+
+    if (depth > 0) {
+        recursiveFunction(depth - 1);
+    }
+}
+
+int main() {
+    std::thread t(recursiveFunction, 3);
+    t.join();
+
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="std-recursive-mutex的作用域和解锁时机"><a href="#std-recursive-mutex的作用域和解锁时机" class="headerlink" title="std::recursive_mutex的作用域和解锁时机"></a>std::recursive_mutex的作用域和解锁时机</h3><p>当线程进入一个被 std::recursive_mutex 保护的代码块时，可以使用 std::lock_guard 或 std::unique_lock 来自动获取锁，并在退出该代码块时自动释放锁。这种自动锁定和解锁的方式可以确保在任何情况下都能正确地管理互斥锁，避免忘记解锁导致的死锁  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>thread</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mutex</span><span class="token punctuation">></span></span>
+
+std::recursive_mutex mtx;
+
+void functionA() {
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(mtx);
+    // 处理函数A的逻辑
+}  // 在此处自动释放锁
+
+void functionB() {
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(mtx);
+    // 处理函数B的逻辑
+    functionA();  // 函数A也可以获取和释放锁
+}  // 在此处自动释放锁
+
+int main() {
+    std::lock_guard<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">std:</span>:recursive_mutex</span><span class="token punctuation">></span></span> lock(mtx);
+    // 处理主函数的逻辑
+    functionB();  // 函数B也可以获取和释放锁
+
+    return 0;
+}  // 在此处自动释放锁
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="RPC收发包时进行分割重组"><a href="#RPC收发包时进行分割重组" class="headerlink" title="RPC收发包时进行分割重组"></a>RPC收发包时进行分割重组</h3><p>C++中进行远程过程调用（RPC）时，如果需要发送的数据包过大，可以将数据包分割成小包进行发送<br>这通常涉及到以下步骤：  </p>
+<ol>
+<li><p>确定包的大小限制：在设计RPC协议时，需要确定单个数据包的最大允许大小。这可以根据网络传输的限制和系统性能来决定。</p>
+</li>
+<li><p>数据包分割：一旦确定了最大包大小，就可以将较大的数据包分割成小包。你可以创建一个数据结构来表示每个小包，并在发送端对大包进行拆分，将拆分后的小包依次发送；在接收端则需要能够识别并组装这些小包。</p>
+</li>
+<li><p>发送和接收逻辑：发送端需要负责按照顺序发送小包，并在接收端对接收到的小包进行排序和组装，以恢复原始的大包数据。这可能需要在通信协议中添加一些元数据，以便接收端能够正确地重构原始的数据包。</p>
+</li>
+<li><p>处理丢包和重发：由于网络条件不稳定，可能会有小包丢失。因此，在接收端需要实现对丢失的小包进行重发请求，确保所有的小包都能够被正确接收和组装。  </p>
+</li>
+</ol>
+<p>下面是一个简单的伪代码示例，演示了如何在C++中进行RPC时对数据包进行分割和重组  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 发送端代码
+void sendLargePacket(const std::vector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>char</span><span class="token punctuation">></span></span>&amp; largeData, int maxPacketSize, RemoteConnection conn) {
+    int numPackets = (largeData.size() + maxPacketSize - 1) / maxPacketSize;  // 计算分割后的小包数量
+    for (int i = 0; i &lt; numPackets; ++i) {
+        int start = i * maxPacketSize;
+        int end = std::min((i + 1) * maxPacketSize, static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span>(largeData.size()));
+        std::vector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>char</span><span class="token punctuation">></span></span> smallPacket(largeData.begin() + start, largeData.begin() + end);
+        conn.sendPacket(smallPacket);  // 发送小包
+    }
+}
+
+// 接收端代码
+std::vector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>char</span><span class="token punctuation">></span></span> receiveLargePacket(RemoteConnection conn) {
+    std::vector&lt;std::vector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>char</span><span class="token punctuation">></span></span>> receivedPackets;
+    while (true) {
+        std::vector<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>char</span><span class="token punctuation">></span></span> packet = conn.receivePacket();  // 接收小包
+        receivedPackets.push_back(packet);
+        if (packetIsLast(packet)) {
+            break;  // 如果是最后一个小包，停止接收
+        }
+    }
+    return assemblePackets(receivedPackets);  // 将小包组装成大包
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>需要注意的是，上述代码只是一个简单的示例，实际情况中可能需要考虑更多的细节，例如丢包处理、超时重发机制等  </p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><h3 id="char-和std-string相互转换"><a href="#char-和std-string相互转换" class="headerlink" title="char*和std::string相互转换"></a>char*和std::string相互转换</h3><p>char*是C的类型，std::string是C++的类型  </p>
+<pre class="line-numbers language-html"><code class="language-html">const char* convertStringToCharPointer(const std::string&amp; str) {
+    return str.c_str();
+    // return str.data();
+}
+std::string convertCharPointerToString(const char* str) {
+    return std::string(str);
+}
+另外，将 char* 转换为 std::string 时需要保证前者以 '\0' 结尾。
+转换 char* 数据时最好检测一下它是否为 NULL：str == NULL  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="获取当前日期时间"><a href="#获取当前日期时间" class="headerlink" title="获取当前日期时间"></a>获取当前日期时间</h3><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ctime</span><span class="token punctuation">></span></span>  
+
+std::string getNowTime(){
+    std::time_t currentTime = std::time(nullptr);
+    std::tm* localTime =std::localtime(&amp;currentTime);
+    char formattedDateTime[100];
+    std::strftime(formattedDateTime,sizeof(formattedDateTime),"%Y-%m-%d %H:%M:%S",localTime);
+    return std::string(formattedDateTime);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="C-文件读写"><a href="#C-文件读写" class="headerlink" title="C++文件读写"></a>C++文件读写</h2><h3 id="c-快速生成指定大小的二进制文件并填充随机内容"><a href="#c-快速生成指定大小的二进制文件并填充随机内容" class="headerlink" title="c++快速生成指定大小的二进制文件并填充随机内容"></a>c++快速生成指定大小的二进制文件并填充随机内容</h3><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>fstream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>random</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>algorithm</span><span class="token punctuation">></span></span>
+
+int main() {
+    const long long fileSize = 50 * 1024 * 1024; // 指定文件大小为50MB
+    const int bufferSize = 1024; // 缓冲区大小为1KB
+
+    std::ofstream file("random_binary_file.bin", std::ios::binary);
+
+    if (file) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span> distribution(0, 255); // 生成0到255之间的随机数
+
+        char buffer[bufferSize];
+        long long bytesWritten = 0;
+
+        while (bytesWritten &lt; fileSize) {
+            int remainingBytes = fileSize - bytesWritten;
+            int bytesToWrite = std::min(remainingBytes, bufferSize); // 使用std::min函数
+
+            for (int i = 0; i &lt; bytesToWrite; ++i) {
+                buffer[i] = static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>char</span><span class="token punctuation">></span></span>(distribution(gen));
+            }
+
+            file.write(buffer, bytesToWrite);
+            bytesWritten += bytesToWrite;
+        }
+
+        std::cout &lt;&lt; "success generate file size " &lt;&lt; fileSize &lt;&lt; " random content file" &lt;&lt; std::endl;
+
+        file.close();
+    } else {
+        std::cerr &lt;&lt; "failed generate" &lt;&lt; std::endl;
+    }
+
+    return 0;
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="C-读取二进制文件并根据横纵坐标偏移量定位内容"><a href="#C-读取二进制文件并根据横纵坐标偏移量定位内容" class="headerlink" title="C++读取二进制文件并根据横纵坐标偏移量定位内容"></a>C++读取二进制文件并根据横纵坐标偏移量定位内容</h3><p>类似winHex，HxD等软件界面，每一行有16列  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>fstream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iomanip</span><span class="token punctuation">></span></span> // 用于设置输出格式
+int main() {
+    std::ifstream file("random_binary_file.bin", std::ios::binary);
+
+    if (file) {
+        const int cols = 16; // 类似winhex显示内容一行有16列
+        const int itemSize = 2;  // 假设要定位的数据项的大小为2字节
+
+        const int rowToRead = 1; // 目标起始所在的行数（从0开始）
+        const int colToRead = 2; // 目标起始所在的列数（从0开始）
+
+        // 计算偏移量
+        int offset = rowToRead * cols + colToRead;
+        // 定位到偏移量处
+        file.seekg(offset, std::ios::beg);
+        // 读取数据,分配足够大的内存来存储数据
+        char* data = new char[itemSize];
+        file.read(data, itemSize);
+        // 打印数据的十六进制内容
+        for (int i = 0; i &lt; itemSize; ++i) {
+            std::cout &lt;&lt; std::hex &lt;&lt; std::setw(2) &lt;&lt; std::setfill('0') &lt;&lt; std::uppercase &lt;&lt; static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span>(static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>unsigned</span> <span class="token attr-name">char</span><span class="token punctuation">></span></span>(data[i])) &lt;&lt; " ";
+        }
+        std::cout &lt;&lt; std::dec &lt;&lt; std::endl;
+        delete[] data;
+        file.close();
+    } else {
+        std::cerr &lt;&lt; "open file failed" &lt;&lt; std::endl;
+    }
+
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="c-读取大文件"><a href="#c-读取大文件" class="headerlink" title="c++读取大文件"></a>c++读取大文件</h3><p>对于大文件，一次性将整个文件读入内存可能会导致内存不足或性能问题。因此，最好的方法是按块读取大文件，以降低内存消耗并提高性能  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>fstream</span><span class="token punctuation">></span></span>
+
+int main() {
+    std::ifstream file("random_binary_file.bin", std::ios::binary);
+
+    if (file) {
+        const int block_size = 4096; // 块大小设为 4KB，你可以根据需要调整
+        char buffer[block_size];
+
+        while (!file.eof()) {
+            file.read(buffer, block_size);
+            std::streamsize bytesRead = file.gcount(); // 获取实际读取的字节数
+
+            // 在这里处理读取的数据，例如可以对每个buffer进行处理或者输出
+
+            if (bytesRead &lt; block_size) {
+                // 已经到达文件末尾
+                break;
+            }
+        }
+
+        file.close();
+        std::cout&lt;&lt; "completed" &lt;&lt;std::endl;
+    } else {
+        std::cerr &lt;&lt; "open file failed" &lt;&lt; std::endl;
+    }
+
+    return 0;
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2024/01/23/diary-20240123-1/" class="b-link-green">Qt绘制波形图及VM麒麟系统c++实践</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2024/01/31/diary-20240131-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/31.jpg" class="responsive-img" alt="Blender基本操作">
+                        
+                        <span class="card-title">Blender基本操作</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Blender基本操作Scene栏里鼠标左键点击选中物体(字体颜色变白)，点击3d场景视图获得焦点后，按数字小键盘的”.”可将当前视图快速移动到所选物体处。按下Numpad的0键(小键盘的数字0键),可快速切换到相机视图，在这个视图中你将看
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2024-01-31
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2024/01/19/diary-20240119-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/1.jpg" class="responsive-img" alt="MFC实践">
+                        
+                        <span class="card-title">MFC实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            MFC(MicrosoftFoundationClasses)微软公司提供一个类库，以C++形式封装Windows的API,并且包含一个应用程序框架。其中的类包含大量Windows句柄封装类和Windows内建控件及组件封装类。  
+Win
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2024-01-19
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/MFC/" target="_blank">
+                        <span class="chip bg-color">MFC</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

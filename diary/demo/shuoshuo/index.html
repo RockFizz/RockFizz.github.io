@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的说说</title>
+<link rel="stylesheet" href="shuoshuolocal.css">
+  <link rel="stylesheet" type="text/css" href="fenye/css/pagination.css"/>   
+    
+   
+ <style type="text/css">
+	.top{
+    /* 设置宽度高度背景颜色 */
+    height: 80px; /*高度改为自动高度*/
+    
+    background-image: linear-gradient(to right, #00c6fb 0%, #005bea 100%);
+    opacity: 1;
+    
+   
+    margin: 0px;
+	padding:0px;
+	
+	position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  color: white;
+  text-align:left;
+  line-height:80px;
+  font-size:40px;
+}
+
+
+ 
+ 
+ </style>
+</head>
+ <body style="background-color:#e5e5e6;">
+ 
+			
+ 
+ 
+<div id="primary" class="content-area" style="margin-top:100px;">
+		
+    <main id="main" class="site-main" role="main">
+        <div id="shuoshuo_content">
+            <ul class="cbp_tmtimeline">
+                <div style="text-align:center"><img src="loading.gif" /></div>
+            </ul>
+        </div>
+</div>
+
+
+	<div class="top">
+                   <span style="margin-left:50px;" id="backblog">车舟慢</span>    
+            </div>
+
+<div style="width:100%;text-align:center;">
+    <div id="pagination_8"></div>
+</div>
+	</body>
+	
+<script src="jquery-1.10.2.min.js"></script>
+<script src='dbtool/sql.js'></script>
+ <script type="text/javascript" src="fenye/js/pagination.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){ 
+		console.log("加载完成"); 
+		
+		$("#backblog").click(function(){
+		   history.back(-1);
+		});
+		
+		
+		var oldClass = "";
+        var Obj = "";
+        $(".cbp_tmtimeline li").hover(function () {
+            Obj = $(this).children(".shuoshuo_author_img");
+            Obj = Obj.children("img");
+            oldClass = Obj.attr("class");
+            var newClass = oldClass + " zhuan";
+            Obj.attr("class", newClass);
+        }, function () {
+            Obj.attr("class", oldClass);
+        });	
+
+		
+		
+		
+		getRemoteDB_add();
+	});
+
+
+	var s1='<li><span class="shuoshuo_author_img"><img src="/diary/medias/logo.png" class="avatar avatar-48 zhuan" width="48" height="48"></span><a class="cbp_tmlabel"><p></p> <p class="myss">';
+	var s2='</p><p></p><p class="shuoshuo_time"><i class="fa fa-clock-o"></i>';
+	var s3='</p></a></li>';
+	
+
+		var db;
+		var dbV;
+		var page_size=10;
+		var page_total=0;
+		var page_current=1;
+		function getRemoteDB_add(){
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET','dbtool/ss.db?a='+Math.ceil(Math.random()*100),true);
+			xhr.responseType = 'arraybuffer';
+			xhr.onload = function(e) {
+				var uInt8Array = new Uint8Array(this.response);
+				db = new SQL.Database(uInt8Array);
+
+				var contents = db.exec("SELECT * FROM myss");
+				//console.log(contents);
+				dbV=contents[0].values;
+				//console.log(dbV);
+				page_total=Math.ceil(dbV.length/page_size);
+				
+				
+				fillpage(1);
+				
+			/*	
+				$('.cbp_tmtimeline').html("");
+			//	for(var i=0;i<dbV.length;i++){
+			//		$('.cbp_tmtimeline').append(s1+dbV[i][1]+s2+dbV[i][2]+s3);
+			//	}
+				for(var i=dbV.length-1;i>=0;i--){
+					$('.cbp_tmtimeline').append(s1+dbV[i][1]+s2+dbV[i][2]+s3);
+				}
+			*/	 
+				
+			 
+				$("#pagination_8").whjPaging({
+					totalPage: page_total,
+					isShowTotalSize: false,
+					isShowTotalPage: false,
+					isShowRefresh: false,
+					isShowSkip: false,
+					isShowPageSizeOpt: false,
+					callBack: function (currPage, pageSize) {
+						fillpage(currPage);
+						//console.log('currPage:' + currPage + '     pageSize:' + pageSize);
+					}
+				});
+				
+			};
+			xhr.send();
+		}	
+			
+		function fillpage(pageNum){
+			$('.cbp_tmtimeline').html("");
+			var j=0;
+			for(var i=(dbV.length-1)-(pageNum-1)*page_size;i>=0;i--){
+				if(j>=page_size){
+					break;
+				}
+				$('.cbp_tmtimeline').append(s1+dbV[i][1]+s2+dbV[i][2]+s3);
+				j++;
+			}
+		}
+
+
+     
+</script>
+
+</html>

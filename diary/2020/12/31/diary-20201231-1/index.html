@@ -1,0 +1,1589 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Smarty模板, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Smarty是一个php模板引擎。更准确的说,它分开了逻辑程序和外在的内容,提供了一种易于管理的方法。可以描述为应用程序员和美工扮演了不同的角色,因为在大多数情况下,他们不可能是同一个人。例如,你正在创建一个用于浏览新闻的网页,新闻标题,标">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Smarty模板 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/18.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Smarty模板
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/php/" target="_blank">
+                                <span class="chip bg-color">php</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-31
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.5k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        13 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>Smarty是一个php模板引擎。更准确的说,它分开了逻辑程序和外在的内容,提供了一种易于管理的方法。可以描述为应用程序员和美工扮演了不同的角色,因为在大多数情况下,他们不可能是同一个人。例如,你正在创建一个用于浏览新闻的网页,新闻标题,标签栏,作者和内容等都是内容要素,他们并不包含应该怎样去呈现。在Smarty的程序里,这些被忽略了。模板设计者们编辑模板,组合使用html标签和模板标签去格式化这些要素的输出(html表格,背景色,字体大小,样式表,等等)。有一天程序员想要改变文章检索的方式(也就是程序逻辑的改变)。这个改变不影响模板设计者,内容仍将准确的输出到模板。同样的,哪天美工吃多了想要完全重做界面,也不会影响到程序逻辑。因此,程序员可以改变逻辑而不需要重新构建模板,模板设计者可以改变模板而不影响到逻辑。  </p>
+<p>smarty不尝试将逻辑完全和模板分开。如果逻辑程序严格的用于页面表现,那么它在模板里不会出现问题。有个建议:让应用程序逻辑远离模板,页面表现逻辑远离应用程序逻辑。这将在以后使内容更容易管理,程序更容易升级。  </p>
+<p>Smarty的特点之一是”模板编译”。意思是Smarty读取模板文件然后用他们创建php脚本。  </p>
+<p>灵活一点的配置Smarty的方法是扩展类,和初始化你的smarty环境。  </p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><ol>
+<li>PHP 程序和模版互相赋值调用；  </li>
+<li>判断是否有编译文件，没有就经过 Smarty 引擎解析生成编译文件；  </li>
+<li>如果有编译文件，直接访问编译文件；  </li>
+<li>然后输出编译文件的内容；  </li>
+<li>在输出时，如果开启的缓存功能，会生成一个静态缓存；  </li>
+<li>最后显示在浏览器端。  </li>
+<li>第二次访问时，会直接访问编译文件，跳过 Smarty 引擎编译；  </li>
+<li>第二次访问时，如果缓存开启，会直接跳过编译文件，直接访问缓存文件。  </li>
+</ol>
+<h2 id="Smarty的安装"><a href="#Smarty的安装" class="headerlink" title="Smarty的安装"></a>Smarty的安装</h2><p>下载Smarty-3.1.13.zip，将文件里libs目录下的所有文件复制到项目中的指定目录中，在项目中引入”Smarty.class.php”文件后既可使用。目录结构如下  </p>
+<pre><code>├──libs  
+│    └──plugins
+│    └──sysplugins
+│    └──debug.tpl
+│    └──Smarty.class.php
+│    └──SmartyBC.class.php
+├──myApp
+│    └──cache
+│    └──configs
+│    └──plugins
+│    └──templates
+│    └──templates_c
+│    └──index.php</code></pre><p>配置完成后，可通过Smarty的testInstall()内置方法查看配置信息。  </p>
+<h2 id="Smarty的使用"><a href="#Smarty的使用" class="headerlink" title="Smarty的使用"></a>Smarty的使用</h2><p>Smarty配置完成以后，既可通过Smarty调用指定模版，首先在模版文件路径下(这里是’templates/‘)创建一个模版文件home.tpl：</p>
+<pre><code>myApp/templates/home.tpl:
+
+{* Smarty模板注释*}
+
+&lt;html&gt;
+    &lt;head&gt;
+    &lt;meta http-equiv="Content-type" content="text/html; charset=utf-8" /&gt;
+    &lt;title&gt;Home&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        Hello, {$name}!
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre><p>我的项目内调用Smarty模板：  </p>
+<pre><code>myApp/index.php:  
+
+&lt;?php 
+    require('../libs/Smarty.class.php');  
+    $smarty = new Smarty;  
+    //$smarty-&gt;force_compile = true;  
+    $smarty-&gt;debugging = true;  
+    $smarty-&gt;caching = true;  
+    $smarty-&gt;cache_lifetime = 120;  
+
+    $smarty-&gt;assign('name','Ned');  
+    $smarty-&gt;display('home.tpl');  
+
+    $smarty-&gt;testInstall();
+?&gt;
+</code></pre><p>模版文件可以是任意后缀名，为了安全起见，尽量避免使用.html、.php等可以直接被浏览器解析的文件，当然最好的办法是禁止web浏览器直接访问模版所在文件夹。  </p>
+<h2 id="Smarty模板具体使用"><a href="#Smarty模板具体使用" class="headerlink" title="Smarty模板具体使用"></a>Smarty模板具体使用</h2><p>Smarty通过内置方法assign()向模版文件中传递各种变量，如数值、字符串、数组、对象等。  </p>
+<pre><code>$arr1 = new Array('zh', '26');                
+$arr2 = new Array('name'=&gt;'zh', 'age'=&gt;26);    
+$obj = new MyObject();                        //MyObject为自定义类，包含name等公共属性  
+$smarty-&gt;assign('str', 'zh');                //字符串  
+$smarty-&gt;assign('num', 6);                    //数值型  
+$smarty-&gt;assign('arr1', $arr1);                //索引数组1  
+$smarty-&gt;assign('arr2', $arr2);                //关联数组2  
+$smarty-&gt;assign('obj', $obj);                //对象  </code></pre><p>在模版中调用变量，通过在变量之前加上$,并使用’{}’边界符将变量括起来。  </p>
+<pre><code>&lt;body&gt;
+    {$str}            &lt;!-- 输出zh --&gt;
+    {$num}            &lt;!-- 输出zh --&gt;
+    {$arr1[0]}        &lt;!-- 输出zh --&gt;
+    {$arr2.name}    &lt;!-- 输出zh --&gt;
+    {$obj-&gt;name}    &lt;!-- 输出zh --&gt;
+&lt;/body&gt;
+</code></pre><p>Smarty访问通过指定数组的索引来访问索引数组，通过’.’访问关联数组，通过’-&gt;’访问对象属性。<br>默认情况下，左边界符’{‘与变量之间不能存在空格，否则变量将不会被解析，而是连同’{‘ 和 ‘}’原样显示出来。可以通过设置$smarty-&gt;auto_literal = false;来禁止这种行为。<br>‘{}’是Smarty的默认边界符，可以通过修改$left_delimiter和$right_delimiter属性来修改默认边界符  </p>
+<pre><code>$smarty-&gt;left_delimiter = '&lt;{';  
+$smarty-&gt;right_delimiter = '}&gt;';  </code></pre><p>Smarty支持模版内部注释，通过使用’{<em><em>}’，如：{</em>这里是注释</em>}。Smarty中的注释与HTML注释<!-- -->有些不同，Smarty中的注释，并不会显示在网页源文件中。<br>如果修改了Smarty的默认边界符，相应的注释标签也需要变动，如&lt;{<em>注释</em>}&gt;，而且以下所有标签边界符均改为该种形式。<br>有时可能需要模版忽略变量的解析，而将原文显示出来，如：要在页面中显示出&lt;{$name}&gt;，而不是将$name的变量值显示出来，可以通过&lt;{ldelim}&gt; , &lt;{rdelim}&gt; 或 &lt;{$smarty.ldelim}&gt; , &lt;{$smarty.rdelim}&gt;来实现，如：  </p>
+<pre><code>&lt;{ldelim}&gt;$name&lt;{rdelim}&gt;  
+&lt;{$smarty.ldelim}&gt;$name&lt;{$smarty.ldelim}&gt;  </code></pre><p>另一种方法是通过使用Smarty内置块标签&lt;{literal}&gt;,Smarty将会忽略解析出现在该标签之间的所有内容，如  </p>
+<pre><code>&lt;{literal}&gt;
+    这里输入不想被Smarty解析的内容
+&lt;{/literal}&gt;</code></pre><p>与PHP类似，Smarty会解析出现在双引号中的变量，但该变量只能包含数字、字符和下划线，如果包含其它字符，则必须使用”`”(ESC键)将变量包含起来  </p>
+<pre><code>&lt;{* $tpl_name将会别当作变量解析 *}&gt;
+&lt;{include file="subdir/$tpl_name.tpl"}&gt;
+
+&lt;{* 不会解析任何变量，只有双引号括起来的变量才会别解析 *}&gt;
+&lt;{include file='subdir/$tpl_name.tpl'}&gt;
+
+&lt;{* $smarty.config.myva将会别解析 *}&gt;
+&lt;{cycle values="one,two,`$smarty.config.myval`"}&gt;
+
+&lt;{* $module.contact将会别解析 *}&gt;
+&lt;{include file="`$module.contact`.tpl"}&gt;
+
+&lt;{* $module.$view都将会被解析 *}&gt;
+&lt;{include file="`$module.$view`.tpl"}&gt;</code></pre><p>Smarty支持在模版中直接使用数学表达式，但并不推荐使用这种方式，应当将更多的逻辑判断放到逻辑业务层中去处理。  </p>
+<pre><code>&lt;{$foo+1}&gt;
+&lt;{$foo*$bar}&gt;
+&lt;{* some more complicated examples *}&gt;
+&lt;{$foo-&gt;bar-$bar[1]*$baz-&gt;foo-&gt;bar()-3*7}&gt;
+&lt;{if ($foo+$bar.test%$baz*134232+10+$b+10)}&gt;
+&lt;{$foo|truncate:"`$fooTruncCount/$barTruncFactor-1`"}&gt;
+&lt;{assign var="foo" value="`$foo+$bar`"}&gt;</code></pre><p>除了调用assign()方法向模版文件中传递变量，Smarty还设置了一些常用的内置变量  </p>
+<pre><code>&lt;{* 获取URL中的GET数据 ($_GET) http://127.0.0.1/test/index.php?page=foo *}&gt;
+&lt;{$smarty.get.page}&gt;
+
+&lt;{* 获取POST数据 ($_POST['page']) *}&gt;
+&lt;{$smarty.post.page}&gt;
+
+&lt;{* 获取cookices"username" ($_COOKIE['username']) *}&gt;
+&lt;{$smarty.cookies.username}&gt;
+
+&lt;{* 获取"SERVER_NAME"属性 ($_SERVER['SERVER_NAME'])*}&gt;
+&lt;{$smarty.server.SERVER_NAME}&gt;
+
+&lt;{* 获取"PATH" *}&gt;
+&lt;{$smarty.env.PATH}&gt;
+
+&lt;{* 获取session "id" ($_SESSION['id']) *}&gt;
+&lt;{$smarty.session.id}&gt;
+
+&lt;{* 通过request获取"username" *}&gt;
+&lt;{$smarty.request.username}&gt;
+
+&lt;{* 获取当前时间戳。通过变量调节器(modifier )，可以对日期的显示格式进行自定义设置 *}&gt;
+&lt;{$smarty.now}&gt;
+
+获取PHP页面定义的常量,如  
+&lt;?php  
+
+// PHP中定义的常量
+define('MY_CONST_VAL','CHERRIES');
+
+?&gt;  
+模板中获取常量  
+
+&lt;body&gt;
+    &lt;{$smarty.const.MY_CONST_VAL}&gt;
+&lt;/body&gt;
+
+{$smarty.config}
+获取配置文件信息
+
+{$smarty.template}
+获取当前模版名，不包含路径信息。
+
+{$smarty.current_dir}
+获取当前模版所在路径
+
+{$smarty.version}
+获取当前Smarty版本信息
+
+{$smarty.ldelim},{$smarty.rdelim}
+获取左边界符和右边界符 </code></pre><h2 id="Smarty常用内建方法"><a href="#Smarty常用内建方法" class="headerlink" title="Smarty常用内建方法"></a>Smarty常用内建方法</h2><p>PHP内建方法</p>
+<pre><code>{$var=...}
+该方法是{assign}的简写模式，用来直接在模版中定义一个变量。
+属性：
+scope:    parent\root\global
+支持nocache
+
+{append}
+在调用模版的过程中向模版变量中创建一个数组变量，或者向一个已知的数组变量中追加元素，支持nocache标签
+属性：
+var    变量名
+value    变量值
+index    插入的变量在数组中的下标索引，如果没指定该值，则默认添加在数组的最后
+scope    访问权限
+支持nocache标签
+
+{assign}
+作用与{$var=...}相同
+属性
+var    定义的变量名
+value    定义的变量值
+scope    访问权限
+支持nocache标签
+
+{call}
+用来调用在模版中使用{function}标签定义的方法。该方法必须含有name属性，同时也可以将变量以属性的方式传递给调用的方法中
+属性：
+name    要调用的模版方法命
+assign    将调用模版方法后返回来的值存储到assign定义的变量中，而不是直接输出返回值
+[var...]向模版方法中传递变量以供方法使用
+支持nocache标签
+
+{capture}
+用来收集出现在{capture name='foo'}与{/capture}块之间的内容，并将其内保存到名字为foo的capture块标签中，如果未指明name属性，缺省default。可以使用$smarty.capture.foo来访问保存的内容。该标签不可被嵌套使用。
+属性：
+name    capture块标签名
+assign    若指定该属性，将捕获的内容赋值到给定变量中
+append    用来将捕获的内容追加到指定的数组中去
+支持nocache标签
+
+{config_load}
+用来获取配置文件中的变量信息
+属性：
+file    要读取的配置文件名
+section    读取配置文件中指定片段
+scope    权限分配
+
+{debug}
+弹出调试控制页面。该设置不会受到在php脚本中对debug设置的影响。
+
+{extends}
+该标签用在子模版中，用来指明所要继承的父模版。
+该标签必须在子模版的第一行中出现
+如果子模板用{extends}标签继承父模板，那么它只能包含{block}标签（内容），其它任何模板内容都将忽略； 
+使用此语法为模板资源继承$template_dir目录外的文件。 
+属性：
+file    要被继承的模版名
+
+{for}
+{for}{forelse}标签用来进行简单的循环，它支持下面两种格式的用法：
+{for $var=$start to $end} 步长为1
+{for $var=$start to $end step $step} 指定步长
+但循环为空时执行{forelse}
+属性：
+max    限制最大的循环次数
+支持nocache标签
+
+{foreach},{foreachelse}
+用来对一个数组数据进行简单的循环，格式有：
+{foreach $array as $val}
+{foreach $array as $key=&gt;$val}
+当循环的内容为空时执行{foreachelse}语句
+{foreach}具有下列属性：@index, @iteration, @first, @last, @show, @total。
+支持{break}和{continue}
+
+{function}
+用于在模版内部创建模版函数，调用方法与插件调用类似。
+注意：模版函数是全局的，如果要调用外部模版的模版函数，必须使用{call}标签，调用自己模版的模版函数则可以直接使用{functionname}形式来调用。
+
+{if},{elseif},{else}
+与php中类似，只是必须用{/if}进行结束标志。所有PHP条件函数和方法都可使用(is_array())。
+
+{include}
+用于将其它模版引入到当前模版中，当前模板中的任何有效变量在被包含模板中同样可用。 
+必须指定file属性，该属性指明模板资源的位置。 
+设置assign属性选项可以指定{include}的输出贮存分配给哪个模板变量，而不显示内容，类似于{assign}。 
+变量可以作为属性参数传递给被包含模板，任何明确传递给被包含模板的变量只在被包含文件的作用域中有效。如果传递的属性变量在当前模板中有同名变量，那么传递的属性变量将覆盖当前模板变量。 
+被包含模板内部可以使用主模板的所有变量，但在被包含模板里面改变或新建的变量只有本地作用域，使用{include}语句后这些变量在主模板内部将不可见；有两种方法可以改变这种默认行为（变量作用域）：在{include}语句中使用scope属性对被包含模板的所有赋值变量有效，或在{assign}语句中使用scope属性改变个别变量作用域。后一特性在从被包含模板返回值给主模板时非常有用。 
+包含$template_dir文件夹之外的模板请使用模板资源语法。
+支持nocache、caching、cache_lifetime标签
+inline标签：设置该项，将会被包含文件编译到包含文件中(很有用)
+
+{include_php} {insert}不赞成使用
+
+{ldelim},{rdelim}
+输出smarty的左右标签。
+
+{nocache}
+必须与{/nocache}成对出现。用来禁用模版中的某个片段进行缓存。即出现在该块中的内容不会被缓存
+
+{section},{sectionelse}
+对连续的数值下标索引的数组进行循环。无法对值索引数组进行循环，建议使用{foreach}
+
+{setfilter}
+必须与{/setfilter}标签成对出现。出现在该块标签内的所有变量都会进行过滤
+语法：{setfilter filter1|filter2|filter3....}...{/setfilter}
+该标签可以被嵌套使用，内嵌的标签过滤器会覆盖上层的过滤器
+
+{while}
+与PHP的while语句类似。所有PHP条件函数和方法都可使用(is_array())。
+</code></pre><p><a href="https://pan.baidu.com/s/1l_YKmcffgOofH71DqV77sA" target="_blank">Smarty-3.1.13.zip(自带官方demo)下载</a><br><br><a href="https://pan.baidu.com/s/1wbBdv8JujCX0A9VAV2vLmw" target="_blank">Smarty-3.1.13我的helloworld</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2020/12/31/diary-20201231-1/" class="b-link-green">Smarty模板</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/01/03/diary-20210103-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/2.jpg" class="responsive-img" alt="thinkphp5-helloworld">
+                        
+                        <span class="card-title">thinkphp5-helloworld</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            运行helloworld解压(应用项目)think-5.1.40.zip。  
+访问helloworld的入口文件是public目录下的index.php。  
+&lt;?php
+// +--------------------------
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-01-03
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/php/" target="_blank">
+                        <span class="chip bg-color">php</span>
+                    </a>
+                    
+                    <a href="/diary/tags/ThinkPHP5/" target="_blank">
+                        <span class="chip bg-color">ThinkPHP5</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2020/12/30/diary-20201230-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/28.jpg" class="responsive-img" alt="如何安全度过最危险的孕期头三个月">
+                        
+                        <span class="card-title">如何安全度过最危险的孕期头三个月</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            怀孕是一件大喜事，本应告诉众位亲朋好友，但在被告知的时候，孕妇往往已经怀孕超过3个月了。古人所说：“孕三月，不示人”，为什么会这样说呢？其实并不是因为迷信，而是有一定依据的。前三个月有很多不确定因素，最好保密，等三个月后彻底稳定下来，才是真
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-30
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

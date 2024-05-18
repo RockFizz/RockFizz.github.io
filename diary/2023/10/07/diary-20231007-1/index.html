@@ -1,0 +1,2565 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Cesium重验证、GeoServer、高德地图安卓开发、Markdown, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Cesium重验证Cesium是纯前端的代码，官方给出的源代码中，配套了nodejs的server端  
+在Cesium所在的文件夹目录，打开cmd或者bash敲入命令npm install,下载依赖的npm模块  
+最后在cmd或者bas">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Cesium重验证、GeoServer、高德地图安卓开发、Markdown | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/20.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Cesium重验证、GeoServer、高德地图安卓开发、Markdown
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Cesium/" target="_blank">
+                                <span class="chip bg-color">Cesium</span>
+                            </a>
+                        
+                            <a href="/diary/tags/GeoServer/" target="_blank">
+                                <span class="chip bg-color">GeoServer</span>
+                            </a>
+                        
+                            <a href="/diary/tags/Markdown/" target="_blank">
+                                <span class="chip bg-color">Markdown</span>
+                            </a>
+                        
+                            <a href="/diary/tags/AMap/" target="_blank">
+                                <span class="chip bg-color">AMap</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-10-07
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        10.4k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        43 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Cesium重验证"><a href="#Cesium重验证" class="headerlink" title="Cesium重验证"></a>Cesium重验证</h2><p>Cesium是纯前端的代码，官方给出的源代码中，配套了nodejs的server端  </p>
+<pre class="line-numbers language-html"><code class="language-html">在Cesium所在的文件夹目录，打开cmd或者bash敲入命令npm install,下载依赖的npm模块  
+最后在cmd或者bash中执行
+
+查看官方示例 node server.js 或者 npm start  
+
+编译得到cesium用于开发：  
+npm run build-release，生成Build/Cesium目录下拷贝走
+如果不使用node开发，纯手动将cesium添加入html：  
+
+1. 引入Cesium.js：  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../Build/Cesium/Cesium.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+2. 导入Cesium widget的样式  
+@import url(../Build/Cesium/Widgets/widgets.css);
+3. 定义div  
+cesium view存在于该div中：<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cesiumContainer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+4. 最终创建cesium viewer  
+var viewer = new Cesium.Viewer('cesiumContainer');
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>手动将cesium添加入html的helloworld  </p>
+<pre class="line-numbers language-html"><code class="language-html">​<span class="token doctype">&lt;!DOCTYPE html></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Leaflet demo2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>../Build/Cesium/Cesium.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css"> 
+    <span class="token atrule"><span class="token rule">@import</span> <span class="token url">url(../Build/Cesium/Widgets/widgets.css)</span><span class="token punctuation">;</span></span>
+    <span class="token selector">html, body, <span class="token id">#cesiumContainer</span> </span><span class="token punctuation">{</span>
+        <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span> 
+        <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span> 
+        <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span> 
+        <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span> 
+        <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>cesiumContainer<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript"> 
+<span class="token keyword">var</span> viewer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Viewer</span><span class="token punctuation">(</span><span class="token string">'cesiumContainer'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span> 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="markdown的方便使用"><a href="#markdown的方便使用" class="headerlink" title="markdown的方便使用"></a>markdown的方便使用</h2><h3 id="VSCode好用的markdown插件"><a href="#VSCode好用的markdown插件" class="headerlink" title="VSCode好用的markdown插件"></a>VSCode好用的markdown插件</h3><pre class="line-numbers language-html"><code class="language-html">安装 Markdown All in One  
+Markdown Preview Enhanced  
+Markdown PDF
+
+安装好后Ctrl+Shift+P
+运行Markdown: Markdown Preview Enhanced: Open Preview to ...
+预览md文件
+
+在预览页面右键Chrome(Puppeteer)->PDF将当前md导出成pdf
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Markdown数学公式"><a href="#Markdown数学公式" class="headerlink" title="Markdown数学公式"></a>Markdown数学公式</h3><p>博客不支持，专用编辑markdown软件Moeditor.exe支持  </p>
+<pre class="line-numbers language-html"><code class="language-html">$公式内容$
+
+$
+p(x)=3x^6 + 14x^5y-12x^2y^4
+$  
+
+上标 $x^2$ $\Big|^x_y$    
+下标 $x_a$  
+小括号 $(x+y)$  
+中括号 $[x+y]$  
+大括号 $\{x+y\}$  
+尖括号 $\langle x+y \rangle$  
+绝对值 $|x+y|$  
+双绝对值 $\| x+y \|$  
+逐渐放大括号的大小  
+$\big( \Big( \bigg( \Bigg($  
+$\big] \Big] \bigg] \Bigg]$  
+$\big\{ \Big\{ \bigg\{ \Bigg\{$  
+$\big\langle \Big\langle \bigg\langle \Bigg\langle$  
+$\big| \Big| \bigg| \Bigg|$  
+$\big\| \Big\| \bigg\| \Bigg\|$  
+矩阵  
+$\begin{matrix}  
+1 &amp; 2 &amp; 3\\  
+a &amp; b &amp; c  
+\end{matrix}$  
+
+$\begin{pmatrix}  
+1 &amp; 2 &amp; 3\\  
+a &amp; b &amp; c  
+\end{pmatrix}$  
+
+$\begin{bmatrix}  
+1 &amp; 2 &amp; 3\\  
+a &amp; b &amp; c  
+\end{bmatrix}$  
+
+$\begin{Bmatrix}  
+1 &amp; 2 &amp; 3\\  
+a &amp; b &amp; c  
+\end{Bmatrix}$  
+
+$\begin{vmatrix}  
+1 &amp; 2 &amp; 3\\  
+a &amp; b &amp; c  
+\end{vmatrix}$  
+
+$\begin{Vmatrix}  
+1 &amp; 2 &amp; 3\\  
+a &amp; b &amp; c  
+\end{Vmatrix}$    
+
+行内矩阵  
+$\begin{smallmatrix}  
+1 &amp; 2 &amp; 3\\  
+a &amp; b &amp; c  
+\end{smallmatrix}$  
+
+分式  
+$\frac{x}{y}$
+$\frac{x+1}{y+\frac{1}{y}}$  
+运算符（三角函数、对数、极限等，使用\+运算符英文即可）  
+$\sin30$ $\arcsin30$ ...  
+
+积分  
+$ \int_{a}^{b} x^2 \,dx $  
+曲线曲面积分  
+$\oint_V f(s) \,ds$  
+累加  
+$\sum_{n=1}^{\infty} 2^{-n}$  
+连乘  
+$\prod_{i=a}^{b} f(i)$   
+极限  
+$\lim_{x\to\infty} f(x)$  
+各种箭头  
+$
+\leftarrow \rightarrow \leftrightarrow \uparrow \Uparrow \downarrow \Downarrow 
+$  
+$
+\Leftarrow \Rightarrow \rightleftharpoons \Leftrightarrow \Updownarrow \nearrow \searrow \swarrow \nwarrow
+$  
+四则运算关系符  
+$\times \cdot \div \cap \cup \neq \leq \geq \in \perp \notin \subset \simeq \approx \wedge \vee \equiv \cong$
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="GeoServer-Guide"><a href="#GeoServer-Guide" class="headerlink" title="GeoServer Guide"></a>GeoServer Guide</h2><h3 id="WMS-WebMapService-和WMTS-WebMapTileService"><a href="#WMS-WebMapService-和WMTS-WebMapTileService" class="headerlink" title="WMS(WebMapService)和WMTS(WebMapTileService)"></a>WMS(WebMapService)和WMTS(WebMapTileService)</h3><p>都是用于在Web上呈现地图数据的协议，但它们以下关键区别  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 数据传输方式  
+WMS：WMS是一种按需生成地图图像的服务，每次请求时服务器都会生成地图图像并将其发送给客户端。这意味着每个地图请求都需要服务器执行渲染操作，可能会对服务器产生较大负载。
+WMTS：WMTS是一种基于瓦片（Tile）的服务，地图被预先划分为多个瓦片，每个瓦片都有固定的大小和分辨率。客户端可以通过请求这些瓦片来构建地图，而不需要服务器在每次请求时重新生成地图图像。这可以减轻服务器负担并提高性能。  
+
+2. 请求方式  
+WMS：WMS使用GetMap请求来获取地图图像，客户端需要指定图层、坐标系统和图像大小等参数。
+WMTS：WMTS使用GetTile请求来获取瓦片，客户端需要指定图层、瓦片坐标和级别等参数。  
+
+3. 缓存  
+WMS：由于每次请求都需要服务器渲染地图，通常需要使用缓存来提高性能，但这可能会导致数据更新的延迟。  
+WMTS：由于瓦片是静态的，它们可以轻松地进行缓存，因此通常具有更好的性能和响应时间。
+
+4. 适用场景  
+WMS适用于需要动态地生成地图或需要支持复杂的地图交互的应用，但可能会对服务器产生较大负载。
+WMTS适用于需要快速加载大规模地图数据的应用，如在线地图平台，因为它具有较高的性能和可伸缩性。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="可发布的服务和数据类型"><a href="#可发布的服务和数据类型" class="headerlink" title="可发布的服务和数据类型"></a>可发布的服务和数据类型</h3><p>GeoServer是一个开源的地理信息系统（GIS）服务器，它可以发布各种地理空间数据和地图服务。以下是一些GeoServer可以发布的服务和数据类型的示例：</p>
+<ol>
+<li><p>WMS(WebMapService)<br>GeoServer可以发布WMS服务，用于提供地图图像。通过WMS，你可以获取地图图层的静态图像，通常用于在Web应用程序中显示地图。</p>
+</li>
+<li><p>WFS(WebFeatureService)<br>GeoServer可以发布WFS服务，用于提供地理要素（如点、线、面）的地理数据。这使得客户端可以获取地理要素的几何和属性信息，以进行地理分析和查询。</p>
+</li>
+<li><p>WCS(WebCoverageService)<br>GeoServer可以发布WCS服务，用于提供地理覆盖数据，例如栅格图像或多维数据。这允许客户端按需获取和分析覆盖数据。</p>
+</li>
+<li><p>WPS(WebProcessingService)<br>GeoServer还支持WPS服务，用于执行地理处理操作，例如缓冲区分析、空间查询等。通过WPS，你可以在服务器上运行自定义地理处理任务。</p>
+</li>
+<li><p>WMTS(WebMapTileService)<br>虽然GeoServer本身不是WMTS服务器，但你可以使用插件将其配置为WMTS数据源，以便发布WMTS服务，提供地图瓦片数据。</p>
+</li>
+<li><p>数据存储类型<br>GeoServer可以连接多种数据存储类型，包括矢量数据（如Shapefile、PostGIS、OracleSpatial等）和栅格数据（如GeoTIFF、NetCDF等）。这使得它能够发布各种不同格式的地理数据。</p>
+</li>
+<li><p>样式<br>GeoServer还支持自定义样式，你可以创建符号化规则以控制地图图层的外观，包括颜色、标签、线型等。</p>
+</li>
+</ol>
+<h3 id="发布WFS服务"><a href="#发布WFS服务" class="headerlink" title="发布WFS服务"></a>发布WFS服务</h3><p>发布过程和发布WMS类似，需要将数据拷贝至geoserver默认目录下，然后设置工作区，设置数据存储，设置WFS参数，最终发布成WFS服务，提供标准化的WFS请求访问和查询  </p>
+<h3 id="下载边界数据和几种坐标系"><a href="#下载边界数据和几种坐标系" class="headerlink" title="下载边界数据和几种坐标系"></a>下载边界数据和几种坐标系</h3><p><a href="http://datav.aliyun.com/portal/school/atlas/area_selector" target="_blank" rel="noopener">http://datav.aliyun.com/portal/school/atlas/area_selector</a><br><a href="https://map.easyv.cloud/" target="_blank" rel="noopener">https://map.easyv.cloud/</a> （可在线坐标转换）<br><a href="https://mapshaper.org/" target="_blank" rel="noopener">https://mapshaper.org/</a> (在线json转shp)</p>
+<pre class="line-numbers language-html"><code class="language-html">1. GCJ02坐标系：
+GCJ02（国测局坐标系）是一种中国国内使用的坐标系，也称为火星坐标系。它是由中国国测局开发的，用于保护国内地理数据的安全性和精确性。GCJ02采用加密算法对WGS 84坐标进行偏移和混淆，以隐藏实际地理位置。
+
+2. 3857坐标系（Web墨卡托投影）：
+3857坐标系是一种广泛用于Web地图的投影坐标系。它是一种墨卡托投影，将地球表面投影到平面上，适用于快速地图渲染和交互。3857坐标系通常用于在线地图平台（如Google Maps、OpenStreetMap等）。
+
+3. 4326坐标系（WGS 84坐标系）：
+4326坐标系是一种地球上的标准地理坐标系，也称为WGS84坐标系。它是全球定位系统（GPS）所使用的坐标系，以及许多地理信息系统（GIS）的标准。4326坐标系用经度和纬度表示地点。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3857坐标系(Web墨卡托投影)和4326坐标系(WGS84坐标系)表示地球上的位置的方式不同，其坐标值也有明显的区别。以下是一个坐标点在这两种坐标系下的示例  </p>
+<pre class="line-numbers language-html"><code class="language-html">4326坐标系（WGS84坐标系）：
+经度（Longitude）：表示东西方向的角度，取值范围从-180到+180度。
+纬度（Latitude）：表示南北方向的角度，取值范围从-90到+90度。
+示例：
+帝国大厦（Empire State Building）在4326坐标系下的位置：纬度 40.748817，经度 -73.985428。
+
+3857坐标系（Web墨卡托投影）：
+X轴坐标：代表地球上某点的横向位置。
+Y轴坐标：代表地球上某点的纵向位置。
+示例：
+帝国大厦在3857坐标系下的位置：X = -8232915.71，Y = 4970353.05。  
+
+要注意的是，这两种坐标系之间的坐标值是不同的，因为它们采用了不同的投影方式。3857坐标系是平面投影，而4326坐标系是球面坐标系。在地图应用程序中，通常需要进行坐标转换，以在这两种坐标系之间进行切换，以便在不同的地图上正确显示地理要素。坐标转换是一个常见的地理信息系统操作，以确保地图上的位置显示准确。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="svn默认忽略二进制-so文件提交"><a href="#svn默认忽略二进制-so文件提交" class="headerlink" title="svn默认忽略二进制.so文件提交"></a>svn默认忽略二进制.so文件提交</h2><p>单独选中.so文件，右键TortoiseSVN -&gt; Add，然后提交</p>
+<h2 id="球面坐标和平面坐标"><a href="#球面坐标和平面坐标" class="headerlink" title="球面坐标和平面坐标"></a>球面坐标和平面坐标</h2><h3 id="先介绍球面坐标和平面坐标"><a href="#先介绍球面坐标和平面坐标" class="headerlink" title="先介绍球面坐标和平面坐标"></a>先介绍球面坐标和平面坐标</h3><p>高德地图仅支持EPSG3857坐标系统的WMS图层<br>高德2D地图是栅格地图，采用切片显示地图，只能俯视没有立体感就是图片，流量消耗大；<br>高德3D地图为矢量地图，采用终端绘制地图方式功能更加丰富前端渲染效果更精细，支持视角旋转切换，流量消耗小但对前端CPU开销大。</p>
+<p>高德地图点击获取点的经纬度坐标是火星坐标系 (GCJ-02)， (本来是84坐标，处于安全考虑使用加密后的火星坐标)<br>高德地图绘制点的经纬度坐标也需要转火星坐标系 (GCJ-02)，(本来是84坐标，处于安全考虑使用加密后的火星坐标)</p>
+<p>经纬度坐标基于球面模型，而平面坐标则基于投影模型。</p>
+<pre class="line-numbers language-html"><code class="language-html">常见的WGS84坐标系统基于一个椭球体模型，该模型尽可能地逼近地球的真实形状  
+
+World Geodetic System 1984（WGS 84）是一个用于地理信息系统、全球定位系统和航空导航的地理坐标系统。它由美国国防部制定，自1984年以来已经成为了国际上广泛使用的标准。  
+1. 经度（Longitude）：表示地点相对于本初子午线（通过格林尼治天文台的子午线）的东西方向的位置。经度的范围是从-180度（西经）到+180度（东经）。
+2. 纬度（Latitude）：表示地点相对于赤道的南北方向的位置。纬度的范围是从-90度（南纬）到+90度（北纬）。
+3. 海拔高度（Altitude）：表示地点相对于WGS 84椭球体的高度，单位通常是米。
+
+在许多应用中，我们只需要经度和纬度两个参数就可以定位一个地点。例如，在全球定位系统（GPS）中，就使用了WGS 84坐标系统来表示地点的位置。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以下是一个简单的84坐标（世界大地测量系统1984 经纬高）坐标转为平面坐标（如高斯克吕格投影坐标）的计算过程  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 获取经纬度坐标：假设我们有一个经纬度坐标点（纬度φ, 经度λ）。
+2. 计算辅助参数：根据WGS-84椭球体的参数（长半轴a，短半轴b），计算第一偏心率e²，第二偏心率e'²。
+3. 计算子午线弧长：根据纬度φ，计算该点到赤道的子午线弧长M。
+4. 计算投影坐标：根据经度λ，纬度φ，子午线弧长M以及其他一些参数，通过一系列的三角函数和多项式计算，得到该点在平面坐标系中的坐标（X，Y）。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为什么要将84坐标转平面坐标，有何作用？  </p>
+<pre class="line-numbers language-html"><code class="language-html">将WGS 84坐标（经纬度坐标）转换为平面坐标的主要作用是为了简化地理空间数据的处理和计算。
+
+1. 简化计算：在平面坐标系统中，我们可以直接使用欧几里得几何（如直线距离、角度等）来进行计算，而在球面坐标系统中，这些计算会变得复杂很多。例如，计算两点之间的距离，如果这两点的坐标是平面坐标，那么我们只需要使用勾股定理就可以计算出距离。但如果这两点的坐标是经纬度坐标，那么我们就需要使用更复杂的球面三角学来计算距离。
+
+2. 适应地图展示：大部分的地图都是二维的，因此它们实际上是地球表面的一个投影。将经纬度坐标转换为平面坐标，可以使得地图上的形状、大小和方向更加接近我们在真实世界中看到的。这对于地图设计和地理信息系统（GIS）应用非常重要。
+
+3. 适应本地区域：不同的地区可以使用不同的投影方式，以最小化该地区的投影误差。例如，中国大陆常用的高斯克吕格投影，就是为了适应中国大陆的地理形状和纬度范围。
+
+需要注意的是，任何从球面到平面的投影都会引入一定的误差。因此，在进行坐标转换时，我们需要根据实际应用的需求和精度要求，选择最合适的投影方法。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>平面坐标转换为WGS 84坐标（经纬度坐标）,存在误差是什么意思？  </p>
+<pre class="line-numbers language-html"><code class="language-html">将平面坐标转换为WGS 84坐标（经纬度坐标）进行距离计算，或者反之，都会存在一定的误差。这是因为地球不是一个完美的球体，而是一个接近于球体的椭球体，而平面坐标系统是对地球表面的一个投影。
+
+当我们在平面坐标系统中计算两点之间的距离时，我们通常使用简单的欧几里得距离公式（勾股定理）。但是，由于地球是一个椭球体，这种计算方法实际上是有误差的。这种误差在短距离上可能不明显，但在长距离上就会变得很明显。
+
+相反，如果我们在经纬度坐标系统中计算两点之间的距离，我们需要使用更复杂的球面三角学或者大地测量学的计算方法。这种计算方法更接近地球的真实形状，因此在理论上，它的精度应该更高。
+
+然而，在实际应用中，我们通常需要在计算精度和计算复杂性之间做出权衡。对于需要高精度的应用，如航空航天、精密测量等，我们通常会使用经纬度坐标和相应的计算方法。对于不需要那么高精度，或者只涉及到小范围地区的应用，如城市规划、地图绘制等，我们可能会选择使用平面坐标和简单的计算方法。
+
+总的来说，无论是使用平面坐标还是经纬度坐标，我们都需要明白这些坐标系统和计算方法的限制，以及它们可能引入的误差。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="再介绍球面坐标和平面坐标"><a href="#再介绍球面坐标和平面坐标" class="headerlink" title="再介绍球面坐标和平面坐标"></a>再介绍球面坐标和平面坐标</h3><blockquote>
+<p>投影：把球面坐标转化为平面坐标的数学概念；<br>投影就是把地理坐标(已球体为基础，用经度和维度表达位置信息)，转换成，平面直角坐标(建立在平面上，用(x,y)表达位置信息)<br>地理坐标系 （Geographic Coordinate System），用经纬度描述地球点的空间位置。  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">地理坐标系可以确定地球上任何一点的位置。首先将地球抽象成一个规则的逼近原始自然地球表面的椭球体，称为参考椭球体，然后在参考椭球体上定义一系列的经线和纬线构成经纬网，从而达到通过经纬度来描述地表点位的目的。需要说明的是经纬地理坐标系不是平面坐标系，因为度不是标准的长度单位，不可用其直接量测面积长度。
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>大地坐标系： 是一种局部坐标系，用直角坐标系（X、Y、Z）或极坐标系（经度、纬度、高程）表示地球上某点的位置。在大地坐标系中，经纬度通常用弧度表示，而不是度数。大地坐标系考虑了地球的形状和椭球体的偏心率，通常使用大地水准面和大地椭球来描述地球的真实形状。在大地坐标系中，经纬度和高程被用来描述地球表面上的点的位置和海拔高度。</p>
+</blockquote>
+<blockquote>
+<p>投影坐标系 （Projection coordinatesystem）：或称平面坐标系，地图单位通常为米 。<br>投影坐标系使用基于X,Y值的坐标系统来描述地球上某个点所处的位置。这个坐标系是从地球的近似椭球体投影得到的，它对应于某个地理坐标系。<br>投影坐标系由 以下参数确定：</p>
+<ol>
+<li>地理坐标系（由基准面确定，比如：北京54、西安80、WGS84）  </li>
+<li>投影方法（比如高斯－克吕格、Lambert投影、Mercator投影）  </li>
+</ol>
+</blockquote>
+<p>常见地理坐标系如：</p>
+<pre class="line-numbers language-html"><code class="language-html">北京54坐标系：  
+大地坐标系，参心坐标系，中国成立以后，我国大地测量进入了全面发展时期，采用了前苏联的克拉索夫斯基椭球参数，通过计算建立了我国大地坐标系，定名为1954年北京坐标系。因此，1954年北京坐标系可以认为是前苏联1942年坐标系的延伸。它的原点不在北京而是在前苏联的普尔科沃。宣布自2019年1月1日起，全面停止向社会提供1954年北京坐标系和1980西安坐标系基础测绘成果。  
+
+西安80坐标系：  
+大地坐标系，参心坐标系，1978年4月在西安召开全国天文大地网平差会议，确定重新定位，建立我国新的坐标系。为此有了1980年国家大地坐标系。采用地球椭球基本参数为1975年国际大地测量与地球物理联合会第十六届大会推荐的数据，即IAG 75地球椭球体。该坐标系的大地原点设在我国中部的陕西省泾阳县永乐镇，
+
+CGCS2000坐标系：  
+2000国家大地坐标系，是中国新一代大地坐标系，21世纪初已在中国正式实施。，其原点为包括海洋和大气的整个地球的质量中心。Z轴指向BIH1984.0定义的协议极地方向（BIH国际时间局），X轴指向BIH1984.0定义的零子午面与协议赤道的交点，Y轴按右手坐标系确定。2000国家大地坐标系采用的地球椭球参数如下：
+
+WGS84坐标系：  
+是一种国际上采用的地心坐标系。坐标原点为地球质心，其地心空间直角坐标系的Z轴指向BIH （国际时间服务机构）1984.0定义的协议地球极（CTP）方向，X轴指向BIH 1984.0的零子午面和CTP赤道的交点，Y轴与Z轴、X轴垂直构成右手坐标系，称为1984年世界大地坐标系统。
+
+
+北京54： 长轴6378245m，短轴6356863，扁率1/298.2997381
+西安80： 长轴6378140m，短轴6356755，扁率1/298.25722101
+WGS84：长轴6378137.000m，短轴6356752.314，扁率1/298.257223563，第一偏心率0.081819790992，第二偏心率0.082095040121 
+这些参数不同，决定了椭球模型的几何中心是不同的  
+
+WGS84是面向全球的，所以它尽量逼近整个地球表面，优点是范围大，缺点是局部不够精确。 
+
+北京54用的是前苏联的参数，它是面向苏联的，所以它在前苏联区域这个曲面尽量逼近，而其它国家地区偏多少它不管。它以苏联的普尔科沃为中心，离那越远，误差就越大。
+西安80是面向中国的，所以它在中国区域这个曲面尽量逼近，而其它国家地区偏多少它不管。而且这个逼近是以西安附近的大地原点为中心的，也就是说，在西安大地原点处，模型和真实地表参考海平面重合，误差为0，而离大地原点越远的地方，误差越大。所谓的大地原点就是这么来的，它是人为去定的，而不是必须在那里，它要尽量放在中国的中间，使得总的误差尽量小而分布均匀。然后，我国在自已境内进行的建筑，测绘，勘探什么的所绘制的图，都以这个大地原点为基准，去建立各种用途的地表坐标系，就能统一起来了。
+
+所以在中国区域，WGS84模型是没有西安80模型那么准确。而用西安80模型来算美国的点，则更不准确。现在更新为2000国家大地坐标系，参数比西安80更精确了，而道理是一样的。   
+
+地球上一个点经纬度，是基于参考椭球来算的，所以，同一个地方，用北京54，西安80，WGS84算出来的经纬度是三个不一样的值。由于GPS用的是WGS84，所以我们手机看到的是WGS84坐标系的经纬度。 
+
+
+GCJ02坐标系：  
+是一种对经纬度数据的加密算法，即加入随机的偏差。国内出版的各种地图系统（包括电子形式），必须至少采用GCJ-02对地理位置进行首次加密  
+
+BD09坐标系：  
+为百度坐标系，在GCJ02坐标系基础上再次加密。其中BD09LL表示百度经纬度坐标，BD09MC表示百度墨卡托米制坐标。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>常见投影方法如：  </p>
+<pre class="line-numbers language-html"><code class="language-html">高斯-克吕格投影:  
+
+UTM投影（通用横轴墨卡托）
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>开源GIS著名的地图投影库有ProJ.4和GDAL  </p>
+<h3 id="Java使用GDAL举例"><a href="#Java使用GDAL举例" class="headerlink" title="Java使用GDAL举例"></a>Java使用GDAL举例</h3><p>在Java中，我们可以使用JNI（Java Native Interface）来调用C/C++编写的GDAL库。首先，我们需要在Java代码中加载GDAL库，可以使用System.loadLibrary方法来加载GDAL库，示例如下：  </p>
+<pre class="line-numbers language-html"><code class="language-html">import org.gdal.gdal.gdal;
+import org.gdal.osr.SpatialReference;
+import org.gdal.osr.CoordinateTransformation;
+
+public class CoordinateConversion {
+    public static void main(String[] args) {
+        // 初始化 GDAL
+        gdal.AllRegister();
+
+        // 定义84坐标的投影坐标系，一般为WGS84
+        /*
+         * "4326" 对应的是WGS84坐标系，也就是世界大地测量系统所使用的经纬度坐标系。
+         * 在该坐标系下，经度的取值范围为 -180 到 180 度，纬度的取值范围为 -90 到 90 度。 
+         */
+        SpatialReference srcSRS = new SpatialReference();
+        srcSRS.ImportFromEPSG(4326); // EPSG:4326 是 WGS 84 的代号
+
+        // 定义目标投影坐标系，即你要进行转换到的平面坐标系
+        /*
+         * "3857坐标系" 使用了球体墨卡托投影,也被称为Web墨卡托投影（Web Mercator projection），是一种常用的投影坐标系
+         * 将地球表面的经纬度坐标转换为平面坐标，将地球表面投影到一个正方形的平面网格上。以便在Web地图上显示。  
+         * EPSG3857的投影范围覆盖了整个地球，使用单位是米
+         * 需要注意的是，尽管EPSG3857在Web地图应用中极为流行，但它并不适合进行精确的测量或精确的地理空间分析  
+         * 因为它是一个等角投影，不能保证在不同纬度下的距离或面积的准确性。因此，在进行精确测量或分析时，可能需要转换到其他适合具体需求的投影坐标系。
+         */
+        SpatialReference dstSRS = new SpatialReference();
+        dstSRS.ImportFromEPSG(3857); // 假设目标投影坐标系的EPSG代码为3857，你需要替换成实际使用的投影坐标系的EPSG代码
+
+        // 创建坐标转换对象
+        CoordinateTransformation transform = new CoordinateTransformation(srcSRS, dstSRS);
+
+        // 输入的经纬度坐标
+        double[] point = new double[] {经度, 纬度}; // 例如：{120.0, 30.0}
+
+        // 转换为平面坐标
+        transform.TransformPoint(point);
+
+        // 输出平面坐标
+        System.out.println("平面坐标 X: " + point[0] + ", Y: " + point[1]);
+
+        // 将平面坐标还原成经纬度坐标
+        transform = new CoordinateTransformation(dstSRS, srcSRS);
+        transform.TransformPoint(point);
+
+        // 输出还原后的经纬度坐标
+        System.out.println("还原后的经度: " + point[0] + ", 纬度: " + point[1]);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="高德地图开发Tips"><a href="#高德地图开发Tips" class="headerlink" title="高德地图开发Tips"></a>高德地图开发Tips</h2><h3 id="初次打开时初始化地图到当前位置"><a href="#初次打开时初始化地图到当前位置" class="headerlink" title="初次打开时初始化地图到当前位置"></a>初次打开时初始化地图到当前位置</h3><pre class="line-numbers language-html"><code class="language-html">private MapView mMapView;
+private AMap aMap;
+private AMapLocationClient mLocationClient;
+
+boolean initPos;
+......  
+
+
+protected void onCreate(Bundle saveInstanceState){
+    super.onCreate(saveInstanceState);
+    setContentView(R.layout.activity_map);
+    // 初始化地图
+    mMapView = (MapView) findViewById(R.id.map);
+    mMapView.onCreate(savedInstanceState);
+    aMap = mMapView.getMap();
+    // 初始化定位
+    mLocationClient = new AMapLocationClient(getApplicationContext());
+    mLocationClient.setLocationListener(this);
+
+    // 配置定位参数
+    AMapLocationClientOption mLocationOption = new AMapLocationClientOption();
+    mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+    mLocationOption.setOnceLocation(true);
+    // 设置定位参数
+    mLocationClient.setLocationOption(mLocationOption);
+    // 设置定位模式
+    MyLocationStyle myLocationStyle = new MyLocationStyle();  
+    aMap.setMyLocationStyle(myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER));
+    // 设置默认定位按钮是否显示
+    aMap.getUiSettings().setMyLocationButtonEnabled(true);
+    initPos=false;
+    // 启动定位
+    mLocationClient.startLocation();
+
+}
+
+@Override
+public void onLocationChanged(AMapLocation aMapLocation) {
+    if (aMapLocation != null) {
+        if(!initPos){
+            initPos=true;
+            aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(aMapLocation.getLatitude(),aMapLocation.getLongitude()),15));
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="对已绘制的点进行拖拽"><a href="#对已绘制的点进行拖拽" class="headerlink" title="对已绘制的点进行拖拽"></a>对已绘制的点进行拖拽</h3><pre class="line-numbers language-html"><code class="language-html">第一步：implements AMap.OnMarkerDragListener 实现接口  
+@Override
+public void onMarkerDragStart(Marker marker) {
+
+}
+
+@Override
+public void onMarkerDrag(Marker marker) {
+
+}
+
+@Override
+public void onMarkerDragEnd(Marker marker) {
+
+}
+第二步：建立拖动的监听处理  
+private Marker mMarker;
+private void initDragPoint(){
+    mMarker=aMap.addMarker(new MarkerOptions().position(new LatLng(30.5928,114.3055)).draggable(true));
+    // 设置标记的拖动监听
+    aMap.setOnMarkerDragListener(this);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="可能闪退或初次不显示地图显示白屏"><a href="#可能闪退或初次不显示地图显示白屏" class="headerlink" title="可能闪退或初次不显示地图显示白屏"></a>可能闪退或初次不显示地图显示白屏</h3><pre class="line-numbers language-html"><code class="language-html">
+1. 高德地图E/libEGL: call to OpenGL ES API with no current context (logged once per thread)  
+验证发现：mapview.onDestroy 只有放在deactivate中才不会出现。 而放在onDestroy, onDestroyView,onStop中都会出现。这个问题在手机中，经常表现为闪退。
+
+2.  /**
+     * 隐私合规校验：否则errorCode : 555570
+     * 确保调用SDK任何接口前先调用更新隐私合规updatePrivacyShow、updatePrivacyAgree两个接口并且参数值都为true，
+     * 若未正确设置有崩溃风险
+     */
+    AMapLocationClient.updatePrivacyShow(this,true,true);
+    AMapLocationClient.updatePrivacyAgree(this,true);
+放到初始化地图之前执行,不执行有可能白屏不显示，放其它位置有可能第二次打开app才显示地图
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="安卓Tips"><a href="#安卓Tips" class="headerlink" title="安卓Tips"></a>安卓Tips</h2><h3 id="隐藏标题栏"><a href="#隐藏标题栏" class="headerlink" title="隐藏标题栏"></a>隐藏标题栏</h3><pre class="line-numbers language-html"><code class="language-html">Activity的onCreate()方法中调用requestWindowFeature(Window.FEATURE_NO_TITLE) 来隐藏标题栏
+requestWindowFeature(Window.FEATURE_NO_TITLE); // 隐藏标题栏  
+
+如果是AppCompatActivity，则在页面onCreate之前调用supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+protected void onCreate(Bundle savedInstanceState) {
+    supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+    super.onCreate(savedInstanceState);
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安卓结合线程池使用异步任务AsyncTask"><a href="#安卓结合线程池使用异步任务AsyncTask" class="headerlink" title="安卓结合线程池使用异步任务AsyncTask"></a>安卓结合线程池使用异步任务AsyncTask</h3><p>在Android应用程序中使用AsyncTask来执行一些耗时的操作，比如网络请求、数据库查询等，以避免阻塞主线程而导致程序无响应。</p>
+<p>AsyncTask的实例必须在UI thread中创建；<br>execute方法必须在UI thread中调用；</p>
+<pre class="line-numbers language-html"><code class="language-html">
+// 创建自定义的线程池
+private static final int CORE_POOL_SIZE = 5;
+private static final int MAXIMUM_POOL_SIZE = 10;
+private static final int KEEP_ALIVE_TIME = 10;
+private static final BlockingQueue<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Runnable</span><span class="token punctuation">></span></span> mTaskQueue = new LinkedBlockingQueue<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Runnable</span><span class="token punctuation">></span></span>();
+private static final ThreadPoolExecutor mThreadPoolExecutor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_TIME, TimeUnit.SECONDS, mTaskQueue);
+
+private class DrawPointsTask extends AsyncTask&lt;List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PointLatLng</span><span class="token punctuation">></span></span>,Void,Integer>{
+    @Override
+    protected Integer doInBackground(List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PointLatLng</span><span class="token punctuation">></span></span>... lists) {
+        if(lists.length>0){
+            List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PointLatLng</span><span class="token punctuation">></span></span> points=lists[0];
+            for(int i=0;i&lt;points.size()-1;i++){
+                // 执行任务大量绘制
+            }
+        }
+        return 0;
+    }
+    @Override
+    protected void onPostExecute(Integer result) {
+        // 任务执行完毕后的回调方法，可以更新UI等操作
+        Toast.makeText(getApplicationContext(), "绘制完成", Toast.LENGTH_SHORT).show();
+    }
+}
+
+
+List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PointLatLng</span><span class="token punctuation">></span></span> outputPoints = new ArrayList&lt;>();
+。。。。。。
+DrawPointsTask drawPointsTask=new DrawPointsTask();
+//drawPointsTask.execute(outputPoints); //不使用线程池也能用
+drawPointsTask.executeOnExecutor(mThreadPoolExecutor,outputPoints);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="创建子线程处理耗时任务-然后修改主线程UI"><a href="#创建子线程处理耗时任务-然后修改主线程UI" class="headerlink" title="创建子线程处理耗时任务,然后修改主线程UI"></a>创建子线程处理耗时任务,然后修改主线程UI</h3><pre class="line-numbers language-html"><code class="language-html">TextView textOutput;
+
+new Thread(new Runnable() {
+    @Override
+    public void run() {
+        // 耗时任务
+        String res= getCalcResult(inputPoints,flyFlanParam);
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+           @Override
+           public void run() {
+               textOutput.setText(res);
+           }
+        });
+    }
+}).start();  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="在子线程中调用Toast"><a href="#在子线程中调用Toast" class="headerlink" title="在子线程中调用Toast"></a>在子线程中调用Toast</h3><p>在子线程中弹出Toast，会报错：java.lang.RuntimeException: Can’t toast on a thread that has not called Looper.prepare()。  </p>
+<p>解决方法是先调用Looper.prepare();再调用Toast.makeText().show();最后再调用Looper.loop();：  </p>
+<pre class="line-numbers language-html"><code class="language-html">    Looper.prepare();
+    Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+    Looper.loop();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="安卓使用EasyPermissions库申请权限"><a href="#安卓使用EasyPermissions库申请权限" class="headerlink" title="安卓使用EasyPermissions库申请权限"></a>安卓使用EasyPermissions库申请权限</h2><p>添加依赖  </p>
+<pre class="line-numbers language-html"><code class="language-html">implementation 'pub.devrel:easypermissions:3.0.0'  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>申请权限  </p>
+<pre class="line-numbers language-html"><code class="language-html">public class YourActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+
+    private static final int PERMISSIONS_REQUEST_CODE = 124;
+
+    protected String[] needPermissions = {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+    //            BACK_LOCATION_PERMISSION
+    };
+    // 在需要权限的地方调用此方法申请权限
+    private void requestPermissionByEasyPermissions(){
+        if(EasyPermissions.hasPermissions(this,needPermissions)){
+
+        }else{
+            EasyPermissions.requestPermissions(this,"App需要这些权限来正常工作",PERMISSIONS_REQUEST_CODE,needPermissions);
+        }
+    }
+
+    // 权限申请成功
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> perms) {
+
+    }
+
+    // 权限申请被拒绝
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> perms) {
+
+    }
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="初步配置使用高德3d地图"><a href="#初步配置使用高德3d地图" class="headerlink" title="初步配置使用高德3d地图"></a>初步配置使用高德3d地图</h2><h3 id="1-新建Android项目，添加权限，添加依赖"><a href="#1-新建Android项目，添加权限，添加依赖" class="headerlink" title="1.新建Android项目，添加权限，添加依赖"></a>1.新建Android项目，添加权限，添加依赖</h3><p>AndroidManifest.xml添加权限</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.INTERNET<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.ACCESS_NETWORK_STATE<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.ACCESS_FINE_LOCATION<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.ACCESS_COARSE_LOCATION<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>在build.gradle中添加高德地图sdk依赖  </p>
+<pre class="line-numbers language-html"><code class="language-html">implementation  "com.amap.api:3dmap:9.6.0"  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="2-高德开放平台上申请APIKey。需要提供应用包名和SHA1签名信息"><a href="#2-高德开放平台上申请APIKey。需要提供应用包名和SHA1签名信息" class="headerlink" title="2.高德开放平台上申请APIKey。需要提供应用包名和SHA1签名信息"></a>2.高德开放平台上申请APIKey。需要提供应用包名和SHA1签名信息</h3><pre class="line-numbers language-html"><code class="language-html">1. 获取应用的包名：包名是在你创建Android项目时定义的，可以在AndroidManifest.xml文件中的manifest标签的package属性中找到。
+2. 获取SHA1签名信息：SHA1签名可以通过Keytool工具获取，这是Java自带的一个证书工具。打开命令提示符或者终端，输入以下命令：  
+keytool -list -v -keystore F:\Demo\mysignedkey.jks -storepass 123456  
+这将会输出一些关于keystore的信息，其中就包括SHA1签名   
+3. 登录高德开放平台，进入控制台，点击创建新应用，填写应用名称，选择平台为Android，然后在"SHA1证书指纹"和"应用包名"的输入框中分别填入你刚才获取的SHA1签名和应用包名，最后点击提交，系统就会生成一个APIKey  
+4. 将生成的APIKey填写到你的应用代码中，具体位置根据不同的API和SDK可能会有所不同，一般都会在初始化地图或者服务的代码中。具体使用方法可以参考高德开放平台的开发文档。 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="3-设置APIKey"><a href="#3-设置APIKey" class="headerlink" title="3.设置APIKey"></a>3.设置APIKey</h3><p>通常在AndroidManifest.xml内设置  </p>
+<pre class="line-numbers language-html"><code class="language-html"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>application</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta-data</span>
+            <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.amap.api.v2.apikey<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>8fd65eeef86d421537abe03e0096be4b<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>application</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="4-添加MapView并初始化，添加相关权限和业务功能"><a href="#4-添加MapView并初始化，添加相关权限和业务功能" class="headerlink" title="4.添加MapView并初始化，添加相关权限和业务功能"></a>4.添加MapView并初始化，添加相关权限和业务功能</h3><pre class="line-numbers language-html"><code class="language-html"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>LinearLayout</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span>
+<span class="token attr-name"><span class="token namespace">xmlns:</span>app</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res-auto<span class="token punctuation">"</span></span>
+<span class="token attr-name"><span class="token namespace">xmlns:</span>tools</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/tools<span class="token punctuation">"</span></span>
+<span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+<span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+<span class="token attr-name"><span class="token namespace">android:</span>orientation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>vertical<span class="token punctuation">"</span></span>
+<span class="token attr-name"><span class="token namespace">tools:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>.MapActivity<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>  
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>com.amap.api.maps.MapView</span>
+    <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@+id/map<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>LinearLayout</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>相关权限  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.zy;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Location;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.provider.Settings;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+
+
+import com.amap.api.maps.MapsInitializer;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity  {
+
+
+
+    /**
+     * 需要进行检测的权限数组
+     */
+    protected String[] needPermissions = {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+//            Manifest.permission.READ_PHONE_STATE,
+            BACK_LOCATION_PERMISSION
+    };
+    private static final int PERMISSON_REQUESTCODE = 0;
+
+    /**
+     * 判断是否需要检测，防止不停的弹框
+     */
+    private boolean isNeedCheck = true;
+
+    //是否需要检测后台定位权限，设置为true时，如果用户没有给予后台定位权限会弹窗提示
+    private boolean needCheckBackLocation = false;
+    //如果设置了target > 28，需要增加这个权限，否则不会弹出"始终允许"这个选择框
+    private static final String BACK_LOCATION_PERMISSION = "android.permission" +
+            ".ACCESS_BACKGROUND_LOCATION";
+
+    private void GetPermissionDynamic(){
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},200);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 200:
+                privacyCompliance();
+//                if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+//                    ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},201);
+//                }
+                break;
+//            case 201:
+//                if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+//                    ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},202);
+//                }
+//                break;
+//            case 202:
+//                if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+//                    ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},203);
+//                }
+//                break;
+
+            default:
+
+                try {
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        if (requestCode == PERMISSON_REQUESTCODE) {
+                            if (!verifyPermissions(grantResults)) {
+                                showMissingPermissionDialog();
+                                isNeedCheck = false;
+                            }
+                        }
+                    }
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+                break;
+
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        GetPermissionDynamic();
+
+
+        super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT > 28
+                &amp;&amp; getApplicationContext().getApplicationInfo().targetSdkVersion > 28) {
+            needPermissions = new String[]{
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                    android.Manifest.permission.ACCESS_FINE_LOCATION,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+//                    Manifest.permission.READ_PHONE_STATE,
+                    BACK_LOCATION_PERMISSION
+            };
+            needCheckBackLocation = true;
+        }
+
+        setContentView(R.layout.activity_main);
+//        privacyCompliance();
+        Button btn1=findViewById(R.id.button1);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,MapActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if (Build.VERSION.SDK_INT >= 23) {
+//            if (isNeedCheck) {
+//                checkPermissions(needPermissions);
+//            }
+//        }
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
+
+
+
+
+
+    private void privacyCompliance() {
+        MapsInitializer.updatePrivacyShow(MainActivity.this, true, true);
+        SpannableStringBuilder spannable = new SpannableStringBuilder("\"亲，感谢您对XXX" +
+                "一直以来的信任！我们依据最新的监管要求更新了XXX《隐私权政策》，特向您说明如下\n1.为向您提供交易相关基本功能，我们会收集、使用必要的信息；\n2" +
+                ".基于您的明示授权，我们可能会获取您的位置（为您提供附近的商品、店铺及优惠资讯等）等信息，您有权拒绝或取消授权；\n3" +
+                ".我们会采取业界先进的安全措施保护您的信息安全；\n4.未经您同意，我们不会从第三方处获取、共享或向提供您的信息；\n");
+        spannable.setSpan(new ForegroundColorSpan(Color.BLUE), 35, 42,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        new AlertDialog.Builder(this)
+                .setTitle("温馨提示(隐私合规示例)")
+                .setMessage(spannable)
+                .setPositiveButton("同意", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        MapsInitializer.updatePrivacyAgree(MainActivity.this, true);
+                    }
+                })
+                .setNegativeButton("不同意", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        MapsInitializer.updatePrivacyAgree(MainActivity.this, false);
+                    }
+                })
+                .show();
+    }
+
+    /**
+     * @param
+     * @since 2.5.0
+     */
+    @TargetApi(23)
+    private void checkPermissions(String... permissions) {
+        try {
+            if (Build.VERSION.SDK_INT >= 23 &amp;&amp; getApplicationInfo().targetSdkVersion >= 23) {
+                List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> needRequestPermissonList = findDeniedPermissions(permissions);
+                if (null != needRequestPermissonList
+                        &amp;&amp; needRequestPermissonList.size() > 0) {
+                    try {
+                        String[] array =
+                                needRequestPermissonList.toArray(new String[needRequestPermissonList.size()]);
+                        Method method = getClass().getMethod("requestPermissions", String[].class, int.class);
+                        method.invoke(this, array, 0);
+                    } catch (Throwable e) {
+
+                    }
+                }
+            }
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取权限集中需要申请权限的列表
+     *
+     * @param permissions
+     * @return
+     * @since 2.5.0
+     */
+    @TargetApi(23)
+    private List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> findDeniedPermissions(String[] permissions) {
+        try {
+            List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> needRequestPermissonList = new ArrayList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span>();
+            if (Build.VERSION.SDK_INT >= 23 &amp;&amp; getApplicationInfo().targetSdkVersion >= 23) {
+                for (String perm : permissions) {
+                    if (checkMySelfPermission(perm) != PackageManager.PERMISSION_GRANTED
+                            || shouldShowMyRequestPermissionRationale(perm)) {
+                        if (!needCheckBackLocation
+                                &amp;&amp; BACK_LOCATION_PERMISSION.equals(perm)) {
+                            continue;
+                        }
+                        needRequestPermissonList.add(perm);
+                    }
+                }
+            }
+            return needRequestPermissonList;
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private int checkMySelfPermission(String perm) {
+        try {
+            Method method = getClass().getMethod("checkSelfPermission", String.class);
+            Integer permissionInt = (Integer) method.invoke(this, perm);
+            return permissionInt;
+        } catch (Throwable e) {
+        }
+        return -1;
+    }
+
+    private boolean shouldShowMyRequestPermissionRationale(String perm) {
+        try {
+            Method method = getClass().getMethod("shouldShowRequestPermissionRationale", String.class);
+            Boolean permissionInt = (Boolean) method.invoke(this, perm);
+            return permissionInt;
+        } catch (Throwable e) {
+        }
+        return false;
+    }
+
+    /**
+     * 检测是否说有的权限都已经授权
+     *
+     * @param grantResults
+     * @return
+     * @since 2.5.0
+     */
+    private boolean verifyPermissions(int[] grantResults) {
+        try {
+            for (int result : grantResults) {
+                if (result != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+//    @TargetApi(23)
+//    public void onRequestPermissionsResult(int requestCode,
+//                                           String[] permissions, int[] paramArrayOfInt) {
+//        try {
+//            if (Build.VERSION.SDK_INT >= 23) {
+//                if (requestCode == PERMISSON_REQUESTCODE) {
+//                    if (!verifyPermissions(paramArrayOfInt)) {
+//                        showMissingPermissionDialog();
+//                        isNeedCheck = false;
+//                    }
+//                }
+//            }
+//        } catch (Throwable e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+    /**
+     * 显示提示信息
+     *
+     * @since 2.5.0
+     */
+    private void showMissingPermissionDialog() {
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("提示");
+            builder.setMessage("当前应用缺少必要权限。\\n\\n请点击\\\"设置\\\"-\\\"权限\\\"-打开所需权限");
+
+            // 拒绝, 退出应用
+            builder.setNegativeButton("取消",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                finish();
+                            } catch (Throwable e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+            builder.setPositiveButton("设置",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                startAppSettings();
+                            } catch (Throwable e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+            builder.setCancelable(false);
+
+            builder.show();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 启动应用的设置
+     *
+     * @since 2.5.0
+     */
+    private void startAppSettings() {
+        try {
+            Intent intent = new Intent(
+                    Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivity(intent);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>业务功能  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.zy;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.location.Location;
+import android.os.Bundle;
+import android.util.Log;
+
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.LocationSource;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.MyLocationStyle;
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.LocationSource;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.MapsInitializer;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.maps.model.Marker;
+import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps.model.MyLocationStyle;
+
+public class MapActivity extends AppCompatActivity implements AMap.OnMarkerClickListener,LocationSource, AMapLocationListener, AMap.OnMyLocationChangeListener {
+
+
+    MapView mMapView=null;
+    AMap aMap=null;
+    LocationSource.OnLocationChangedListener mListener;
+    AMapLocationClient mLocationClient;
+    AMapLocationClientOption mLocationOption;
+    MyLocationStyle myLocationStyle;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_map);
+
+        // 改，首页只管权限，通过按钮i跳转到另一个界面显示地图业务
+
+        mMapView=(MapView)findViewById(R.id.map);
+        mMapView.onCreate(savedInstanceState);
+        initMap();
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
+        if(mMapView!=null){
+            mMapView.onDestroy();
+        }
+
+        if (null != mLocationClient) {
+            mLocationClient.onDestroy();
+        }
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if (Build.VERSION.SDK_INT >= 23) {
+//            if (isNeedCheck) {
+//                checkPermissions(needPermissions);
+//            }
+//        }
+        //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
+        if(mMapView!=null){mMapView.onResume();}
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
+        if(mMapView!=null){
+            mMapView.onPause();
+        }
+
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //在activity执行onSaveInstanceState时执行mMapView.onSaveInstanceState (outState)，保存地图当前的状态
+        if(mMapView!=null){
+            mMapView.onSaveInstanceState(outState);
+        }
+
+    }
+
+
+    private void initMap(){
+
+        if(aMap==null){
+            aMap=mMapView.getMap();
+        }
+        myLocationStyle=new MyLocationStyle();
+//        aMap.setMyLocationStyle(myLocationStyle);
+        aMap.setMyLocationStyle(myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATION_ROTATE_NO_CENTER));
+        aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
+        aMap.setLocationSource(this);
+        aMap.setMyLocationEnabled(true);
+//        //设置SDK 自带定位消息监听
+        aMap.setOnMyLocationChangeListener(this);
+//        mLocationClient.startLocation();
+//
+//        aMap.setOnMapClickListener(new AMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//
+//            }
+//        });
+//        aMap.setOnMarkerClickListener(this);
+    }
+
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if (mListener != null &amp;&amp; aMapLocation != null) {
+            if (aMapLocation.getErrorCode() == 0) {
+                // 显示系统小蓝点
+                mListener.onLocationChanged(aMapLocation);
+//                Toast.makeText(this, "success", Toast.LENGTH_SHORT).show();
+            } else {
+                String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
+//                Toast.makeText(this, errText, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        return true;
+    }
+
+    @Override
+    public void onMyLocationChange(Location location) {
+//        if(location != null) {
+////            Toast.makeText(this, "location success", Toast.LENGTH_SHORT).show();
+//            Log.e("amap", "onMyLocationChange 定位成功， lat: " + location.getLatitude() + " lon: " + location.getLongitude());
+//            Bundle bundle = location.getExtras();
+//            if(bundle != null) {
+//                int errorCode = bundle.getInt(MyLocationStyle.ERROR_CODE);
+//                String errorInfo = bundle.getString(MyLocationStyle.ERROR_INFO);
+//                // 定位类型，可能为GPS WIFI等，具体可以参考官网的定位SDK介绍
+//                int locationType = bundle.getInt(MyLocationStyle.LOCATION_TYPE);
+//
+//                Log.e("amap", "定位信息， code: " + errorCode + " errorInfo: " + errorInfo + " locationType: " + locationType );
+//            } else {
+//                Log.e("amap", "定位信息， bundle is null ");
+//
+//            }
+//
+//        } else {
+////            Toast.makeText(this, "location failed", Toast.LENGTH_SHORT).show();
+//            Log.e("amap", "定位失败");
+//        }
+    }
+
+    @Override
+    public void activate(OnLocationChangedListener onLocationChangedListener) {
+        mListener = onLocationChangedListener;
+        if (mLocationClient == null) {
+            // 初始化定位
+            try {
+                mLocationClient = new AMapLocationClient(this);
+                mLocationOption = new AMapLocationClientOption();
+                // 设置定位回调监听
+                mLocationClient.setLocationListener(this);
+                // 设置定位模式为高精度模式
+                mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+                // 单次定位
+                mLocationOption.setOnceLocation(true);
+                // 设置定位参数
+                mLocationClient.setLocationOption(mLocationOption);
+                // 启动定位
+                mLocationClient.startLocation();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @Override
+    public void deactivate() {
+        mListener = null;
+        if (mLocationClient != null) {
+            mLocationClient.stopLocation();
+            mLocationClient.onDestroy();
+        }
+        mLocationClient = null;
+    }
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="高德地图AMap离线地图功能"><a href="#高德地图AMap离线地图功能" class="headerlink" title="高德地图AMap离线地图功能"></a>高德地图AMap离线地图功能</h2><p>高德3D地图SDK支持离线地图功能。(2D地图SDK不支持离线地图功能),离线地图可满足在无网络环境下查看地图信息的需求，在设备本地有离线地图数据的情况下，SDK 会优先加载离线地图。  </p>
+<h3 id="1-集成高德地图sdk"><a href="#1-集成高德地图sdk" class="headerlink" title="1.集成高德地图sdk"></a>1.集成高德地图sdk</h3><pre class="line-numbers language-html"><code class="language-html">implementation 'com.amap.api:3dmap:x.x.x' // 高德地图SDK依赖
+implementation 'com.amap.api:location:x.x.x' // 高德定位SDK依赖
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="2-获取离线地图数据"><a href="#2-获取离线地图数据" class="headerlink" title="2.获取离线地图数据"></a>2.获取离线地图数据</h3><p>高德地图SDK提供了离线地图下载功能，你可以通过调用相关API来下载离线地图数据  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 创建离线地图下载器
+OfflineMapManager offlineMapManager = new OfflineMapManager(context, new OfflineMapManager.OfflineMapDownloadListener() {
+    @Override
+    public void onDownload(int status, int completeCode, String downName) {
+        // 下载回调处理
+        if (status == OfflineMapStatus.SUCCESS) {
+            // 下载成功
+            // TODO: 下载成功的处理逻辑
+        } else {
+            // 下载失败
+            // TODO: 下载失败的处理逻辑
+        }
+    }
+});
+
+// 开始下载离线地图数据
+offlineMapManager.downloadByCityCode(cityCode);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在上面的代码中，cityCode表示你要下载的城市的城市编码。你可以通过高德地图的相关接口获取到城市编码。下载成功后，你可以在onDownload方法中处理下载成功的逻辑，比如显示下载成功的提示信息。  </p>
+<h3 id="3-加载显示离线地图"><a href="#3-加载显示离线地图" class="headerlink" title="3.加载显示离线地图"></a>3.加载显示离线地图</h3><pre class="line-numbers language-html"><code class="language-html">// 获取地图控件
+MapView mapView = findViewById(R.id.map_view);
+
+// 创建地图对象
+AMap aMap = mapView.getMap();
+
+// 设置地图显示离线地图模式
+aMap.setMapType(AMap.MAP_TYPE_NAVI);
+
+// 设置离线地图数据路径
+aMap.setCustomMapStylePath(offlineMapPath);
+
+// 加载离线地图数据
+aMap.setCustomMapStyleID(mapStyleID);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>mapView表示你的地图控件，你需要在布局文件中添加一个MapView控件。offlineMapPath表示离线地图数据的路径，你需要将下载成功的离线地图数据保存到该路径下。mapStyleID表示离线地图数据的样式ID，你可以根据需要选择不同的样式。  </p>
+<h3 id="4-定位地图到离线数据所在位置"><a href="#4-定位地图到离线数据所在位置" class="headerlink" title="4.定位地图到离线数据所在位置"></a>4.定位地图到离线数据所在位置</h3><p>使用高德定位SDK来获取用户的位置信息  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 创建定位客户端
+AMapLocationClient locationClient = new AMapLocationClient(context);
+
+// 设置定位回调监听
+locationClient.setLocationListener(new AMapLocationListener() {
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        // 定位回调处理
+        if (aMapLocation != null &amp;&amp; aMapLocation.getErrorCode() == 0) {
+            // 定位成功
+            // TODO: 定位成功的处理逻辑
+
+            // 获取用户位置信息
+            double latitude = aMapLocation.getLatitude();
+            double longitude = a
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="地理坐标4326和投影坐标3857"><a href="#地理坐标4326和投影坐标3857" class="headerlink" title="地理坐标4326和投影坐标3857"></a>地理坐标4326和投影坐标3857</h2><p>(EPSG: 4326)球面坐标经纬高<br>(EPSG 3857)投影平面坐标 单位米</p>
+<pre class="line-numbers language-html"><code class="language-html">EPSG4326是基于WGS84椭球的经纬度坐标系，单位度，利于存储和可读性高，但会导致页面变形  
+EPSG4326使用参考球面或椭球面上的坐标系统。
+
+3857是基于球体的、web墨卡托投影的投影坐标系，单位米，用于分析和显示数据，但数据的可读性差和数值大存储比较占用内存。
+使用从球面或椭球面投射到平面的坐标系统  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>几种常用的坐标系</p>
+<pre class="line-numbers language-html"><code class="language-html">（1）谷歌地球处于以wgs84为基准面的地理坐标系中。(EPSG: 4326)球面坐标经纬高
+（2）谷歌Maps位于基于wgs84基准的投影坐标系中。(EPSG 3857)投影平面坐标单位米
+（3）Open Street Map数据库的数据存储在一个以wgs84为基准，单位为十进制的gcs中。(EPSG: 4326)
+（4）Open Street Map tiles和WMS网络服务，都在基于wgs84基准的投影坐标系统中。(EPSG 3857)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3857 is a 2D projected system using meters, while 4326 is a 3D geographic system using degrees to represent locations on the Earth’s surface  </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/10/07/diary-20231007-1/" class="b-link-green">Cesium重验证、GeoServer、高德地图安卓开发、Markdown</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/10/30/diary-20231030-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/27.jpg" class="responsive-img" alt="AndroidStudio默认路径和离线编译">
+                        
+                        <span class="card-title">AndroidStudio默认路径和离线编译</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Androidstuio修改默认gradle路径AndroidStudio每次新建项目，都会默认在C盘生成并下载gradle相关文件，由于C盘空间有限，没多久C盘就飘红了，于是就需要把gradle相关文件转移到其他盘  
+1. 到C盘找到g
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-10-30
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/09/27/diary-20230927-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/30.jpg" class="responsive-img" alt="Android本地调用、混淆反编译和GeoServer发布服务">
+                        
+                        <span class="card-title">Android本地调用、混淆反编译和GeoServer发布服务</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            GeoServer的MBTiles插件和跨域win10安装JDK17双击运行jdk-17_windows-x64_bin.msi
+新建系统变量JAVA_HOME值为D:\Java\JDK-17
+编辑系统变量Path，添加%JAVA_HOME
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-09-27
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/NDK/" target="_blank">
+                        <span class="chip bg-color">NDK</span>
+                    </a>
+                    
+                    <a href="/diary/tags/GeoServer/" target="_blank">
+                        <span class="chip bg-color">GeoServer</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

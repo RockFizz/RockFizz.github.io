@@ -1,0 +1,1636 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="开发板上搭建linux系统并运行自己的程序, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="在开发板上搭建linux系统并运行自己的程序准备软硬件和文件本文所需要的硬件平台为ARM-cortex A9内核的开发板，以iTOP-4412为例。  
+
+准备软件需要以下几个：  
+1. VMware(安装Linux虚拟机)  
+2. H">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>开发板上搭建linux系统并运行自己的程序 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/2.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        开发板上搭建linux系统并运行自己的程序
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Ubuntu/" target="_blank">
+                                <span class="chip bg-color">Ubuntu</span>
+                            </a>
+                        
+                            <a href="/diary/tags/qt/" target="_blank">
+                                <span class="chip bg-color">qt</span>
+                            </a>
+                        
+                            <a href="/diary/tags/udp/" target="_blank">
+                                <span class="chip bg-color">udp</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-07-28
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        12 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="在开发板上搭建linux系统并运行自己的程序"><a href="#在开发板上搭建linux系统并运行自己的程序" class="headerlink" title="在开发板上搭建linux系统并运行自己的程序"></a>在开发板上搭建linux系统并运行自己的程序</h2><h3 id="准备软硬件和文件"><a href="#准备软硬件和文件" class="headerlink" title="准备软硬件和文件"></a>准备软硬件和文件</h3><pre class="line-numbers language-html"><code class="language-html">本文所需要的硬件平台为ARM-cortex A9内核的开发板，以iTOP-4412为例。  
+
+准备软件需要以下几个：  
+1. VMware(安装Linux虚拟机)  
+2. Hyper Terminal(超级终端，用来与开发板通信)  
+3. SSH Secure File Tranfer(用来主机与虚拟机之间通信与传递文件)  
+
+准备文件需要以下几个：  
+1. u-boot.bin(如果开发板可以正常启动，可以不需要这个)  
+2. zImage  
+3. ramdisk-uboot.img  
+4. system.img  
+5. fastboot工具  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="步骤：烧写系统进开发板"><a href="#步骤：烧写系统进开发板" class="headerlink" title="步骤：烧写系统进开发板"></a>步骤：烧写系统进开发板</h3><blockquote>
+<ol>
+<li>打开超级终端Hyper Terminal，根据相应的串口号连接开发板和电脑，  </li>
+<li>将前四个文件(u-boot.bin、zImage、ramdisk-uboot、system.img)拷贝到fastboot工具里面，开启开发板，即刻在超级终端上按回车进入boot模式，然后依次输入以下命令(每一条都是单独输入)：  </li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">fdisk -c 0
+fatformat mmc 0:1
+ext3format mmc 0:2
+ext3format mmc 0:3
+ext3format mmc 0:4
+fastboot
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<ol start="3">
+<li>打开fastboot工具，并依次输入以下命令：  </li>
+</ol>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">fastboot.exe flash bootlaoder u-boot.bin #如果开发板能正常启动，可以不用烧录这个文件
+fastboot.exe flash kernel zImage
+fastboot.exe flash ramdisk ramdisk-uboot.img
+fastboot.exe flash system system.img
+fastboot -w
+fastboot reboot
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<ol start="4">
+<li>至此就完成了在开发板上搭建最小的Linux系统  </li>
+</ol>
+</blockquote>
+<h3 id="编写程序放到开发板的linux系统里运行"><a href="#编写程序放到开发板的linux系统里运行" class="headerlink" title="编写程序放到开发板的linux系统里运行"></a>编写程序放到开发板的linux系统里运行</h3><p>在虚拟机里编写程序代码，交叉编译得到二进制文件<br>将可执行二进制拷贝到home下bin目录内</p>
+<pre class="line-numbers language-html"><code class="language-html">// 编写程序代码helloworld.c:  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">></span></span>  
+void main(){
+    printf("Hello world!\n");
+}
+// 交叉编译得到二进制文件  
+arm-none-linux-gnueabi-gcc -o helloworld helloworld.c -static  
+// 将可执行二进制拷贝到home下bin目录内
+cp -r helloworld /home/munilinux/system/bin/
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>重新编译得到新的system.img  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 在目录/home/munilinux下进行编译  
+make_ext4fs -s -l 314572800 -a root -L linux system.img system
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>将重新编译得到的新system.img按照上之前烧写系统进开发板，重新烧写进开发板（注意此时只运行烧写system.img即可）  </p>
+<p>烧写进去的helloworld程序在开发板的/bin目录下，目录下直接输入helloworld即可正常运行该程序</p>
+<h2 id="超级终端连接开发板并通信的一般步骤"><a href="#超级终端连接开发板并通信的一般步骤" class="headerlink" title="超级终端连接开发板并通信的一般步骤"></a>超级终端连接开发板并通信的一般步骤</h2><p>用超级终端软件连接开发板之前，先要设置开发板的启动模式  </p>
+<pre class="line-numbers language-html"><code class="language-html">一般开发板上会有个开关，
+拨至一侧（通常标识SDBOOT），系统从SD卡启动，常用于烧写系统或者从SD卡启动系统。  
+拨至另一侧，系统从NandFlash，常用于正常启动系统
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>一般情况，5v电源适配器连接到开发板的5v输入插座上，开发板通过串口线将开发板上的串口如COM0与PC机（通常安装好串口转USB的驱动）的串口相连接。  </p>
+<p>打开超级终端，各种取消、否，新建连接，起名ttyS0,取消电话拨号调制解调器，在后续对话框可以选择”连接时使用”选择串口1”COM1”  </p>
+<p>最后一步，设置串口属性，必须选择”数据流控制”为”无”,否则只能看到输出而不能输入。设置”每秒位数(B)”为开发板串口波特率如115200，一般设置数据位0，奇偶校验无，停止位1.  </p>
+<p>所有参数设置好后，打开电源开关，终端出现系统启动画面，通过shell命令与开发板交互</p>
+<h2 id="SSH-Secure-File-Transfer在window和linux之间传送文件"><a href="#SSH-Secure-File-Transfer在window和linux之间传送文件" class="headerlink" title="SSH Secure File Transfer在window和linux之间传送文件"></a>SSH Secure File Transfer在window和linux之间传送文件</h2><p>window安装SSHSecureShellClient_3.2.9_XiaZaiBa.zip后有两个可执行文件：一个是命令窗口（命令窗口客户端）用于登录linux进入shell操作，一个上传功能窗口。登录成功后点击”New filetransfer window”按钮打开文件传送界面。  </p>
+<p>如果无法登陆，ssh client报algorithm negotiation failed的原因是ssh升级后，为了安全，默认不再采用原来一些加密算法，我们手工添加进去即可。添加方法如下  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo vim /etc/ssh/sshd_config  
+进入编辑状态，在配置文件的末尾添加如下内容  
+Ciphers aes128-cbc,aes192-cbc,aes256-cbc,aes128-ctr,aes192-ctr,aes256-ctr,3des-cbc,arcfour128,arcfour256,arcfour,blowfish-cbc,cast128-cbc  
+MACs hmac-md5,hmac-sha1,umac-64@openssh.com,hmac-ripemd160,hmac-sha1-96,hmac-md5-96  
+KexAlgorithms diffie-hellman-group1-sha1,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group1-sha1,curve25519-sha256@libssh.org  
+
+退出编辑状态 :wq!保存修改  
+重启ssh服务 sudo systemctl restart ssh
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ubuntu下linux内核裁剪的流程"><a href="#ubuntu下linux内核裁剪的流程" class="headerlink" title="ubuntu下linux内核裁剪的流程"></a>ubuntu下linux内核裁剪的流程</h2><p>LINUX系统一直以来都备受关注，其中Ubuntu是其中最受欢迎的系统之一。它的开源性质、免费使用以及高度可定制性，让用户可以自由地对系统进行修改和定制。但是，有些用户可能会想知道Ubuntu系统是否可以进行裁剪，以便更好地满足他们的需求。在本文中，我们将探讨这一问题。<br>Ubuntu系统是基于Debian系统开发的，它采用了GNOME桌面环境，包含了大量的预装软件。这些软件虽然功能强大，但是对于一些用户来说可能并不需要或者用不上。因此，用户可能会想要进行裁剪，以便更好地满足他们的需求。在实际操作中，Ubuntu系统是可以进行裁剪的。用户可以使用命令行工具或者图形化界面来卸载不需要的软件包，以减少系统的体积和资源占用。此外，用户还可以自己编译内核，以去除一些不需要的模块和驱动程序，从而进一步减小系统的体积和资源占用。  </p>
+<h3 id="裁剪系统示范文章A"><a href="#裁剪系统示范文章A" class="headerlink" title="裁剪系统示范文章A"></a>裁剪系统示范文章A</h3><h4 id="1-卸载不需要的软件包"><a href="#1-卸载不需要的软件包" class="headerlink" title="1.卸载不需要的软件包"></a>1.卸载不需要的软件包</h4><p>用户可以使用命令行工具apt-get或者图形化界面Synaptic Package Manager来卸载不需要的软件包。<br>命令行方式如下：  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo apt-get remove package_name  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>图形化界面方式如下：  </p>
+<pre class="line-numbers language-html"><code class="language-html">打开Synaptic Package Manager，搜索需要卸载的软件包，右键选择“Mark for Removal”，点击“Apply”进行卸载。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="2-编译内核"><a href="#2-编译内核" class="headerlink" title="2.编译内核"></a>2.编译内核</h4><p>用户可以通过编译内核来去除一些不需要的模块和驱动程序。  </p>
+<pre class="line-numbers language-html"><code class="language-html">下载内核源代码
+sudo apt-get source linux-image-$(uname -r)  
+进入源代码目录  
+cd linux-$(uname -r)  
+配置内核,在配置界面中，去除不需要的模块和驱动程序，保存并退出  
+make menuconfig  
+编译内核  
+make
+安装内核  
+sudo make install  
+重启系统，选择新编译的内核启动
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="裁剪系统示范文章B"><a href="#裁剪系统示范文章B" class="headerlink" title="裁剪系统示范文章B"></a>裁剪系统示范文章B</h3><p>安装所需工具和依赖项  </p>
+<pre class="line-numbers language-html"><code class="language-html">$ sudo apt-get update
+$ sudo apt-get install build-essential libncurses-dev bison flex libssl-dev libelf-dev  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>下载内核源代码并解压缩,您可以从官方网站下载最新版本的内核源代码，或者使用以下命令下载当前安装的内核版本  </p>
+<pre class="line-numbers language-html"><code class="language-html">$ sudo apt-get source linux-image-$(uname -r)
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>进入已解压缩的目录  </p>
+<pre class="line-numbers language-html"><code class="language-html">$ cd linux-$(uname -r)  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>打开配置界面  </p>
+<pre class="line-numbers language-html"><code class="language-html">$ make menuconfig
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>开始裁剪，在配置界面中，您可以选择启用或禁用特定功能、驱动程序和模块。建议仔细阅读每个选项并根据需要进行调整。<br>完成配置后，请保存更改并退出菜单。此时将生成一个.config文件。  </p>
+<p>开始编译内核，运行以下命令编译新的内核映像文件  </p>
+<pre class="line-numbers language-html"><code class="language-html">$ make -j $(nproc)  
+其中-nproc选项指定要使用的CPU线程数  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>最后，更新GRUB引导程序配置以包含新内核。运行以下命令  </p>
+<pre class="line-numbers language-html"><code class="language-html">$ sudo update-grub
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>现在，您可以重新启动计算机并选择新内核。如果一切正常，您已成功裁剪了Linux内核  </p>
+<h3 id="如何更换默认的系统启动内核"><a href="#如何更换默认的系统启动内核" class="headerlink" title="如何更换默认的系统启动内核"></a>如何更换默认的系统启动内核</h3><pre class="line-numbers language-html"><code class="language-html">查看系统目前正在使用的内核: uname -r
+查看系统可用的内核: dpkg --get-selections | grep linux-image
+其中显示 install 的就是当前系统可用的内核  
+
+修改/etc/default/grub文件  
+sudo gedit /etc/default/grub
+我们不修改 GRUB_DEFAULT 参数的值，而是添加如下两条命令  
+GRUB_SAVEDEFAULT=true
+GRUB_DEFAULT=saved
+接着注释掉 GRUB_TIMEOUT_STYLE 这一段代码，设置GRUB_TIMEOUT值为30:  
+# GRUB_TIMEOUT_STYLE=hidden
+GRUB_TIMEOUT=30
+这样做的目的是使得开机前留下30秒的时间进入 grub 选择界面，接着更新 grub 配置  
+sudo update-grub
+重启系统  
+sudo reboot
+开机之前的 grub 界面中，选择 Advantages for ubuntu 选项，接着选择自己想要的内核版本进入便可，系统会默认选择你本次的启动内核为默认内核版本  
+
+开机后依然使用uname -r查看系统内核版本，  
+接着需要注释掉GRUB_TIMEOUT=30这一段代码，设置GRUB_TIMEOUT_STYLE值为hidden，不然下次开机还会弹出 grub 界面：
+更新一下配置  
+sudo update-grub  
+完成  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="更清晰的局域网udp广播示例"><a href="#更清晰的局域网udp广播示例" class="headerlink" title="更清晰的局域网udp广播示例"></a>更清晰的局域网udp广播示例</h2><p>服务端和接收端共用一个类，初始化作为服务端的udp在不断发送消息，初始化作为接收端的udp每隔2秒接收一次消息<br>一个udp客户端发送的数据报，在同一网络范围内其他所有的udp客户端都可以收到。其支持IPV4广播  </p>
+<ol>
+<li>新建qt项目DemoUDPClient和项目DemoUDPServer，工程模板均为Application-&gt;Qt Console Application  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">各自项目的**.pro中添加Network模块  
+QT += core network
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>各自项目均添加c++类udpserverandclient  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">//udpserverandclient.h  
+#ifndef UDPSERVERANDCLIENT_H
+#define UDPSERVERANDCLIENT_H
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QObject</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QUdpSocket</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QTimer</span><span class="token punctuation">></span></span>
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QHostInfo</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDataStream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDateTime</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QHostAddress</span><span class="token punctuation">></span></span>
+
+class udpserverandclient :public QObject
+{
+    Q_OBJECT
+public:
+    explicit udpserverandclient(QObject *parent=0);
+    void setServerInit();
+    void setClientInit();
+
+private slots:
+    void onServerSendBroadCast();
+    void onPendingDatagrams();
+private:
+    QUdpSocket udpSocketServer;
+    QUdpSocket udpSocketClient;
+    QTimer timer;
+};
+
+#endif // UDPSERVERANDCLIENT_H
+
+//udpserverandclient.cpp  
+#include "udpserverandclient.h"
+
+udpserverandclient::udpserverandclient(QObject *parent):QObject(parent)
+{
+}
+
+void udpserverandclient::setServerInit(){
+    connect(&amp;timer,SIGNAL(timeout()),this,SLOT(onServerSendBroadCast()));
+    timer.start(2000);
+}
+
+void udpserverandclient::setClientInit(){
+    udpSocketClient.bind(13998);
+    connect(&amp;udpSocketClient,SIGNAL(readyRead()),this,SLOT(onPendingDatagrams()));
+}
+void udpserverandclient::onServerSendBroadCast(){
+    QString hostName=QHostInfo::localHostName();
+    QString now=QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    QString msg=QString("%1 on %2").arg(hostName).arg(now);
+    udpSocketServer.writeDatagram(msg.toLocal8Bit(),QHostAddress("192.168.157.255"),13998);
+    // 当作服务端不停的发送udp数据
+}
+
+void udpserverandclient::onPendingDatagrams(){
+    QByteArray datagram;
+    do{
+        datagram.resize(udpSocketClient.pendingDatagramSize());
+        udpSocketClient.readDatagram(datagram.data(),datagram.size());
+
+        QString fromUDP=datagram;
+        QString selfName=QHostInfo::localHostName();
+        QString msg=QString("%1 fromUDP, localPC name is %2").arg(fromUDP).arg(selfName);
+        qDebug()&lt;&lt;msg; //client通过监听udp广播得到的数据
+    }while(udpSocketClient.hasPendingDatagrams());
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>当服务端使用的项目main.cpp  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QCoreApplication</span><span class="token punctuation">></span></span>
+#include "udpserverandclient.h"
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+    udpserverandclient u;
+    u.setServerInit();
+    return a.exec();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>当客户端使用的项目main.cpp  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QCoreApplication</span><span class="token punctuation">></span></span>
+#include "udpserverandclient.h"
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+    udpserverandclient u;
+    u.setClientInit();
+    return a.exec();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ubuntu系统操作实践"><a href="#ubuntu系统操作实践" class="headerlink" title="ubuntu系统操作实践"></a>ubuntu系统操作实践</h2><p>配置静态IP</p>
+<pre class="line-numbers language-html"><code class="language-html">my@mypc:~$ sudo vim /etc/network/interfaces  
+auto ens33
+# iface ens33 inet dhcp
+iface ens33 inet static
+address 192.168.40.92
+netmask 255.255.255.0
+gateway 192.168.40.1
+
+dns-nameserver 8.8.8.8  
+保存退出后，重启网络
+my@mypc:~$ sudo /etc/init.d/networking restart  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>自动分配IP  </p>
+<pre class="line-numbers language-html"><code class="language-html">my@mypc:~$ sudo vim /etc/network/interfaces  
+auto lo
+iface lo inet loopback
+保存退出后，重启网络
+my@mypc:~$ sudo /etc/init.d/networking restart  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>常用指令</p>
+<pre class="line-numbers language-html"><code class="language-html">查看SSH服务状态 sudo service ssh status  
+查看内存使用情况 free -lh
+查看设备存储情况(可以观察到U盘拔插) df -lh
+
+系统监控，类似window中的进程管理器，可以看出cpu内核、mem大小、所有进程pid等等
+sudo apt-get install htop
+查看sudo htop退出按键q  
+
+原始命令，逐一查看进程 ps aux | more
+
+流量监控工具iftop  
+sudo apt-get install iftop
+通过ifconfig得到网卡名字如eth0,  
+然后对该网卡流量实时监控 sudo iftop -i eth0 -n -P
+按键q退出监控  
+
+top命令可以用于实时监控进程的系统资源使用情况，比如CPU、内存、I/O等。它会周期性地更新屏幕上的进程列表，并将最具 CPU 使用率的进程放在最上方
+
+dmesg：查看系统启动信息和内核日志  
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/07/28/diary-20230728-1/" class="b-link-green">开发板上搭建linux系统并运行自己的程序</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/08/10/diary-20230810-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/15.jpg" class="responsive-img" alt="8月Qt和Ubuntu串口">
+                        
+                        <span class="card-title">8月Qt和Ubuntu串口</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Qt事件循环#include &lt;stdio.h>
+int main(int argc, char *argv[]) 
+{
+    printf("Hello World");
+    return 0;
+}  
+这是一段大家都很熟悉的
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-08-10
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Ubuntu/" target="_blank">
+                        <span class="chip bg-color">Ubuntu</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Qt/" target="_blank">
+                        <span class="chip bg-color">Qt</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/07/23/diary-20230723-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/28.jpg" class="responsive-img" alt="msi格式安装包制作和Android">
+                        
+                        <span class="card-title">msi格式安装包制作和Android</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            vs2010输出msi格式安装包1. vs2010->"新建项目"->"其他项目类型"->"安装和部署"->"Visual Studio Installer"->"安装项目"  
+命令为Setup1.
+确定后在"文件系统视图"出现三个文件夹
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-07-23
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

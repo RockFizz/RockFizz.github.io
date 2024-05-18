@@ -1,0 +1,1821 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="NodeRPC、MongoDB和Express, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Express作为API服务的cors跨域访问npm install --save cors  
+在app.js中：  
+var cors=require(&#39;cors&#39;);
+app.use(cors());
+
+Node-操作Sqlite3数">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>NodeRPC、MongoDB和Express | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/8.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        NodeRPC、MongoDB和Express
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/MongoDB/" target="_blank">
+                                <span class="chip bg-color">MongoDB</span>
+                            </a>
+                        
+                            <a href="/diary/tags/Express/" target="_blank">
+                                <span class="chip bg-color">Express</span>
+                            </a>
+                        
+                            <a href="/diary/tags/NodeRPC/" target="_blank">
+                                <span class="chip bg-color">NodeRPC</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-19
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        16 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Express作为API服务的cors跨域访问"><a href="#Express作为API服务的cors跨域访问" class="headerlink" title="Express作为API服务的cors跨域访问"></a>Express作为API服务的cors跨域访问</h2><pre class="line-numbers language-html"><code class="language-html">npm install --save cors  
+在app.js中：  
+var cors=require('cors');
+app.use(cors());
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Node-操作Sqlite3数据库"><a href="#Node-操作Sqlite3数据库" class="headerlink" title="Node-操作Sqlite3数据库"></a>Node-操作Sqlite3数据库</h2><p>前提是安装vs2015?的c++环境和安装sqlite驱动</p>
+<pre class="line-numbers language-html"><code class="language-html">npm install --vs2015 -g windows-build-tools  
+//安装sqlte驱动
+npm install sqlite3 -S
+
+
+//引入sqlte3模块   
+var fs = require('fs');
+var file = 'test.db';//这里写的就是数据库文件的路径
+var exists = fs.existsSync(file);
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database(file);
+
+//增删查改操作    
+//增
+var sql1 = db.prepare("insert into 表名 values (内容，跟mysql一样)");
+sql1.run();
+//删
+var sql2 = db.prepare("delete from 表名 where id = 1");
+sql2.run();
+//改
+var sql3 = db.prepare("update 表名 set name = winston where id = 1");
+sql3.run();
+//查一个表的所有数据
+db.all("select * from 表名",function(err,row){
+    console.log(JSON.stringify(row));
+})
+//查一条数据
+db().each("select * from 表名",function(err,row){
+    console.log(row);
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="简单封装"><a href="#简单封装" class="headerlink" title="简单封装"></a>简单封装</h3><p>由于sqlite3API具体使用过程中重复代码量较多，所以进行了简单封装，在使用过程中如果第一次创建数据库和表，紧接着插入数据的话，可能导致表还未创建完成就查询出现错误（Nodejs是基于异步的且顺序不可控），所以在表创建和插入数据时使用同步方式操作来保证表已经存在。  </p>
+<pre class="line-numbers language-html"><code class="language-html">  var fs = require('fs');
+  var sqlite3 = require('sqlite3').verbose();
+
+  var DB = DB || {};
+
+  DB.SqliteDB = function(file){
+      DB.db = new sqlite3.Database(file);
+
+      DB.exist = fs.existsSync(file);
+     if(!DB.exist){
+         console.log("Creating db file!");
+         fs.openSync(file, 'w');
+     };
+ };
+
+ DB.printErrorInfo = function(err){
+     console.log("Error Message:" + err.message + " ErrorNumber:" + errno);
+ };
+
+ DB.SqliteDB.prototype.createTable = function(sql){
+     DB.db.serialize(function(){
+         DB.db.run(sql, function(err){
+             if(null != err){
+                 DB.printErrorInfo(err);
+                 return;
+             }
+         });
+     });
+ };
+
+ /// tilesData format; [[level, column, row, content], [level, column, row, content]]
+ DB.SqliteDB.prototype.insertData = function(sql, objects){
+     DB.db.serialize(function(){
+         var stmt = DB.db.prepare(sql);
+         for(var i = 0; i &lt; objects.length; ++i){
+             stmt.run(objects[i]);
+         }
+
+         stmt.finalize();
+     });
+ };
+
+ DB.SqliteDB.prototype.queryData = function(sql, callback){
+     DB.db.all(sql, function(err, rows){
+         if(null != err){
+             DB.printErrorInfo(err);
+             return;
+         }
+
+         /// deal query data.
+         if(callback){
+             callback(rows);
+         }
+     });
+ };
+
+ DB.SqliteDB.prototype.executeSql = function(sql){
+     DB.db.run(sql, function(err){
+         if(null != err){
+             DB.printErrorInfo(err);
+         }
+     });
+ };
+
+ DB.SqliteDB.prototype.close = function(){
+     DB.db.close();
+ };
+
+ /// export SqliteDB.
+ exports.SqliteDB = DB.SqliteDB;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="调用以上封装接口操作sqlte"><a href="#调用以上封装接口操作sqlte" class="headerlink" title="调用以上封装接口操作sqlte"></a>调用以上封装接口操作sqlte</h3><pre class="line-numbers language-html"><code class="language-html">  /// Import SqliteDB.
+  var SqliteDB = require('./sqlite.js').SqliteDB;
+  var file = "Gis1.db";
+  var sqliteDB = new SqliteDB(file);
+
+  /// create table.
+  var createTileTableSql = "create table if not exists tiles(level INTEGER, column INTEGER, row INTEGER, content BLOB);";
+  var createLabelTableSql = "create table if not exists labels(level INTEGER, longitude REAL, latitude REAL, content BLOB);";
+  sqliteDB.createTable(createTileTableSql);
+ sqliteDB.createTable(createLabelTableSql);
+
+ /// insert data.
+ var tileData = [[1, 10, 10], [1, 11, 11], [1, 10, 9], [1, 11, 9]];
+ var insertTileSql = "insert into tiles(level, column, row) values(?, ?, ?)";
+ sqliteDB.insertData(insertTileSql, tileData);
+
+ /// query data.
+ var querySql = 'select * from tiles where level = 1 and column >= 10 and column &lt;= 11 and row >= 10 and row &lt;=11';
+ sqliteDB.queryData(querySql, dataDeal);
+
+ /// update data.
+ var updateSql = 'update tiles set level = 2 where level = 1 and column = 10 and row = 10';
+ sqliteDB.executeSql(updateSql);
+
+ /// query data after update.
+ querySql = "select * from tiles where level = 2";
+ sqliteDB.queryData(querySql, dataDeal);
+ sqliteDB.close();
+
+ function dataDeal(objects){
+     for(var i = 0; i &lt; objects.length; ++i){
+         console.log(objects[i]);
+     }
+ }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Node-Express操作MongoDB数据库"><a href="#Node-Express操作MongoDB数据库" class="headerlink" title="Node-Express操作MongoDB数据库"></a>Node-Express操作MongoDB数据库</h2><p>为了保存网站的数据，通常需要一个数据库。MongoDB和Node.js特别般配，因为MongoDB是基于文档的非关系型数据库，文档是按BSON（JSON的轻量化二进制格式）存储的，增删改查等管理数据库的命令和JavaScript语法很像</p>
+<blockquote>
+<p>存放数据的格式：key-value<br>数据库(database) ——- 集合(collection) ——- 文档(document)<br>非关系型数据库，不能使用SQL语句对数据库进行操作  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">MongoDB的文档(document)，相当于关系数据库中的一行记录(row)。  
+多个文档组成一个集合(collection),相当于关系数据库中的表(table)。  
+多个集合逻辑上在一起就是数据库(database)
+一个MongoDB实例支持多个数据库(database)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装MongoDB"><a href="#安装MongoDB" class="headerlink" title="安装MongoDB"></a>安装MongoDB</h3><p>进入官网下载安装包</p>
+<pre class="line-numbers language-html"><code class="language-html">https://www.mongodb.com/ -> Products -> Community Server  
+Version:6.0.10 Platform:Windows x64 Package:msi  
+下载MongoDB社区服务器安装包 mongodb-windows-x86_64-6.0.10-signed.msi
+双击运行，custom自定义安装修改安装目录 D:\Download\MongoDB\Server\6.0\  
+MongoDB的下载安装就完成了（旧版本还需要手动创建data文件夹、log文件夹以及配置文件mongod.conf，这里是新版本自带，就不需要了）  
+
+命令行窗口进入MongoDB安装目录/bin下输入命令，以启动MongoDB服务  
+D:\Download\MongoDB\Server\6.0\bin>.\mongod.exe --config mongod.cfg
+
+可以上一行命令直接复制为startup.bat双击执行
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Mongoose模块的使用"><a href="#Mongoose模块的使用" class="headerlink" title="Mongoose模块的使用"></a>Mongoose模块的使用</h3><p>Mongoose是一个对象模型工具，是对Node.js环境下操作MongoDB数据库进行了封装，可以将MongoDB数据库中的数据转换成javascript对象供用户使用.  </p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre class="line-numbers language-html"><code class="language-html">npm install mongoose -S
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="连接数据库"><a href="#连接数据库" class="headerlink" title="连接数据库"></a>连接数据库</h4><pre class="line-numbers language-html"><code class="language-html">使用mongoose连接数据库的前提条件是  
+1、mongo数据库已经运行。  
+2、已经安装了mongoose包。  
+
+var mongoose = require("mongoose");  
+mongoose.connect("mongodb://127.0.0.1:27017/student",function(err){
+    if(!err){    //如果连接成功，则打印出connected to Mongodb
+        console.log("connected to Mongodb");
+    }else{
+        throw err;    //如果连接失败，则抛出异常
+    }
+});
+// 连接本地mongodb ，本机的ip 127.0.0.1，端口：27017 数据库：student
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="新增数据"><a href="#新增数据" class="headerlink" title="新增数据"></a>新增数据</h4><pre class="line-numbers language-html"><code class="language-html">Schema：它是一种以文件形式存储的数据库模型骨架，不具备对数据库操作的能力，仅仅只是数据库在程序片段中的一种表现，可以理解为表结构，实现一种映射。  
+Model：由Schema发布生成的模型，具有抽象属性和行为的数据库操作  
+Entity：由Model创建的实体，它的操作也会影响数据库  
+存储数据步骤：定义Schema (骨架) > 创建model（模型）> Entity实例化方法
+Schema生成Model，由Model生成Entity，Model和Entity都可以操作数据库，Model的可操作性更强  
+
+var Schema = mongoose.Schema;  
+//定义Schema骨架
+var studentSchema = new Schema({
+    name: String,
+    age: String
+});
+//创建按model模型  
+var studentModel = mongoose.model("students",studentSchema);
+//实例化方法,修改实例内容，通过save方法保存
+var instance1 = new studentModel();
+instance1.name="tangyan";
+instance1.age="18";  
+instance1.save(function(err){
+    if (err) {
+        console.log('保存失败');
+        return;
+    }
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h4><p>1、删除数据首先要知道删除哪一条信息，需要知道信息的id.<br>2、把对应id的数据查询出来，执行remove方法  </p>
+<pre class="line-numbers language-html"><code class="language-html">var id=”57e24521a755e1154039a403”;  
+var id=”57e24521a755e1154039a403”;
+studentModel.findById(id,function(err,doc){
+    if(!doc){
+        return next(new NotFound("Doc not found"))
+    }else{
+        doc.remove(function(){
+            console.log('删除成功');
+        })
+    }
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h4><p>1、先把对应id的数据查询出来<br>2、对需要修改的字段重新赋值，然后执行save方法保存  </p>
+<pre class="line-numbers language-html"><code class="language-html">var id=”57e24521a755e1154039a403”;
+studentModel.findById(id,function(err,doc){
+    //console.log(doc);
+    doc.name="xiaotangyan" ;//把name修改为xiaotangyan
+    doc.save(function(err){
+        if(!err){
+            console.log('修改成功');
+        }else{
+            throw err;
+        }
+    });
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h4><p>下面find第一个参数{}里面为空，表示查询所有的数据：<br>docs表示查询的结果集合,可用于渲染ejs模板引擎。  </p>
+<pre class="line-numbers language-html"><code class="language-html">studentModel.find({},function(err,docs){
+    console.log(docs);
+});
+//多条件查询
+studentModel.find({
+    publishing:'机械工业',
+    count:10
+},function(err,docs){
+    console.log(docs);
+});
+//查询集合中的文档数量(记录数)：
+studentModel.count(function(err,data){
+    if(err){
+        console.log(err)
+    }
+    console.log("记录数："+data)
+})
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="项目实例演示"><a href="#项目实例演示" class="headerlink" title="项目实例演示"></a>项目实例演示</h3><blockquote>
+<p>前提1：mongo数据库已经运行<br>前提2：已经安装了mongoose包  </p>
+</blockquote>
+<h4 id="连接数据库工具类"><a href="#连接数据库工具类" class="headerlink" title="连接数据库工具类"></a>连接数据库工具类</h4><p>mongodb/dbconfig.js</p>
+<pre class="line-numbers language-html"><code class="language-html">//1.导入mongoose模块
+const Mongoose = require('mongoose')
+// 2.定义MongoDB数据库的连接字符串：协议://主机地址:端口号/数据库名
+const mdb_url = 'mongodb://127.0.0.1:27017/firstdbtest'
+//  3.建立和MongoDB数据库的连接:(useNewUrlParser：是否使用新的url地址转换方式,useUnifiedTopology：是否使用新的用户安全策略)  
+Mongoose.connect(mdb_url,{useNewUrlParser:true,useUnifiedTopology:true})
+// 4.对连接过程中的回调事件进行处理
+//4.1 : 建立连接---连接成功触发connected事件
+Mongoose.connection.on('connected',function (){
+    console.log('数据库连接成功！连接地址是：'+mdb_url)
+})
+// 4.2 : 连接异常 --- 回调函数的参数中保存了异常的信息
+Mongoose.connection.on('error',function (err){
+    console.log('数据库连接异常！'+err)
+})
+// 4.3 : 断开连接
+Mongoose.connection.on('disconnectied',function (){
+    console.log('断开数据库的连接!')
+})
+// 5. 导出Mongoose
+module.exports = Mongoose
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="根据业务，建立Schema和Model"><a href="#根据业务，建立Schema和Model" class="headerlink" title="根据业务，建立Schema和Model"></a>根据业务，建立Schema和Model</h4><p>model/bookmodel.js </p>
+<pre class="line-numbers language-html"><code class="language-html">//1.导入配置文件
+const Mongoose = require('../dbconfig')
+//2.导入Schema
+const Schema = Mongoose.Schema
+
+//3.定义Schema：要和数据库中的集合对应（Schema的属性对应集合中的键）
+const BookSchema = new Schema({
+    bookId:{type: Number},
+    bookName:{type:String},
+    publishing:{type:String},
+    publishTime:{type:Date},
+    price:{type: Number},
+    count:{type:Number},
+})
+
+//4.由Schema生成Model:model（模型名：Schema名）,导出model
+// 默认book后加s就是集合名，不区分大小写
+// module.exports = Mongoose.model('Book',BookSchema)
+//如果要指定集合名，使用第三个参数，如下
+// 集合提前根据规则建立好
+module.exports = Mongoose.model('Book',BookSchema,'firstcollecttest')
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="在Express接口中间件中使用Mongoose模块"><a href="#在Express接口中间件中使用Mongoose模块" class="headerlink" title="在Express接口中间件中使用Mongoose模块"></a>在Express接口中间件中使用Mongoose模块</h4><pre class="line-numbers language-html"><code class="language-html">var express = require('express');
+var router = express.Router();
+// import {Book} from '../mongodb/model/bookmodel'
+var Book = require("../mongodb/model/bookmodel")
+
+function randomStr(length) {
+    let str = '';
+    let chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for (let i = 0; i &lt; length; i++) {
+    str += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return str;
+}
+function randomInt(max){
+    //返回1-max随机数
+    return Math.round(Math.random() * (max-1)) + 1
+}
+
+//http://127.0.0.1:3000/mybookdb/getall
+router.get('/getall',async function(req, res, next) {  
+    try{
+        const books= await Book.find()  
+        res.send(books)
+    }catch(error){
+        console.log(error)
+    }   
+
+  });
+
+//http://127.0.0.1:3000/mybookdb/insert
+router.get('/insert', async function(req, res, next) {    
+    var book= new Book({ //实例化对象，新建数据
+        bookId:randomInt(200000),
+        bookName: randomStr(10),
+        publishing: '机械工业出版社',
+        publishTime: new Date().toUTCString(),
+        price: 56,
+        count: 10
+    });
+    const ret= await book.save()
+    res.send(ret)    
+  });
+
+module.exports = router;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="nodejs新建RPC工程"><a href="#nodejs新建RPC工程" class="headerlink" title="nodejs新建RPC工程"></a>nodejs新建RPC工程</h2><p>分布式架构已经成为了现代互联网应用的基础。而在分布式系统中，远程过程调用（RPC）协议则是实现组件之间通信的重要方式。本文将介绍如何使用Node.js实现RPC，帮助开发者更快更简单地构建分布式应用<br>远程过程调用。它通过网络调用实现了不同计算机间的程序调用，让程序调用就像调用本地函数一样，屏蔽了底层网络传输细节，让开发者更专注于业务逻辑的实现<br>传统的RPC协议是基于二进制协议实现的，包括Thrift、Avro、ProtocolBuffer等。这些协议通常使用IDL描述接口，然后通过代码生成工具生成相应的客户端与服务器端代码，使得客户端在调用接口时可以像调用本地函数一样方便。<br>而在Node.js中，我们可以使用JSON-RPC协议来实现RPC调用。JSON-RPC是一种基于JSON编码的轻便且快速的远程过程调用协议，具有轻便和语言无关等特点，因此其在Web应用程序中广受欢迎。rpc基于tcp协议比http更轻巧快速  </p>
+<p>对于一些复杂应用，前后端分离后，前端要调用部分rpc服务（可能是c++或者golang写的，当前项目服务端使用的是nodejs），因为跨域问题，前端必须请求到后端（nodejs服务端），让后端去处理请求这个rpc服务，并把结果返回给前端，相当于后端相对于真正的rpc服务只不过是一个代理转发，这时候后端可以再次生成一个rpc服务，并配置cors资源共享，前端所有rpc请求均请求到这里，然后jayson里面（好比这个trylogin方法里面）拿到前端的请求信息，进行一次rpc请求转发，最后将请求结果callback返回给前端即可。</p>
+<h3 id="初始化工程目录"><a href="#初始化工程目录" class="headerlink" title="初始化工程目录"></a>初始化工程目录</h3><pre class="line-numbers language-html"><code class="language-html">新建工程目录F:\Projects\Node\noderpctest
+初始化 npm init -y
+安装依赖 npm install jayson --save  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="新建RPC服务端rpcserver-js"><a href="#新建RPC服务端rpcserver-js" class="headerlink" title="新建RPC服务端rpcserver.js"></a>新建RPC服务端rpcserver.js</h3><pre class="line-numbers language-html"><code class="language-html">const jayson=require('jayson')
+var server=new jayson.Server({
+    add:function(args,callback){
+        console.log(args)
+        callback(null,args[0]+args[1])
+    },
+    sub:function(args,callback){
+        console.log(args)
+        callback(null,args[0]-args[1])
+    },
+    trylogin:function(args,callback){
+        console.log(args.name+" "+args.password)
+        var ret=false;
+        if(args.name=="yy"&amp;&amp;args.password=="123456"){
+            ret=true;
+        }
+        callback(null,ret);
+    },
+})
+const port=3009;
+console.log("start listening rpc")
+server.http().listen(port)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="新建RPC客户端rpcclient-js"><a href="#新建RPC客户端rpcclient-js" class="headerlink" title="新建RPC客户端rpcclient.js"></a>新建RPC客户端rpcclient.js</h3><pre class="line-numbers language-html"><code class="language-html">const jayson = require('jayson')
+const portValue=3009;
+const client =jayson.Client.http({port:portValue});
+client.request('sub',[7,3],function(err,response){
+    console.log(response)
+})
+client.request('add',[7,3],function(err,response){
+    console.log(response)
+})
+client.request('trylogin',{name:"yy",password:"13456"},function(err,response){
+    console.log(response)
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><pre class="line-numbers language-html"><code class="language-html">// rpc服务端运行  
+node .\rpcserver.js  
+// rpc客户端运行  
+node .\rpcclient.js
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="RPC谈谈其它"><a href="#RPC谈谈其它" class="headerlink" title="RPC谈谈其它"></a>RPC谈谈其它</h3><p>谈到RPC肯定绕不开TCP通信，考虑是使用长连接还是短连接：  </p>
+<pre class="line-numbers language-html"><code class="language-html">短连接：每次通信结束后关闭连接，下次通信需要重新创建连接；优点就是无需管理连接，无需保活连接；  
+长连接：每次通信结束不关闭连接，连接可以复用，保证了性能；缺点就是连接需要统一管理，并且需要保活；  
+
+主流的RPC框架都会追求性能选择使用长连接，所以如何保活连接就是一个重要的话题  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TCP通信方式：  </p>
+<pre class="line-numbers language-html"><code class="language-html">1.单工通信：只能客户端给服务端发消息，或者只能服务端给客户端发消息.
+2.半双工通信：在某个时间段内只能客户端给服务端发消息，过了这个时间段服务端可以给客户端发消息。如果把时间分成很多时间片，在一个时间片内就属于单工通信.
+3.全双工通信：客户端和服务端能相互通信.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="比较RPC和Http"><a href="#比较RPC和Http" class="headerlink" title="比较RPC和Http"></a>比较RPC和Http</h3><p>http协议，它是一个文本协议，我们交互数据的时候文件格式要么是html，要么是json对象，使用json的时候就是key-value的形式。<br>RPC采用二进制协议。采用二进制传输，它传输的包是这样子的[0001 0001 0111 0110 0010]，里面都是二进制，一般采用那几位表示一个字段，比如前6位是一个字段，依次类推。这样就不需要http传输json对象里面的key，所以有更小的数据体积。  </p>
+<h2 id="nodejs中protobufjs的使用"><a href="#nodejs中protobufjs的使用" class="headerlink" title="nodejs中protobufjs的使用"></a>nodejs中protobufjs的使用</h2><pre class="line-numbers language-html"><code class="language-html">// 安装依赖 npm i protobufjs -g
+var ProtoBufJs = require("protobufjs");
+
+//读取协议
+var root = ProtoBufJs.loadSync("./zzz.proto");
+// 编码
+var Account = root.lookupType("zzz.Account");
+var accountObj = Account.fromObject({pwd:"123",  accountName:"xxx456"});//直接生成对象
+var buf1=Account.encode(accountObj).finish();
+console.log(buf1)
+// 解码
+var dbuf1=Account.decode(buf1);
+console.log("accountName: "+dbuf1.accountName+" pwd: "+dbuf1.pwd);
+
+// 编码
+var AccountList=root.lookupType("zzz.AccountList");
+var accountListObj=AccountList.create();
+for(var i=0;i&lt;2;i++){
+    var Obj=Account.create();
+    Obj.accountName="name"+i.toString();
+    Obj.pwd="pwd"+i.toString();
+    accountListObj.list.push(Obj);
+}
+accountListObj.index=accountListObj.list.length;
+var buf2=AccountList.encode(accountListObj).finish();
+console.log(buf2)
+// 解码
+var dbuf2=AccountList.decode(buf2);
+console.log(dbuf2.index)
+for(var j=0;j&lt;dbuf2.list.length;j++){
+    console.log("list["+j+"].accountName :"+dbuf2.list[j].accountName+"   list["+j+"].pwd :"+dbuf2.list[j].pwd)
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>协议文件zzz.proto如下  </p>
+<pre class="line-numbers language-html"><code class="language-html">package zzz;
+option optimize_for = LITE_RUNTIME;
+message Account{
+    required string accountName = 1; 
+    required string pwd = 2; 
+}
+message AccountList{
+    required int32 index = 1;
+    repeated Account list = 2;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="NodeJs自定义内容的Buffer"><a href="#NodeJs自定义内容的Buffer" class="headerlink" title="NodeJs自定义内容的Buffer"></a>NodeJs自定义内容的Buffer</h2><h3 id="自定义字节内容Buffer"><a href="#自定义字节内容Buffer" class="headerlink" title="自定义字节内容Buffer"></a>自定义字节内容Buffer</h3><pre class="line-numbers language-html"><code class="language-html">// 定义要拼接的字节内容（以数组形式）
+const byteContent1 = [0x48, 0x65, 0x6c, 0x6c, 0x6f]; // 对应 'Hello'
+const byteContent2 = [0x2c, 0x20]; // 对应 ', '
+
+// 创建两个 Buffer 对象，分别包含上述字节内容
+const buffer1 = Buffer.from(byteContent1);
+const buffer2 = Buffer.from(byteContent2);
+
+// 创建一个新的 Buffer 来存放拼接后的数据
+const combinedBuffer = Buffer.concat([buffer1, buffer2]);
+
+// 将 Buffer 转换为字符串并打印
+console.log(combinedBuffer.toString());
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="int转buffer大端保存"><a href="#int转buffer大端保存" class="headerlink" title="int转buffer大端保存"></a>int转buffer大端保存</h3><pre class="line-numbers language-html"><code class="language-html">// 定义一个整数
+const intValue = 12345678;
+
+// 创建一个新的 4 字节的 Buffer 来保存整数，指定字节序为大端
+const buffer = Buffer.alloc(4);
+buffer.writeInt32BE(intValue, 0);
+
+// 打印 Buffer 内容
+console.log(buffer);
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/09/19/diary-20230919-1/" class="b-link-green">NodeRPC、MongoDB和Express</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/09/21/diary-20230921-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/16.jpg" class="responsive-img" alt="Node中的Buffer和TcpUdp、文件传输">
+                        
+                        <span class="card-title">Node中的Buffer和TcpUdp、文件传输</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Node的Buffer转数字const buf=Buffer.allocUnsafe(4)
+buf.writeUInt32BE(156)
+console.log(buf) //&lt;Buffer 01 02 03 04>
+console.
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-09-21
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/NodeRPC/" target="_blank">
+                        <span class="chip bg-color">NodeRPC</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/09/18/diary-20230918-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/24.jpg" class="responsive-img" alt="RxJava2熟悉及OkHttp2">
+                        
+                        <span class="card-title">RxJava2熟悉及OkHttp2</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            RXJava2概念和实例RXJava2是基于观察者模式和链式编程思想的异步编程库，它可以用来优雅地处理异步操作，比如网络请求、数据库查询、文件I/O等操作，减少了回调嵌套，提高了代码的可读性和可维护性。  
+基本特点：  
+1. 异步处理：
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-09-18
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/RxJava/" target="_blank">
+                        <span class="chip bg-color">RxJava</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

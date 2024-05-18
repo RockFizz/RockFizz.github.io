@@ -1,0 +1,2287 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="qt工程化和安卓自定义输出文件, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Qt创建带子项目的工程创建带子项目的总工程  
+New Project -&gt; 模板选择&#34;其它项目&#34; -&gt; 子项目项目  
+生成的.pro里默认TEMPLATE=subdirs  
+自动弹出继续对话框 &#34;新建子项目&#34;  
+
+如果要删除子项目，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>qt工程化和安卓自定义输出文件 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/6.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        qt工程化和安卓自定义输出文件
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Qt/" target="_blank">
+                                <span class="chip bg-color">Qt</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-13
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        7.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        33 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Qt创建带子项目的工程"><a href="#Qt创建带子项目的工程" class="headerlink" title="Qt创建带子项目的工程"></a>Qt创建带子项目的工程</h2><p>创建带子项目的总工程  </p>
+<pre class="line-numbers language-html"><code class="language-html">New Project -> 模板选择"其它项目" -> 子项目项目  
+生成的.pro里默认TEMPLATE=subdirs  
+自动弹出继续对话框 "新建子项目"  
+
+如果要删除子项目，在总的.pro里将
+SUBDIRS += \
+    AddLib
+中欲删除的子项目名删掉，在qt编译器里对应子项目会消失  
+然后在window的资源管理器目录里删除对应子项目文件夹才是彻底删除子项目
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>添加本例第一个子项目模板类型为Library，静态链接库，起名AddLib  </p>
+<pre class="line-numbers language-html"><code class="language-html">选择需要的模块时，移除所有勾选，连QtCore也去掉  
+子项目内pro里
+添加版本号设置 VERSION += 1.0.1  
+设置生成位置 DESTDIR +=$$PWD/../bin/
+
+//addlib.h  
+#ifndef ADDLIB_H
+#define ADDLIB_H
+class AddLib
+{
+public:
+    AddLib();
+    int myAdd(int x,int y);
+};
+#endif // ADDLIB_H
+//addlib.cpp  
+#include "addlib.h"  
+AddLib::AddLib()
+{
+}
+int AddLib::myAdd(int x, int y){
+    return x+y;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>创建本例另一个子项目生成应用程序使用刚才生成的库  </p>
+<pre class="line-numbers language-html"><code class="language-html">添加子项目，创建可执行程序  
+选中子项目，右键"添加库"，库类型:外部库(External library),  
+选择链接库的路径与平台等信息
+
+其实手动添加库就是在子项目的.pro里指定编译本子项目时需要的包含头文件.h所在的搜索目录和要链接的库位置  
+INCLUDEPATH += $$PWD/../AddLib
+LIBS += -L$$PWD/../bin/ -lAddLib  
+
+那么直接可用库的内容了  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include "addlib.h"
+using namespace std;
+int main(int argc, char *argv[])
+{
+    AddLib m_addlib=AddLib();
+    cout &lt;&lt; m_addlib.myAdd(2,4) &lt;&lt; endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>静态链接库 window下为<em>.lib文件,Linux下为</em>.a文件<br>链接时被嵌入目标代码不依赖外部。编译后生成可执行文件体积较大<br>库若修改需要重新编译可执行文件  </p>
+<p>动态链接库 window下为<em>.dll文件,Linux下为</em>.so文件<br>可执行文件运行时再从库里找函数。<br>库若修改替换相应dll/so即可  </p>
+<h2 id="sal-socket和socket区别"><a href="#sal-socket和socket区别" class="headerlink" title="sal_socket和socket区别"></a>sal_socket和socket区别</h2><p>SAL（SocketAbstractLayer，套接字抽象层）Socket和Socket都是用于网络通信的接口，但其主要区别在于SALSocket抽象化了网络硬件的细节，使得上层应用程序在使用网络通信时无需关心底层网络硬件的具体实现。而传统的Socket接口直接依赖于底层网络硬件，对于不同的硬件和操作系统可能需要不同的Socket编程接口，降低了程序的可移植性。</p>
+<p>SALSocket的优势在于它提供了一致的socket编程接口，无论底层使用的是以太网+LwIP协议栈组合还是ESP8266/M26+AT框架组合，对用户提供的接口都是统一的，这大大提高了程序的可移植性。</p>
+<p>总的来说，SALSocket为应用程序提供了更为抽象、统一的网络通信接口，使得应用程序在进行网络通信时更为便捷、可移植性更强。</p>
+<h2 id="Pro文件详解"><a href="#Pro文件详解" class="headerlink" title="Pro文件详解"></a>Pro文件详解</h2><p>变量TEMPLATE描述了为建立目标文件而采用何种模板  </p>
+<pre class="line-numbers language-html"><code class="language-html">qmake工具定义了5种模板:  
+1. 应用程序App,为建立一个Qt应用程序创建Makefile文件;
+2. 库lib,为建立引用程序库而创建Makefile文件;
+3.  子工程subdirs,为建立子目录下的目标文件创建一个Makefile文件,子目录通过变量SUBDIRS指定(子目录下的工程文件也需要指出使用何种模板);
+4. VC应用程序vcapp,为Visual Studio 生成一个应用程序工程,仅仅用语Windos操作系统.
+5. VC库vclib,为Visual Studio生成一个应用程序库工程,仅仅用语Windows操作系统.
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>CONFIG配置变量指定了编译器所要使用的选项和所需要被连接的库。配置变量中可以添加任何东西  </p>
+<pre class="line-numbers language-html"><code class="language-html">之前项目中多使用CONFIG+=ordered，后来不再推荐使用；这里是有问题的，在之后的实践过程中，发现如果不设定ordered，会出现编译报错，库可能在app之后编译；  
+
+TEMPLATE=subdirs  
+SUBDIRS= a3lib common plc test
+让QT按上面的顺序进行编译，只需在.pro文件中增加CONFIG += ordered就可以指定各项目编译顺序
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>pri与pro都是起到包含路径等作用，区别在于pro文件是主要文件，pri是附属文件。比如，如果有几个工程文件需要共享相同的项，则可以把相同的项提取到单独的文件中，在各自的pro文件中使用include()语句包含它们。通常，打算被别的工程文件包含的（工程）文件以pri（工程包含project include的意思）作为扩展名。而.pro是qmake 的工程(project)文件  </p>
+<h2 id="非阻塞延时"><a href="#非阻塞延时" class="headerlink" title="非阻塞延时"></a>非阻塞延时</h2><p>有时候需要处理一些跟界面无关的但非常耗时的事情，这些事情跟界面在同一个线程中，由于时间太长，导致界面无法响应，处于“假死”状态。例如：在应用程序中保存文件到硬盘上，从开始保存直到文件保存完毕，程序不响应用户的任何操作，窗口也不会重新绘制，从而处于“无法响应”状态，这是一个非常糟糕的体验。在这种情况下，有一种方法是使用多线程，即在子线程中处理文件保存，主线程负责界面相关。如果不想使用多线程，最简单的办法就是在文件保存过程中频繁调用QApplication::processEvents()。该函数的作用是让程序处理那些还没有处理的事件，然后再把使用权返回给调用者。</p>
+<pre class="line-numbers language-html"><code class="language-html">QTime time;
+time.start();
+while(time.elapsed() &lt; 1000)   //等待时间流逝1秒钟
+{
+    QCoreApplication::processEvents();   //不停地处理事件，让程序保持响应
+}             
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="RPC通信"><a href="#RPC通信" class="headerlink" title="RPC通信"></a>RPC通信</h2><p>怎么算rpc连接成功？  </p>
+<pre class="line-numbers language-html"><code class="language-html">startService()主要初始化3部分:  
+1 RpcServer的tryAccept阻塞监听  
+2 初始化RpcClientManager,  
+3 初始化RpcWorker，投递包给事件处理循环
+
+RpcServer线程的loop就是在tryAccept，负责新建client
+RpcServer的tryAccept阻塞监听中，接收到请求RpcConnect包后，添加新的RpcClient，开启新的client->startClient()（即新的客户端读写线程）  
+回到阻塞监听状态
+
+client读写循环里read到的包通过里_onPacketIn,经过RpcClientManager的setOnPackIn投给RpcWorker的postPackIn，
+由RpcWorker的事件循环判断处理rpc包，如果是E_PacketIn则投递给AppWorker，
+在AppWorker的事件循环里处理Control、Setting、Query、Oneway四类包
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="处理事件循环的子线程"><a href="#处理事件循环的子线程" class="headerlink" title="处理事件循环的子线程"></a>处理事件循环的子线程</h3><pre class="line-numbers language-html"><code class="language-html">postEvent(new Event_xxx());
+bool RpcXXX::onEvent(Event_Ptr&amp; e){
+
+}
+
+void RpcXXX::run(){
+    while(processEvent(true)){
+
+    }
+}
+
+postEvent(new Event_xxx());
+bool AppXXX::onEvent(Event_Ptr&amp; e){
+
+}
+
+void AppXXX::run(){
+    while(processEvent(true)){
+
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="处理读写循环的子线程"><a href="#处理读写循环的子线程" class="headerlink" title="处理读写循环的子线程"></a>处理读写循环的子线程</h3><pre class="line-numbers language-html"><code class="language-html">void XXXClient::loop(){
+    ELapsedTimer etSend;
+    ElapsedTimer etRecv;//不停的读写循环中
+    while(!quit){
+
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="读取传感器文件和操作"><a href="#读取传感器文件和操作" class="headerlink" title="读取传感器文件和操作"></a>读取传感器文件和操作</h3><pre class="line-numbers language-html"><code class="language-html">framework下sensor_factory里ReadSensor( , )从sensors.json里读取配置各种传感器属性  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Android自定义日志并可读取出来"><a href="#Android自定义日志并可读取出来" class="headerlink" title="Android自定义日志并可读取出来"></a>Android自定义日志并可读取出来</h2><p>在app自己的缓存里保存运行时自定义文件（app缓存目录内里读写创建文件目录不用权限）<br>需要读取时复制到公共目录（例如Download）里就可读取出来了。（动态申请写权限，因为文件要写入download目录）  </p>
+<pre class="line-numbers language-html"><code class="language-html">AndroidManifest.xml里
+......
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.WRITE_EXTERNAL_STORAGE<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.READ_EXTERNAL_STORAGE<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    &lt;application
+        android:requestLegacyExternalStorage="true"
+......  
+
+    动态申请写入权限，GetPermissionDynamic();放在onCreate(){}里执行    
+    private void GetPermissionDynamic(){
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},200);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 200:
+                Log.d("mymsg","xxxxxx");
+                break;
+        }
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="参考LogToFile-java"><a href="#参考LogToFile-java" class="headerlink" title="参考LogToFile.java"></a>参考LogToFile.java</h3><pre class="line-numbers language-html"><code class="language-html">package com.example.testlog1;
+
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+/*
+************************************************************************
+* package com.example.testlog1;
+* import android.app.Application;
+* import android.util.Log;
+* public class MyApplication extends Application {
+*     @Override
+*     public void onCreate() {
+*         super.onCreate();
+*         Log.d("mylog","Application start");
+*
+*         LogToFile.getInstance().setLogInit(getApplicationContext());
+*     }
+* }
+************************************************************************
+* App打开时，指定本次log文件名,其它初始化
+*
+* LogToFile.getInstance().i("mylog","i am msg");
+* LogToFile.getInstance().d("mylog","i am msg");
+* LogToFile.getInstance().w("mylog","i am msg");
+* LogToFile.getInstance().e("mylog","i am msg");
+* 写内容
+* LogToFile.getInstance().ExportToDownload();
+* 导出到download目录
+* LogToFile.getInstance().CleanUpLogs();
+* 清理缓存中的内容
+*
+* GetPermissionDynamic();
+* 动态申请权限还是需要的
+* */
+public class LogToFile {
+    /*
+    * 单例，线程安全，但是
+    * 效率太低了，每个线程在想获得类的实例时候，执行 getInstance()方法都要进行同步。而其实这个方法只执行一次实例化代码就够了，后面的想获得该类实例，直接 return 就行了。方法进行同步效率太低要改进。
+    * */
+//    private static LogToFile INSTANCE;
+//    private LogToFile(){}
+//    public static synchronized LogToFile getInstance(){
+//        if(INSTANCE==null){
+//            INSTANCE=new LogToFile();
+//        }
+//        return INSTANCE;
+//    }
+
+    /*
+    * 双重检验锁 概念对于多线程开发者来说不会陌生，如代码中所示，我们进行了两次 if (singleton == null)检查，这样就可以保证线程安全了。这样，实例化代码只用执行一次，后面再次访问时，判断 if (singleton == null)，直接 return 实例化对象。
+    * 优点：线程安全；延迟加载；效率较高。
+    * */
+//    private static volatile LogToFile logToFile;
+//    private LogToFile(){}
+//    public static LogToFile getInstance(){
+//        if(logToFile==null){
+//            synchronized (LogToFile.class){
+//                if(logToFile==null){
+//                    logToFile=new LogToFile();
+//                }
+//            }
+//        }
+//        return logToFile;
+//    }
+
+    /*
+    * 调用 getInstance(Context context)方法的时候传入的 context 参数是 Activity、Service 等上下文，就会导致内存泄露。
+    * 当我们退出 Activity 时，该 Activity 就没有用了，但是因为 singleton 作为静态单例(在应用程序的整个生命周期中存在)会继续持有这个 Activity 的引用，导致这个 Activity 对象无法被回收释放，这就造成了内存泄露。
+    * 为了避免这样单例导致内存泄露，我们可以将 context 参数改为全局的上下文：
+    * public Singleton(Context mContext){
+    *   this.mContext = mContext.getApplicationContext();
+    * }
+    * 全局的上下文 Application Context 就是应用程序的上下文，和单例的生命周期一样长，这样就避免了内存泄漏。单例模式对应应用程序的生命周期，
+    * 所以我们在构造单例的时候尽量避免使用 Activity 的上下文，而是使用 Application 的上下文
+    * */
+    private static volatile LogToFile logToFile;
+    private LogToFile(){
+    }
+
+    public static LogToFile getInstance(){
+        if(logToFile==null){
+            synchronized (LogToFile.class){
+                if(logToFile==null){
+                    logToFile=new LogToFile();
+                }
+            }
+        }
+        return logToFile;
+    }
+
+
+    private Context mContext;
+    private String TAG="LogToFile";
+    private SimpleDateFormat dateFormat=null;
+    private String logPath = null;
+    private String logCacheDir="";
+    private String filename =null;
+    private String exportPathURI = null;
+    public void setLogInit(Context context){
+        mContext = context;
+        logPath = mContext.getExternalCacheDir().toString()+"/";
+        logCacheDir="appLogs/";
+        exportPathURI= "file:///storage/emulated/0/Download/";
+        dateFormat=new SimpleDateFormat("yyyyMMdd_HH-mm-ss-SSS", Locale.US);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+08"));
+        filename="log_"+dateFormat.format(new Date())+".txt";
+    }
+    public void d(String tag,String msg){
+        writeToFile('d',tag,msg); //debug
+    }
+    public void i(String tag,String msg){
+        writeToFile('i',tag,msg); //info
+    }
+    public void w(String tag,String msg){
+        writeToFile('w',tag,msg); //warn
+    }
+    public void e(String tag,String msg){
+        writeToFile('e',tag,msg); //error
+    }
+    private void writeToFile(char type,String tag,String msg){
+        if(logPath==null){
+            return;
+        }
+
+        File fileDir=new File(logPath+logCacheDir);
+        if(!fileDir.exists()){
+            if(fileDir.mkdirs()){
+//                Log.d("mylog","log directory has new");
+            }else{
+                Log.d("mylog","log directory new failed");
+            }
+        }else{
+//            Log.d("mylog","log directory exist");
+        }
+        String fileAbsolutePath=logPath+logCacheDir+filename;
+
+        String logContent="["+dateFormat.format(new Date())+" "+type+" "+tag+"] "+msg+"\n";
+        File file=new File(fileAbsolutePath);
+        FileOutputStream fos=null;
+        BufferedWriter bw=null;
+        if(!file.exists()){
+            try{
+                file.createNewFile();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+        try{
+            fos=new FileOutputStream(fileAbsolutePath,true);
+            bw=new BufferedWriter(new OutputStreamWriter(fos));
+            bw.write(logContent);
+        }catch (FileNotFoundException e0){
+            e0.printStackTrace();
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }finally {
+            try{
+                if(bw!=null){
+                    bw.close();
+                }
+            }catch (IOException e3){
+                e3.printStackTrace();
+            }
+        }
+        Log.d("mylog",logContent);
+    }
+
+    public void CleanUpLogs(){
+        File file=new File(logPath+logCacheDir);
+        if(!file.exists()){
+            return;
+        }
+        File[] files=file.listFiles();
+        for(File _file:files){
+            _file.delete();
+        }
+        Log.d("mylog","Clean Logs Success");
+    }
+
+
+    public void ExportToDownload(){
+        File file=new File(logPath+logCacheDir);
+        if(!file.exists()){
+            Log.d("mylog","source logCacheDir not exist");
+            return;
+        }
+        File targetdir=new File("/storage/emulated/0/Download/"+logCacheDir);
+        if(!targetdir.exists()){
+            targetdir.mkdirs();
+        }
+
+        File[] files=file.listFiles();
+        if(files.length==0){
+            Log.d("mylog","no logs exist");
+            return;
+        }
+        for(File _file:files){
+//            Log.d("mylog",_file.getName());
+            Uri externalUri = null;
+            externalUri = Uri.parse("file:///storage/emulated/0/Download/"+logCacheDir+_file.getName());
+            boolean ret = copySandFileToExternal(mContext,_file.getAbsolutePath(), externalUri);
+            if(ret){
+                Log.d("mylog",_file.getName()+" copySandFileToExternal succeed");
+            }else{
+                Log.d("mylog",_file.getName()+" copySandFileToExternal failed");
+            }
+        }
+    }
+    private boolean copySandFileToExternal(Context context, String filePath, Uri externalUri){
+        ContentResolver contentResolver=context.getContentResolver();
+        InputStream inputStream=null;
+        OutputStream outputStream=null;
+        boolean ret=false;
+        try{
+            outputStream=contentResolver.openOutputStream(externalUri);
+            File sandFile =new File(filePath);
+            if(sandFile.exists()){
+                inputStream=new FileInputStream(sandFile);
+                int readCount=0;
+                byte[] buffer=new byte[1024];
+                while((readCount=inputStream.read(buffer))!=-1){
+                    outputStream.write(buffer,0,readCount);
+                    outputStream.flush();
+                }
+            }
+//            Log.d("mylog","copy complete");
+            ret=true;
+        }catch (Exception e){
+            Log.e("mylog","copy SandFile to ExternalUri. e = "+e.toString());
+            ret=false;
+        }finally {
+            try{
+                if(outputStream!=null){
+                    outputStream.close();
+                }
+                if(inputStream!=null){
+                    inputStream.close();
+                }
+//                Log.d("mylog","input stream and output stream close successful");
+            }catch (Exception e){
+                e.printStackTrace();
+                Log.e("mylog","input stream and output stream close fail. e = "+e.toString());
+            }
+            return ret;
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Android自定义Application类"><a href="#Android自定义Application类" class="headerlink" title="Android自定义Application类"></a>Android自定义Application类</h2><h3 id="自定义Application类的应用："><a href="#自定义Application类的应用：" class="headerlink" title="自定义Application类的应用："></a>自定义Application类的应用：</h3><pre class="line-numbers language-html"><code class="language-html">1. 全局状态管理和数据共享  
+通过MyApplication类，在整个应用程序中进行全局的状态管理和数据共享。例如，通过Application对象保存用户的登录状态、购物车数据等全局的状态数据，以在整个应用程序中共享数据。  
+2. 应用程序级别的初始化和配置  
+重写MyApplication的onCreate()方法，完成应用程序的全局范围的初始化和配置。例如，初始化第三方库、配置全局的主题和颜色等  
+3. 全局的线程池和任务队列  
+通过MyApplication类，可以创建全局的线程池和任务队列。例如，在应用程序启动时，创建一个全局的线程池和任务队列，在整个应用程序中使用。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="添加自定义Application"><a href="#添加自定义Application" class="headerlink" title="添加自定义Application"></a>添加自定义Application</h3><p>app全局初始化</p>
+<pre class="line-numbers language-html"><code class="language-html">1. 新建类，注意位置和包名，位置通常跟MainActivity.java在同一目录下  
+
+package com.example.testlog1;
+import android.app.Application;
+import android.util.Log;
+public class MyApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d("mylog","Application start");
+        //LogToFile.getInstance().setLogInit(getApplicationContext());
+    }
+}
+2. AndroidManifest.xml内指定name  
+&lt;application
+    ......
+            android:name="com.example.testlog1.MyApplication"
+    ......
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Android中的线程池与任务队列"><a href="#Android中的线程池与任务队列" class="headerlink" title="Android中的线程池与任务队列"></a>Android中的线程池与任务队列</h3><p>线程在new的时候最消耗内存开销，而在运行的时候远远小于new的时候的内存开销。故我们可以考虑应用线程池与任务队列去解决线程的消耗问题  </p>
+<p>在最初加载的时候，可以new一个线程类，单独线程需要之行的操作。代码如下  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.threadExecutorService.download;
+public class DownloadTask implements Runnable {
+    public String name;
+    public DownloadTask(String name) {
+        this.name = name;
+    }
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(name + " executed OK!");  
+    }
+    public String getFileId(){  
+        return name;  
+    } 
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>线程管理类  DownloadTaskManager.java  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.threadExecutorService.download;   
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set; 
+/*
+ * 其中downloadTasks表示的是线程队列，taskIdSet是任务队列，作用就是用来管理线程队列，此程序用的是去重操作。已经下载过的文件，不会再次下载。
+ */
+public class DownloadTaskManager {
+    //请求线程队列
+    private LinkedList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>DownloadTask</span><span class="token punctuation">></span></span> downloadTasks;
+    //任务不能重复
+    private Set<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> taskIdSet;
+    private static DownloadTaskManager downloadTaskManager;
+    public static synchronized DownloadTaskManager getInstance(){
+        if (null == downloadTaskManager) {
+            downloadTaskManager = new DownloadTaskManager();
+        }
+        return downloadTaskManager;
+    }
+    private DownloadTaskManager() {
+        downloadTasks = new LinkedList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>DownloadTask</span><span class="token punctuation">></span></span>();
+        taskIdSet = new HashSet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span>();
+    }
+    public void addDownloadTask(DownloadTask downloadTask){
+        synchronized (downloadTasks) {
+            if (!isTaskRepeat(downloadTask.getFileId())) {
+                downloadTasks.addLast(downloadTask);
+            }
+        }
+    }
+    public boolean isTaskRepeat(String fileId) { 
+        synchronized (taskIdSet) {
+            if (taskIdSet.contains(fileId)) {
+                return true;
+            } else {
+                System.out.println("下载管理器增加下载任务："+ fileId);  
+                taskIdSet.add(fileId);
+                return false;
+            }
+        }
+    }
+    public DownloadTask getDownloadTask() { 
+        synchronized (downloadTasks) {
+            if (downloadTasks.size() > 0) {
+                System.out.println("下载管理器增加下载任务："+"取出任务");
+                DownloadTask downloadTask = downloadTasks.removeFirst();
+                return downloadTask;
+            }
+        }
+        return null;
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>线程池DownloadTaskManagerThread.java  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.threadExecutorService.download;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+public class DownloadTaskManagerThread implements Runnable{
+    private DownloadTaskManager downloadTaskManager ;
+    // 创建一个可重用固定线程数的线程池 
+    private ExecutorService pool;
+    // 线程池大小  
+    private final int POOL_SIZE = 5;
+    // 轮询时间
+    private final int SLEEP_TIME = 1000;
+    // 是否停止  
+    private boolean isStop = false;
+    public DownloadTaskManagerThread() {
+        this.downloadTaskManager = DownloadTaskManager.getInstance();
+        pool = Executors.newFixedThreadPool(POOL_SIZE);
+    }
+
+    @Override
+    public void run() {
+        while (!isStop) {
+            DownloadTask downloadTask = downloadTaskManager.getDownloadTask();
+            if (downloadTask != null) {
+                pool.execute(downloadTask);
+            } else {//如果当前任务队列中没有下载任务downloadTask
+                try {
+                    // 查询任务完成失败的,重新加载任务队列  
+                    // 轮询
+                    Thread.sleep(SLEEP_TIME);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        if (isStop) {
+            pool.shutdown();
+        }
+
+
+    }
+
+    public void setStop(boolean isStop) {  
+        this.isStop = isStop;  
+    }  
+ }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>测试验证类Test.java  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.threadExecutorService.test;
+import com.threadExecutorService.download.DownloadTask;
+import com.threadExecutorService.download.DownloadTaskManager;
+import com.threadExecutorService.download.DownloadTaskManagerThread;
+
+public class Test {
+
+    public static void main(String[] args) {
+        //1.new一个线程管理队列  
+        DownloadTaskManager downloadTaskManager = DownloadTaskManager.getInstance();  
+        //2.new一个线程池，并启动  
+        DownloadTaskManagerThread downloadTaskManagerThread = new DownloadTaskManagerThread();  
+        new Thread(downloadTaskManagerThread).start();  
+
+        //3.请求下载  
+        String []items=new String[]{"阿凡达1","阿凡达2","阿凡达3","阿凡达4","阿凡达5","阿凡达6","阿凡达7","阿凡达1","阿凡达2"};  
+
+        for (int i = 0; i &lt; items.length; i++) {
+            downloadTaskManager.addDownloadTask(new DownloadTask(items[i]));
+            try {  
+                Thread.sleep(2000);  
+            } catch (InterruptedException e) {  
+                e.printStackTrace();  
+            }  
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="监听APP内所有Activity的生命周期"><a href="#监听APP内所有Activity的生命周期" class="headerlink" title="监听APP内所有Activity的生命周期"></a>监听APP内所有Activity的生命周期</h3><pre class="line-numbers language-html"><code class="language-html">package com.example.testlog1;
+import android.app.Activity;
+import android.app.Application;
+import android.os.Bundle;
+import android.util.Log;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class MyApplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d("zszszs","Application start");
+        LogToFile.getInstance().setLogInit(getApplicationContext());
+        String TAG="mylog";
+        //注册对APP内所有Activity的生命周期监听
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle bundle) {
+                LogToFile.getInstance().i(TAG,"onActivityCreated: "+activity.getLocalClassName());
+            }
+
+            @Override
+            public void onActivityStarted(@NonNull Activity activity) {
+                LogToFile.getInstance().i(TAG,"onActivityStarted: "+activity.getLocalClassName());
+            }
+
+            @Override
+            public void onActivityResumed(@NonNull Activity activity) {
+                LogToFile.getInstance().i(TAG,"onActivityResumed: "+activity.getLocalClassName());
+            }
+
+            @Override
+            public void onActivityPaused(@NonNull Activity activity) {
+                LogToFile.getInstance().i(TAG,"onActivityPaused: "+activity.getLocalClassName());
+            }
+
+            @Override
+            public void onActivityStopped(@NonNull Activity activity) {
+                LogToFile.getInstance().i(TAG,"onActivityStopped: "+activity.getLocalClassName());
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle bundle) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(@NonNull Activity activity) {
+                LogToFile.getInstance().i(TAG,"onActivityDestroyed: "+activity.getLocalClassName());
+            }
+        });
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="自定义Application共享数据"><a href="#自定义Application共享数据" class="headerlink" title="自定义Application共享数据"></a>自定义Application共享数据</h3><p>通过Application对象，在不同的Activity之间可以方便地实现数据共享。这比在每次切换activity时通过Bundle传递数据方便多了  </p>
+<pre class="line-numbers language-html"><code class="language-html">public class MyApplication extends Application {
+    public String appVersion = "v1.0";
+    //当前登录用户
+    private User loginUser = new User();
+    public User getLoginUser(){
+        return loginUser;
+    }
+    public void userLogin(User user){
+        loginUser.setUserId(user.getUserId());
+        loginUser.setUserName(user.getUserName());
+    }
+    public void userLogout(){
+        loginUser = new User();
+    }
+}
+
+public class MainActivity extends Activity {
+     private MyApplication mApplication;
+     @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        // 获取整个应用的Application对象
+        // 在不同的Activity中获取的对象是同一个
+        mApplication = (MyApplication) getApplication();
+    }
+      /**
+     * 一般只有在登录界面中设置登录用户信息，在其他的Activity中
+     * 只要通过Application对象就可以获取登录用户信息
+     */
+    private void login(){
+        User user = new User();
+        user.setUserId(1);
+        user.setUserName("Raysmond");
+        // 将登录用户信息保存到Application对象中
+        mApplication.userLogin(user);
+    }
+}
+　　
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Android内部存储与外部存储（私有目录与公共目录）"><a href="#Android内部存储与外部存储（私有目录与公共目录）" class="headerlink" title="Android内部存储与外部存储（私有目录与公共目录）"></a>Android内部存储与外部存储（私有目录与公共目录）</h2><p>应用程序在Android系统运行过程中产生的用户数据、日志、下载的图片、文件等都需要存储在Android系统提供的存储空间里，所以有必要了解Android系统下存储空间的概念、分类、特点以及使用方法，在实际应用中采用适合的方式保存数据。  </p>
+<p>从存储介质来说，Android的存储空间用于数据持久化存储，属于ROM存储介质，手机关机或者退出App数据不会丢失，这里需要和经常提到的“内存”从概念上进行区分：内存属于RAM存储介质，退出App或者关机之后数据会丢失。我们在开发Android应用的过程中，避免不了要用到数据持久化技术，所谓的数据持久化就是将RAM中的临时数据永久性保存到 ROM 中，保证在 App 退出或者手机关机后数据不会丢失。  </p>
+<p>从存储结构来说，Android系统的内核使用的是Linux内核，所以Android的文件目录结构和Linux系统的文件目录结构类似。Android系统使用虚拟文件系统（VFS），VFS的目录是以”/“为根节点，根节点下又有不同的节点。例如/data,/sytem,/mnt,/storage等等  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/waibuneibucunchu0.jpg" alt=""></p>
+<h3 id="内部存储"><a href="#内部存储" class="headerlink" title="内部存储"></a>内部存储</h3><p>Android系统以”/“为根节点，内部存储在逻辑上用目录来区分的话就是/data目录下的data文件夹：/data/data<br>这个目录普通用户是无权访问的，用户需要手机ROOT权限才可以查看。不过开发者可以通过Android Studio的View—Tool Windows—Device File Explorer 工具来查看该目录  </p>
+<p>/data/data目录下，按照应用的包名来组织的，每个应用在安装成功后，会自动创建新的目录（data/data/package-name），并且目录名称就是该应用的包名，所以每个应用都有专属的内部存储目录。当应用被卸载后，该目录都会被系统自动删除。所以，如果你将数据存储于内部存储中，其实就是把数据存储到自己应用包名对应的内部存储目录中。  </p>
+<p>每个应用的内部存储目录都是私有的，也就是说内部存储目录下的文件只能被宿主应用访问到，其他应用是没有权限访问的。宿主应用访问自己的内部存储目录时不需要申请任何权限。因此这部分的存储也被称为：内部存储私有目录。  </p>
+<p>特点1：与宿主 App 的生命周期相同，应用卸载时，会被系统自动删除。<br>特点2：宿主 App 可以直接访问，无需权限<br>特点3：其他应用无权访问<br>特点4：用户访问需Root权限<br>特点5：适合存储与应用直接相关，隐私性或敏感性高的数据 </p>
+<pre class="line-numbers language-html"><code class="language-html"> # 获取的目录是/data/data/package_name，即应用内部存储的根目录
+context.getDataDir();
+
+# 获取的目录是/data/data/package_name/files，即应用内部存储的files目录
+context.getFilesDir();
+
+# 获取的目录是/data/data/package_name/cache，即应用内部存储的cache目录
+context.getCacheDir();
+
+# 获取的目录是/data/data/package_name/name，如果该目录不存在，系统会自动创建该目录。
+context.getDir(String name, int mode) 
+
+# 不同的mode
+MODE_APPEND：即向文件尾写入数据
+MODE_PRIVATE：即仅打开文件可写入数据
+MODE_WORLD_READABLE：所有程序均可读该文件数据，Api 17废弃
+MODE_WORLD_WRITABLE：即所有程序均可写入数据，Api 17废弃
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="外部存储"><a href="#外部存储" class="headerlink" title="外部存储"></a>外部存储</h3><p>外部存储空间就是我们打开手机系统“文件管理”后看到的内容，外部存储的最外层目录是storage文件夹。也可以是mnt文件夹，这个厂家不同也会有不同的结果。  </p>
+<p>外部存储根据存储特点的不同可分为三种类型：私有目录、公共目录、其他目录。其中，“私有目录”属于外部存储的“私有存储空间”，“公共目录”和“其他目录”属于外部存储的“共享空间”。  </p>
+<p>通常来说，应用涉及到的持久化数据分为两类：应用相关数据和应用无关数据。前者是指专供宿主App使用的数据信息，比如一些应用的配置信息，数据库信息，缓存文件等。当应用被卸载，这些信息也应该被随之删除，避免存储空间产生不必要的占用，适合放到（内部存储或外部存储“私有目录”）。  </p>
+<p>当应用被卸载，用户仍然希望保留于设备当中的信息。常见如，拍照类应用的图片文件，用户是使用浏览器手动下载的文件等。应用无关数据应该是宿主应用希望与其他应用共享的数据，适合存放在外部存储空间的“公共目录”或“其他目录”。  </p>
+<pre class="line-numbers language-html"><code class="language-html">1 外部存储私有目录  
+storage/emulated/0/Android/data目录下，里边有许多包名组成的文件夹，这些文件夹是应用的私有目录  
+
+特点1：与宿主 App 的生命周期相同，应用卸载时，会被系统自动删除。
+特点2：宿主 App 可以直接访问，无需权限。（备注：从 4.4 版本开始，宿主 App 可以直接读写外部存储空间中的应用私有目录， 4.4 版本之前，开发人员需在 Manifest 申请外部存储空间的文件读写权限。）
+其他 App 可以访问。（备注：自 Android 7.0 特点3：开始，系统对应用私有目录的访问权限进一步限制。其它App无法通过 file:// 这种形式的 Uri 直接读写该目录下的文件内容，需通过 FileProvider 访问。）
+特点4：用户可直接访问，无需权限。
+特点5：适合存储与应用直接相关，隐私性或敏感性都不高的数据。
+
+# 获取到的目录是 /storage/emulated/0/Android/data/package_name/cache
+Context.getExternalCacheDir() 
+
+# 如果type为""，那么获取到的目录是 /storage/emulated/0/Android/data/package_name/files,  如果type为"test"，那么就会创建/storage/emulated/0/Android/data/package_name/files/test目录
+Context.getExternalFilesDir(String type)   
+
+
+
+2 外部存储公共目录  
+storage/emulated/0/DCIM  
+storage/emulated/0/Download  
+storage/emulated/0/Music  
+storage/emulated/0/Movies  
+storage/emulated/0/Pictures等系统创建的目录，其中文件所有应用可以分享  
+
+特点1：与宿主 App 生命周期无关，应用卸载后，数据仍然保留；
+特点2：所有的App都需要申请EXTERNAL_STORAGE权限，Android6.0开始需申请动态权限；
+特点3：用户访问，无需权限。
+特点4：适合存储不敏感的数据，且希望与其他应用共享的数据。
+
+# 获取到的目录是/storage/emulated/0,这个也是外部存储的根目录。
+Environment.getExternalStorageDirectory() 
+/* 
+1.如果type为""，那么获取到的目录是外部存储的根目录即  /storage/emulated/0
+2.如果type为"test"，那么就在外部存储根目录下创建test目录，android官方推荐使用以下的type类型，我们在Sdcar的根目录下也经常可以看到下面的某些目录:
+public static String DIRECTORY_MUSIC = "Music";
+public static String DIRECTORY_PODCASTS = "Podcasts";
+public static String DIRECTORY_RINGTONES = "Ringtones";
+public static String DIRECTORY_ALARMS = "Alarms";
+public static String DIRECTORY_NOTIFICATIONS = "Notifications";
+public static String DIRECTORY_PICTURES = "Pictures";
+public static String DIRECTORY_MOVIES = "Movies";
+public static String DIRECTORY_DOWNLOADS = "Download";
+public static String DIRECTORY_DCIM = "DCIM";
+public static String DIRECTORY_DOCUMENTS = "Documents";
+*/
+Environment.getExternalStoragePublicDirectory(String type) 
+
+3 外部存储其它目录  
+除私有目录和公共目录之外的部分。  
+比如各个App在/sdcard/目录下创建的目录，  
+如支付宝创建的目录：alipy/，微博创建的目录：com.sina.weibo/，qq创建的目录：com.tencent.mobileqq/等。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h3><p>Android 10 开始，在 Manifest 增加了新属性：android:hasFragileUserData=”true”，如果这里的值为“true”，在卸载 App 的时候，在弹出的对话框里可以由用户勾选是否保留数据。如果勾选的话，那么“外部存储 - 应用私有目录”中数据就会保留，而不会被系统清理，这也算得上是 Android 系统比较人性化的一面吧。但是不管这里是否勾选，内部存储私有目录里的数据都会被系统删除。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/waibuneibucunchu1.jpg" alt="">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/a445cba84efe43c0b665e0e44cdf5c18.jpg" alt="">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/bbd5982e65064062885d41beed22f5e2.jpg" alt=""></p>
+<h2 id="安卓app彻底重启自己"><a href="#安卓app彻底重启自己" class="headerlink" title="安卓app彻底重启自己"></a>安卓app彻底重启自己</h2><pre class="line-numbers language-html"><code class="language-html">Intent intent=getPackageManager().getLaunchIntentForPackage(getPackageName());
+intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+getApplicationContext().startActivity(intent);
+System.exit(0);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="安卓创建多模块工程"><a href="#安卓创建多模块工程" class="headerlink" title="安卓创建多模块工程"></a>安卓创建多模块工程</h2><pre class="line-numbers language-html"><code class="language-html">1. 打开Android Studio，选择“Start a new Android Studio Project”。
+2. 在创建项目的向导中，填写项目名称为“MyMultiModuleApp”，包名称为“com.example.multimoduleapp”，并选择“Empty Activity”作为初始活动。
+3. 点击“Finish”按钮完成项目的创建。
+4. Project视图选中外部工程目录，选择“File” -> “New” -> “New Module”  
+5. “New Module”向导中，选择要创建的模块类型，例如“Android Library”或“Java Library”  
+6. 点击“Finish”按钮完成模块的创建  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在多模块Android工程中，每个模块可以有自己的代码和资源，并且可以独立开发和调试。此外，可以在根目录下建立一个公共环境文件(env.gradle)，并在各模块中配置该文件，以实现模块间的环境共享和依赖管理。另外，可以将一些公共的配置，例如插件、编译选项、依赖项等，放在公共的配置文件中（例如app.gradle），并在各个模块中引入该配置文件，以避免重复配置和保持代码的一致性。  </p>
+<h3 id="多模块项目主应用使用子模块中的类"><a href="#多模块项目主应用使用子模块中的类" class="headerlink" title="多模块项目主应用使用子模块中的类"></a>多模块项目主应用使用子模块中的类</h3><p>在要使用其他模块中类的模块中，添加对目标模块的依赖。在模块的build.gradle文件中添加依赖项来完成    </p>
+<pre class="line-numbers language-html"><code class="language-html">例如，如果要在app模块中使用appSetting模块中的类，可以在app模块的build.gradle文件中添加以下依赖项：  
+
+dependencies {  
+    implementation project(':appSetting')  
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>请注意，如果您要访问的目标模块中的类是在AndroidManifest.xml文件中声明的Activity、Service或Receiver等组件，您还需要在要使用这些组件的模块的AndroidManifest.xml文件中声明这些组件。例如，如果您要在app模块中使用app-setting模块中名为SettingActivity的Activity，您还需要在app模块的AndroidManifest.xml文件中添加以下声明：  </p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activity</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.example.multimoduleapp.app_setting.SettingActivity<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="安卓配置使用osmdroid地图"><a href="#安卓配置使用osmdroid地图" class="headerlink" title="安卓配置使用osmdroid地图"></a>安卓配置使用osmdroid地图</h2><blockquote>
+<p>osmdroid是一款完全免费的用于替换Android MapView类的开源包。它包含了一个模块化的瓦片提供系统，用于支持多种类型的在线和离线瓦片资源，并且内置的覆盖物支持绘图图标、跟踪位置及绘制图形。  </p>
+</blockquote>
+<p>不同于Google Maps这类基于Web的地图服务，OSMDroid可以离线展示地图，也可以使用其他数据源提供的地图图片进行展示。  </p>
+<p>OSMDroid最初是为显示OpenStreetMap地图而创建的。OpenStreetMap是一款开源地图项目，使用它可以获取世界各地的地图数据。后面本例就是使用OSMDroid加载OpenStreetMap地图。</p>
+<h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><pre class="line-numbers language-html"><code class="language-html">//build.gradle(Project:xxx)
+dependencies { ......
+    implementation 'org.osmdroid:osmdroid-android:6.1.6'
+    implementation 'org.osmdroid:osmdroid-wms:6.1.6'
+    implementation 'org.osmdroid:osmdroid-mapsforge:6.1.6'
+    implementation 'org.osmdroid:osmdroid-geopackage:6.1.6'
+}
+//build.gradle(Module:xxx)
+buildscript {
+    repositories {
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://repo.spring.io/milestone' }
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.3"
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="添加权限"><a href="#添加权限" class="headerlink" title="添加权限"></a>添加权限</h3><pre class="line-numbers language-html"><code class="language-html"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>manifest</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">xmlns:</span>tools</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/tools<span class="token punctuation">"</span></span>
+    <span class="token attr-name">package</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.example.song.osmdroidhi<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">tools:</span>ignore</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>CoarseFineLocation<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.ACCESS_FINE_LOCATION<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">tools:</span>ignore</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>CoarseFineLocation<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.INTERNET<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.ACCESS_NETWORK_STATE<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.WRITE_EXTERNAL_STORAGE<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>application</span>
+        <span class="token attr-name"><span class="token namespace">tools:</span>replace</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android:allowBackup<span class="token punctuation">"</span></span>   
+
+        <span class="token attr-name"><span class="token namespace">android:</span>allowBackup</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>icon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@mipmap/ic_launcher<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@string/app_name<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>roundIcon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@mipmap/ic_launcher_round<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>supportsRtl</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>theme</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@style/Theme.Osmdroidhi<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activity</span>
+            <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>.MainActivity<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>exported</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>intent-filter</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>action</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.intent.action.MAIN<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>category</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.intent.category.LAUNCHER<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>intent-filter</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activity</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>application</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>manifest</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="activity-main-xml"><a href="#activity-main-xml" class="headerlink" title="activity_main.xml:"></a>activity_main.xml:</h3><pre class="line-numbers language-html"><code class="language-html"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>androidx.constraintlayout.widget.ConstraintLayout</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">xmlns:</span>app</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res-auto<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">xmlns:</span>tools</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/tools<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">tools:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>.MainActivity<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>org.osmdroid.views.MapView</span>
+       <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@+id/map<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+       <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>org.osmdroid.views.MapView</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>androidx.constraintlayout.widget.ConstraintLayout</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="MainActivity-java"><a href="#MainActivity-java" class="headerlink" title="MainActivity.java:"></a>MainActivity.java:</h3><pre class="line-numbers language-html"><code class="language-html">package com.example.song.osmdroidhi;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+
+import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
+
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.MapView;
+
+public class MainActivity extends AppCompatActivity {
+
+    MapView map=null;
+    IMapController mapController=null;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Context ctx=getApplicationContext();
+        Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
+        setContentView(R.layout.activity_main);
+        map=(MapView) findViewById(R.id.map);
+        mapController=map.getController();
+
+        map.setTileSource(TileSourceFactory.OpenTopo);
+        mapController.setCenter(new GeoPoint(39.901873,116.326655));
+        mapController.setZoom(14);
+
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="加载离线地图"><a href="#加载离线地图" class="headerlink" title="加载离线地图"></a>加载离线地图</h3><p>OSMDroid可以从本地文件系统中加载地图。这种方式适用于应用程序需要运行在没有网络连接的情况下。OSMDroid支持多种地图文件格式，如MBTiles、SQLiteDatabase、ZIP文件等。<br>以下是使用OSMDroid加载MBTiles格式离线地图的代码示例：  </p>
+<pre class="line-numbers language-html"><code class="language-html">//获取MapView实例
+MapView mapView = findViewById(R.id.mapView);
+
+//创建MBTileProvider实例
+File file = new File(Environment.getExternalStorageDirectory().getPath() + "/osmdroid/berlin.mbtiles");
+File[] files = { file };
+MBTileProvider mbTileProvider = new MBTileProvider(files);
+
+//创建MapTileModuleProviderBase实例
+MapTileModuleProviderBase mapTileModuleProviderBase = new MapTileFileArchiveProvider(
+        new SimpleRegisterReceiver(this),
+        mbTileProvider.getTileSource()
+);
+
+//添加MapTileModuleProviderBase实例到MapView对象
+mapView.setTileProvider(new MapTileProviderArray(mbTileProvider.getTileSource(), null,
+        new MapTileModuleProviderBase[] { mapTileModuleProviderBase }));
+
+//设置地图中心经纬度和缩放级别
+mapView.getController().setCenter(new GeoPoint(52.52, 13.405));
+mapView.getController().setZoom(15);
+
+//启用缩放及滑动手势
+mapView.setBuiltInZoomControls(true);
+mapView.setMultiTouchControls(true);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/09/13/diary-20230913-1/" class="b-link-green">qt工程化和安卓自定义输出文件</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/09/18/diary-20230918-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/24.jpg" class="responsive-img" alt="RxJava2熟悉及OkHttp2">
+                        
+                        <span class="card-title">RxJava2熟悉及OkHttp2</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            RXJava2概念和实例RXJava2是基于观察者模式和链式编程思想的异步编程库，它可以用来优雅地处理异步操作，比如网络请求、数据库查询、文件I/O等操作，减少了回调嵌套，提高了代码的可读性和可维护性。  
+基本特点：  
+1. 异步处理：
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-09-18
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/RxJava/" target="_blank">
+                        <span class="chip bg-color">RxJava</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/08/27/diary-20230827-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/19.jpg" class="responsive-img" alt="Docker的使用">
+                        
+                        <span class="card-title">Docker的使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            基于docker使用nginx容器挂载宿主机文件夹的方式使用nginx容器获得Nginx容器里原始配置文件  
+// 拉取Nginx镜像
+docker pull nginx  
+
+// 宿主机新建目录d:\data\nginx\conf
+
+
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-08-27
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Docker/" target="_blank">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

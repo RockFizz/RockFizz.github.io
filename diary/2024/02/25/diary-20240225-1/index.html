@@ -1,0 +1,1905 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="UbuntuARM64, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="DockerDesktop里的UbuntuARM64Docker Desktop启动镜像mynewarm64,并进入终端Open in terminal，
+uname -m 查看系统架构 
+whoami 查看当前用户
+lsb_release">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>UbuntuARM64 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/19.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        UbuntuARM64
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/qemu/" target="_blank">
+                                <span class="chip bg-color">qemu</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-02-25
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        11.5k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        45 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="DockerDesktop里的UbuntuARM64"><a href="#DockerDesktop里的UbuntuARM64" class="headerlink" title="DockerDesktop里的UbuntuARM64"></a>DockerDesktop里的UbuntuARM64</h2><pre class="line-numbers language-html"><code class="language-html">Docker Desktop启动镜像mynewarm64,并进入终端Open in terminal，
+uname -m 查看系统架构 
+whoami 查看当前用户
+lsb_release -a 可以查看Ubuntu系统的发行版名称、版本号和其他详细信息
+su - root 切换到root用户  
+
+// SSH登录
+service ssh start 启动ssh服务  
+service ssh status 确认ssh服务运行状态
+
+虚拟机内的dockerDesktop已经将容器内的22端口(SSH服务端口)被映射到主机的10001端口上，这意味着你可以通过主机的IP地址和10001端口号访问容器内的SSH服务  
+比如外界电脑通过虚拟机ip以ssh客户端工具Xshell登录ip:10001可登录到虚拟机下docker里的arm64Ubuntu系统  
+
+// SFTP，基于SSH的文件传输
+
+ssh可以登录后，如果需要本机和虚拟机内ubuntu镜像进行文件上传下载，  
+可以使用SFTP(SSH文件传输协议)工具，如WinSCP  
+用WinSCP登录ip:10001，用户密码同上
+
+apt-get update --fix-missing  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Docker Desktop 中，可以通过以下步骤给正在运行的容器增加更多的主机与镜像的端口映射  </p>
+<pre class="line-numbers language-html"><code class="language-html">命令行运行docker ps 命令获取 正在运行容器的ID  
+docker container update --publish-add 8088:8080 CONTAINER_ID  
+将容器的端口8080映射到主机的端口8088
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>安装服务器的图形桌面环境(ubuntu-desktop)，可以不用图形桌面，不是必须的  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo apt install ubuntu-desktop  
+sudo reboot  
+然后安装ubuntu内置应用商店  
+sudo snap install snap-store
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="没有图形界面-在命令行进行C-C-编程"><a href="#没有图形界面-在命令行进行C-C-编程" class="headerlink" title="没有图形界面,在命令行进行C/C++编程"></a>没有图形界面,在命令行进行C/C++编程</h3><h4 id="1-安装C-C-编译器"><a href="#1-安装C-C-编译器" class="headerlink" title="1.安装C/C++编译器"></a>1.安装C/C++编译器</h4><pre class="line-numbers language-html"><code class="language-html">apt-get update --fix-missing  
+apt-get install build-essential
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="2-创建和编辑C-C-源代码"><a href="#2-创建和编辑C-C-源代码" class="headerlink" title="2.创建和编辑C/C++源代码"></a>2.创建和编辑C/C++源代码</h4><pre class="line-numbers language-html"><code class="language-html">vim hello.cpp  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="3-编译C-C-源代码"><a href="#3-编译C-C-源代码" class="headerlink" title="3.编译C/C++源代码"></a>3.编译C/C++源代码</h4><p>在命令行中使用GCC或G++编译器来编译你的C/C++源代码文件<br>生成可执行文件hello  </p>
+<pre class="line-numbers language-html"><code class="language-html">gcc hello.c -o hello  
+g++ hello.cpp -o hello
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="4-运行可执行文件"><a href="#4-运行可执行文件" class="headerlink" title="4.运行可执行文件"></a>4.运行可执行文件</h4><p>编译成功后，你可以通过以下命令来运行生成的可执行文件  </p>
+<pre class="line-numbers language-html"><code class="language-html">./hello
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="qemu-for-windows安装"><a href="#qemu-for-windows安装" class="headerlink" title="qemu for windows安装"></a>qemu for windows安装</h2><p>qemu是一款模拟x86,arm等的虚拟机软件。</p>
+<pre class="line-numbers language-html"><code class="language-html">在 https://qemu.weilnetz.de/w64 下载QEMU Binaries for Windows(64bit) qemu-w64-setup-20231224.exe  
+
+双击安装程序，按照qemu安装程序的提示一步一步地进行下去，就是程序安装路径需要更改一下，修改成你需要的路径。  
+如我的安装路径： D:\Program Files\qemu  
+
+命令行进入安装路径，就可以运行qemu模拟器的命令了  
+
+cd "D:\Program Files\qemu"
+
+./qemu-img create -f raw F:/VirmachineArm/ubuntu-arm.img 100G
+
+./qemu-system-aarch64 -m 2048 -cpu cortex-a57 -M virt -nographic -smp 2 -drive file=F:/VirmachineArm/ubuntu-arm.img,format=raw -cdrom F:/Games/jammy-live-server-arm64.iso -boot d
+
+window下qemu模拟arm系统没有成功
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Ubuntu命令行设置VNC服务器"><a href="#Ubuntu命令行设置VNC服务器" class="headerlink" title="Ubuntu命令行设置VNC服务器"></a>Ubuntu命令行设置VNC服务器</h2><pre class="line-numbers language-html"><code class="language-html">// 安装tightvncserver  
+sudo apt update
+sudo apt install tightvncserver
+
+// 启动VNC服务器  
+vncserver :1
+// 这将启动一个VNC服务器并分配端口号5901（:1 对应于端口号5900+1）。在第一次运行时，系统会提示你设置连接密码
+
+// 配置VNC服务器。如果需要配置VNC服务器的参数，可以编辑 ~/.vnc/xstartup 文件来自定义启动时的环境
+
+// 使用VNC客户端，比如RealVNCViewer，连接到Ubuntu主机的IP地址和相应的端口号（例如，<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>IP</span><span class="token punctuation">></span></span>:5901）并输入密码进行连接。  
+
+// 停止VNC服务器  
+vncserver -kill :1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="什么是ZYNQ"><a href="#什么是ZYNQ" class="headerlink" title="什么是ZYNQ"></a>什么是ZYNQ</h2><p>ZYNQ 是由 Xilinx 公司推出的一款基于 ARM 处理器和可编程逻辑的器件系列。这些器件结合了 Xilinx 的 FPGA（Field-Programmable Gate Array）技术和 ARM Cortex 处理器核心，提供了强大的处理能力和灵活的可编程逻辑资源。<br>ZYNQ 器件通常包含两部分：Processing System（PS）和 Programmable Logic（PL）。Processing System 部分集成了 ARM Cortex 处理器核心、存储器、外设接口等，用于运行嵌入式软件；而 Programmable Logic 部分则是可编程逻辑资源，可以根据需要实现各种不同的数字电路功能。<br>ZYNQ组合了一个双核ARM Cortex-A9处理器和一个现场可编程门阵列（FPGA）<br>ZYNQ分为PL（programmable_logic，可编程逻辑）端和PS（processor_system，处理系统）端，ZYNQ启动总是先启动PS端，然后再配置PL端，可以将其理解为是一个嵌入式处理器PS端（双核ARMCortex-A9处理器），可以运行Linux等操作系统，而PL端（FPGA）可以当做嵌入式系统的外设，当然这个外设可以单独工作。 PS端和PL端采用AXI总线互联.  </p>
+<h3 id="入门玩法"><a href="#入门玩法" class="headerlink" title="入门玩法"></a>入门玩法</h3><pre class="line-numbers language-html"><code class="language-html">1. 了解Zynq架构：首先，了解Zynq SoC的体系结构和组成部分。学习关于PS（Processing System）和PL（Programmable Logic）的基本知识，了解它们的功能和相互之间的协作。
+2. 熟悉Vivado开发环境：掌握Xilinx Vivado开发环境的基础知识。学习如何创建项目、添加IP核、生成比特流文件等。
+3. 编写简单的PS应用程序：使用Xilinx提供的软件开发工具（如Xilinx SDK）编写简单的PS应用程序。开始从最基本的“Hello World”程序开始，逐渐扩展到更复杂的应用。
+4. 设计简单的PL逻辑：使用Vivado设计工具，学习如何设计简单的PL逻辑。可以从一些基本的IP核开始，如时钟分频器、GPIO控制器等，逐步深入学习PL的设计和开发。
+5. 实现PS和PL的通信：了解如何在PS和PL之间进行数据交换和通信。掌握AXI总线协议，学习如何配置和使用AXI接口进行数据传输。
+6. 尝试开发嵌入式系统：结合PS和PL，尝试开发基于Zynq的完整嵌入式系统。这包括将应用程序部署到PS上，与PL进行通信和控制，并最终实现一个完整的功能。
+7. 参考文档和教程：查阅Xilinx官方文档、用户手册和教程，这些资源提供了丰富的信息和指导，可以帮助您更深入地了解Zynq和其开发流程。
+请注意，Zynq是一款复杂的芯片，需要深入学习和实践才能熟练掌握。建议您先从基础开始，逐步扩展您的知识和技能，并利用官方文档和社区资源来解决遇到的问题。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="关于嵌入式操作系统"><a href="#关于嵌入式操作系统" class="headerlink" title="关于嵌入式操作系统"></a>关于嵌入式操作系统</h3><p>一般情况下，只要嵌入式系统中有处理器（如微处理器、微控制器等），就可以运行操作系统。操作系统可以帮助管理硬件资源、提供各种服务和功能，简化应用程序的开发和运行。</p>
+<p>一般来说，单片机通常指的是集成了微处理器、存储器和各种接口功能在一个芯片上的微控制器，它们通常用于控制简单的嵌入式系统。与之相对的是单板计算机（Single Board Computer），它们通常搭载有更强大的处理器和更多的内存，可以运行类似桌面计算机的操作系统。<br>传统的单片机通常无法直接运行类似 Windows、Linux 这样的操作系统，因为它们的资源（例如处理器性能、内存容量）通常无法满足这些操作系统的要求。但是，一些高端的单片机或者嵌入式处理器，如 ARM Cortex 系列，具备了更强大的性能和更多的外设接口，可以运行一些精简的操作系统，比如嵌入式 Linux 或者实时操作系统（RTOS）等。<br>因此，一般而言，传统的单片机通常不会运行标准的桌面操作系统，但一些较为强大的嵌入式处理器可以运行一些轻量级的操作系统，以满足特定的应用需求</p>
+<pre class="line-numbers language-html"><code class="language-html">在嵌入式系统中，常见的操作系统包括但不限于：
+1. 实时操作系统（RTOS）：专为嵌入式系统设计的实时操作系统，能够提供精确的时间控制和优先级调度，适用于对实时性要求较高的应用场景。
+2. Linux：Linux是一种常用的开源操作系统，也广泛应用于嵌入式系统中。在一些性能要求不那么严格的场合，可以选择在嵌入式系统中运行Linux操作系统，从而利用其丰富的软件生态系统和开发工具。
+3. 嵌入式Windows：微软提供了一些针对嵌入式系统的Windows版本，如Windows Embedded Compact，适用于一些需要Windows环境的嵌入式应用场景。
+4. FreeRTOS：FreeRTOS是一个免费的RTOS内核，适用于小型嵌入式系统，提供了任务管理、时钟管理、内存管理等基本功能。
+5. uC/OS-II、uC/OS-III：Micrium提供的uC/OS-II和uC/OS-III是另外两个常用的嵌入式实时操作系统，提供了多任务管理、信号量、消息队列等功能。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="ARMCortex系列处理器上运行精简嵌入式-Linux"><a href="#ARMCortex系列处理器上运行精简嵌入式-Linux" class="headerlink" title="ARMCortex系列处理器上运行精简嵌入式 Linux"></a>ARMCortex系列处理器上运行精简嵌入式 Linux</h3><p>你可以按照以下步骤进行操作：  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 选择合适的嵌入式 Linux 发行版：首先，选择一个适合你需求的嵌入式 Linux 发行版，例如 Buildroot、OpenWrt、Yocto Project 等。这些发行版提供了针对嵌入式系统的定制化工具链、根文件系统以及一些常用软件包。
+2. 配置和编译内核：下载所选发行版的源代码，并根据目标板的硬件配置进行内核的配置。使用交叉编译工具链，编译生成适用于 ARM Cortex 系列处理器的内核映像（zImage 或 Image）。配置选项包括处理器架构、设备驱动、文件系统支持等。
+3. 生成根文件系统：根据实际需求，配置和生成根文件系统。这包括选择文件系统类型（如 ext4、ubifs），添加所需的库和应用程序，配置启动脚本和服务等。通常，嵌入式 Linux 发行版提供了一些工具和脚本来帮助生成根文件系统。
+4. 烧录内核和根文件系统：将编译得到的内核映像和根文件系统烧录到目标板的存储介质上，例如闪存、SD 卡等。
+5. 配置启动过程：根据目标板的启动过程，配置引导加载程序（Bootloader）和启动脚本。这通常涉及到设置引导参数、设备树文件（Device Tree）、启动优先级等。
+6. 调试和测试：将目标板连接到开发机，通过串口或网络进行调试和测试。使用调试工具和日志输出来分析系统启动过程和运行时的问题。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="编译嵌入式系统内核"><a href="#编译嵌入式系统内核" class="headerlink" title="编译嵌入式系统内核"></a>编译嵌入式系统内核</h3><p>需要以下步骤：  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 获取内核源码：首先需要从官方网站或版本控制系统（如 Git）获取适用于你的嵌入式系统的内核源码。
+2. 配置内核：在获取源码后，可以使用 menuconfig、xconfig 或 config 等工具配置内核。这些工具可帮助你选择适合你的嵌入式系统的配置选项，如处理器架构、设备驱动、文件系统支持等。
+3. 编译内核：使用 make 命令编译内核。在编译时，可以指定交叉编译工具链（如 ARM 架构的工具链），以确保生成的内核适用于目标嵌入式系统。
+4. 安装内核：编译完成后，将生成的内核映像（如 zImage 或 Image 文件）和相关文件复制到嵌入式系统的引导分区中。
+5. 配置引导加载程序：根据你的嵌入式系统和引导加载程序（如 U-Boot）的要求，配置引导加载程序以正确加载新编译的内核。
+6. 启动系统：重启嵌入式系统，确保新编译的内核能够成功启动并正常运行。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="新手学习嵌入式系统开发步骤"><a href="#新手学习嵌入式系统开发步骤" class="headerlink" title="新手学习嵌入式系统开发步骤"></a>新手学习嵌入式系统开发步骤</h3><blockquote>
+<ol>
+<li>学习基础知识：  </li>
+</ol>
+</blockquote>
+<p>了解嵌入式系统的概念、特点和应用领域。<br>学习计算机系统结构、数字电路、微处理器等相关基础知识。</p>
+<blockquote>
+<ol start="2">
+<li>选择学习平台：  </li>
+</ol>
+</blockquote>
+<p>选择一款常用的嵌入式开发板，如 Arduino、Raspberry Pi、STM32 等，作为学习和实践的平台。</p>
+<blockquote>
+<ol start="3">
+<li>学习编程语言：  </li>
+</ol>
+</blockquote>
+<p>掌握 C/C++ 编程语言，这是嵌入式系统开发中常用的编程语言。</p>
+<blockquote>
+<ol start="4">
+<li>学习嵌入式系统编程：  </li>
+</ol>
+</blockquote>
+<p>学习嵌入式系统的硬件接口编程，包括 GPIO 控制、串口通信、ADC/DAC 等。<br>了解嵌入式操作系统（如 FreeRTOS、Embedded Linux）的基本概念和使用方法。</p>
+<blockquote>
+<ol start="5">
+<li>实践项目：  </li>
+</ol>
+</blockquote>
+<p>尝试完成一些简单的嵌入式项目，如 LED 控制、温湿度传感器读取、无线通信等。<br>参与开源社区或者网上的嵌入式项目，学习他人的代码和经验。</p>
+<blockquote>
+<ol start="6">
+<li>持续学习：  </li>
+</ol>
+</blockquote>
+<p>阅读相关书籍、教程和文档，不断扩展自己的知识面。<br>参加嵌入式系统相关的培训课程或工作坊，与其他开发者共同学习和交流经验。</p>
+<h3 id="常见的软件模拟嵌入式开发板的方法"><a href="#常见的软件模拟嵌入式开发板的方法" class="headerlink" title="常见的软件模拟嵌入式开发板的方法"></a>常见的软件模拟嵌入式开发板的方法</h3><ol>
+<li>虚拟化技术：使用虚拟机软件（如 VirtualBox、VMware）或容器技术（如 Docker）创建一个虚拟环境，在其中模拟嵌入式开发板的运行环境。这种方式可以模拟一些基本的硬件特性和操作系统接口，但无法模拟底层硬件级别的功能。</li>
+<li>仿真器和模拟器：一些嵌入式开发工具套件（如 Keil MDK、IAR Embedded Workbench）提供了仿真器和模拟器功能，可以在计算机上模拟目标硬件的行为。这些工具通常会提供虚拟的 CPU 和外设模型，以便进行代码调试和测试。</li>
+<li>QEMU（快速嵌入式模拟器）：QEMU 是一个开源的全系统模拟器，支持多种嵌入式处理器架构。它可以在计算机上模拟整个嵌入式系统的运行，包括处理器、内存、设备和操作系统。通过 QEMU，你可以在计算机上运行和测试嵌入式软件。<br>尽管软件模拟可以提供一定程度的功能验证和调试能力，但它无法完全替代真实的嵌入式开发板。硬件原型的验证仍然需要实际的设备来进行，以确保软件在实际硬件上的正确性和性能。因此，在进行嵌入式开发时，建议尽早使用实际的嵌入式开发板进行测试和验证。</li>
+</ol>
+<h2 id="win10通过qemu安装arm64虚拟机及文件互传"><a href="#win10通过qemu安装arm64虚拟机及文件互传" class="headerlink" title="win10通过qemu安装arm64虚拟机及文件互传"></a>win10通过qemu安装arm64虚拟机及文件互传</h2><p>亲测Windows10上使用QEMU创建Ubuntu aarch64（ARM64）虚拟机  </p>
+<h3 id="安装目录和系统环境"><a href="#安装目录和系统环境" class="headerlink" title="安装目录和系统环境"></a>安装目录和系统环境</h3><ol>
+<li><p>D盘创建目录 F:\vm\arm64\ </p>
+</li>
+<li><p>D盘创建一个存放镜像的目录 F:\image\ubuntu-20.04.5-live-server-arm64.iso</p>
+</li>
+<li><p>下载qemu ，<a href="https://qemu.weilnetz.de/w64/2021/" target="_blank" rel="noopener">https://qemu.weilnetz.de/w64/2021/</a> qemu-w64-setup-20211215.exe<br>安装qemu在F:\vm\arm64\ 下，安装好后会有F:\vm\arm64\qemu这个目录</p>
+</li>
+<li><p>由于没有固件，我们需要下载一个UEFI（UEFI固件镜像文件，BIOS的替代方案），下载地址：<a href="http://releases.linaro.org/components/kernel/uefi-linaro/16.02/release/qemu64/QEMU_EFI.fd" target="_blank" rel="noopener">http://releases.linaro.org/components/kernel/uefi-linaro/16.02/release/qemu64/QEMU_EFI.fd</a><br>将QEMU_EFI.fd放到arm64目录下，得到F:\vm\arm64\QEMU_EFI.fd  </p>
+</li>
+<li><p>进入qemu安装目录 F:\vm\arm64\qemu，输入cmd进行命令行<br>运行 qemu-img create -f qcow2 F:\vm\arm64\ubuntu-20.04.5-live-server-arm64.img 20G<br>在F:\vm\arm64下得到一个命名为ubuntu-20.04.5-live-server-arm64.img的磁盘文件，如F:\vm\arm64\ubuntu-20.04.5-live-server-arm64.img    </p>
+</li>
+<li><p>利用刚才生成的磁盘文件来安装一个ARM64架构的Ubuntu虚拟机    </p>
+</li>
+</ol>
+<p>qemu-system-aarch64 -m 4000 -cpu cortex-a72 -smp 4,cores=4,threads=1,sockets=1 -M virt -bios F:\vm\arm64\QEMU_EFI.fd -device nec-usb-xhci -device usb-kbd -device usb-mouse -device VGA -drive if=none,file=D:\image\ubuntu-20.04.5-live-server-arm64.iso,id=cdrom,media=cdrom -device virtio-scsi-device -device scsi-cd,drive=cdrom -drive if=none,file=F:\vm\arm64\ubuntu-20.04.5-live-server-arm64.img,id=hd0 -device virtio-blk-device,drive=hd0 -net nic -net user,hostfwd=tcp::2222-:22 -monitor stdio</p>
+<pre class="line-numbers language-html"><code class="language-html">-m 4000: 指定虚拟机的内存大小为4000MB。
+-cpu cortex-a72: 指定虚拟机的CPU类型为Cortex-A72。
+-smp 4,cores=4,threads=1,sockets=1: 指定虚拟机的处理器配置，包括4个核心、1个线程、1个插槽。
+-M virt: 指定使用virt机型来模拟虚拟机硬件。
+-bios F:\vm\arm64\QEMU_EFI.fd: 指定UEFI固件的路径。
+-device nec-usb-xhci: 添加一个NEC USB控制器设备。
+-device usb-kbd: 添加一个USB键盘设备。
+-device usb-mouse: 添加一个USB鼠标设备。
+-device VGA: 添加一个VGA图形设备。
+-drive if=none,file=D:\image\ubuntu-20.04.5-live-server-arm64.iso,id=cdrom,media=cdrom: 指定虚拟机的光驱设备，并将ISO镜像文件挂载为光驱。
+-device virtio-scsi-device: 添加一个virtio SCSI设备。
+-device scsi-cd,drive=cdrom: 添加一个SCSI CD-ROM设备，并连接到之前定义的光驱设备。
+-drive if=none,file=F:\vm\arm64\ubuntu-20.04.5-live-server-arm64.img,id=hd0: 指定虚拟机的硬盘设备，并将镜像文件挂载为硬盘。
+-device virtio-blk-device,drive=hd0: 添加一个virtio块设备，并连接到之前定义的硬盘设备。
+-net nic: 添加一个网络接口控制器设备。
+-net user,hostfwd=tcp::2222-:22: 添加一个用户模式网络设备，并将主机的2222端口转发到虚拟机的22端口（用于SSH连接）。
+-monitor stdio: 将监视器输出重定向到标准输入/输出。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>耐心安装</p>
+<ol start="7">
+<li>安装完成后启动虚拟机 </li>
+</ol>
+<p>在F:\vm\arm64\qemu窗口输入cmd，打开dos窗口   </p>
+<p>以下启动命令，默认的网络连接方式为”网络地址转换NAT”，此时dhcp自动获取的ip为10.0.2.15，无法与连接互联网<br>qemu-system-aarch64 -m 4000 -cpu cortex-a72 -smp 4,cores=4,threads=1,sockets=1 -M virt -bios F:\vm\arm64_qemu\QEMU_EFI.fd -device nec-usb-xhci -device usb-kbd -device usb-mouse -device VGA -drive if=none,file=F:\vm\arm64_qemu\ubuntu-20.04.5-live-server-arm64.img,id=hd0 -device virtio-blk-device,drive=hd0 -net nic -net user,hostfwd=tcp::2222-:22</p>
+<pre class="line-numbers language-html"><code class="language-html">-m 4000: 指定虚拟机的内存大小为4000MB。
+-cpu cortex-a72: 指定虚拟机的CPU类型为Cortex-A72。
+-smp 4,cores=4,threads=1,sockets=1: 指定虚拟机的处理器配置，包括4个核心、1个线程、1个插槽。
+-M virt: 指定使用virt机型来模拟虚拟机硬件。
+-bios F:\vm\arm64\QEMU_EFI.fd: 指定UEFI固件的路径。
+-device nec-usb-xhci: 添加一个NEC USB控制器设备。
+-device usb-kbd: 添加一个USB键盘设备。
+-device usb-mouse: 添加一个USB鼠标设备。
+-device VGA: 添加一个VGA图形设备。
+-drive if=none,file=F:\vm\arm64\ubuntu-20.04.5-live-server-arm64.img,id=hd0: 指定虚拟机的硬盘设备，并将名为ubuntu-20.04.5-live-server-arm64.img的镜像文件挂载为硬盘。
+-device virtio-blk-device,drive=hd0: 添加一个virtio块设备，并连接到之前定义的硬盘设备。
+-net nic: 添加一个网络接口控制器设备。
+-net user,hostfwd=tcp::2222-:22: 添加一个用户模式网络设备，并将主机的2222端口转发到虚拟机的22端口（主机使用127.0.0.1:2222登录虚拟机ssh）
+
+-net tap,ifname=tap1212 添加桥接模式网络设备，桥接主机网卡名为tap1212，通过本地其它网卡的共享连接互联网
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>为了能联网，<br>win10主机需要先创建虚拟网卡，通过 <a href="https://build.openvpn.net/downloads/releases/tap-windows-9.24.7-I601-Win10.exe" target="_blank" rel="noopener">https://build.openvpn.net/downloads/releases/tap-windows-9.24.7-I601-Win10.exe</a> 双击默认安装即可。<br>进”控制面板 网络和共享中心 网络连接”<br>将”TAP-Windows Adapter V9”的网络适配器，右键重命名为”tap1212”,<br>选中本地可以联网的网络适配器，如”本地以太网”,右键”属性-共享”选中”允许其它网络通过此计算机的Internet连接来连接”复选框，”家庭网络连接”选择刚才新增加的网卡（且是修改过名字后的名称如tap1212），选中“允许其它网络用户控制或禁用共享的Internet连接”，确定即可  </p>
+<p>然后以下启动命令，默认的网络连接方式为”桥接网卡”，此时dhcp自动获取的ip类似”192.168.157.199”，可连接互联网  </p>
+<p>qemu-system-aarch64 -m 4000 -cpu cortex-a72 -smp 4,cores=4,threads=1,sockets=1 -M virt -bios F:\vm\arm64_qemu\QEMU_EFI.fd -device nec-usb-xhci -device usb-kbd -device usb-mouse -device VGA -drive if=none,file=F:\vm\arm64_qemu\ubuntu-20.04.5-live-server-arm64.img,id=hd0 -device virtio-blk-device,drive=hd0 -net nic -net tap,ifname=tap1212</p>
+<pre class="line-numbers language-html"><code class="language-html">查看ssh服务状态 service ssh status
+查看ip使用 ip addr （默认没有局域网ip，但后续本地可通过127.0.0.1登录ssh） 
+此版本ubuntu通过/etc/netplan/00-network-manager-all.yaml 配置网络
+修改后sudo netplan apply 生效
+通过检查 ip addr 看是否成功配置
+sudo systemctl restart NetworkManager 刷新网络连接  
+
+uname -a  
+返回 Linux zzy 5.4.0-172-generic #190-Ubuntu SMP Fri Feb 2 23:29:27 UTC 2024 aarch64 aarch64 aarch64 GNU/Linux   
+Linux：操作系统类型，表示当前系统是基于 Linux 内核的。
+zzy：主机名，即计算机的名称。
+5.4.0-172-generic：内核版本号，指示当前系统正在使用的 Linux 内核版本。
+#190-Ubuntu SMP Fri Feb 2 23:29:27 UTC 2024：补丁级别和构建时间，包括内核构建时的一些详细信息，例如补丁级别和构建日期。
+aarch64：处理器架构，显示当前系统是基于 ARM 64 位架构。
+aarch64：硬件平台，表示当前系统是基于 ARM 64 位架构。
+aarch64：GNU/Linux 系统类型，指示当前系统属于 GNU/Linux 系列操作系统。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用MobaXterm连接qemu虚拟机可以相互传文件"><a href="#使用MobaXterm连接qemu虚拟机可以相互传文件" class="headerlink" title="使用MobaXterm连接qemu虚拟机可以相互传文件"></a>使用MobaXterm连接qemu虚拟机可以相互传文件</h3><p>winSCP应该可以，因为ssh可以通的话  </p>
+<h2 id="qemu使用"><a href="#qemu使用" class="headerlink" title="qemu使用"></a>qemu使用</h2><h3 id="qemu是什么"><a href="#qemu是什么" class="headerlink" title="qemu是什么"></a>qemu是什么</h3><p>可以模拟不同体系结构的处理器，并在其上运行不同架构的操作系统。QEMU可以用于模拟整个计算机系统，包括处理器、内存、存储设备和各种外设，使得用户可以在一个平台上运行另一个平台的软件.  </p>
+<p>QEMU支持多种架构的虚拟化，包括x86、x86-64、ARM、MIPS等，因此它被广泛应用于开发和测试跨平台软件、进行嵌入式开发、进行系统仿真以及构建虚拟化环境等方面。此外，QEMU还可以用于快速的虚拟机部署和管理，具有灵活性和高度可定制性。 </p>
+<p>qemu-system-arm -M ? 查询支持模拟该架构的硬件开发板型号</p>
+<p>qemu可以直接体验运行U-Boot，Linux Kernel甚至Ubuntu等各种软件和操作系统 </p>
+<p>只是用QEMU模拟器跑Linux内核，看看能否跑起来<br>使用QEMU搭建Linux内核调试环境<br>Linux下qemu的安装并搭建虚拟arm环境（带helloworld测试）<br><a href="https://blog.csdn.net/kevvviinn/article/details/135948229?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-135948229-blog-124431052.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-135948229-blog-124431052.235%5Ev43%5Econtrol&amp;utm_relevant_index=5" target="_blank" rel="noopener">https://blog.csdn.net/kevvviinn/article/details/135948229?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-135948229-blog-124431052.235%5Ev43%5Econtrol&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7EPosition-2-135948229-blog-124431052.235%5Ev43%5Econtrol&amp;utm_relevant_index=5</a>    </p>
+<h3 id="linux如何启动"><a href="#linux如何启动" class="headerlink" title="linux如何启动"></a>linux如何启动</h3><p>linux启动流程，简要总结就是：BIOS，MBR，启动Bootloader，加载Kernel，挂载虚拟rootfs，挂载真实rootfs，初始化用户程序（即执行init进程）。  </p>
+<p>为什么会有虚拟rootfs？这涉及到initrd（全称boot loader initialized RAM disk，初始化的内存盘），RAM disk就是将内存的一部分分配为一个分区并作为磁盘来使用，initrd就是由 boot loader 初始化的内存盘  </p>
+<pre class="line-numbers language-html"><code class="language-html">早期，linux系统用于存储rootfs的介质一般只有硬盘或者软盘，内核集成了这些磁盘驱动程序，开机时内核可以直接挂载基于磁盘的rootfs。后来，嵌入式系统可能将rootfs存储到各种介质上，包括IDE、SCSI、SATA，Flash、u-disk等等。如果将所有介质的驱动都编译进内核，内核会越来越臃肿。索性，将所有存储介质的驱动都编译成内核模块并将其ko文件保存在rootfs中，可按需加载。那么问题来了，内核要挂载rootfs就要先加载对应存储介质驱动模块，内核要加载存储介质驱动模块，就要先挂载rootfs。先有鸡还是先有蛋？
+
+为了解决这一矛盾，出现了基于ramdisk的initrd。initrd是一个被压缩过的小型根目录，这个目录中包含了启动阶段中必须的驱动模块，可执行文件和启动脚本。在 Bootloader 配置了 initrd 的情况下，内核启动被分成了两个阶段，第一阶段先挂载基于内存盘的虚拟roofs，把系统内存的一部分作为根文件系统挂载，执行 initrd 文件系统中的启动脚本，完成加载驱动模块等任务，第二阶段才挂载真实rootfs并执行初始化用户程序init 进程。
+
+initrd是基于内存的块设备（即ramdisk），有个缺点就是大小固定，是过时的机制。Linux 2.6开始采用initramfs替换了initrd，initramfs（init ram filesystem）是基于内存的文件系统（即ramfs），其空间大小可动态变化，本文使用的就是 initramfs。
+
+总结起来，就是在挂载基于磁盘的真正rootfs之前，会先挂载一个基于内存的虚拟rootfs（通过initrd或者initramfs 实现），虚拟rootfs只是起个过渡的作用，它完成一些内核不容易做到的事情，比如加载必要的驱动模块，挂载真正rootfs。
+
+使用QEMU的全系统仿真模式启动linux内核时，BIOS、MBR和Bootloader都已经在QEMU内置好了，我们只要准备linux内核镜像和initramfs即可。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>linux内核镜像可通过编译内核源码获得，initramfs可以使用 busybox 来制作  </p>
+<pre class="line-numbers language-html"><code class="language-html">linux系统启动步骤：  
+
+1. BIOS/UEFI  
+计算机加电后首先执行基本输入输出系统（BIOS）或统一可扩展固件接口（UEFI），这两者是计算机的固件，负责硬件初始化和启动过程。
+2. Bootloader  
+BIOS/UEFI会加载引导加载程序（bootloader），最常见的Linux引导加载程序是GRUB（GRand Unified Bootloader）。引导加载程序负责加载操作系统内核和必要的文件系统模块。
+3. 内核加载  
+引导加载程序加载Linux内核（vmlinuz），并将其解压缩到内存中，然后启动内核。内核初始化硬件设备、文件系统等，并创建第一个用户空间进程init。
+4. Init进程  
+在传统的SysVinit系统中，init进程是第一个用户空间进程，负责启动系统中的各种服务和进程。在较新的系统中，可能会使用systemd作为init系统。
+5. 用户空间初始化  
+init或systemd会启动各种系统服务和用户空间进程，包括网络管理、日志记录、用户登录等。
+6. 登录管理器  
+如果系统配置了图形化用户界面（GUI），则会启动登录管理器（如GDM、LightDM等），用户可以在此处登录系统。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="initramfs是什么"><a href="#initramfs是什么" class="headerlink" title="initramfs是什么"></a>initramfs是什么</h3><p>initramfs（Initial RAM File System）是一种临时的根文件系统，用于在引导过程中加载必要的驱动程序和文件系统工具，以便完成系统引导之前的一些初始化工作。</p>
+<p>通常在 Linux 系统引导时，内核需要初始化硬件设备、加载文件系统驱动程序等操作。而这些操作可能需要依赖于特定的文件系统工具或驱动程序，如果这些工具和驱动程序不在内核镜像中，那么内核就无法完成引导。</p>
+<p>为了解决这个问题，Linux 在引导过程中会先加载一个临时的根文件系统，这就是 initramfs。initramfs 包含了一些必要的工具、驱动程序和文件系统结构，可以帮助内核完成引导过程中所需的初始化工作。</p>
+<p>一旦内核完成了系统引导和初始化，它就会卸载 initramfs，并将控制权交给真正的根文件系统，这样系统就可以正常运行了。</p>
+<p>总的来说，initramfs 提供了一个临时的根文件系统，在系统引导过程中起到了非常重要的作用，它帮助内核完成了系统初始化所需的工作。</p>
+<h3 id="快速测试内核和initramfs的功能"><a href="#快速测试内核和initramfs的功能" class="headerlink" title="快速测试内核和initramfs的功能"></a>快速测试内核和initramfs的功能</h3><pre class="line-numbers language-html"><code class="language-html">$ sudo apt install bison
+$ sudo apt install flex
+
+$ mkdir ~/kvm
+$ cd ~/kvm/
+$ wget https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/snapshot/linux-5.19.tar.gz //获取内核源代码
+$ tar -xf linux-5.19.tar.gz
+$ cd linux-5.19/
+$ make defconfig                // 生成默认的内核配置文件
+$ make menuconfig               // 针对新内核进行必要的配置修改
+$ make -j `nproc`               // 使用make命令编译。确保使用-j参数以加快编译速度
+
+
+Kernel: arch/x86/boot/bzImage is ready  
+其中bzImage文件就是编译后的内核镜像文件,可用file查看  
+$ file arch/x86/boot/bzImage
+arch/x86/boot/bzImage: Linux kernel x86 boot executable bzImage, version 5.19.0 (kaoya@kaoya-Inspiron-7472) #1 SMP PREEMPT_DYNAMIC Mon Feb 27 00:26:06 CST 2023, RO-rootFS, swap_dev 0xA, Normal VGA
+
+/** 看到以下日志就表示编译成功
+ *  Kernel: arch/x86/boot/bzImage is ready  
+ *  其中bzImage文件就是编译后的内核镜像文件,可用file查看
+ *  $ file arch/x86/boot/bzImage
+ *  arch/x86/boot/bzImage: Linux kernel x86 boot executable bzImage, version 5.19.0 (kaoya@kaoya-Inspiron-7472) #1 SMP PREEMPT_DYNAMIC Mon Feb 27 00:26:06 CST 2023, RO-rootFS, swap_dev 0xA, Normal VGA
+ **/
+
+
+$ cd ~/kvm/
+$ wget https://busybox.net/downloads/busybox-1.35.0.tar.bz2
+$ tar -xf busybox-1.35.0.tar.bz2
+$ cd busybox-1.35.0/
+$ make menuconfig 
+
+/** 注意在配置修改时：
+ * # 修改配置，选中如下项目，静态编译
+ * # Settings –> Build Options –> [*] Build static binary（no share libs）
+ * # 反选如下项目，否则后续qemu执行会提示 /bin/sh:can't access tty;job control turned off
+ * # Shells  --->  [ ]   Job control
+ **/
+
+$ make -j `nproc`               // 使用make命令编译busybox。确保使用-j参数以加快编译速度
+// 编译 BusyBox。编译完成后，会生成一个名为 busybox 的可执行文件
+$ sudo make install             // 安装编译好的
+
+默认安装到源码目录的 _install/ 目录  
+$ ls _install/                  // 可显示结果 bin  linuxrc  sbin  usr
+# 最关键的就是_install/bin/busybox，其他都是链接文件
+$ file _install/bin/busybox 
+_install/bin/busybox: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), statically linked, BuildID[sha1]=8be05d97976fc5de35a9ebf2631529223523296f, for GNU/Linux 3.2.0, stripped  
+
+
+// 使用busybox快速制作initramfs  
+创建虚拟rootfs中的init启动脚本，并赋予可执行权限
+$ cd ~/kvm/busybox-1.35.0/_install/
+$ mkdir proc sys dev tmp
+$ touch init
+$ chmod +x init
+
+脚本内容如下  
+
+#!/bin/sh
+# 挂载一些必要的文件系统
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t tmpfs none /tmp
+mount -t devtmpfs none /dev
+echo
+echo "Hello Linux"
+# 显示开机消耗时间
+echo "This boot took $(cut -d' ' -f1 /proc/uptime) seconds"
+echo
+# 停留在控制台
+exec /bin/sh
+
+制作initramfs文件，它是多个文件通过cpio打包和gzip压缩的文件，是一个cpio格式的内存文件系统  
+$ find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../initramfs.cpio.gz
+
+启动linux内核
+$ qemu-system-x86_64 -kernel ./linux-5.19/arch/x86/boot/bzImage -initrd ./busybox-1.35.0/initramfs.cpio.gz -append "init=/init console=ttyS0"
+
+当你只指定内核镜像 (-kernel)、initramfs 文件 (-initrd) 和内核启动参数 (-append) 时，QEMU 将会加载内核和 initramfs 到内存中，然后启动内核。这种方式通常用于快速测试内核和 initramfs 的功能，而无需真正的硬件设备或文件系统。  
+QEMU 中启动内核并运行 initramfs，但请注意，由于没有指定虚拟磁盘，虚拟机将不具有持久性存储，且无法进行文件系统操作
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qemu启动虚拟机引导内核和虚拟磁盘"><a href="#qemu启动虚拟机引导内核和虚拟磁盘" class="headerlink" title="qemu启动虚拟机引导内核和虚拟磁盘"></a>qemu启动虚拟机引导内核和虚拟磁盘</h3><pre class="line-numbers language-html"><code class="language-html">创建虚拟磁盘  
+qemu-img create -f raw virtual_disk.img 20G  
+
+挂载虚拟磁盘并将 BusyBox root 文件系统复制到虚拟磁盘中  
+mkdir /mnt/mydisk
+sudo mount -o loop virtual_disk.img /mnt/mydisk
+sudo cp -r /path/to/myrootfs/* /mnt/mydisk
+sudo umount /mnt/mydisk
+
+QEMU 启动命令，指定内核镜像、虚拟磁盘和控制台设备  
+qemu-system-ARCH -kernel /path/to/kernel-image -hda virtual_disk.img -append "root=/dev/sda console=ttyS0"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo mount -o loop virtual_disk.img /mnt/mydisk 的含义是将一个虚拟磁盘文件 virtual_disk.img 挂载（mount）到指定的挂载点（mount point） /mnt/mydisk。下面是具体解释：
+
+mount: 这是 Linux 系统中用于挂载文件系统的命令。  
+-o loop: 这里 -o 是选项参数的意思，loop 表示使用 loop 设备来挂载文件。在 Linux 中，loop 设备允许将一个文件视为块设备，这样就可以像挂载硬盘分区一样挂载文件。  
+virtual_disk.img: 这是要挂载的虚拟磁盘文件的路径和名称。  
+/mnt/mydisk: 这是指定的挂载点，也就是将虚拟磁盘文件挂载到的目录。  
+因此，通过这条命令，虚拟磁盘文件 virtual_disk.img 被挂载到了目录 /mnt/mydisk，这样就可以通过 /mnt/mydisk 访问虚拟磁盘文件中的内容，类似于将硬盘挂载到文件系统中的某个目录以便访问其中的文件数据。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="linux可操作设备类型"><a href="#linux可操作设备类型" class="headerlink" title="linux可操作设备类型"></a>linux可操作设备类型</h3><pre class="line-numbers language-html"><code class="language-html">在 Linux 中，主要有以下几种设备类型：
+
+1. 块设备：如硬盘驱动器、固态硬盘等。块设备涉及到挂载、格式化、分区、读写文件等操作。
+
+2. 字符设备：以字节流的形式进行数据传输，无需考虑数据块的大小,如键盘、鼠标、串口设备等。操作方法是通过文件系统提供的接口函数（如 open()、read()、write()、close() 等）来对字符设备进行读写操作。
+
+3. 网络设备：用于通过网络进行数据传输如网卡、Wi-Fi 适配器等。操作方法是通过套接字（socket）接口来进行数据传输。程序可以使用套接字 API（如 socket、bind、connect、sendto、recvfrom 等）来与网络设备进行通信。
+
+4. 虚拟设备：如虚拟网卡、循环设备等。操作方法取决于具体设备的功能和用途。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="块设备操作"><a href="#块设备操作" class="headerlink" title="块设备操作"></a>块设备操作</h4><pre class="line-numbers language-html"><code class="language-html">1. 挂载块设备：
+使用 mount 命令将块设备挂载到指定的挂载点（mount point）上。例如，sudo mount /dev/sdb1 /mnt/mydisk 将 /dev/sdb1 分区挂载到 /mnt/mydisk 目录上。
+
+2. 卸载块设备：
+使用 umount 命令卸载已经挂载的块设备。例如，sudo umount /mnt/mydisk 将 /mnt/mydisk 目录上挂载的设备卸载。
+
+3. 格式化块设备：
+使用工具如 mkfs 或 fdisk 对块设备进行格式化。例如，sudo mkfs.ext4 /dev/sdb1 会将 /dev/sdb1 分区格式化为 ext4 文件系统。
+
+4. 查看块设备信息：
+使用命令如 lsblk、fdisk -l 或 blkid 来查看系统中的块设备信息，包括设备名称、分区情况、文件系统类型等。
+
+5. 挂载分区到启动：
+可以编辑 /etc/fstab 文件，设置系统启动时自动挂载块设备或分区。添加对应的挂载信息，以确保系统启动后可以访问这些设备。
+
+6. 读写块设备：
+一旦块设备被挂载到文件系统上，就可以像普通文件系统一样进行读写操作。可以使用命令如 cp、mv、dd 等来复制文件到块设备或从块设备中读取文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="引导运行新编译的系统内核和文件系统"><a href="#引导运行新编译的系统内核和文件系统" class="headerlink" title="引导运行新编译的系统内核和文件系统"></a>引导运行新编译的系统内核和文件系统</h3><h4 id="1编译内核"><a href="#1编译内核" class="headerlink" title="1编译内核"></a>1编译内核</h4><p>需要有一个编译好的内核。如果你是从源代码编译Linux内核，通常会得到一个名为bzImage的文件</p>
+<pre class="line-numbers language-html"><code class="language-html">去https://www.kernel.org/ 下载源代码  
+tar xvf linux-*.tar.xz
+cd linux-*/
+make menuconfig # 进行配置
+make
+
+完成后，你会在arch/x86/boot/目录下找到bzImage
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2准备文件系统"><a href="#2准备文件系统" class="headerlink" title="2准备文件系统"></a>2准备文件系统</h4><p>需要一个文件系统，内核才能在启动后运行。对于Linux，这通常意味着你需要一个包含必要二进制文件和库的根文件系统。你可以使用现成的发行版镜像，或者自己构建一个简单的文件系统。</p>
+<pre class="line-numbers language-html"><code class="language-html">一个最小化的Linux环境，你可以使用BusyBox来创建一个。首先，下载并编译BusyBox  
+git clone git://busybox.net/busybox.git
+cd busybox
+make defconfig
+make
+make install
+
+这将在_install目录下创建一个最小化的文件系统结构
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="3创建启动盘镜像"><a href="#3创建启动盘镜像" class="headerlink" title="3创建启动盘镜像"></a>3创建启动盘镜像</h4><p>创建一个可以被QEMU读取的磁盘镜像，其中包含了你的内核和文件系统。这可以通过各种工具完成，比如dd、genisoimage等<br>创建一个磁盘镜像，并将刚才准备的文件系统复制进去</p>
+<pre class="line-numbers language-html"><code class="language-html">dd if=/dev/zero of=rootfs.img bs=1M count=64
+mkfs.ext4 rootfs.img
+mkdir mnt
+sudo mount -o loop rootfs.img mnt
+sudo cp -a busybox/_install/* mnt/
+sudo umount mnt
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="4使用qemu引导内核和文件系统"><a href="#4使用qemu引导内核和文件系统" class="headerlink" title="4使用qemu引导内核和文件系统"></a>4使用qemu引导内核和文件系统</h4><pre class="line-numbers language-html"><code class="language-html">qemu-system-x86_64 -kernel path/to/bzImage -hda path/to/rootfs.img -append "root=/dev/sda single"
+
+这条命令告诉QEMU  
+使用bzImage作为内核，  
+rootfs.img作为硬盘镜像，并通过append参数传递内核参数。  
+root=/dev/sda告诉内核根文件系统的位置，single让系统以单用户模式启动。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qemu安装安装最小linux系统TinyCore"><a href="#qemu安装安装最小linux系统TinyCore" class="headerlink" title="qemu安装安装最小linux系统TinyCore"></a>qemu安装安装最小linux系统TinyCore</h3><pre class="line-numbers language-html"><code class="language-html">下载 http://www.tinycorelinux.net/15.x/x86/release/CorePlus-current.iso  
+qemu-img create -f qcow2 F:/qemu_arm64_ubuntu/x86_64_tinylinux/tinylinux.qcow2 20G
+
+qemu-system-x86_64 -m 1024 F:/qemu_arm64_ubuntu/x86_64_tinylinux/tinylinux.qcow2 -cdrom F:/qemu_arm64_ubuntu/x86_64_tinylinux/CorePlus-current.iso
+
+Boot Core with X/GUI(TinyCore)+Installation Extension  
+右键Application->tc-installer勾选WholeDisk，等硬件检测出现后选择sda  
+然后一路next，Install Type选Core Only(TextBasedInterface)，不使用GUI,其他拓展也不使用  
+点击proceed后出现Installation has completed代表完成安装  
+
+再次启动  
+qemu-system-x86_64 -m 1024 F:/qemu_arm64_ubuntu/x86_64_tinylinux/tinylinux.qcow2
+
+指令关机 sudo poweroff
+适合练习linux，但文件无法保存
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="linux系统启动流程"><a href="#linux系统启动流程" class="headerlink" title="linux系统启动流程"></a>linux系统启动流程</h2><pre class="line-numbers language-html"><code class="language-html">1 BIOS/UEFI  
+计算机加电后首先执行基本输入输出系统（BIOS）或统一可扩展固件接口（UEFI），这两者是计算机的固件，负责硬件初始化和启动过程。
+
+2 Bootloader  
+BIOS/UEFI会加载引导加载程序（bootloader），最常见的Linux引导加载程序是GRUB（GRand Unified Bootloader）。引导加载程序负责加载操作系统内核和必要的文件系统模块。
+
+3 内核加载  
+引导加载程序加载Linux内核（vmlinuz），并将其解压缩到内存中，然后启动内核。内核初始化硬件设备、文件系统等，并创建第一个用户空间进程init。
+
+4 Init进程  
+在传统的SysVinit系统中，init进程是第一个用户空间进程，负责启动系统中的各种服务和进程。在较新的系统中，可能会使用systemd作为init系统。
+
+5 用户空间初始化  
+init或systemd会启动各种系统服务和用户空间进程，包括网络管理、日志记录、用户登录等。
+
+6 登录管理器  
+如果系统配置了图形化用户界面（GUI），则会启动登录管理器（如GDM、LightDM等），用户可以在此处登录系统。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="qemu介绍"><a href="#qemu介绍" class="headerlink" title="qemu介绍"></a>qemu介绍</h2><p>可以模拟不同体系结构的处理器，并在其上运行不同架构的操作系统。QEMU可以用于模拟整个计算机系统，包括处理器、内存、存储设备和各种外设，使得用户可以在一个平台上运行另一个平台的软件.  </p>
+<p>QEMU支持多种架构的虚拟化，包括x86、x86-64、ARM、MIPS等，因此它被广泛应用于开发和测试跨平台软件、进行嵌入式开发、进行系统仿真以及构建虚拟化环境等方面。此外，QEMU还可以用于快速的虚拟机部署和管理，具有灵活性和高度可定制性。 </p>
+<p>qemu-system-arm -M ? 查询支持模拟该架构的硬件开发板型号</p>
+<p>qemu可以直接体验运行U-Boot，Linux Kernel甚至Ubuntu等各种软件和操作系统 </p>
+<h2 id="qemu快速验证linux内核"><a href="#qemu快速验证linux内核" class="headerlink" title="qemu快速验证linux内核"></a>qemu快速验证linux内核</h2><p>linux启动流程，简要总结就是：BIOS，MBR，启动Bootloader，加载Kernel，挂载虚拟rootfs，挂载真实rootfs，初始化用户程序（即执行init进程）。  </p>
+<p>为什么会有虚拟rootfs？这涉及到initrd（全称boot loader initialized RAM disk，初始化的内存盘），RAM disk就是将内存的一部分分配为一个分区并作为磁盘来使用，initrd就是由 boot loader 初始化的内存盘  </p>
+<pre class="line-numbers language-html"><code class="language-html">早期，linux系统用于存储rootfs的介质一般只有硬盘或者软盘，内核集成了这些磁盘驱动程序，开机时内核可以直接挂载基于磁盘的rootfs。后来，嵌入式系统可能将rootfs存储到各种介质上，包括IDE、SCSI、SATA，Flash、u-disk等等。如果将所有介质的驱动都编译进内核，内核会越来越臃肿。索性，将所有存储介质的驱动都编译成内核模块并将其ko文件保存在rootfs中，可按需加载。那么问题来了，内核要挂载rootfs就要先加载对应存储介质驱动模块，内核要加载存储介质驱动模块，就要先挂载rootfs。先有鸡还是先有蛋？
+
+为了解决这一矛盾，出现了基于ramdisk的initrd。initrd是一个被压缩过的小型根目录，这个目录中包含了启动阶段中必须的驱动模块，可执行文件和启动脚本。在 Bootloader 配置了 initrd 的情况下，内核启动被分成了两个阶段，第一阶段先挂载基于内存盘的虚拟roofs，把系统内存的一部分作为根文件系统挂载，执行 initrd 文件系统中的启动脚本，完成加载驱动模块等任务，第二阶段才挂载真实rootfs并执行初始化用户程序init 进程。
+
+initrd是基于内存的块设备（即ramdisk），有个缺点就是大小固定，是过时的机制。Linux 2.6开始采用initramfs替换了initrd，initramfs（init ram filesystem）是基于内存的文件系统（即ramfs），其空间大小可动态变化，本文使用的就是 initramfs。
+
+总结起来，就是在挂载基于磁盘的真正rootfs之前，会先挂载一个基于内存的虚拟rootfs（通过initrd或者initramfs 实现），虚拟rootfs只是起个过渡的作用，它完成一些内核不容易做到的事情，比如加载必要的驱动模块，挂载真正rootfs。
+
+使用QEMU的全系统仿真模式启动linux内核时，BIOS、MBR和Bootloader都已经在QEMU内置好了，我们只要准备linux内核镜像和initramfs即可。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>linux内核镜像可通过编译内核源码获得，initramfs可以使用 busybox 来制作  </p>
+<h3 id="编译linux内核源码"><a href="#编译linux内核源码" class="headerlink" title="编译linux内核源码"></a>编译linux内核源码</h3><pre class="line-numbers language-html"><code class="language-html">有两个不同类型的Linux内核镜像的编译。一个是zImage、一个uImage。其实两个都是编译出来的linux二进制文件进行压缩得到的。主要的不同就是zImage可以直接在qemu上进行运行，而uImage是通过u-boot来进行引导的。
+
+$ sudo apt install bison
+$ sudo apt install flex
+
+$ mkdir ~/kvm
+$ cd ~/kvm/
+$ wget https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/snapshot/linux-5.19.tar.gz
+$ tar -xf linux-5.19.tar.gz
+$ cd linux-5.19/
+$ make defconfig
+$ make menuconfig
+$ make -j `nproc`
+
+看到以下日志就表示编译成功
+Kernel: arch/x86/boot/bzImage is ready  
+其中bzImage文件就是编译后的内核镜像文件,可用file查看  
+$ file arch/x86/boot/bzImage
+arch/x86/boot/bzImage: Linux kernel x86 boot executable bzImage, version 5.19.0 (kaoya@kaoya-Inspiron-7472) #1 SMP PREEMPT_DYNAMIC Mon Feb 27 00:26:06 CST 2023, RO-rootFS, swap_dev 0xA, Normal VGA
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="编译busybox得到嵌入式Linux的指令工具集"><a href="#编译busybox得到嵌入式Linux的指令工具集" class="headerlink" title="编译busybox得到嵌入式Linux的指令工具集"></a>编译busybox得到嵌入式Linux的指令工具集</h3><pre class="line-numbers language-html"><code class="language-html">busybox是Linux平台上的一个工具集。busybox最大的特点是把不同的工具代码以及公用代码都集成在一起，从而大大减少了可执行文件的体积。非常适合资源有限的嵌入式设备  
+
+$ mkdir ~/kvm
+$ cd ~/kvm/
+$ wget https://busybox.net/downloads/busybox-1.35.0.tar.bz2
+$ tar -xf busybox-1.35.0.tar.bz2
+$ cd busybox-1.35.0/
+$ make menuconfig
+
+# 修改配置，选中如下项目，静态编译
+# Settings –> Build Options –> [*] Build static binary（no share libs）
+
+# 反选如下项目，否则后续qemu执行会提示 /bin/sh:can't access tty;job control turned off
+# Shells  --->  [ ]   Job control
+
+$ make -j `nproc`
+$ make install
+
+# 装完后会 默认安装到源码目录的 _install/ 目录下  
+$ ls _install/
+bin  linuxrc  sbin  usr
+# 最关键的就是_install/bin/busybox，其他都是链接文件
+$ file _install/bin/busybox 
+_install/bin/busybox: ELF 64-bit LSB executable, x86-64, version 1 (GNU/Linux), statically linked, BuildID[sha1]=8be05d97976fc5de35a9ebf2631529223523296f, for GNU/Linux 3.2.0, stripped
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用busybox快速制作initramfs"><a href="#使用busybox快速制作initramfs" class="headerlink" title="使用busybox快速制作initramfs"></a>使用busybox快速制作initramfs</h3><pre class="line-numbers language-html"><code class="language-html">创建虚拟rootfs中的init启动脚本，并赋予可执行权限
+$ cd ~/kvm/busybox-1.35.0/_install/
+$ mkdir proc sys dev tmp
+$ touch init
+$ chmod +x init
+
+脚本内容如下  
+
+#!/bin/sh
+# 挂载一些必要的文件系统
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t tmpfs none /tmp
+mount -t devtmpfs none /dev
+echo
+echo "Hello Linux"
+# 显示开机消耗时间
+echo "This boot took $(cut -d' ' -f1 /proc/uptime) seconds"
+echo
+# 停留在控制台
+exec /bin/sh
+
+制作initramfs文件，它是多个文件通过cpio打包和gzip压缩的文件，是一个cpio格式的内存文件系统  
+$ find . -print0 | cpio --null -ov --format=newc | gzip -9 > ../initramfs.cpio.gz
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="准备初始化程序"><a href="#准备初始化程序" class="headerlink" title="准备初始化程序"></a>准备初始化程序</h3><pre class="line-numbers language-html"><code class="language-html">vim main.c  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">></span></span>
+int main()
+{
+    printf("hello linux!\r\n");
+    printf("this is a simple linux rootfs,just for test!\r\n");
+    fflush(stdout);
+    while(1);
+    return 0;
+}
+
+gcc --static -o helloworld main.c
+
+echo helloworld | cpio -o --format=newc > rootfs 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qemu启动linux内核"><a href="#qemu启动linux内核" class="headerlink" title="qemu启动linux内核"></a>qemu启动linux内核</h3><pre class="line-numbers language-html"><code class="language-html">$ qemu-system-x86_64 \
+        -kernel ./linux-5.19/arch/x86/boot/bzImage \
+        -initrd ./busybox-1.35.0/initramfs.cpio.gz \
+        -nographic \
+        -append "init=/init console=ttyS0"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qemu启动虚拟机引导内核和文件系统"><a href="#qemu启动虚拟机引导内核和文件系统" class="headerlink" title="qemu启动虚拟机引导内核和文件系统"></a>qemu启动虚拟机引导内核和文件系统</h3><p>拷贝已经编译完成的Linux内核二进制文件bzImage，用qemu引导linux内核和文件系统，并在引导过程中传递内核启动参数，指定初始化程序  </p>
+<pre class="line-numbers language-html"><code class="language-html">qemu-system-x86_64 -kernel bzImage -initrd ./rootfs --append "root=/dev/ram rdinit=/helloworld"
+
+qemu-system-x86_64: 启动QEMU虚拟机，并指定使用x86_64架构。
+-kernel bzImage: 指定要引导的Linux内核镜像文件为bzImage。
+-initrd ./rootfs: 指定要用作初始RAM磁盘（initrd）的文件系统为rootfs。
+--append "root=/dev/ram rdinit=/helloworld": 传递给内核的启动参数。其中，root=/dev/ram指定根文件系统为RAM磁盘，rdinit=/helloworld指定初始化程序为/helloworld。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2024/02/25/diary-20240225-1/" class="b-link-green">UbuntuARM64</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2024/03/21/diary-20240321-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/3.jpg" class="responsive-img" alt="c++平时实践">
+                        
+                        <span class="card-title">c++平时实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            传递指针变量并避免其指向地址和值发生变化指向常量的指针void printValue(const int* ptr) {
+    std::cout &lt;&lt; "Value: " &lt;&lt; *ptr &lt;&lt; std
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2024-03-21
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/c/" target="_blank">
+                        <span class="chip bg-color">c++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2024/01/31/diary-20240131-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/31.jpg" class="responsive-img" alt="Blender基本操作">
+                        
+                        <span class="card-title">Blender基本操作</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Blender基本操作Scene栏里鼠标左键点击选中物体(字体颜色变白)，点击3d场景视图获得焦点后，按数字小键盘的”.”可将当前视图快速移动到所选物体处。按下Numpad的0键(小键盘的数字0键),可快速切换到相机视图，在这个视图中你将看
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2024-01-31
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

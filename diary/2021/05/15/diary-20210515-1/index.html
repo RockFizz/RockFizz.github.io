@@ -1,0 +1,2002 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="echarts, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="全局引用
+npm install echarts@4.9.0 -S  
+
+&#34;dependencies&#34;: {
+    &#34;echarts&#34;: &#34;^4.9.0&#34;,
+    &#34;vue&#34;: &#34;^2.5.2&#34;,
+    &#34;vue-router&#34;: &#34;">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>echarts | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/6.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        echarts
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/echarts/" target="_blank">
+                                <span class="chip bg-color">echarts</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-05-15
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        16 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="全局引用"><a href="#全局引用" class="headerlink" title="全局引用"></a>全局引用</h2><pre><code>
+npm install echarts@4.9.0 -S  
+
+"dependencies": {
+    "echarts": "^4.9.0",
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
+},</code></pre><p>main.js中  </p>
+<pre><code>// 引入echarts
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts</code></pre><pre><code>//HelloWorld.vue  
+
+&lt;template&gt;
+  &lt;div class="hello"&gt;
+      &lt;div id="myChart" :style="{width: '300px', height: '300px'}"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  name: 'HelloWorld',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  mounted(){
+    this.drawLine();
+  },
+  methods: {
+    drawLine(){
+        // 基于准备好的dom，初始化echarts实例
+        let myChart = this.$echarts.init(document.getElementById('myChart'))
+        // 绘制图表
+        myChart.setOption({
+            title: { text: '在Vue中使用echarts' },
+            tooltip: {},
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        });
+    }
+  }
+
+}
+&lt;/script&gt;
+
+&lt;!-- Add "scoped" attribute to limit CSS to this component only --&gt;
+&lt;style scoped&gt;
+h1, h2 {
+  font-weight: normal;
+}
+&lt;/style&gt;
+</code></pre><h2 id="按需引用"><a href="#按需引用" class="headerlink" title="按需引用"></a>按需引用</h2><p>安装过程一样  </p>
+<pre><code>npm install echarts@4.9.0 -S  
+
+"dependencies": {
+    "echarts": "^4.9.0",
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
+},</code></pre><p>按需引用，引用体积变小，可是某些组件依赖容易搞错。。。  </p>
+<pre><code>&lt;template&gt;
+  &lt;div class="testpage"&gt;
+    &lt;div class="pageCon"&gt;
+      &lt;!-- echart按需引入实验成功 --&gt;
+      &lt;div id="myChart" :style="{ width: '300px', height: '300px' }"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/template&gt;
+
+&lt;script&gt;
+//注意：使用 require 而不是 import
+// 引入基本模板
+let echarts = require('echarts/lib/echarts')
+// 引入柱状图组件
+require('echarts/lib/chart/bar')
+// 引入提示框和title组件
+require('echarts/lib/component/tooltip')
+require('echarts/lib/component/title')
+
+
+export default {
+  name: 'echartsdemo',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  components: { 
+
+  },
+  created() {
+
+  },
+  mounted() {
+    this.drawLine();
+  },
+  methods: {
+    drawLine() {
+      // 基于准备好的dom，初始化echarts实例
+      let myChart = echarts.init(document.getElementById("myChart"));
+      // 绘制图表
+      myChart.setOption({
+        title: { text: "在Vue中使用echarts" },
+        tooltip: {},
+        xAxis: {
+          data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "销量",
+            type: "bar",
+            data: [5, 20, 36, 10, 10, 20]
+          }
+        ]
+      });
+    }
+  }
+
+}
+&lt;/script&gt;
+
+&lt;!-- Add "scoped" attribute to limit CSS to this component only --&gt;
+&lt;style scoped&gt;
+h1, h2 {
+  font-weight: normal;
+}
+&lt;/style&gt;
+</code></pre><h2 id="组件化使用echart"><a href="#组件化使用echart" class="headerlink" title="组件化使用echart"></a>组件化使用echart</h2><p>widgetEchartDrawBar.vue  </p>
+<pre><code>&lt;template&gt;
+  &lt;div&gt;
+    &lt;h1&gt;通过组件的方式引入Echarts柱状图&lt;/h1&gt;
+    &lt;p&gt;{{msg}}&lt;/p&gt;
+    &lt;div class="bar_compon"&gt;
+      &lt;div :id="id" style="min-width:400px;min-height: 400px;"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+  /*由于全局引入会将所有的echarts图表打包，导致体积过大，所以在本项目中，采用组建的形式按需引入*/
+  // 引入基本模板
+  //let echarts = require('echarts/lib/echarts')
+  let echarts=require('echarts')
+  // 引入柱状图组件
+  require('echarts/lib/chart/bar')
+  // 引入提示框和title组件
+  require('echarts/lib/component/tooltip')
+  require('echarts/lib/component/title')
+
+  export default {
+    name: 'widgetEchartDrawBar',
+    props: {
+      id: {
+        type: String,
+        default: 'chart'
+      }
+    },
+    data(){
+      return {
+        msg: '柱状图',
+        chart: null,
+      }
+    },
+    mounted() {
+      this.DrawBarChart();
+    },
+    methods:{
+      DrawBarChart(){
+        this.chart = echarts.init(document.getElementById(this.id));
+        let colors = ['#179F5D', '#4A8AF3', '#DA4C3F'];
+        let option = {
+          color: colors,
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'cross'
+            }
+          },
+          grid: {
+            right: '20%'
+          },
+          toolbox: {
+            feature: {
+              dataView: {show: true, readOnly: false},
+              restore: {show: true},
+              saveAsImage: {show: true}
+            }
+          },
+          legend: {
+            data:['苹果','香蕉','梨']
+          },
+          xAxis: [
+            {
+              type: 'category',
+              axisTick: {
+                alignWithLabel: true
+              },
+              data: ["星期一","星期二","星期三","星期四","星期五","星期六","星期日"]
+            }
+          ],
+          yAxis: [
+            {
+              type: 'value',
+              name: '销量',
+              min: 0,
+              max: 250,
+              position: 'right',
+              axisLine: {
+                lineStyle: {
+                  color: colors[0]
+                }
+              },
+              axisLabel: {
+                formatter: '{value} 个'
+              }
+            },
+            {
+              type: 'value',
+              name: '销量',
+              min: 0,
+              max: 250,
+              position: 'right',
+              offset: 50,
+              axisLine: {
+                lineStyle: {
+                  color: colors[1]
+                }
+              },
+              axisLabel: {
+                formatter: '{value} 个'
+              }
+            },
+            {
+              type: 'value',
+              name: '销量',
+              min: 0,
+              max: 250,
+              position: 'left',
+              axisLine: {
+                lineStyle: {
+                  color: colors[2]
+                }
+              },
+              axisLabel: {
+                formatter: '{value} 个'
+              }
+            }
+          ],
+          series: [
+            {
+              name:'苹果',
+              type:'bar',
+              data:[24,96,129,238,160,180,241]
+            },
+            {
+              name:'香蕉',
+              type:'bar',
+              yAxisIndex: 1,
+              data:[25.69,59,156,11,23,202]
+            },
+            {
+              name:'梨',
+              type:'line',
+              yAxisIndex: 2,
+              data:[24,16,10,20,100,170,201]
+            }
+          ]
+        }
+        this.chart.setOption(option)
+      }
+    }
+  }
+&lt;/script&gt;
+&lt;style scoped&gt; 
+&lt;/style&gt;
+</code></pre><p>goodDetail.vue  </p>
+<pre><code>&lt;template&gt;
+  &lt;div class="bar_container"&gt;
+    &lt;widgetEchartDrawBar id="histogram_graph"&gt;&lt;/widgetEchartDrawBar&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+&lt;script&gt;
+  import widgetEchartDrawBar from "./widgetEchartDrawBar"
+
+  export default {
+    name: 'goodDetail',
+    components: {
+      widgetEchartDrawBar,
+    },
+    data(){
+      return{}
+    }
+  }
+&lt;/script&gt;
+&lt;style scoped&gt;
+.bar_container{
+  width: 500px;
+  height: 500px;
+}
+&lt;/style&gt;
+</code></pre><h2 id="三维地球和行政区下钻"><a href="#三维地球和行政区下钻" class="headerlink" title="三维地球和行政区下钻"></a>三维地球和行政区下钻</h2><p><a href="https://pan.baidu.com/s/1EDCW_qgD3zbFgSnQgr9mnw" target="_blank" rel="noopener">echart（3d地球和行政区下钻到县json）.rar</a>  </p>
+<h3 id="echart三维地球"><a href="#echart三维地球" class="headerlink" title="echart三维地球"></a>echart三维地球</h3><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/echarearth1.jpg" alt="echarts三维地球">  </p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>echart三维地球<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
+    <span class="token selector">* </span><span class="token punctuation">{</span>
+      <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token selector">html,
+    body,
+    <span class="token id">#container</span> </span><span class="token punctuation">{</span>
+      <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+      <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+      <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>earth/echarts.v4.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>earth/echarts-gl.v1.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+    <span class="token keyword">var</span> myChart <span class="token operator">=</span> echarts<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'container'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> option <span class="token operator">=</span> <span class="token punctuation">{</span>
+            backgroundColor<span class="token punctuation">:</span> <span class="token string">'#000'</span><span class="token punctuation">,</span>
+            globe<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                baseTexture<span class="token punctuation">:</span> <span class="token string">"earth/world.topo.bathy.200401.jpg"</span><span class="token punctuation">,</span>
+                heightTexture<span class="token punctuation">:</span> <span class="token string">"earth/world.topo.bathy.200401.jpg"</span><span class="token punctuation">,</span>
+                displacementScale<span class="token punctuation">:</span> <span class="token number">0.04</span><span class="token punctuation">,</span>
+                shading<span class="token punctuation">:</span> <span class="token string">'realistic'</span><span class="token punctuation">,</span>
+                environment<span class="token punctuation">:</span> <span class="token string">'earth/starfield.jpg'</span><span class="token punctuation">,</span>
+                realisticMaterial<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    roughness<span class="token punctuation">:</span> <span class="token number">0.9</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                postEffect<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    enable<span class="token punctuation">:</span> <span class="token boolean">true</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                light<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    main<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        intensity<span class="token punctuation">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+                        shadow<span class="token punctuation">:</span> <span class="token boolean">true</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    ambientCubemap<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        texture<span class="token punctuation">:</span> <span class="token string">'earth/pisa.hdr'</span><span class="token punctuation">,</span>
+                        diffuseIntensity<span class="token punctuation">:</span> <span class="token number">0.2</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        myChart<span class="token punctuation">.</span><span class="token function">setOption</span><span class="token punctuation">(</span>option<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 刷新调整</span>
+        window<span class="token punctuation">.</span>onresize <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            myChart<span class="token punctuation">.</span><span class="token function">resize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="echart行政区下钻"><a href="#echart行政区下钻" class="headerlink" title="echart行政区下钻"></a>echart行政区下钻</h3><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/echartAreaDown1.jpg" alt=""><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/echartAreaDown2.jpg" alt=""><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/echartAreaDown3.jpg" alt="">  </p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
+    <span class="token selector">* </span><span class="token punctuation">{</span>
+      <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token selector">html,
+    body,
+    <span class="token id">#container</span> </span><span class="token punctuation">{</span>
+      <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+      <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+      <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>jquery-2.1.1.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>earth/echarts.v4.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>earth/echarts-gl.v1.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>returnMap<span class="token punctuation">'</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span><span class="token property">margin-left</span><span class="token punctuation">:</span><span class="token number">20</span>px<span class="token punctuation">;</span><span class="token property">margin-top</span><span class="token punctuation">:</span><span class="token number">15</span>px<span class="token punctuation">;</span><span class="token property">z-index</span><span class="token punctuation">:</span><span class="token number">99999</span><span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>返回<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+
+    <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#returnMap'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        uploadedDataURL <span class="token operator">=</span> <span class="token string">"json/china.json"</span><span class="token punctuation">;</span>
+        nowMapLevel<span class="token operator">=</span><span class="token string">'country'</span><span class="token punctuation">;</span>
+        <span class="token function">LoadMap</span><span class="token punctuation">(</span>uploadedDataURL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> uploadedDataURL <span class="token operator">=</span> <span class="token string">"json/china.json"</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> dataSource<span class="token operator">=</span><span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> nowMapLevel<span class="token operator">=</span><span class="token string">'country'</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//country，province</span>
+    <span class="token keyword">var</span> myChart<span class="token punctuation">;</span>
+
+
+
+    <span class="token keyword">function</span> <span class="token function">LoadMap</span><span class="token punctuation">(</span>_dataUrl<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        myChart <span class="token operator">=</span> echarts<span class="token punctuation">.</span><span class="token function">init</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'container'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        myChart<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+        $<span class="token punctuation">.</span><span class="token function">getJSON</span><span class="token punctuation">(</span>_dataUrl<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>geoJson<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            dataSource<span class="token operator">=</span>geoJson<span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// 注册地图名字(chinaMap)和数据(geoJson)</span>
+            echarts<span class="token punctuation">.</span><span class="token function">registerMap</span><span class="token punctuation">(</span><span class="token string">'chinaMap'</span><span class="token punctuation">,</span> geoJson<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 隐藏动画加载效果。</span>
+            myChart<span class="token punctuation">.</span><span class="token function">hideLoading</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 图表配置项</span>
+            <span class="token keyword">var</span> option <span class="token operator">=</span> <span class="token punctuation">{</span>
+                title <span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">//标题</span>
+                    top <span class="token punctuation">:</span> <span class="token string">'5%'</span><span class="token punctuation">,</span>
+                    text <span class="token punctuation">:</span> <span class="token string">'中国行政区地图'</span><span class="token punctuation">,</span>
+                    subtext <span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                    x <span class="token punctuation">:</span> <span class="token string">'center'</span><span class="token punctuation">,</span>
+                    textStyle <span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                        color <span class="token punctuation">:</span> <span class="token string">'#ccc'</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                tooltip <span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 提示框</span>
+                    trigger <span class="token punctuation">:</span> <span class="token string">'item'</span><span class="token punctuation">,</span>
+                    formatter <span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> params<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                series<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+                    type<span class="token punctuation">:</span> <span class="token string">'map3D'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 系列类型</span>
+                    name<span class="token punctuation">:</span> <span class="token string">'map3D'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 系列名称</span>
+                    map<span class="token punctuation">:</span> <span class="token string">'chinaMap'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 地图类型。echarts-gl 中使用的地图类型同 geo 组件相同(ECharts 中提供了两种格式的地图数据，一种是可以直接 script 标签引入的 js 文件，引入后会自动注册地图名字和数据。还有一种是 JSON 文件，需要通过 AJAX 异步加载后手动注册。)</span>
+                    <span class="token comment" spellcheck="true">// 环境贴图，支持純颜色值，渐变色，全景贴图的 url。默认为 'auto'，在配置有 light.ambientCubemap.texture 的时候会使用该纹理作为环境贴图。否则则不显示环境贴图。</span>
+                    environment<span class="token punctuation">:</span> <span class="token keyword">new</span> <span class="token class-name">echarts<span class="token punctuation">.</span>graphic<span class="token punctuation">.</span>LinearGradient</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 配置为垂直渐变的背景</span>
+                        offset<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token string">'#00aaff'</span> <span class="token comment" spellcheck="true">// 天空颜色</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                        offset<span class="token punctuation">:</span> <span class="token number">0.7</span><span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token string">'#998866'</span> <span class="token comment" spellcheck="true">// 地面颜色</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                        offset<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> color<span class="token punctuation">:</span> <span class="token string">'#998866'</span> <span class="token comment" spellcheck="true">// 地面颜色</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+                    label<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 标签的相关设置</span>
+                        show<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// (地图上的城市名称)是否显示标签 [ default: false ]</span>
+                        <span class="token comment" spellcheck="true">//distance: 50, // 标签距离图形的距离，在三维的散点图中这个距离是屏幕空间的像素值，其它图中这个距离是相对的三维距离</span>
+                        <span class="token comment" spellcheck="true">//formatter:, // 标签内容格式器</span>
+                        textStyle<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 标签的字体样式</span>
+                            color<span class="token punctuation">:</span> <span class="token string">'#000'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 地图初始化区域字体颜色</span>
+                            fontSize<span class="token punctuation">:</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 字体大小</span>
+                            opacity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 字体透明度</span>
+                            backgroundColor<span class="token punctuation">:</span> <span class="token string">'rgba(0,23,11,0)'</span> <span class="token comment" spellcheck="true">// 字体背景色</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+                    itemStyle<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 三维地理坐标系组件 中三维图形的视觉属性，包括颜色，透明度，描边等。</span>
+                        color<span class="token punctuation">:</span> <span class="token string">'rgba(95,158,160,0.5)'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 地图板块的颜色</span>
+                        opacity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 图形的不透明度 [ default: 1 ]</span>
+                        borderWidth<span class="token punctuation">:</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// (地图板块间的分隔线)图形描边的宽度。加上描边后可以更清晰的区分每个区域 [ default: 0 ]</span>
+                        borderColor<span class="token punctuation">:</span> <span class="token string">'#000'</span> <span class="token comment" spellcheck="true">// 图形描边的颜色。[ default: #333 ]</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+                    emphasis<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 鼠标 hover 高亮时图形和标签的样式 (当鼠标放上去时 label和itemStyle 的样式)</span>
+                        label<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// label高亮时的配置</span>
+                            show<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+                            textStyle<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                            color<span class="token punctuation">:</span> <span class="token string">'#fff'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 高亮时标签颜色变为 白色</span>
+                            fontSize<span class="token punctuation">:</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 高亮时标签字体 变大</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                        itemStyle<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// itemStyle高亮时的配置</span>
+                            areaColor<span class="token punctuation">:</span> <span class="token string">'#66ffff'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 高亮时地图板块颜色改变</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+                    groundPlane<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 地面可以让整个组件有个“摆放”的地方，从而使整个场景看起来更真实，更有模型感。</span>
+                        show<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 是否显示地面。[ default: false ]</span>
+                        color<span class="token punctuation">:</span> <span class="token string">'#aaa'</span> <span class="token comment" spellcheck="true">// 地面颜色。[ default: '#aaa' ]</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+                    regions<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                        <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 可对单个地图区域进行设置</span>
+                            name<span class="token punctuation">:</span> <span class="token string">'玉屏侗族自治县'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 所对应的地图区域的名称</span>
+                            <span class="token comment" spellcheck="true">//regionHeight: '', // 区域的高度，可以设置不同的高度用来表达数据的大小。当 GeoJSON 为建筑的数据时，也可以通过这个值表示简直的高度。</span>
+                            itemStyle<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 单个区域的样式设置</span>
+                                color<span class="token punctuation">:</span> <span class="token string">'#00FF00'</span><span class="token punctuation">,</span>
+                                opacity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                                borderWidth<span class="token punctuation">:</span> <span class="token number">0.4</span><span class="token punctuation">,</span>
+                                borderColor<span class="token punctuation">:</span> <span class="token string">'#5F9EA0'</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">{</span>
+                            name<span class="token punctuation">:</span> <span class="token string">'碧江区'</span><span class="token punctuation">,</span>
+                            itemStyle<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                color<span class="token punctuation">:</span> <span class="token string">'#EEEE00'</span><span class="token punctuation">,</span>
+                                opacity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                                borderWidth<span class="token punctuation">:</span> <span class="token number">0.4</span><span class="token punctuation">,</span>
+                                borderColor<span class="token punctuation">:</span> <span class="token string">'#5F9EA0'</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+                    <span class="token comment" spellcheck="true">//shading: 'lambert', // 三维地理坐标系组件中三维图形的着色效果，echarts-gl 中支持下面三种着色方式:</span>
+                    <span class="token comment" spellcheck="true">// 'color' 只显示颜色，不受光照等其它因素的影响。</span>
+                    <span class="token comment" spellcheck="true">// 'lambert' 通过经典的 lambert 着色表现光照带来的明暗。</span>
+                    <span class="token comment" spellcheck="true">// 'realistic' 真实感渲染，配合 light.ambientCubemap 和 postEffect 使用可以让展示的画面效果和质感有质的提升。ECharts GL 中使用了基于物理的渲染（PBR） 来表现真实感材质。</span>
+                    <span class="token comment" spellcheck="true">// realisticMaterial: {} // 真实感材质相关的配置项，在 shading 为'realistic'时有效。</span>
+                    <span class="token comment" spellcheck="true">// lambertMaterial: {} // lambert 材质相关的配置项，在 shading 为'lambert'时有效。</span>
+                    <span class="token comment" spellcheck="true">// colorMaterial: {} // color 材质相关的配置项，在 shading 为'color'时有效。</span>
+
+                    light<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 光照相关的设置。在 shading 为 'color' 的时候无效。 光照的设置会影响到组件以及组件所在坐标系上的所有图表。合理的光照设置能够让整个场景的明暗变得更丰富，更有层次。</span>
+                        main<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 场景主光源的设置，在 globe 组件中就是太阳光。</span>
+                            color<span class="token punctuation">:</span> <span class="token string">'#fff'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//主光源的颜色。[ default: #fff ]</span>
+                            intensity<span class="token punctuation">:</span> <span class="token number">1.2</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//主光源的强度。[ default: 1 ]</span>
+                            shadow<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//主光源是否投射阴影。默认关闭。 开启阴影可以给场景带来更真实和有层次的光照效果。但是同时也会增加程序的运行开销。</span>
+                            <span class="token comment" spellcheck="true">//shadowQuality: 'high', // 阴影的质量。可选'low', 'medium', 'high', 'ultra' [ default: 'medium' ]</span>
+                            alpha<span class="token punctuation">:</span> <span class="token number">55</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 主光源绕 x 轴，即上下旋转的角度。配合 beta 控制光源的方向。[ default: 40 ]</span>
+                            beta<span class="token punctuation">:</span> <span class="token number">10</span> <span class="token comment" spellcheck="true">// 主光源绕 y 轴，即左右旋转的角度。[ default: 40 ]</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                        ambient<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 全局的环境光设置。</span>
+                            color<span class="token punctuation">:</span> <span class="token string">'#fff'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 环境光的颜色。[ default: #fff ]</span>
+                            intensity<span class="token punctuation">:</span> <span class="token number">0.5</span> <span class="token comment" spellcheck="true">// 环境光的强度。[ default: 0.2 ]</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+                    viewControl<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 用于鼠标的旋转，缩放等视角控制。</span>
+                        projection<span class="token punctuation">:</span> <span class="token string">'perspective'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 投影方式，默认为透视投影'perspective'，也支持设置为正交投影'orthographic'。</span>
+                        autoRotate<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 是否开启视角绕物体的自动旋转查看。[ default: false ]</span>
+                        autoRotateDirection<span class="token punctuation">:</span> <span class="token string">'cw'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 物体自传的方向。默认是 'cw' 也就是从上往下看是顺时针方向，也可以取 'ccw'，既从上往下看为逆时针方向。</span>
+                        autoRotateSpeed<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 物体自传的速度。单位为角度 / 秒，默认为10 ，也就是36秒转一圈。</span>
+                        autoRotateAfterStill<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 在鼠标静止操作后恢复自动旋转的时间间隔。在开启 autoRotate 后有效。[ default: 3 ]</span>
+                        damping<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 鼠标进行旋转，缩放等操作时的迟滞因子，在大于等于 1 的时候鼠标在停止操作后，视角仍会因为一定的惯性继续运动（旋转和缩放）。[ default: 0.8 ]</span>
+                        rotateSensitivity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 旋转操作的灵敏度，值越大越灵敏。支持使用数组分别设置横向和纵向的旋转灵敏度。默认为1, 设置为0后无法旋转。 rotateSensitivity: [1, 0]——只能横向旋转； rotateSensitivity: [0, 1]——只能纵向旋转。</span>
+                        zoomSensitivity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 缩放操作的灵敏度，值越大越灵敏。默认为1,设置为0后无法缩放。</span>
+                        panSensitivity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 平移操作的灵敏度，值越大越灵敏。默认为1,设置为0后无法平移。支持使用数组分别设置横向和纵向的平移灵敏度</span>
+                        panMouseButton<span class="token punctuation">:</span> <span class="token string">'left'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 平移操作使用的鼠标按键，支持：'left' 鼠标左键（默认）;'middle' 鼠标中键 ;'right' 鼠标右键(注意：如果设置为鼠标右键则会阻止默认的右键菜单。)</span>
+                        rotateMouseButton<span class="token punctuation">:</span> <span class="token string">'left'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 旋转操作使用的鼠标按键，支持：'left' 鼠标左键;'middle' 鼠标中键（默认）;'right' 鼠标右键(注意：如果设置为鼠标右键则会阻止默认的右键菜单。)</span>
+
+                        distance<span class="token punctuation">:</span> <span class="token number">200</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// [ default: 100 ] 默认视角距离主体的距离，对于 grid3D 和 geo3D 等其它组件来说是距离中心原点的距离,对于 globe 来说是距离地球表面的距离。在 projection 为'perspective'的时候有效。</span>
+                        minDistance<span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// [ default: 40 ] 视角通过鼠标控制能拉近到主体的最小距离。在 projection 为'perspective'的时候有效。</span>
+                        maxDistance<span class="token punctuation">:</span> <span class="token number">400</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// [ default: 400 ] 视角通过鼠标控制能拉远到主体的最大距离。在 projection 为'perspective'的时候有效。</span>
+
+                        alpha<span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 视角绕 x 轴，即上下旋转的角度。配合 beta 可以控制视角的方向。[ default: 40 ]</span>
+                        beta<span class="token punctuation">:</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 视角绕 y 轴，即左右旋转的角度。[ default: 0 ]</span>
+                        minAlpha<span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">360</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 上下旋转的最小 alpha 值。即视角能旋转到达最上面的角度。[ default: 5 ]</span>
+                        maxAlpha<span class="token punctuation">:</span> <span class="token number">360</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 上下旋转的最大 alpha 值。即视角能旋转到达最下面的角度。[ default: 90 ]</span>
+                        minBeta<span class="token punctuation">:</span> <span class="token operator">-</span><span class="token number">360</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 左右旋转的最小 beta 值。即视角能旋转到达最左的角度。[ default: -80 ]</span>
+                        maxBeta<span class="token punctuation">:</span> <span class="token number">360</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 左右旋转的最大 beta 值。即视角能旋转到达最右的角度。[ default: 80 ]</span>
+
+                        center<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 视角中心点，旋转也会围绕这个中心点旋转，默认为[0,0,0]。</span>
+
+                        animation<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 是否开启动画。[ default: true ]</span>
+                        animationDurationUpdate<span class="token punctuation">:</span> <span class="token number">1000</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 过渡动画的时长。[ default: 1000 ]</span>
+                        animationEasingUpdate<span class="token punctuation">:</span> <span class="token string">'cubicInOut'</span> <span class="token comment" spellcheck="true">// 过渡动画的缓动效果。[ default: cubicInOut ]</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+                    data<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                        <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 可对单个地图区域进行设置</span>
+                            name<span class="token punctuation">:</span> <span class="token string">'内蒙古自治区'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 所对应的地图区域的名称</span>
+                            <span class="token comment" spellcheck="true">//regionHeight: '', // 区域的高度，可以设置不同的高度用来表达数据的大小。当 GeoJSON 为建筑的数据时，也可以通过这个值表示简直的高度。</span>
+                            itemStyle<span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 单个区域的样式设置</span>
+                                color<span class="token punctuation">:</span> <span class="token string">'#00FF00'</span><span class="token punctuation">,</span>
+                                opacity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                                borderWidth<span class="token punctuation">:</span> <span class="token number">0.4</span><span class="token punctuation">,</span>
+                                borderColor<span class="token punctuation">:</span> <span class="token string">'#5F9EA0'</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">{</span>
+                            name<span class="token punctuation">:</span> <span class="token string">'安徽省'</span><span class="token punctuation">,</span>
+                            itemStyle<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                                color<span class="token punctuation">:</span> <span class="token string">'#EEEE00'</span><span class="token punctuation">,</span>
+                                opacity<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+                                borderWidth<span class="token punctuation">:</span> <span class="token number">0.4</span><span class="token punctuation">,</span>
+                                borderColor<span class="token punctuation">:</span> <span class="token string">'#5F9EA0'</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">]</span>
+                <span class="token punctuation">}</span><span class="token punctuation">]</span>
+            <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// 设置图表实例的配置项以及数据，万能接口，所有参数和数据的修改都可以通过setOption完成，ECharts 会合并新的参数和数据，然后刷新图表。</span>
+            myChart<span class="token punctuation">.</span><span class="token function">setOption</span><span class="token punctuation">(</span>option<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token function">LoadMap</span><span class="token punctuation">(</span>uploadedDataURL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">BindEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">function</span> <span class="token function">BindEvent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        myChart<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>params<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> subSystem <span class="token operator">=</span> params<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+            <span class="token keyword">var</span> url <span class="token operator">=</span> <span class="token string">'https://www.baidu.com/s?ie=UTF-8&amp;wd='</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">var</span> provinceId<span class="token operator">=</span> <span class="token function">GetProvinceId</span><span class="token punctuation">(</span>subSystem<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">//console.log(provinceId);</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>provinceId<span class="token operator">==</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//console.log('数据错误');</span>
+                <span class="token keyword">return</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//console.log("点击省份代码: "+provinceId);</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>nowMapLevel<span class="token operator">==</span><span class="token string">'country'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    uploadedDataURL<span class="token operator">=</span><span class="token string">'json/geometryProvince/'</span><span class="token operator">+</span>provinceId<span class="token operator">+</span><span class="token string">'.json'</span><span class="token punctuation">;</span>
+                    nowMapLevel<span class="token operator">=</span><span class="token string">'province'</span><span class="token punctuation">;</span>
+                    <span class="token function">LoadMap</span><span class="token punctuation">(</span>uploadedDataURL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">return</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>nowMapLevel<span class="token operator">==</span><span class="token string">'province'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    uploadedDataURL<span class="token operator">=</span><span class="token string">'json/geometryCouties/'</span><span class="token operator">+</span>provinceId<span class="token operator">+</span><span class="token string">'00.json'</span><span class="token punctuation">;</span>
+                    nowMapLevel<span class="token operator">=</span><span class="token string">'xian'</span><span class="token punctuation">;</span>
+                    <span class="token function">LoadMap</span><span class="token punctuation">(</span>uploadedDataURL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">return</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">// 根据点击地图区域的名称,跳转到对应页面</span>
+            <span class="token comment" spellcheck="true">/*
+            if(subSystem == '德江县'){
+                window.open(url.concat(subSystem));
+            }
+            */</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        window<span class="token punctuation">.</span>onresize <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            myChart<span class="token punctuation">.</span><span class="token function">resize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+
+
+    <span class="token keyword">function</span> <span class="token function">GetProvinceId</span><span class="token punctuation">(</span>_provinceName<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>dataSource<span class="token punctuation">.</span>features<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+            <span class="token keyword">if</span><span class="token punctuation">(</span>_provinceName<span class="token operator">==</span>dataSource<span class="token punctuation">.</span>features<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"properties"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token comment" spellcheck="true">//console.log(dataSource.features[i]["properties"].name+"  "+dataSource.features[i]["properties"].id);</span>
+                <span class="token keyword">return</span> dataSource<span class="token punctuation">.</span>features<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">"properties"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>id<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> 
+            <span class="token comment" spellcheck="true">//console.log(dataSource.features[i]["properties"].name+"  "+dataSource.features[i]["properties"].id);</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/05/15/diary-20210515-1/" class="b-link-green">echarts</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/05/18/diary-20210518-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/19.jpg" class="responsive-img" alt="UE4备忘(三)">
+                        
+                        <span class="card-title">UE4备忘(三)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            一些补充“:”和”‘“键在默认运行时有显示各种调试信息的作用。Shift+F1暴露出鼠标Alt+P播放F8跳出当前Game视图可进入Scene视图(再按F8返回Game视图)F11全屏显示  
+
+DefulatPawnClass 是我们进入
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-18
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/05/11/diary-20210511-3/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/16.jpg" class="responsive-img" alt="UE4备忘(二)">
+                        
+                        <span class="card-title">UE4备忘(二)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            使用actor的Was Recently Rendered可以实现获取当前场景可见actor列表。  
+EventGraph事件图表编辑器里
+右键关联菜单勾选Context Sensitive后，拖拉释放菜单里会有Promote to Va
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-11
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                    <a href="/diary/tags/HLSL/" target="_blank">
+                        <span class="chip bg-color">HLSL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

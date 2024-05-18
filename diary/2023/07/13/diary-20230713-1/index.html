@@ -1,0 +1,2083 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="6月小记Qt和vs的使用, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="功能点qt键盘事件这里使用了Ctrl+M键来使窗口最大化,在键盘按下事件处理函数中,先检测Ctrl键是否按下,如果是,那么再检测M键是否按下  
+#include &amp;lt;QKeyEvent&gt;  
+protected:
+    void k">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>6月小记Qt和vs的使用 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/26.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        6月小记Qt和vs的使用
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-07-13
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        5.7k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        25 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="功能点"><a href="#功能点" class="headerlink" title="功能点"></a>功能点</h2><h3 id="qt键盘事件"><a href="#qt键盘事件" class="headerlink" title="qt键盘事件"></a>qt键盘事件</h3><p>这里使用了Ctrl+M键来使窗口最大化,在键盘按下事件处理函数中,先检测Ctrl键是否按下,如果是,那么再检测M键是否按下  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QKeyEvent</span><span class="token punctuation">></span></span>  
+protected:
+    void keyPressEvent(QKeyEvent *event);
+    void keyReleaseEvent(QKeyEvent *event);
+
+
+void Widget::keyPressEvent(QKeyEvent *event)       // 键盘按下事件
+{
+    if(event->modifiers() == Qt::ControlModifier){ // 是否按下Ctrl键
+        if(event->key() == Qt::Key_M)              // 是否按下M键
+            setWindowState(Qt::WindowMaximized);   // 窗口最大化
+    }
+    else QWidget::keyPressEvent(event);
+}
+
+void Widget::keyReleaseEvent(QKeyEvent *event)     // 按键释放事件
+{
+    // 其他操作
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="接收和发送打印出hex查看"><a href="#接收和发送打印出hex查看" class="headerlink" title="接收和发送打印出hex查看"></a>接收和发送打印出hex查看</h3><p>发送</p>
+<pre class="line-numbers language-html"><code class="language-html">// rpc_packet_writer  
+writer->write((u8*)(buf->buf()),len);
+
+char* bytes=buf->buf();
+char const hex[16]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+std::string str;
+for(int i=0;i<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>len;i++){</span>
+    <span class="token attr-name">const</span> <span class="token attr-name">char</span> <span class="token attr-name">ch</span><span class="token attr-value"><span class="token punctuation">=</span>bytes[i];</span>
+    <span class="token attr-name">str.append(&amp;hex[(ch&amp;0xF0)</span><span class="token punctuation">></span></span>>4],1);
+    str.append(&amp;hex[ch&amp;0xF],1);
+    str.append(" ");
+}
+LOG_INFO("write len: %d\n write content: %s",len,str.c_str());
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>接收  </p>
+<pre class="line-numbers language-html"><code class="language-html">//rpc_packet_reader  
+
+reader->read(MinPacketLen);
+char* bytes2=buf->buf();
+char const hex[16]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+std::string str2;
+for(int i=0;i<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MinPacketLen;i++){</span>
+    <span class="token attr-name">const</span> <span class="token attr-name">char</span> <span class="token attr-name">ch</span><span class="token attr-value"><span class="token punctuation">=</span>bytes2[i];</span>
+    <span class="token attr-name">str2.append(&amp;hex[(ch&amp;0xF0)</span><span class="token punctuation">></span></span>>4],1);
+    str2.append(&amp;hex[ch&amp;0xF],1);
+    str2.append(" ");
+}
+LOG_INFO("receiveDataLen : %d\n read  dataContent: %s",MinPacketLen,str2.c_str());  
+
+/* a packet received */  
+char* bytes=buf->buf();
+std::string str;
+for(int i=0;i<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>len;i++){</span>
+    <span class="token attr-name">const</span> <span class="token attr-name">char</span> <span class="token attr-name">ch</span><span class="token attr-value"><span class="token punctuation">=</span>bytes[i];</span>
+    <span class="token attr-name">str.append(&amp;hex[(ch&amp;0xF0)</span><span class="token punctuation">></span></span>>4],1);
+    str.append(&amp;hex[ch&amp;0xF],1);
+    str.append(" ");
+}
+LOG_INFO("receive packetLen : %d\n receive packetContent: %s",len,str.c_str()); 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="C-中LOG-HEX"><a href="#C-中LOG-HEX" class="headerlink" title="C++中LOG_HEX"></a>C++中LOG_HEX</h3><p>打印出来发送和接收的数据Hex形式</p>
+<pre class="line-numbers language-html"><code class="language-html">// write发送的地方
+write->write((u8*)(buf->buf()),len);
+后即
+LOG_INFO("write len: %d , write content: %s",len,charArray2hex(buf->buf(),len).c_str());
+
+// 接收到数据时（此时需要判断数据正确性）  
+之前有reader->read(MinPacketLen)，所以  
+LOG_INFO("received dataLen: %d , received dataContent: %s",MinPacketLen,charArray2hex(buf->buf(),MinPacketLen).c_str());
+
+// 确认接收到packet时  
+之前有reader->read(len),所以
+/* a packet received */
+LOG_INFO("received packetLen: %d , received packetContent: %s",len,charArray2hex(buf->buf(),len).c_str());
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>封装函数</p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span> 
+using namespace std; 
+std::string charArray2hex(char* bytes,int size){ 
+    char const hex[16]= { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','A','B','C','D','E','F'}; 
+    std::string str; 
+    for(int i=0;i<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>size;++i){</span> 
+        <span class="token attr-name">const</span> <span class="token attr-name">char</span> <span class="token attr-name">ch</span><span class="token attr-value"><span class="token punctuation">=</span>bytes[i];</span> 
+        <span class="token attr-name">str.append(&amp;hex[(ch&amp;0xF0)</span><span class="token punctuation">></span></span>>4],1); 
+        str.append(&amp;hex[ch&amp;0xF],1); 
+        str.append(" "); 
+    } 
+    return str; 
+} 
+
+int main(int argc, char *argv[]) { 
+    string str="<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MMS#</span><span class="token punctuation">></span></span>"; 
+    char* data=const_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>char*</span><span class="token punctuation">></span></span>(str.c_str()); 
+    cout &lt;&lt; charArray2hex(data,strlen(data)).c_str()&lt;&lt; endl; 
+    return 0; 
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Win32立刻关闭程序"><a href="#Win32立刻关闭程序" class="headerlink" title="Win32立刻关闭程序"></a>Win32立刻关闭程序</h3><pre class="line-numbers language-html"><code class="language-html">HANDLE hWnd=GetCurrentProcess();  
+TerminateProcess(hWnd,4);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="跑马灯字幕效果自己整理"><a href="#跑马灯字幕效果自己整理" class="headerlink" title="跑马灯字幕效果自己整理"></a>跑马灯字幕效果自己整理</h3><pre class="line-numbers language-html"><code class="language-html">
+    // *.h
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QTimer</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QStringList</span><span class="token punctuation">></span></span>  
+
+public:  
+    QTimer *m_timer;
+    QString m_string="";
+    QStringList m_warning;
+    static int nPos;  
+private:  
+    void updateLabelContent();  
+    void removeLabelContent();  
+public slots:  
+    void scrollActiveLabel();
+
+    // *.cpp中初始化  
+    ui->label->setFixedSize(100,25);
+    m_timer=new QTimer(this);
+    m_warning.clear();
+    connect(m_timer,SIGNAL(timeout()),this,SLOT(scrollActiveLabel()));
+    connect(ui->pushButton_addwarn,&amp;QPushButton::released,[=](){
+        updateLabelContent();
+    });
+    connect(ui->pushButton_removewarn,&amp;QPushButton::released,[=](){
+        removeLabelContent();
+    });
+    connect(ui->pushButton_clearwarn,&amp;QPushButton::released,[=](){
+        if(m_timer){
+            if(m_timer->isActive()){
+                m_timer->stop();
+            }
+        }
+        m_warning.clear();
+        ui->label->setText("");
+    });
+
+    // *.cpp中的其他定义  
+    void MainWindow::removeLabelContent(){
+        if(m_timer){
+            if(m_timer->isActive()){
+                m_timer->stop();
+            }
+        }
+        m_warning.removeOne("1timeIs(时维九月)");
+
+        m_string="";
+        foreach (QString strWarn, m_warning) {
+            m_string+=strWarn;
+        }
+
+        ui->label->setText(m_string);
+        int actualWidth=ui->label->fontMetrics().boundingRect(ui->label->text()).width();
+
+        if(actualWidth&lt;=100){
+            qDebug()&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"不需要触发跑马灯效果";</span>
+            <span class="token attr-name">if(m_timer){</span>
+                <span class="token attr-name">if(m_timer-</span><span class="token punctuation">></span></span>isActive()){
+                    m_timer->stop();
+                }
+            }
+        }else{
+            qDebug()&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"需要触发跑马灯效果";</span>
+            <span class="token attr-name">if(m_timer){</span>
+                <span class="token attr-name"><span class="token namespace">MainWindow:</span>:nPos</span><span class="token attr-value"><span class="token punctuation">=</span>0;</span>
+                <span class="token attr-name">m_timer-</span><span class="token punctuation">></span></span>start(500);
+            }
+        }
+    }
+    void MainWindow::updateLabelContent(){
+        if(m_timer){
+            if(m_timer->isActive()){
+                m_timer->stop();
+            }
+        }
+
+        m_warning.prepend(QString::number(m_warning.count())+"timeIs(时维九月)");
+
+        m_string="";
+        foreach (QString strWarn, m_warning) {
+            m_string+=strWarn;
+        }
+
+        ui->label->setText(m_string);
+        int actualWidth=ui->label->fontMetrics().boundingRect(ui->label->text()).width();
+        if(actualWidth&lt;=100){
+            // qDebug()&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"不需要触发跑马灯效果";</span>
+            <span class="token attr-name">if(m_timer){</span>
+                <span class="token attr-name">if(m_timer-</span><span class="token punctuation">></span></span>isActive()){
+                    m_timer->stop();
+                }
+            }
+        }else{
+            // qDebug()&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"需要触发跑马灯效果";</span>
+            <span class="token attr-name">if(m_timer){</span>
+                <span class="token attr-name"><span class="token namespace">MainWindow:</span>:nPos</span><span class="token attr-value"><span class="token punctuation">=</span>0;</span>
+                <span class="token attr-name">m_timer-</span><span class="token punctuation">></span></span>start(500);
+            }
+        }
+    }
+
+    int MainWindow::nPos=0;
+    void MainWindow::scrollActiveLabel(){
+        if(nPos>m_string.length()){
+            nPos=0;
+        }
+        ui->label->setText(m_string.mid(nPos));
+        nPos++;
+    }
+    MainWindow::~MainWindow()
+    {
+        if(m_timer){
+            if(m_timer->isActive()){
+                m_timer->stop();
+            }
+            delete m_timer;
+            m_timer=NULL;
+        }
+        delete ui;
+    }
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt打开外部exe时带空格的路径"><a href="#qt打开外部exe时带空格的路径" class="headerlink" title="qt打开外部exe时带空格的路径"></a>qt打开外部exe时带空格的路径</h3><pre class="line-numbers language-html"><code class="language-html">p.startDetached("\""+thirdSoftName+"\"");
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="更保险的关闭程序"><a href="#更保险的关闭程序" class="headerlink" title="更保险的关闭程序"></a>更保险的关闭程序</h3><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Windows.h</span><span class="token punctuation">></span></span>  
+
+connect(ui->pushButton_close,&amp;QPushButton::released,[=](){
+    HANDLE hWnd=GetCurrentProcess();
+    TerminateProcess(hWnd,4);
+    close();
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Android应用获取版本号"><a href="#Android应用获取版本号" class="headerlink" title="Android应用获取版本号"></a>Android应用获取版本号</h3><pre class="line-numbers language-html"><code class="language-html">获取buid.gradle(:app)里的versionName
+android{
+    ...
+    defaultConfig{
+        versionName "0.5"
+    }
+    ...
+}
+//获取包管理器
+@Nullable
+public static String getVersionName(@NonNull Context context){
+    PackageManager pm=context.getPackageManager();
+    try{
+        PackageInfo packageInfo=pm.getPackageInfo(context.getPackageName(),0);
+        return packageInfo.versionName; //返回版本号
+    }catch(PackageManager.NameNotFoundException e){
+        e.printStackTrace();
+    }
+    return null;
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt任务栏名称和隐藏"><a href="#qt任务栏名称和隐藏" class="headerlink" title="qt任务栏名称和隐藏"></a>qt任务栏名称和隐藏</h3><p>可以通过设置窗口标志来实现。<br>调用QWidget的setWindowFlags()函数。 设置为Qt::Tool、Qt::SubWindow、Qt::Popup可以达到目的。<br>但是这样做会有副作用：<br>设置Qt::Popup不能设置保持窗口在顶层和底层。<br>设置Qt::SubWindow的窗口没有标题栏，没有关闭按钮，也不能进行拉伸。这些功能需要自己实现。<br>设置Qt::Tool窗口可以拉伸也有关闭按钮，但是点击关闭按钮，程序并不退出。  </p>
+<pre class="line-numbers language-html"><code class="language-html">setWindowFlags(windowFlags()|Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint|Qt::SubWindow);
+Qt::SubWindow这使本程序不在任务栏里出现，又不与置顶冲突，正适合
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="Qt5中关于中文的建议解决方案"><a href="#Qt5中关于中文的建议解决方案" class="headerlink" title="Qt5中关于中文的建议解决方案"></a>Qt5中关于中文的建议解决方案</h3><pre class="line-numbers language-html"><code class="language-html">1.用预处理命令  #pragma execution_character_set("utf-8")将cpp编码设置为utf-8  
+2.不用保证源码文件是UTF-8，但是源文件中出现中文用QStringLiteral这个宏来包含起来，那么也不会乱码  
+3. QString::fromLocal8Bit 根据本地文件的编码转成utf-8然后保存到QString中  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt屏蔽某些操作"><a href="#qt屏蔽某些操作" class="headerlink" title="qt屏蔽某些操作"></a>qt屏蔽某些操作</h3><pre class="line-numbers language-html"><code class="language-html">public:  
+    bool eventFilter(QObject *watched, QEvent *event);  
+
+    ui->spinBox->installEventFilter(this);
+    connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(spinBoxChanged(int)));
+    connect(ui->spinBox, SIGNAL(editingFinished()), this, SLOT(spinBoxEditFinished()));
+
+    bool MainWindow::isSpinBoxValChanged(){
+        return ui->spinBox->value()==40;
+    }
+
+    bool MainWindow::eventFilter(QObject *watched, QEvent *event){
+        // if(event->type()==QEvent::FocusIn&amp;&amp; watched==ui->spinBox)
+        if(event->type()==QEvent::FocusIn){
+            ui->pushButton_addwarn->setEnabled(false);
+        }
+
+        return QWidget::eventFilter(watched,event);
+    }
+
+
+    void MainWindow::spinBoxChanged(int val){
+        ui->label->setFocus();
+        if(isSpinBoxValChanged()){
+            ui->pushButton_addwarn->setEnabled(true);
+        }else{
+            ui->pushButton_addwarn->setEnabled(false);
+        }
+    }
+
+    void MainWindow::spinBoxEditFinished(){
+        ui->label->setFocus();
+        if(isSpinBoxValChanged()){
+            ui->pushButton_addwarn->setEnabled(true);
+        }else{
+            ui->pushButton_addwarn->setEnabled(false);
+        }
+    }
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QT5在main-cpp中使用中文"><a href="#QT5在main-cpp中使用中文" class="headerlink" title="QT5在main.cpp中使用中文"></a>QT5在main.cpp中使用中文</h3><p>先将对应的cpp文件用记事本打开，另存为UTF-8格式，然后在代码中，遇到中文字符，使用QStringLiteral(“中文”)进行修饰  </p>
+<h3 id="QT应用程序图标和任务栏图标"><a href="#QT应用程序图标和任务栏图标" class="headerlink" title="QT应用程序图标和任务栏图标"></a>QT应用程序图标和任务栏图标</h3><pre class="line-numbers language-html"><code class="language-html">应用程序左上角的图标、状态栏上显示的图标 设置  
+1. 将ico图标资源加载到Qt工程的.qrc文件中  
+2. setWindowIcon(QIcon(“:/Myapplication/Application.ico”));  
+
+可执行文件本身的图标 设置：  
+使用qmake来生成makefile文件，只需要在.pro中添加  
+RC_ICONS = logo.ico  
+重新生成makefile文件和应用程序，对应的.exe可执行程序就被设置好图标了。（这种方法，要将logo.ico和.pro文件放到同一个文件夹下） 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QString判断是否包含某个字符串"><a href="#QString判断是否包含某个字符串" class="headerlink" title="QString判断是否包含某个字符串"></a>QString判断是否包含某个字符串</h3><pre class="line-numbers language-html"><code class="language-html">QString urlString = QString("http://baidu/deviceinfo");
+if(urlString.contains("deviceinfo",Qt::CaseSensitive)){
+    qDebug() &lt;&lt; "包含了";
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="同一个QLabel显示不同颜色"><a href="#同一个QLabel显示不同颜色" class="headerlink" title="同一个QLabel显示不同颜色"></a>同一个QLabel显示不同颜色</h3><pre class="line-numbers language-html"><code class="language-html">    ui->label_multiColor->setStyleSheet("color:rgba(255,0,0,255)");
+    ui->label_multiColor->setText(tr("%1").arg(tr("hello,imu"))+"<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">/></span></span>"+tr("<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>font</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation">=</span>#00f800</span><span class="token punctuation">></span></span>%1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>font</span><span class="token punctuation">></span></span>").arg(tr("hello,gnss")));
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="数据小于200kb报警"><a href="#数据小于200kb报警" class="headerlink" title="数据小于200kb报警"></a>数据小于200kb报警</h3><p>警告黄色？</p>
+<pre class="line-numbers language-html"><code class="language-html">if(((long long)(iter->second.Size0)/1024)&lt;200){
+    emit sig_addWarningContent(tr("__pcd too small__"));
+}else{
+    emit sig_removeWarningContent(tr("__pcd too small__"));
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="VS2010-qt5-5-1使用经历"><a href="#VS2010-qt5-5-1使用经历" class="headerlink" title="VS2010+qt5.5.1使用经历"></a>VS2010+qt5.5.1使用经历</h3><blockquote>
+<p>There’s no Qt version assigned to this project for platform Win32. Please use the ‘change Qt version  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">解决：  
+点击VS2010的qt菜单Qt Project Settings  
+弹出对话框Properties选项下Version栏选择本机qt含有的版本号，如Qt5.5.1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>绑定.ui文件内按钮点击响应事件  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">// *.ui里拖拽出来一个pushbutton，起名pushButton1,保存，退出Qt设计师软件界面  
+重新编译
+//thanks.h
+public slots:
+    void btn_OnClickBtn1();
+
+//thanks.cpp  
+...  
+{
+    ui.setupUi(this);
+    QObject::connect(ui.pushButton1,SIGNAL(released()),this,SLOT(btn_OnClickBtn1()));
+}
+...  
+void thanks::btn_OnClickBtn1(){
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>查看vs2010工程文件的输出路径  </p>
+<pre class="line-numbers language-html"><code class="language-html">工程名右键"属性"-"配置属性"-"常规" 右边内容:  
+输出目录：$(SolutionDir)Output\  
+目标文件名:**Logging  
+目标文件扩展名:.exe  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="把VS项目由x86改为x64"><a href="#把VS项目由x86改为x64" class="headerlink" title="把VS项目由x86改为x64"></a>把VS项目由x86改为x64</h3><pre class="line-numbers language-html"><code class="language-html">// 第一步:设置项目的目标计算机为x64  
+右击项目—> 属性—> 配置属性—> 链接器—> 高级—> 目标计算机，修改为MachineX64
+// 第二步：选择新平台x64  
+右击项目—> 属性—> 配置管理器—> 活动解决平台方案—> 新建—> 键入或选择新平台—> x64  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="VS2015新建QtWidgetsApplication"><a href="#VS2015新建QtWidgetsApplication" class="headerlink" title="VS2015新建QtWidgetsApplication"></a>VS2015新建QtWidgetsApplication</h3><p>需要点 项目配置 -&gt; 属性 -&gt; 常规 -&gt; 配置下平台工具集<br>将平台工具集设置为Visual Studio 2015(v140)才能编译成功  </p>
+<p>编译成功后得到*<em>.exe，进入命令行Qt5.8 64-bit for Destop(MSVC 2015)<br>cd bin<br>windeployqt *</em>.exe  补全相关qt依赖后即可独立运行exe  </p>
+<p>输出目标文件名在 项目右键 -&gt; 属性 -&gt; 常规 -&gt; 目标文件名修改<br>可以是$(ProjectName)也可以直接自定义</p>
+<h3 id="VS添加boost支持"><a href="#VS添加boost支持" class="headerlink" title="VS添加boost支持"></a>VS添加boost支持</h3><p>未安装Boost需要先正确安装Boost，然后将Boost添加到工程里  </p>
+<pre class="line-numbers language-html"><code class="language-html">主菜单 "项目(P)"-> "xxxx项目 属性(P)"  
+-> 选左边VC++目录选项  
+-> 右边的包含目录和库目录分别添加Boost的根目录和依赖库后保存  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>实践，手边有编译好的boost_1.58.0_vc100,目录内含include目录、lib_x64目录、lib_x86目录：  </p>
+<pre class="line-numbers language-html"><code class="language-html">
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="vs2010链接外部的库及头文件"><a href="#vs2010链接外部的库及头文件" class="headerlink" title="vs2010链接外部的库及头文件"></a>vs2010链接外部的库及头文件</h3><p>VS中添加LIb库及头文件的步骤：  </p>
+<ol>
+<li>添加工程的头文件目录：<br>(Properties-&gt;C/C++-&gt;General-&gt;Additional Include Directories)<br>工程—属性—配置属性—c/c++—常规—附加包含目录：加上头文件存放目录。  </li>
+<li>添加文件引用的lib静态库路径：<br>工程—属性—配置属性—链接器—常规—附加库目录：加上lib文件存放目录。<br>然后添加工程引用的lib文件名：<br>工程—属性—配置属性—链接器—输入—附加依赖项：加上lib文件名。  </li>
+<li>添加工程引用的dll动态库:<br>把引用的dll放到工程的可执行文件所在的目录下。  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">对于新手，在设置绝对路径时往往会犯浑，他们不清楚这里的“相对”究竟是以什么位置为起点。其实这里的相对路径就是相当于工程文件（XXXX.vcproj）为起点零计算出的能找到包含所需头文件（也就是找包含所需头文件的include目录）的路径。
+例如你的工程文件（Count.vcproj）所在目录路径为：
+E:\projects\Count\Count\Count.vcproj
+该工程需要包含一个图片参数，该图片所在路径如下：
+E:\projects\Count\pic\pic01.jpg
+这里程序中的相对路径设置如下：
+..\\pic\\pic02.jpg
+
+程序代码中的参数路径设置时要用双斜线：
+例如：
+#include "..\TestLib\lib.h"
+#pragma comment(lib,"..\\debug\\TestLib.lib");
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="交换文件已存在"><a href="#交换文件已存在" class="headerlink" title="交换文件已存在"></a>交换文件已存在</h2><pre class="line-numbers language-html"><code class="language-html">vim abc.cpp出现交换文件已存在  
+rm -f .abc.cpp.swp  
+解决
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="TinyWebserver-部署到Linux下，并运行"><a href="#TinyWebserver-部署到Linux下，并运行" class="headerlink" title="TinyWebserver 部署到Linux下，并运行"></a>TinyWebserver 部署到Linux下，并运行</h2><p>Vmware内的Ubuntu  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo apt-get install build-essential  
+sudo apt-get install mysql-server  
+sudo mysql_secure_installation  
+配置项较多，全翻译成中文:  
+保护MySQL服务器部署。
+使用空白密码连接到MySQL。
+验证密码组件可用于测试密码
+提高安全性。密码强度检查
+只允许用户设置
+足够安全。是否要设置验证密码组件？
+按y | y表示是，按任何其他键输入No:y
+
+密码验证策略有三个级别：
+低长度>=8
+中等长度>=8，数字、混合大小写和特殊字符
+强长度>=8，数字，混合大小写，特殊字符和字典文件
+请输入0=低，1=中，2=强：0
+
+请在此处设置root用户的密码。
+新密码：youpasswd
+重新输入新密码：youpasswd
+
+密码估计强度：50
+您想用提供的密码继续吗？（按y | y表示是，按任何其他键表示否）：y
+
+默认情况下，MySQL安装有一个匿名用户，
+允许任何人登录MySQL而不必
+为他们创建的用户帐户。这只是为了
+测试，并使安装变得更加顺利。
+您应该在进入生产之前删除它们
+环境。
+删除匿名用户？（按y | y表示是，按任何其他键表示否）：y
+
+成功。
+
+通常，只允许根用户从
+“本地主机”。这确保了有人不能猜到
+来自网络的根密码。
+不允许远程根用户登录？（按y | y表示是，按任何其他键表示否）：y
+
+成功。
+
+默认情况下，MySQL附带一个名为“test”的数据库
+任何人都可以访问。这也仅用于测试，
+在投入生产前应将其移除
+环境。
+删除测试数据库并访问它？（按y | y表示是，按任何其他键表示否）：y
+
+-正在删除测试数据库。。。
+成功。
+
+-正在删除对测试数据库的权限。。。
+成功。
+
+重新加载特权表将确保所有更改
+到目前为止，将立即生效。
+现在重新加载特权表？（按y | y表示是，按任何其他键表示否）：y
+
+成功。
+
+全部完成！  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>检查mysql状态  </p>
+<pre class="line-numbers language-html"><code class="language-html">systemctl status mysql.service  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>进入mysql  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo mysql -u root -p123456
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>根据 Tinyweb server 中readme操作mysql，这里其实就是写sql语句了分别包括创建数据库yourdb，use相当于进入这个数据库，创建user表</p>
+<pre class="line-numbers language-html"><code class="language-html">    create database yourdb;
+    USE yourdb;
+    CREATE TABLE user(
+        username char(50) NULL,
+        passwd char(50) NULL
+    )ENGINE=InnoDB;
+    INSERT INTO user(username, passwd) VALUES('name', 'passwd');
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编译Tinywebserver，首先需要确认main.cpp里的数据库和你mysql数据库配置相同。查看数据库名称和密码    </p>
+<pre class="line-numbers language-html"><code class="language-html">cd /etc/mysql  
+sudo vim debian.cnf  
+
+// 关注user和password的值
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>打开main.cpp，修改对应user、passwd、databasename  </p>
+<p>编译Tinywebserver  </p>
+<pre class="line-numbers language-html"><code class="language-html">
+sudo apt-get install libmysqlclient-dev
+cd TinyWebserver  
+sh ./build.sh  
+make server  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>运行server  </p>
+<pre class="line-numbers language-html"><code class="language-html">./server
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Ubuntu安装boost和cmake"><a href="#Ubuntu安装boost和cmake" class="headerlink" title="Ubuntu安装boost和cmake"></a>Ubuntu安装boost和cmake</h2><pre class="line-numbers language-html"><code class="language-html">sudo apt-get update
+安装最新版本sudo apt-get install libboost-all-dev  
+安装指定版本sudo apt-get install libboost1.58-all-dev  
+如果编译好程序后，在运行时提示无法加载某个库文件，则把/usr/local/lib下的所有boost的库文件mv到/usr/lib目录下就可以了。
+默认安装头文件在目录/usr/local/include/boost，而库文件在目录/usr/local/lib。卸载也很简单，直接将以上两个目录中有关boost的内容删除就可以了。
+sudo apt-get install cmake  
+卸载前先查询当前版本，然后卸载指定版本  
+dpkg -S /usr/include/boost/version.hpp  
+#查询结果 libboost1.58-dev:amd64: /usr/include/boost/version.hpp  
+如果查不到也不表示没有安装，可能是手动下载安装包装的，检查办法是  
+sudo find /usr -name "libboost"
+sudo apt-get autoremove libboost1.58-dev
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>安装好boost后的测试程序例子  </p>
+<pre class="line-numbers language-html"><code class="language-html">// vim example.cpp:
+#include &lt;boost/thread.hpp>  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>  
+void task1() {   
+    std::cout &lt;&lt; "This is task1!" &lt;&lt; std::endl;  
+}  
+void task2() {   
+    std::cout &lt;&lt; "This is task2!" &lt;&lt; std::endl;  
+}  
+int main (int argc, char ** argv) {  
+    using namespace boost;   
+    thread thread_1 = thread(task1);  
+    thread thread_2 = thread(task2);  
+
+    thread_2.join();  
+    thread_1.join();  
+    return 0;  
+}  
+// 编译  
+g++ example.cpp -lboost_thread -lboost_system -o example
+// 运行  
+./example
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>前面已经安装好boost库了<br>现在先要安装re2正则库  </p>
+<pre class="line-numbers language-html"><code class="language-html">解压re2-xxxx-xx-xx.zip 重命名为re2  
+mkdir re2.build &amp;&amp; cd re2.build  
+cmake ../re2 &amp;&amp; make
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>在安装served库</p>
+<pre class="line-numbers language-html"><code class="language-html">
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>(忽略)直接把served-v1.4.3.zip中的served/src/served目录放到/usr/include/下是不行的  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo cp -ar served /usr/include/
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>找文件并定位  </p>
+<pre class="line-numbers language-html"><code class="language-html">locate libboost_system
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>配置环境变量，自定义命令可用  </p>
+<pre class="line-numbers language-html"><code class="language-html">在我们的/home/name目录下，会有~/.bashrc和~/.profile两个文件夹，这两者的区别——后者在每次用户登陆时就会读取，而前者是每次打开一个shell就会读取一遍，相对而言后者效率更好，所以
+vim ~/.profile
+添加如下：export PATH=/disks/disk1/cheny/software/re2c/bin:$PATH  
+“等于号”后面就是自定义安装的目录路径
+保存退出，刷新一下文件 source ~/.profile.
+自定义命令可用
+
+可以通过echo $PATH查看
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Ubuntu交叉编译工具"><a href="#Ubuntu交叉编译工具" class="headerlink" title="Ubuntu交叉编译工具"></a>Ubuntu交叉编译工具</h2><p>编写好的c++代码要放到嵌入式板子上运行，要在ubuntu系统上使用交叉编译工具，将编译好可执行文件在放到板子里运行。为了能在ubuntu系统上能交叉编译，需要安装aarch64-linux-gnu-gcc/g++交叉编译工具链。<br>aarch64-linux-gnu-gcc/g++是一个交叉编译工具链，可以在其他架构的系统中，编译安装64位arm架构的程序。常用在嵌入式代码的移植中。aarch64-linux-gnu-gcc/g++是由非盈利组织Linaro基于GCC/G++推出的ARM交叉编译工具。可用于交叉编译ARMv8(64位)目标中的裸机程序、u-boot、Linuxkernel、filesystem和App应用程序。aarch64-linux-gnu-gcc/g++ 交叉编译器必须安装在 64 位主机上，才能编译目标代码。</p>
+<p>在线安装  </p>
+<pre class="line-numbers language-html"><code class="language-html"># 查看可以安装的版本
+apt-cache search aarch64
+# 选择可以安装的版本进行安装
+# 此处选择gcc-5-aarch64-linux-gnu以及g++-5-aarch64-linux-gnu进行安装
+sudo apt-get install gcc-5-aarch64-linux-gnu　
+sudo apt-get install g++-5-aarch64-linux-gnu
+# 安装依赖
+sudo apt --fix-broken install
+# 安装一个没有版本号的gcc和g++
+sudo apt-get install gcc-aarch64-linux-gnu
+sudo apt-get install g++-aarch64-linux-gnu
+# 查看版本
+aarch64-linux-gnu-g++ -v
+aarch64-linux-gnu-gcc -v
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>测试c++文件交叉编译  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 新建aaa.cpp文件
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+int main(int argc,char **argv)
+{
+    std::cout &lt;&lt; "hello world!" &lt;&lt;std::endl;
+    return 0;
+}
+// 交叉编译
+aarch64-linux-gnu-g++ aaa.cpp -o test  
+//将生成的test可执行文件放到嵌入式板子上运行
+./test #若显示hello world！表示成功
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="gcc和g-编译cpp文件"><a href="#gcc和g-编译cpp文件" class="headerlink" title="gcc和g++编译cpp文件"></a>gcc和g++编译cpp文件</h3><p>gcc默认调用C标准库，需要主动声明链接到标准C++库才能编译cpp<br>如gcc abc.cpp -lstdc++ -o test1  </p>
+<pre class="line-numbers language-html"><code class="language-html">// abc.cpp 
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>  
+int main(int argc,char *argv[])  
+{  
+    std::cout &lt;&lt; "hello, world" &lt;&lt; std::endl;  
+    system("read -p 'press any to continue...' var")；
+    return(0);  
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>g++根据文件后缀名可识别其为c++文件，自动链接对象和libstdc++库中函数得到可执行程序，不需要另外声明<br>如g++ abc.cpp -o test1  </p>
+<h3 id="多个源文件编译成可执行程序"><a href="#多个源文件编译成可执行程序" class="headerlink" title="多个源文件编译成可执行程序"></a>多个源文件编译成可执行程序</h3><pre class="line-numbers language-html"><code class="language-html">//speak.h
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>  
+class Speak  
+{  
+    public:  
+        void sayHello(const char *);  
+};
+//speak.cpp  
+#include "speak.h"  
+void Speak::sayHello(const char *str)  
+{  
+    std::cout &lt;&lt; "Hello " &lt;&lt; str &lt;&lt; "\n";  
+}
+//hellospeak.cpp  
+#include "speak.h"  
+int main(int argc,char *argv[])  
+{  
+    Speak speak;  
+    speak.sayHello("world");  
+    return(0);  
+}
+//将多个源码文件编译链接成一个单一的可执行程序  
+g++ hellospeak.cpp speak.cpp -o hellospeak
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="ubuntu操作"><a href="#ubuntu操作" class="headerlink" title="ubuntu操作"></a>ubuntu操作</h3><pre class="line-numbers language-html"><code class="language-html">#根据进程名查询当前系统内是否运行有进程  
+ps a | grep 进程名
+#查看ubuntu系统是64位还是32位,显示i686代表32位，显示x86_64代表64位
+sudo uname -m  
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Androidstudio配置jks文件"><a href="#Androidstudio配置jks文件" class="headerlink" title="Androidstudio配置jks文件"></a>Androidstudio配置jks文件</h3><pre class="line-numbers language-html"><code class="language-html">//build.gradle(:app)
+android{
+    signingConfigs{
+        release{
+            storeFile file('xxx')
+            storePassword 'xxx321'
+            keyAlias 'xxxy'
+            keyPassword 'xxx123'
+        }
+    }
+}  
+
+其中xxx就是xxx.jks去掉后缀名，放到位置app/目录下，与app/src同级
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Android多线程"><a href="#Android多线程" class="headerlink" title="Android多线程"></a>Android多线程</h3><p><a href="https://blog.csdn.net/u013773608/article/details/124329942" target="_blank" rel="noopener">https://blog.csdn.net/u013773608/article/details/124329942</a>  </p>
+<h2 id="Android应用架构"><a href="#Android应用架构" class="headerlink" title="Android应用架构"></a>Android应用架构</h2><h3 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h3><pre class="line-numbers language-html"><code class="language-html">
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="MVI"><a href="#MVI" class="headerlink" title="MVI"></a>MVI</h3><pre class="line-numbers language-html"><code class="language-html">
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="QString和std-string转换乱码-和LOG-INFO"><a href="#QString和std-string转换乱码-和LOG-INFO" class="headerlink" title="QString和std::string转换乱码,和LOG_INFO"></a>QString和std::string转换乱码,和LOG_INFO</h3><pre class="line-numbers language-html"><code class="language-html">std::string cstring;
+QString qstring;
+//QString转std::string
+qstring=QString(QString::fromLocal8bit(cstring.c_str()));
+//std::string转QString
+cstring=std::string((const char*)qstring.tolocal8Bit().constData());
+
+LOG_INFO("QString local8bit: %s , cstring: %s ",qstring.toLocal8Bit().data(),cstring.c_str());
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Android应用程序框架MVI搭建"><a href="#Android应用程序框架MVI搭建" class="headerlink" title="Android应用程序框架MVI搭建"></a>Android应用程序框架MVI搭建</h2><p><a href="https://xiaozhuanlan.com/topic/4689175032" target="_blank" rel="noopener">https://xiaozhuanlan.com/topic/4689175032</a>  </p>
+<p><a href="https://baijiahao.baidu.com/s?id=1760984261662331409&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1760984261662331409&amp;wfr=spider&amp;for=pc</a>  </p>
+<h2 id="Android适配国际化的三种方式（应用和系统）"><a href="#Android适配国际化的三种方式（应用和系统）" class="headerlink" title="Android适配国际化的三种方式（应用和系统）"></a>Android适配国际化的三种方式（应用和系统）</h2><blockquote>
+<p>1.被动的根据系统设置的系统语言环境，应用适配国际化效果<br>2.主动修改应用的应用语言环境<br>3.主动修改系统的系统语言环境<br>无论是主动还是被动的实现国际化都需要在应用中准备好适配对应的字符串或图片  </p>
+</blockquote>
+<p>国际化整体思路<br>1 新建不同语言环境的资源目录（res目录下创建不同国家和语种的资源目录（values或drawable)，系统会根据设备当前的语言环境自动选择相应的资源文件。）<br>2 在各语言环境资源目录下放入资源文件<br>3 编辑资源文件（翻译文本、编辑图片）  </p>
+<pre class="line-numbers language-html"><code class="language-html">文本国际化
+新建一个中文资源文件夹values-zh-rCN,其内放入资源strings.xml  
+新建一个英文资源文件夹values-en-rUS,其内放入资源strings.xml  
+现在共有3个资源文件夹  
+1. values默认资源文件夹（当系统环境不是中文也不是英文时显示此目录中资源）  
+2. values-zh-rCN（当系统环境是中文时，显示此文件夹内资源）  
+3. values-en-rUS（当系统环境是英文时，显示此文件夹内资源）
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+图片国际化
+当不考虑分辨率大小时:  
+新建不同语言的目录drawable-zh和drawable-en,文件夹内对应的资源文件名要相同  
+当考虑分辨率大小时：  
+新建不同语言的文件夹  
+drawable-zh-hdpi drawable-en-hdpi  
+drawable-zh-ldpi drawable-en-ldpi  
+drawable-zh-mdpi drawable-en-mdpi  
+文件夹内对应的资源文件名要相同  
+默认显示drawable-hdpi,drawable-ldpi,drawable-mdpi 这几个文件夹中的资源
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// values-zh-rCN/strings.xml
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ok<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>确定<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cancel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>取消<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resources</span><span class="token punctuation">></span></span>
+// values-en-rUS/strings.xml
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ok<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>ok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cancel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>cancel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resources</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用AndroidStudio创建国际化资源"><a href="#使用AndroidStudio创建国际化资源" class="headerlink" title="使用AndroidStudio创建国际化资源"></a>使用AndroidStudio创建国际化资源</h3><p>创建、编辑文本国际化  </p>
+<pre class="line-numbers language-html"><code class="language-html">1 选中res，右键New->Directory，新建目录values-zh  
+2 选中res，右键New->New Resource File,  
+File name填 "strings.xml"  
+Directory name填 "values-zh"  
+3.点击ok，  
+// values-zh/strings.xml
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ok<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>确定<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cancel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>取消<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resources</span><span class="token punctuation">></span></span>  
+// values/strings.xml
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ok<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>ok<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>cancel<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>cancel<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resources</span><span class="token punctuation">></span></span>
+
+布局文件中：  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TextView</span> <span class="token attr-name"><span class="token namespace">android:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@string/ok<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+系统语言切换后，应用会自动适配切换显示语言内容
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>图片国际化  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 选中res，右键New->Directory，新建目录drawable-zh
+2. 把两个相同名字的图片，分别放到默认目录和刚才新建的目录下  
+drawable/qizhi.jpg  
+drawable-zh/qizhi.jpg  
+3. 布局文件中：  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ImageView</span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">app:</span>layout_constraintBottom_toBottomOf</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>parent<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">app:</span>layout_constraintEnd_toEndOf</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>parent<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">app:</span>srcCompat</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/qizhi<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+系统语言切换后，应用会自动适配切换图片
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="两字节16进制hex转化int"><a href="#两字节16进制hex转化int" class="headerlink" title="两字节16进制hex转化int"></a>两字节16进制hex转化int</h2><pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>  
+
+//c++数组不能赋值，只能用大括号初始化它们
+unsigned char bbb[]={0x00,0x01};
+const int len=sizeof(bbb)/sizeof(bbb[0]);
+unsigned char aaa[len];
+memcpy(aaa,bbb,len*sizeof(bbb[0]));
+std::cout&lt;&lt;sizeof(aaa)/sizeof(aaa[0])&lt;&lt;std::endl;
+
+//两字节16进制，高位在前低位在后，转int值
+unsigned char higher=0x00;
+unsigned char lower=0x10;
+int target=(lower|higher&lt;&lt;8);
+std::cout&lt;&lt;target&lt;&lt;std::endl;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="vs2010-qt5-5-1"><a href="#vs2010-qt5-5-1" class="headerlink" title="vs2010+qt5.5.1"></a>vs2010+qt5.5.1</h2><p>下载软件  </p>
+<pre class="line-numbers language-html"><code class="language-html"> qt-vs-addin-1.2.1-opensource.rar  
+ qt-opensource-windows-x86-msvc2010-5.5.1.exe  
+ cn_visual_studio_2010_ultimate_x86_dvd_532347.iso  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>按顺序安装软件</p>
+<pre class="line-numbers language-html"><code class="language-html">安装vs2010  
+安装qt5.5.1  
+安装vs2010的qt插件qt-vs-addin-1.2.1-opensource  
+
+配置vs2010的qt插件，打开VS2010，菜单栏多处一个Qt5菜单项然后点击Qt Options，指定所安装的Qt版本(即相应的qmake)配置目录为包含qmake的bin目录的上一层目录  
+
+1. 新建项目，选择”Qt Application“  
+2. 输入项目名称及路径，确定，进入Qt5 GUI项目向导对话框，
+3. 设置项目，选择需包含于项目的模块，在此我们保持默认选项，默认包含的模块已选择Core、GUI、Widgets，类似于用Qt Creator创建项目时的.pro文件  
+4. 点击下一步，修改类的名称，选择基类，在此我们选择QDialog基类，确定，生成类，  
+5. 双击”解决方案管理器“中的.ui文件，会启动Qt Designer，编辑对话框窗体，保存，再在VS2010中点击运行，
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/07/13/diary-20230713-1/" class="b-link-green">6月小记Qt和vs的使用</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/07/23/diary-20230723-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/28.jpg" class="responsive-img" alt="msi格式安装包制作和Android">
+                        
+                        <span class="card-title">msi格式安装包制作和Android</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            vs2010输出msi格式安装包1. vs2010->"新建项目"->"其他项目类型"->"安装和部署"->"Visual Studio Installer"->"安装项目"  
+命令为Setup1.
+确定后在"文件系统视图"出现三个文件夹
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-07-23
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/06/18/diary-20230618-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/26.jpg" class="responsive-img" alt="Qt实践">
+                        
+                        <span class="card-title">Qt实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            qt常用功能QLabel停留时间开始没有文字，然后有文字，停留几秒钟，然后文字消失  
+首先拖入一个frame，frame中拖入一个label  
+QTimer *timer;
+
+timer=new QTimer();
+connect(ti
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-18
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

@@ -1,0 +1,1486 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="笔记2021年1月, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="linux的liveCD模式按deepin linux官方方法制作安装启动U盘。我的版本是deepin 20.1(1010)准备一个不小于4G的U盘，格式化，下载官方镜像：deepin-desktop-community-1010-amd6">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>笔记2021年1月 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/14.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        笔记2021年1月
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Linux/" target="_blank">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                            <a href="/diary/tags/车/" target="_blank">
+                                <span class="chip bg-color">车</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/diary/categories/笔记/" class="post-category" target="_blank">
+                                笔记
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-01-11
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.2k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        11 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="linux的liveCD模式"><a href="#linux的liveCD模式" class="headerlink" title="linux的liveCD模式"></a>linux的liveCD模式</h2><p>按deepin linux官方方法制作安装启动U盘。我的版本是deepin 20.1(1010)<br>准备一个不小于4G的U盘，格式化，<br>下载官方镜像：<a href="https://pan.baidu.com/s/1Kw614MkkHAnUi0Z1BkmXEg" target="_blank">deepin-desktop-community-1010-amd64.iso</a>，用虚拟光驱打开，有个*_u的exe，双击执行自动制作启动U盘。  </p>
+<p>U盘启动后第一个画面，回车进入(接下来载入系统画面出现较快)<br>接着出现安装页面(第1234步那个画面)后ctr+alt+f2切入shell<br>在shell键入startx按回车，进入live系统(使用过程中U盘不可以拔)  </p>
+<p>U盘启动后第一个画面，抓紧时间按tab键，底部出现命令行参数，在quiet splash之后添加 toram ,回车进入(live系统完全启动到RAM内，接下来载入系统画面出现较慢)<br>接着出现安装页面(第1234步那个画面)后ctr+alt+f2切入shell<br>在shell键入startx按回车，进入live系统(使用过程中U盘可以拔)  </p>
+<h2 id="win10-linux双系统"><a href="#win10-linux双系统" class="headerlink" title="win10+linux双系统"></a>win10+linux双系统</h2><p>我笔记本是win10，然后装个deepinLinux。<br>按deepin linux官方方法制作安装启动U盘。  </p>
+<p>先分区准备好1G当作交换空间(swap)<br>准备好2G选ext4 当作启动(/boot)<br>剩余空间作为/根挂载点（ext4）<br>修改引导器设置为/boot的磁盘编号  </p>
+<p>安装好进入window安装easyBCD，添加新条目Linux/BSD,类型选GRUB2,驱动器选刚才设置的/boot空间(根据磁盘大小判断)  </p>
+<p>重启ok。  </p>
+<p><a href="https://pan.baidu.com/s/1PJ5MsYG5odl8hBIh2B7NQA" target="_blank">EasyBCD2.4.rar</a></p>
+<h2 id="备份博客"><a href="#备份博客" class="headerlink" title="备份博客"></a>备份博客</h2><p>在本地在执行hexo_g后，会在博客根目录下生成一个public文件夹，这个文件夹里的文件组合起来就是一个完整的静态博客。接着如果执行hexo_d，就会把这个public文件夹的东西完完整整地拷贝到.deploy_git文件夹里，并把该文件夹里的所有文件全部推送push到远程库，然后部署到网站上。  </p>
+<p>markdown文章在之前的hexo_g之后，把生成的静态文件拷贝到了.deploy_git文件，但hexo_clean并没能删除·.deploy_git·里的markdown的静态文件，所以每次部署的时候，它还会冒出来。所以同时删掉.deploy_git文件夹下内容即可(其下.git目录的内容除外，不可删除.git目录)。  </p>
+<p>备份同理，先hexo_clean，然后删除.deploy_git文件夹下除.git目录以外的其它内容，这样备份文件体积也小些。  </p>
+<p>另外更彻底的瘦身.git目录目录，就是删除.deploy_git文件夹下包括.git的所有目录和文件。然后.deploy_git右键Git Bash Here，执行git init，（把.git删掉，重新init）成为干净全新的库。</p>
+<!--
+<a href="https://pan.baidu.com/s/1u5ybyNyuVY_DflVRF9DoPA" target="_blank">windows各版本操作系统激活工具.rar</a>
+-->
+
+<h3 id="hexo自定义页面"><a href="#hexo自定义页面" class="headerlink" title="hexo自定义页面"></a>hexo自定义页面</h3><p>方式一:  </p>
+<pre class="line-numbers language-html"><code class="language-html">$hexo new page "mynewpage"  
+会生成**\source\mynewpage\index.md
+---  
+title: 新页面  
+date: 2020-03-11 15:33:12  
+type: "mynewpage"
+---  
+
+使用页面：通过页面主菜单访问  
+修改主题_config.yml 文件中的menu  
+menu:  
+  ***  
+  新页面: /mynewpage/ || id-card  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方式二  </p>
+<pre class="line-numbers language-html"><code class="language-html">Hexo默认会对/source/里的所有页面应用主题模板渲染，但有一些前端作品或demo页我们不希望经过渲染，而是能保持完全自定义的样子，那该怎么用Hexo添加自定义的web页面呢?  
+
+使用Hexo提供的跳过渲染配置，适用于整个目录的设置。具体步骤，打开博客根目录_config.yml，找到其中skip_render项，这个项目用来配置/source/中需要跳过渲染的文件或目录  
+例如希望跳过/source/projects/里的所有文件渲染，可以配置为：skip_render: "projects/**"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="WindowsServer2016许可证过期解决方法"><a href="#WindowsServer2016许可证过期解决方法" class="headerlink" title="WindowsServer2016许可证过期解决方法"></a>WindowsServer2016许可证过期解决方法</h2><p>之前服务器上的操作系统是Windows Server 2016 Standard Evaluation。<br>（我才注意Evaluation这个是评估版的意思。。。）<br>用我之前的激活工具每3个月重新激活一次window，可以用，最近突然激活工具也无法激活了。报错如下  </p>
+<pre><code>错误：0xC004D307已超过重新整理的最大允许数量。  
+在尝试再次重新整理之前，必须重新安装OS  </code></pre><p>解决方法：  </p>
+<ol>
+<li>获取可升级版本  </li>
+</ol>
+<pre><code>dism /online /Get-TargetEditions</code></pre><ol start="2">
+<li>根据可升级版本，百度一个对应的产品密钥，并更新  </li>
+</ol>
+<pre><code>dism /online /set-edition:ServerStandard /productkey:WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY /accepteula</code></pre><ol start="3">
+<li>系统提示是否立即重启，重启计算机  </li>
+</ol>
+<p><a href="https://pan.baidu.com/s/1u5ybyNyuVY_DflVRF9DoPA" target="_blank">windows各版本操作系统激活工具.rar</a>  </p>
+<h2 id="win7或win10开启系统wifi热点"><a href="#win7或win10开启系统wifi热点" class="headerlink" title="win7或win10开启系统wifi热点"></a>win7或win10开启系统wifi热点</h2><p><a href="https://pan.baidu.com/s/1-WsgqrUJPrplPtY8LKhSVQ" target="_blank">win7win8或win10开启热点.rar</a></p>
+<h2 id="电脑投屏到电视机"><a href="#电脑投屏到电视机" class="headerlink" title="电脑投屏到电视机"></a>电脑投屏到电视机</h2><p>笔记本电脑与电视在同一wifi下，电视安装乐播投屏TV版处于接受码状态，笔记本上安装乐播投屏PC版，选择投屏内容填入投屏码即可。<br>我也没试过，应该行。  </p>
+<h2 id="hex文件"><a href="#hex文件" class="headerlink" title="hex文件"></a>hex文件</h2><p>hex是16进制的意思，hex文件格式是可以烧写到单片机中、被单片机执行的一种文件格式，可以通过不同的编译器将C程序或者汇编程序编译生成hex。  </p>
+<h2 id="给单片机烧录程序"><a href="#给单片机烧录程序" class="headerlink" title="给单片机烧录程序"></a>给单片机烧录程序</h2><p>（2021-1-29）Keil C51是51系列兼容单片机C语言软件开发系统。  </p>
+<h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ol>
+<li>安装Keil软件。选中文件夹中的C51V900安装程序并打开，一路next直到finish完成Keil安装。  </li>
+<li>安装USB转串口的驱动程序，选中文件夹中的HL-340安装程序并打开，点击INSTALL自动完成安装。  </li>
+</ol>
+<h3 id="建立工程"><a href="#建立工程" class="headerlink" title="建立工程"></a>建立工程</h3><ol start="3">
+<li>新建Keil工程，新建文件夹保存工程，打开Atmel选择单片机型号，这里举例比如选择子目录下的AT89C52，点击OK,后续弹出对话框”Copy standard Startup Code to Project Folder and Add file to Project”，点击否。  </li>
+<li>file-&gt;New，新建文件Ctrl+S注意添加后缀.c文件类型。编辑保存文件。  </li>
+<li>回到编辑界面，单机Target前的+号，在选项”SourceGroup1”右键菜单选择”AddFilesToGroup ‘SourceGroup1’”。  </li>
+<li>弹出对话框选择刚才编辑保存的**.c文件，单击Add,在单击Close。  </li>
+<li>单击左侧SourceGroup1前的+号，注意到SourceGroup1文件夹下多了一个子项**.c，此时源代码文件与工程已经关联。  </li>
+<li>单击工具栏TargetOptions…，打开Output选项卡并选择Creat_Hex_File，点击ok，这时编译完成可产生供单片机下载的Hex文件。  </li>
+<li>单击工具栏Rebuild，可看状态栏显示状态(0错误和0警告)，这时完成了keil工程建立并产生了可下载的hex文件。  </li>
+</ol>
+<h3 id="COM口检查"><a href="#COM口检查" class="headerlink" title="COM口检查"></a>COM口检查</h3><ol start="10">
+<li>用usb转串口线把电脑usb口和单片机的串口相连。  </li>
+<li>设备管理器里确认端口COM*。  </li>
+</ol>
+<h3 id="Hex文件下载"><a href="#Hex文件下载" class="headerlink" title="Hex文件下载"></a>Hex文件下载</h3><ol start="12">
+<li><p>打开文件夹”程序下载”压缩包，打开STC_ISP_V481.exe，这里举例弹出的界面选择MCU type为STC89C52RC,单击”打开程序文件”，在你之前保存keil工程的位置找到刚才生成的.hex文件。选择打开。选择COM口为刚才确认的com口。  </p>
+</li>
+<li><p>单击Download/下载，（之前一定不能先让单片机通电），然后按下单片机的电源开关，让单片机通电，此时开始程序到单片机的下载  </p>
+</li>
+</ol>
+<h2 id="win10定期清理C盘垃圾"><a href="#win10定期清理C盘垃圾" class="headerlink" title="win10定期清理C盘垃圾"></a>win10定期清理C盘垃圾</h2><p>Win-&gt;设置-&gt; 存储 -&gt; 打开”配置存储感知或立即运行” -&gt; 打开存储感知 ，设置删除临时文件的周期时间  </p>
+<p>win10系统自带”磁盘清理”工具  </p>
+<p>关闭系统还原功能：  </p>
+<pre class="line-numbers language-html"><code class="language-html">我的电脑->属性->系统保护->关闭C盘系统保护，删除此驱动盘的所有还原点  
+如果被禁用管理  
+按住“Win+R”打开运行框，然后输入“gpedit.msc”打开本地组策略编辑器  
+计算机配置-管理模板-系统-系统还原-配置为“已禁用”  
+我的电脑->属性->系统保护->关闭C盘系统保护，配置里删除此驱动盘的所有还原点
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>删除休眠文件  </p>
+<pre class="line-numbers language-html"><code class="language-html">win+x进行管理员命令行， powercfg -h off 删除休眠文件
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="英朗应急搭电教程"><a href="#英朗应急搭电教程" class="headerlink" title="英朗应急搭电教程"></a>英朗应急搭电教程</h2><p>启动时，如果发动机没有正常工作，车头传来嗒嗒声，同时仪表盘黄色图标亮起，说明电压过低，需要应急搭电来启动发动机。  </p>
+<p>如果启动发动机发现电瓶电量不足，不要试图多次点火，这样只会加快电瓶剩余电量的消耗，如果电瓶全部消耗光，会使搭线方式启动更困难。  </p>
+<p>需要施救车或车用搭电宝  </p>
+<pre class="line-numbers language-html"><code class="language-html">别克全新英朗用的是风帆蓄电池电瓶，带自动启停系统的车辆配备AGM蓄电池。  
+
+电瓶一般使用寿命是3~5年，当然保养得好的还可以更长。  
+通过电瓶测量仪或万用表来测量电瓶的电压。  
+正常情况下，电瓶的空载电压在13伏左右，满载电压一般不会低于12伏，启动电压不要低于9.5伏。  
+电瓶电压偏低，有可能就会出现车辆启动困难或无法启动。  
+
+当然仅使用电压表或万用表的电压挡不加负载来检查蓄电池的存电是否充足，是很难精确的。单单测量电压时，消耗电流极少，故而不会在电池内部产生大的压降，所以显示电压并不低，但若加上相当的负载，如打开大灯（负载电流10～15A）、按喇叭（负载电流6～12A），电瓶便会使灯光暗淡、喇叭沙哑，从而显示出存电不足。  
+
+别克全新英朗电瓶是60安的，带自动启停系统的车辆配备AGM蓄电池。  
+别克全新英朗电瓶一般使用年限是3~5年，当然保养得好的还可以更长。在正常驾驶方式下，可使蓄电池保持电量充足，车辆蓄电池无需维护。  
+短途驾驶和频繁启动发动机，会使蓄电池放电。  
+车辆闲置超过4周，会导致蓄电池放电。  
+断开车辆蓄电池负极端子的接线夹。在连接或断开车辆蓄电池之前，请确保点火开关已关闭。  
+于带自动启停系统的车辆，务必用另一个AGM蓄电池更换现用AGM蓄电池。AGM蓄电池可用蓄电池上的标签进行识别。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/yinglangdianping1.jpg" alt=""><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/yinglangdianping2.jpg" alt="">  </p>
+<p>正极符号旁的红色橡胶盖打开后，里面是正极的金属接触片；  </p>
+<blockquote>
+<p>正极线连接蓄电池的正极端口，负极线连接负极端口。（此操作应该保证两台车都处于熄火状态。）  </p>
+</blockquote>
+<p>接跨接电缆的规则是正极接正极，负极接负极。  </p>
+<p>进行车对车搭电时，先将正极接好，再接通负极。（切记不要让正负极碰到一起造成短路）  </p>
+<p>搭电电缆接通后，先启动施救车，随后启动被救车。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/yinglangdianping3.jpg" alt="">  </p>
+<p>拆跨接电缆时要先拆负极，再拆正极。  </p>
+<blockquote>
+<p>启动亏电车后，然后取下搭线，大概要让被救车辆着火15分钟左右，保证电池有足够的电量即可</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/yinglangdianping5.jpg" alt="">  </p>
+<p>使用车用搭电宝，接线方式是一样的。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/yinglangdianping4.jpg" alt="">  </p>
+<h2 id="txt导kindle用6寸pdf"><a href="#txt导kindle用6寸pdf" class="headerlink" title="txt导kindle用6寸pdf"></a>txt导kindle用6寸pdf</h2><pre class="line-numbers language-html"><code class="language-html">word粘贴txt全部内容  
+页面（纸张）大小自定义为宽 x 高 = 9cm x 12cm；
+页边距设为4个0.5cm；
+不要插入页码，占空间；
+另存为PDF，导入Kindle
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="SVN"><a href="#SVN" class="headerlink" title="SVN"></a>SVN</h2><h3 id="SVN创建分支"><a href="#SVN创建分支" class="headerlink" title="SVN创建分支"></a>SVN创建分支</h3><p>创建初始化svn时，将项目包在一个总目录下面。</p>
+<p>选中要创建分支的最外层目录(总目录)，右键TortoiseSVN-&gt;Branch/tag…<br>To path 点击三个点，选择新建欲新建的分支名，如”/branches/anyTemperatureFindZero”</p>
+<p>以后编辑删除某分支，直接进/branches/下对应分支操作<br>编辑主分支，直接进/trunk/下操作</p>
+<h3 id="SVN分支合并到主干"><a href="#SVN分支合并到主干" class="headerlink" title="SVN分支合并到主干"></a>SVN分支合并到主干</h3><p>如果一个主干有多个分支，其中某个分支要合并主干时，先将主干代码合并到此分支后，再将此分支合并到主干。  </p>
+<p>目的是让当前合并的分支保持和主干一样最新的代码后，再重新将分支新开发的代码合并到主干，这样不会遗漏别的分支合并到主干的代码。  </p>
+<h3 id="提交错误代码后"><a href="#提交错误代码后" class="headerlink" title="提交错误代码后"></a>提交错误代码后</h3><p>假设原始Revsion 4，提交错误代码后变成Revsion 5，<br>则TortoiseSVN-&gt;Show log，选中Revsion 4后右键Revert to this version<br>修复错误正确后，重新SVN Commit变成Revsion 6，<br>覆盖掉错误的Revsion 5，既能避免别人更新到错误的提交代码，又能看到曾经的错误提交内容</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/01/11/diary-20210111-1/" class="b-link-green">笔记2021年1月</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/01/25/diary-20210125-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/12.jpg" class="responsive-img" alt="Linux系统的使用实践">
+                        
+                        <span class="card-title">Linux系统的使用实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            纯Python创建服务器不安装任何软件实现局域网快速共享文件,只利用python创建一个简易的单线程服务器。  
+windows的命令行模式下检查python版本。  
+python -V  命令行进入想分享的目录，输入以下命令，即可创建以
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-01-25
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Python/" target="_blank">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Linux/" target="_blank">
+                        <span class="chip bg-color">Linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/01/07/diary-20210107-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/7.jpg" class="responsive-img" alt="AndroidStudio调试及生成jar供unity3d调用">
+                        
+                        <span class="card-title">AndroidStudio调试及生成jar供unity3d调用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            添加UI部件ResourceManager模式选择Android，找到/app/res/layout/activity_main.xml，新建工程默认的活动页面，点击可切换Code模式或Design模式，这里可以添加修改UI或布局。  
+U
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-01-07
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/AndroidStudio/" target="_blank">
+                        <span class="chip bg-color">AndroidStudio</span>
+                    </a>
+                    
+                    <a href="/diary/tags/unity3d/" target="_blank">
+                        <span class="chip bg-color">unity3d</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

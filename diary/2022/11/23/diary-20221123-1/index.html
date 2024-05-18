@@ -1,0 +1,1889 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Android实践(弹窗、更新、文件选择、数据库), 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="安卓防抖只响应最后一次public final class AppUtils {
+    private static long nLastClickTime;
+    /*是否双击*/
+    public static boolean ">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Android实践(弹窗、更新、文件选择、数据库) | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/30.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Android实践(弹窗、更新、文件选择、数据库)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Ubuntu/" target="_blank">
+                                <span class="chip bg-color">Ubuntu</span>
+                            </a>
+                        
+                            <a href="/diary/tags/Android/" target="_blank">
+                                <span class="chip bg-color">Android</span>
+                            </a>
+                        
+                            <a href="/diary/tags/JNI/" target="_blank">
+                                <span class="chip bg-color">JNI</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-11-23
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        seanzs
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.4k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        16 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="安卓防抖"><a href="#安卓防抖" class="headerlink" title="安卓防抖"></a>安卓防抖</h2><h3 id="只响应最后一次"><a href="#只响应最后一次" class="headerlink" title="只响应最后一次"></a>只响应最后一次</h3><pre class="line-numbers language-html"><code class="language-html">public final class AppUtils {
+    private static long nLastClickTime;
+    /*是否双击*/
+    public static boolean isFastDoubleClick() {
+        long time = System.currentTimeMillis();
+        if (Math.abs(time - nLastClickTime) &lt; 500) {
+            return true;
+        }
+        nLastClickTime = time;
+        return false;
+    }
+    /*一定时间内连续点击,只响应处理最后一次*/
+    private static Timer timer;
+    public static void isMultiClick(TimerTask task,long timeRange) {
+        if(timer!=null){
+            timer.cancel();
+        }
+        timer=new Timer();
+        timer.schedule(task,timeRange);
+    }
+}
+
+
+timer.schedule(task, 3000); // 延时3s 执行TimeTask的run方法
+timer.schedule(task,3000,5000);//3秒后每隔5秒执行一次
+
+public void testChangeBool(){
+    TimerTask task=new TimerTask() {
+        @Override
+        public void run() {
+            Log.d("zszszs","task");
+        }
+    };
+    AppUtils.isMultiClick(task,2000);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="一段时间内只响应一次"><a href="#一段时间内只响应一次" class="headerlink" title="一段时间内只响应一次"></a>一段时间内只响应一次</h3><pre class="line-numbers language-html"><code class="language-html">//                if(mVM.fang_dou()){
+//                    return;
+//                }
+//                防抖后处理
+
+// 滑动条改变值后发事件的防抖
+    private long lastClickTime;
+    private long interval=100;
+    public boolean fang_dou(){
+        if(System.currentTimeMillis()-lastClickTime&lt;interval){
+            return true;
+        }
+        lastClickTime=System.currentTimeMillis();
+        return false;
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ubuntu自定义命令"><a href="#ubuntu自定义命令" class="headerlink" title="ubuntu自定义命令"></a>ubuntu自定义命令</h2><p>自定义自己的命令</p>
+<pre class="line-numbers language-html"><code class="language-html">// 可以建一个文件夹，专门储存自己的脚本
+mkdir my-commands 
+// 定义自己的命令，例：定义 Astro，表示登录一个叫“Astro"的服务器  
+vim Astro
+// 编辑内容如下：  
+#!/bin/bash 
+sshpass -p xxx ssh name@xxx.xxx  
+
+// :wq保存关闭，在修改文件权限  
+sudo chmod 777 Astro
+
+// 运行它
+./Astro 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>将命令加入环境变量  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo vi /etc/environment
+其中有PATH="/usr ...."
+在双引号中内容的末端加上 :/home/luyi/my-commands，即
+PATH="/usr....:/home/luyi/my-commands"
+然后保存退出。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>重载环境变量  </p>
+<pre class="line-numbers language-html"><code class="language-html">source /etc/environment
+
+/etc/environment 中的PATH值会被读取。系统的命令即PATH中的各个路径下的脚本名字。新的PATH值中有 /home/luyi/my-commands 路径，所以该路径下的脚本名字也变成新的命令。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="xml绘制"><a href="#xml绘制" class="headerlink" title="xml绘制"></a>xml绘制</h2><p>ImageButton 中 selector切换背景图android:background=   ，selector切换前景图android:src=</p>
+<h3 id="点击效果的图片按钮"><a href="#点击效果的图片按钮" class="headerlink" title="点击效果的图片按钮"></a>点击效果的图片按钮</h3><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>android.widget.Button</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>background</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/selector_btn_one<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">app:</span>layout_constraintTop_toTopOf</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>parent<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">app:</span>layout_constraintStart_toStartOf</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>parent<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_marginLeft</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>20dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>按钮1<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>textColor</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@color/white<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>textSize</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>25dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>120dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>60dp<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selector</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>drawable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/btn_normal<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">android:</span>state_pressed</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>drawable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/btn_click<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">android:</span>state_pressed</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selector</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="自定义纯色圆角背景"><a href="#自定义纯色圆角背景" class="headerlink" title="自定义纯色圆角背景"></a>自定义纯色圆角背景</h3><pre class="line-numbers language-html"><code class="language-html">//maptoolbtn_down.xml:
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>shape</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>shape</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>rectangle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>corners</span> <span class="token attr-name"><span class="token namespace">android:</span>topLeftRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>10dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>topRightRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>10dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>bottomLeftRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>bottomRightRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>    <span class="token comment" spellcheck="true">&lt;!-- 设置圆角弧度 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>solid</span> <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ffffff<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>   <span class="token comment" spellcheck="true">&lt;!-- 设置背景颜色 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stroke</span> <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ffffff<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">android:</span>width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>5dp<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- 设置边框颜色以及宽度 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>shape</span><span class="token punctuation">></span></span>
+
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ImageButton</span>
+                <span class="token attr-name"><span class="token namespace">android:</span>background</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/maptoolbtn_down<span class="token punctuation">"</span></span>
+                <span class="token attr-name"><span class="token namespace">android:</span>scaleType</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>fitCenter<span class="token punctuation">"</span></span>
+                <span class="token attr-name"><span class="token namespace">android:</span>src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/maptool_btn_3<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="带点击效果背景selector切换背景"><a href="#带点击效果背景selector切换背景" class="headerlink" title="带点击效果背景selector切换背景"></a>带点击效果背景selector切换背景</h3><pre class="line-numbers language-html"><code class="language-html">//maptoolbtn_top_clickstate.xml:
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>selector</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>state_pressed</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>shape</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>shape</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>rectangle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>corners</span> <span class="token attr-name"><span class="token namespace">android:</span>topLeftRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>topRightRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>bottomLeftRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>bottomRightRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>    <span class="token comment" spellcheck="true">&lt;!-- 设置圆角弧度 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>solid</span> <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ffffff<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>   <span class="token comment" spellcheck="true">&lt;!-- 设置背景颜色 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stroke</span> <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ffffff<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">android:</span>width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>5dp<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- 设置边框颜色以及宽度 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>shape</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span> <span class="token attr-name"><span class="token namespace">android:</span>state_pressed</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>shape</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>shape</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>rectangle<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>corners</span> <span class="token attr-name"><span class="token namespace">android:</span>topLeftRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>topRightRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>100dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>bottomLeftRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>bottomRightRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>    <span class="token comment" spellcheck="true">&lt;!-- 设置圆角弧度 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>solid</span> <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#979393<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>   <span class="token comment" spellcheck="true">&lt;!-- 设置背景颜色 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stroke</span> <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ffffff<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">android:</span>width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>5dp<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span> <span class="token comment" spellcheck="true">&lt;!-- 设置边框颜色以及宽度 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>shape</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>selector</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>android.widget.Button</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>background</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/maptoolbtn_top_clickstate<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>120dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>120dp<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="自定义边框-上下左右"><a href="#自定义边框-上下左右" class="headerlink" title="自定义边框 (上下左右)"></a>自定义边框 (上下左右)</h3><pre class="line-numbers language-html"><code class="language-html"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>layer-list</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>item</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>left</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>-3dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>right</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>-3dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>top</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>-3dp<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>shape</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>corners</span> <span class="token attr-name"><span class="token namespace">android:</span>topLeftRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span>
+                <span class="token attr-name"><span class="token namespace">android:</span>topRightRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span>
+                <span class="token attr-name"><span class="token namespace">android:</span>bottomLeftRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span>
+                <span class="token attr-name"><span class="token namespace">android:</span>bottomRightRadius</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>0dp<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>    <span class="token comment" spellcheck="true">&lt;!-- 设置圆角弧度 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>solid</span> <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#aeaeae<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>   <span class="token comment" spellcheck="true">&lt;!-- 设置背景颜色 --></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stroke</span>
+                <span class="token attr-name"><span class="token namespace">android:</span>width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>2dp<span class="token punctuation">"</span></span>
+                <span class="token attr-name"><span class="token namespace">android:</span>color</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#ff0000<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>shape</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>item</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>layer-list</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="代码切换imagebutton状态"><a href="#代码切换imagebutton状态" class="headerlink" title="代码切换imagebutton状态"></a>代码切换imagebutton状态</h3><pre class="line-numbers language-html"><code class="language-html">boolean btnClicked=false;
+    ImageButton btn1;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btn1=findViewById(R.id.btn1);
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnClicked=!btnClicked;
+                if(btnClicked){
+                    //背景图background
+                    btn1.setBackgroundResource(R.drawable.maptoolbtn_top_clickstate_bg_black);
+                    //前景图src
+                    btn1.setImageResource(R.drawable.maptool_btn_1_black);
+                }else{
+                    btn1.setBackgroundResource(R.drawable.maptoolbtn_top_clickstate_bg);
+                    btn1.setImageResource(R.drawable.maptool_btn_1);
+                }
+            }
+        });
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="基于DialogFragment做弹窗"><a href="#基于DialogFragment做弹窗" class="headerlink" title="基于DialogFragment做弹窗"></a>基于DialogFragment做弹窗</h2><pre><code>1. 新建Java类Fragment_Search.java，基类DialogFragment
+2. 新建xml布局，放组件
+//layout_btn.xml
+&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bac"&gt;
+     &lt;Button
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          android:id="@+id/button1"
+          android:layout_width="90dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="关闭" /&gt;
+&lt;/androidx.constraintlayout.widget.ConstraintLayout&gt;
+
+
+3. 重写覆盖方法Override onCreate和onCreateView
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view=inflater.inflate(R.layout.layout_btn,container,false);
+        Button btn_close=view.findViewById(R.id.button1);
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss(); //关闭对话框
+            }
+        });
+
+        return view;
+    }
+4. 弹出对话框
+&lt;FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/&gt;
+
+getSupportFragmentManager().beginTransaction()
+                        .add(R.id.frame_layout,new Fragment_Search())
+            .addToBackStack(null)
+                        .commit();
+</code></pre><h2 id="Button总是显示在最顶层解决"><a href="#Button总是显示在最顶层解决" class="headerlink" title="Button总是显示在最顶层解决"></a>Button总是显示在最顶层解决</h2><p>从Android SDK 21（即5.0）开始，Button控件按下自带阴影效果，阴影效果相当于是在Z轴的一个分量，所以导致Button总是在最顶层显示。<br>因此解决这个问题最简单办法就是去掉阴影效果，加上以下代码即可：  </p>
+<pre class="line-numbers language-html"><code class="language-html">android:stateListAnimator="@null"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>或者干脆直接用TextView代替Button使用，因为Button实际也是继承TextView  </p>
+<h2 id="Fragment退栈"><a href="#Fragment退栈" class="headerlink" title="Fragment退栈"></a>Fragment退栈</h2><p>Fragment不能独立存在，必须嵌入到Activity中使用，所以Fragment生命周期直接受所在的Activity影响。  </p>
+<p>在Activity中创建Fragment时，Fragment处于启动状态，当Activity被暂停时，其中的所有Fragment也被暂停，当Activity被销毁时，所有在该Activity中的Fragment也被销毁。当一个Activity处于运行状态时，可以单独地对每一个Fragment进行操作，如添加或删除，当添加时，Fragment处于启动状态，当删除时，Fragment处于销毁状态。 </p>
+<pre class="line-numbers language-html"><code class="language-html">getSupportFragmentManager().beginTransaction()
+                        .add(R.id.frame_layout,new BlankAFragment())
+                        .commit();
+点击back键，退出当前Activity
+getSupportFragmentManager().beginTransaction()
+                        .add(R.id.frame_layout,new BlankAFragment())
+                        .addToBackStack(null)
+                        .commit();
+点击back键，退出刚加载的Fragment
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="版本检测，下载，安装新版本apk"><a href="#版本检测，下载，安装新版本apk" class="headerlink" title="版本检测，下载，安装新版本apk"></a>版本检测，下载，安装新版本apk</h2><pre class="line-numbers language-html"><code class="language-html">1. App端向服务端发送网络请求，获取App的最新版本号信息，进行比较，如果服务端返回的版本号大于当前App的版本号，则开启第二步，下载新版本App；  
+2. 有新版本App时，开启下载，并在界面上给出下载进度提示，增加交互性;  
+3. 在下载达到100%的进度时，通过代码打开apk实现安装;  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="版本检测"><a href="#版本检测" class="headerlink" title="版本检测"></a>版本检测</h3><p>版本检测就是通过发送网络请求至App的服务端，从服务端查询到最新版App的版本号是多少，一般来说，可以通过请求静态资源（手动配置文件等）或动态接口的方式来获取最新的版本号。<br>静态资源的话主要就是在服务端放置一个可以被访问的配置文件，其中写明了最新的版本号是多少；<br>动态接口的话就是服务端维护一个接口，可以返回版本号，好处就是可以与数据库结合，做一些更加复杂的操作，例如维护版本更新记录等。  </p>
+<p>为了简单表达，我们使用第一种静态资源的方式，在服务端放置一个文本文件version，内容为JSON格式。其访问地址为<a href="http://host/app/version，访问后得到的内容形如" target="_blank" rel="noopener">http://host/app/version，访问后得到的内容形如</a>  </p>
+<pre class="line-numbers language-html"><code class="language-html">{
+    "versionCode": 1,
+    "fileName" : "abc-20210806.apk"
+}
+
+其中，versionCode是最新版本App的versionCode（Android应用的配置属性），fileName是最新版App的文件名称，用来配合着做文件下载。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>App端检测版本的代码：  </p>
+<pre class="line-numbers language-html"><code class="language-html">RetrofitRequest.sendGetRequest(Constant.URL_APP_VERSION, new RetrofitRequest.ResultHandler(context) {
+    ...
+    @Override
+    public void onResult(String response) {
+        if (response == null || response.trim().length() == 0) {
+            Toast.makeText(context, R.string.layout_version_no_new, Toast.LENGTH_SHORT).show();
+            LoadingDialog.close();
+            return;
+        }
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            if (!jsonObject.has("versionCode") || !jsonObject.has("fileName")) {
+                Toast.makeText(context, R.string.layout_version_no_new, Toast.LENGTH_SHORT).show();
+                LoadingDialog.close();
+                return;
+            }
+            newVersionCode = jsonObject.getInt("versionCode");
+            newFileName = jsonObject.getString("fileName");
+            int versionCode = VersionUtil.getVersionCode(context);
+            LoadingDialog.close();
+            if (newVersionCode > versionCode) {
+                showUpdateDialog(newFileName);
+            } else {
+                if (!isAutoCheck) {
+                    Toast.makeText(context, R.string.layout_version_no_new, Toast.LENGTH_SHORT).show();
+                }
+            }
+        } catch (JSONException e) {
+            Toast.makeText(context, R.string.layout_version_no_new, Toast.LENGTH_SHORT).show();
+            LoadingDialog.close();
+        }
+    }
+...
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中newVersionCode &gt; versionCode就是最服务器端的版本号与本App的版本进行比较的代码，根据比较结果，如果当前不是最新版本，则显示更新提醒对话框showUpdateDialog(newFileName)。  </p>
+<pre class="line-numbers language-html"><code class="language-html">private void showUpdateDialog(final String fileName) {
+    ConfirmDialog dialog = new ConfirmDialog(context, new ConfirmDialog.OnClickListener() {
+        @Override
+        public void onConfirm() {
+            showDownloadDialog(fileName);
+        }
+    });
+    dialog.setTitle(R.string.note_confirm_title);
+    dialog.setContent(R.string.layout_version_new);
+    dialog.setConfirmText(R.string.layout_yes);
+    dialog.setCancelText(R.string.layout_no);
+    dialog.show();
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="下载新版本apk"><a href="#下载新版本apk" class="headerlink" title="下载新版本apk"></a>下载新版本apk</h3><p>用户在更新对话框中点击“是”时，表示需要下载最新版apk，此时显示下载进度对话框，并启动下载，实时刷新下载进度：  </p>
+<pre class="line-numbers language-html"><code class="language-html">private void showDownloadDialog(String fileName) {
+    Builder builder = new Builder(context);
+
+    View view = LayoutInflater.from(context).inflate(R.layout.dialog_download, null);
+    proDownload = (ProgressBar) view.findViewById(R.id.pro_download);
+    tvPercent = (TextView) view.findViewById(R.id.txt_percent);
+    tvKbNow = (TextView) view.findViewById(R.id.txt_kb_now);
+    tvKbAll = (TextView) view.findViewById(R.id.txt_kb_all);
+
+    Button btnCancel = (Button) view.findViewById(R.id.btn_cancel);
+    btnCancel.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (downloadDialog != null) {
+                downloadDialog.dismiss();
+            }
+            cancelUpdate = true;
+        }
+    });
+
+    downloadDialog = builder.create();
+    downloadDialog.setCanceledOnTouchOutside(false);
+    downloadDialog.show();
+    downloadDialog.getWindow().setContentView(view);
+
+    downloadApk(fileName);
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>下载的后台线程和前端百分比更新动作  </p>
+<pre class="line-numbers language-html"><code class="language-html">private void downloadApk(String fileName) {
+    ExecutorService executorService = Executors.newFixedThreadPool(1);
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(Constant.URL_CONTRACT_BASE)
+            .callbackExecutor(executorService)
+            .build();
+
+    String url = String.format(Constant.URL_APP_DOWNLOAD, fileName);
+    FileRequest fileRequest = retrofit.create(FileRequest.class);
+    Call<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResponseBody</span><span class="token punctuation">></span></span> call = fileRequest.download(url);
+    call.enqueue(new Callback<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResponseBody</span><span class="token punctuation">></span></span>() {
+        @Override
+        public void onResponse(Call<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResponseBody</span><span class="token punctuation">></span></span> call, Response<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResponseBody</span><span class="token punctuation">></span></span> response) {
+            if (response.isSuccessful()) {
+                if (writeResponseBodyToDisk(response.body())) {
+                    downloadDialog.dismiss();
+                } else {
+                    mHandler.sendEmptyMessage(DOWNLOAD_ERROR);
+                }
+            } else {
+                mHandler.sendEmptyMessage(DOWNLOAD_ERROR);
+            }
+        }
+
+        @Override
+        public void onFailure(Call<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ResponseBody</span><span class="token punctuation">></span></span> call, Throwable t) {
+            mHandler.sendEmptyMessage(DOWNLOAD_ERROR);
+        }
+    });
+}
+
+private boolean writeResponseBodyToDisk(ResponseBody body) {
+    savePath = StorageUtil.getDownloadPath(context);
+    File apkFile = new File(savePath, newFileName);
+    InputStream inputStream = null;
+    OutputStream outputStream = null;
+    try {
+        byte[] fileReader = new byte[4096];
+        long fileSize = body.contentLength();
+        long fileSizeDownloaded = 0;
+        inputStream = body.byteStream();
+        outputStream = new FileOutputStream(apkFile);
+
+        BigDecimal bd1024 = new BigDecimal(1024);
+        totalByte = new BigDecimal(fileSize).divide(bd1024, BigDecimal.ROUND_HALF_UP).setScale(0).intValue();
+
+        while (!cancelUpdate) {
+            int read = inputStream.read(fileReader);
+            if (read == -1) {
+                mHandler.sendEmptyMessage(DOWNLOAD_FINISH);
+                break;
+            }
+            outputStream.write(fileReader, 0, read);
+            fileSizeDownloaded += read;
+            progress = (int) (((float) (fileSizeDownloaded * 100.0 / fileSize)));
+            downByte = new BigDecimal(fileSizeDownloaded).divide(bd1024, BigDecimal.ROUND_HALF_UP).setScale(0).intValue();
+            mHandler.sendEmptyMessage(DOWNLOAD_ING);
+        }
+        outputStream.flush();
+        return true;
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    } finally {
+        if (outputStream != null) {
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (inputStream != null) {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+private void showProgress() {
+    proDownload.setProgress(progress);
+    tvPercent.setText(progress + "%");
+    tvKbAll.setText(totalByte + "Kb");
+    tvKbNow.setText(downByte + "Kb");
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装apk"><a href="#安装apk" class="headerlink" title="安装apk"></a>安装apk</h3><p>最新版本的apk下载完成后，调用安装代码执行安装动作。新旧版Android SDK安装方式略有区别，详见代码  </p>
+<pre class="line-numbers language-html"><code class="language-html">private void installApk() {
+    File apkFile = new File(savePath, newFileName);
+    if (!apkFile.exists()) {
+        return;
+    }
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Uri contentUri = FileProvider.getUriForFile(context, context.getPackageName() + ".fileprovider", apkFile);
+        intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+    } else {
+        intent.setDataAndType(Uri.parse("file://" + apkFile.toString()), "application/vnd.android.package-archive");
+    }
+    context.startActivity(intent);
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Android端的版本更新相对比较自由，不受应用商店的限制。实现起来思路清晰，各环节一步步走下来还算简单，只是这其中有几点需要开发者注意：  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 这个的版本号versionCode对应的是build.gradle中的versionCode不是versionName，Android系统也是根据versionCode来确定安装的应用是否为新版本；
+2. 想要在进度条中准确显示下载进度的话，App在下载时应能够读取到apk的大小，如果apk是以静态资源形式提供的，还比较方便，一般从web服务器上都能够读到，如上述的代码body.contentLength()。如果是通过从服务端的文件流接口返回的话，一定要让文件流接口正确返回Http请求的Content-Length属性，否则无法读取到apk的大小，就无法准确的表达进度了。
+3. 上述的演示操作是用户主动更新，如果想要做后台无交互的自动更新，则只需要修改一个构造参数，使用new UpdateManager(this, UpdateManager.CHECK_AUTO).checkUpdate()即可，检测过程不会有loading效果。
+4. 动态权限申请、Dialog定制等不是本文的重点，但源码完整可用，包含这部分内容。
+5. 服务端版本配置文件和下载程序代码，都放置在源码的versionConfig文件夹内，仅供参考。
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="简易弹窗和自定义内容"><a href="#简易弹窗和自定义内容" class="headerlink" title="简易弹窗和自定义内容"></a>简易弹窗和自定义内容</h2><pre class="line-numbers language-html"><code class="language-html">import android.app.AlertDialog;  
+import android.widget.Toast;  
+
+AlertDialog.Builder alertDialog=new AlertDialog.Builder(MainActivity.this)
+        .setTitle("提示:")
+        .setMessage("为避免对激光头的损坏，如果在车载或背包模式下使用，请将点频调至最高档")
+        .setCancelable(false)
+        .setPositiveButton("我已知晓",null);
+AlertDialog dialog=alertDialog.create();
+dialog.show();
+
+//        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(24);
+//        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+
+dialog.setContentView(R.layout.layout1);
+Button button = dialog.findViewById(R.id.button1);
+button.setText("sldfjslfjlsfjsf");
+button.setTextColor(Color.RED);
+button.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(getApplicationContext(),"恭喜恭喜",Toast.LENGTH_LONG).show();
+        dialog.dismiss();
+    }
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Android中Room数据库"><a href="#Android中Room数据库" class="headerlink" title="Android中Room数据库"></a>Android中Room数据库</h2><p>Sqlite是Android自带的数据库，因此可以直接引用，而无需导入第三方库.<br>首先需要说明的是，Room不是数据库，而是数据库框架。它是GOOGLE推出的，基于SQLLite的框架。  </p>
+<pre class="line-numbers language-html"><code class="language-html">默认存储地址: /data/data/com.yourproj.yourapp/databases/myDemoDB  
+在Device Manager下的DeviceFileExplorer可以查看设备文件存储  
+
+Android Studio自带Room数据库查看工具
+View->Tools Windows->App Inspector打开，运行App后可在AppInspector视图操作Room数据库
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Android文件选择器亲测"><a href="#Android文件选择器亲测" class="headerlink" title="Android文件选择器亲测"></a>Android文件选择器亲测</h2><pre class="line-numbers language-html"><code class="language-html">1. 先在Manifest中注册相关权限:   
+AndroidManifest.xml中 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>uses-permission</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.permission.READ_EXTERNAL_STORAGE<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>  
+2. 使用前先检查是否有权限，若无手动申请  
+    if(ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+        Log.d("zszszs","没有权限，需要手动申请");
+        ActivityCompat.requestPermissions(MainActivity.this,new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE
+        },114);
+    }else{
+        Log.d("zszszs","有权限，无事发生");
+    }
+3. 使用时：  
+    Button btn1= findViewById(R.id.btn_choose_file);
+    btn1.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent =new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,false);
+            intent.addCategory(intent.CATEGORY_OPENABLE);
+            startActivityForResult(intent,115);
+        }
+    });  
+
+。。。。。。  
+
+@Override
+protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    if (resultCode==RESULT_OK&amp;&amp;requestCode==115){
+        String path="123";
+        Uri uri=data.getData();
+        try{
+            path=FileChooseUtil.getPath(this,uri);
+            textView1.setText(path);
+            Log.d("zszszs",path);
+        }catch (Exception e){
+            Log.d("zszszs",e.toString());
+        }finally {
+            if(path==null){
+                Log.d("zszszs","读取文件异常");
+            }
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2022/11/23/diary-20221123-1/" class="b-link-green">Android实践(弹窗、更新、文件选择、数据库)</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2022/11/27/diary-20221127-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/21.jpg" class="responsive-img" alt="Android JNI实践">
+                        
+                        <span class="card-title">Android JNI实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            JNI学习使用java与本地已编译的代码交互，通常会丧失平台可移植性。但是，有些情况下这样做是可以接受的，甚至是必须的，比如，使用一些旧的库，与硬件、操作系统进行交互，或者为了提高程序的性能。JNI标准至少保证本地代码能工作在任何Java 
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-11-27
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Android/" target="_blank">
+                        <span class="chip bg-color">Android</span>
+                    </a>
+                    
+                    <a href="/diary/tags/JNI/" target="_blank">
+                        <span class="chip bg-color">JNI</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2022/11/16/diary-20221116-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/9.jpg" class="responsive-img" alt="Android动态界面使用fragment">
+                        
+                        <span class="card-title">Android动态界面使用fragment</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            下拉刷新SwipeRefreshLayout只使用下拉刷新的时候，往往可以使用更加简洁的SwipeRefreshLayout来实现.  
+
+常用方法  
+
+setOnRefreshListener：设置刷新监听器。需要重写监听器OnRefr
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-11-16
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Android/" target="_blank">
+                        <span class="chip bg-color">Android</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

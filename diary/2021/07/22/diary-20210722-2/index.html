@@ -1,0 +1,1813 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Puerts-Unreal使用手册, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="两种使用方式方式一：自行启动虚拟机
+在合适的地方（比如GameInstance）根据需要启动一个或者多个虚拟机
+
+如果启动多个虚拟机，这些虚拟机间是相互隔离的
+
+
+通过Start函数启动一个脚本，作为脚本逻辑的入口（类似c的main函数）
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Puerts-Unreal使用手册 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/3.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Puerts-Unreal使用手册
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/UE4/" target="_blank">
+                                <span class="chip bg-color">UE4</span>
+                            </a>
+                        
+                            <a href="/diary/tags/puerts/" target="_blank">
+                                <span class="chip bg-color">puerts</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-07-22
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        12 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="两种使用方式"><a href="#两种使用方式" class="headerlink" title="两种使用方式"></a>两种使用方式</h2><h3 id="方式一：自行启动虚拟机"><a href="#方式一：自行启动虚拟机" class="headerlink" title="方式一：自行启动虚拟机"></a>方式一：自行启动虚拟机</h3><ul>
+<li><p>在合适的地方（比如GameInstance）根据需要启动一个或者多个虚拟机</p>
+<ul>
+<li>如果启动多个虚拟机，这些虚拟机间是相互隔离的</li>
+</ul>
+</li>
+<li><p>通过Start函数启动一个脚本，作为脚本逻辑的入口（类似c的main函数）</p>
+<ul>
+<li>Start可以传入一些数据作为参数，供脚本获取使用</li>
+</ul>
+</li>
+<li><p>在虚拟机里头的脚本可以按puerts的规则（后面的章节）和引擎交互</p>
+</li>
+</ul>
+<pre class="line-numbers language-c++"><code class="language-c++">UCLASS()
+class PUERTS_UNREAL_DEMO_API UTsGameInstance : public UGameInstance
+{
+public:
+    TSharedPtr<puerts::FJsEnv> JsEnv;
+
+    virtual void OnStart() override {
+        JsEnv = MakeShared<puerts::FJsEnv>();
+        TArray<TPair<FString, UObject*>> Arguments;
+        Arguments.Add(TPair<FString, UObject*>(TEXT("GameInstance"), this));
+        JsEnv->Start("QuickStart", Arguments);
+    }
+
+    virtual void Shutdown() override {
+        JsEnv.Reset();
+    }
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="方式二：自动绑定模式"><a href="#方式二：自动绑定模式" class="headerlink" title="方式二：自动绑定模式"></a>方式二：自动绑定模式</h3><p>该模式的优点是能做到特定写法的类能被UE编辑器识别</p>
+<ul>
+<li>命令行进入Plugins/Puerts目录，执行如下命令即可完成该模式的开启和依赖安装</li>
+</ul>
+<pre class="line-numbers language-shell"><code class="language-shell">node enable_puerts_module.js<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>例如这么一个类：</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">import</span> <span class="token operator">*</span> as UE <span class="token keyword">from</span> <span class="token string">'ue'</span>
+
+<span class="token keyword">class</span> <span class="token class-name">TS_Player</span> <span class="token keyword">extends</span> <span class="token class-name">UE<span class="token punctuation">.</span>Character</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> TS_Player<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后你在UE编辑器就能选择它</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/select_character.jpg" alt="select_character.png"></p>
+<ul>
+<li>能被UE识别的类，支持构造函数，支持override蓝图能override的方法，支持轴映射Axis、Action事件，支持RPC</li>
+</ul>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">TS_Player</span> <span class="token keyword">extends</span> <span class="token class-name">UE<span class="token punctuation">.</span>Character</span> <span class="token punctuation">{</span>
+    FpsCamera<span class="token punctuation">:</span> UE<span class="token punctuation">.</span>CameraComponent<span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//...</span>
+
+    <span class="token function">Constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> FpsCamera <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>CreateDefaultSubobjectGeneric<span class="token operator">&lt;</span>UE<span class="token punctuation">.</span>CameraComponent<span class="token operator">></span><span class="token punctuation">(</span><span class="token string">"FpsCamera"</span><span class="token punctuation">,</span> UE<span class="token punctuation">.</span>CameraComponent<span class="token punctuation">.</span><span class="token function">StaticClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        FpsCamera<span class="token punctuation">.</span><span class="token function">SetupAttachment</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>CapsuleComponent<span class="token punctuation">,</span> <span class="token string">"FpsCamera"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//...</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">MoveForward</span><span class="token punctuation">(</span>axisValue<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">AddMovementInput</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">GetActorForwardVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> axisValue<span class="token punctuation">,</span> <span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">MoveRight</span><span class="token punctuation">(</span>axisValue<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">AddMovementInput</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">GetActorRightVector</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> axisValue<span class="token punctuation">,</span> <span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">ReceiveBeginPlay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//...</span>
+    <span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="两种模式之间的关系"><a href="#两种模式之间的关系" class="headerlink" title="两种模式之间的关系"></a>两种模式之间的关系</h3><ul>
+<li><p>自动绑定模式是建立于自行启动虚拟机模式的基础上的，PuertsModule启动了一个虚拟机，然后做了些自动绑定蓝图，代码增量编译、增量刷新功能</p>
+</li>
+<li><p>两者可以并存，但要谨记你自己手动启动的虚拟机，和PuertsModule的虚拟机不是同一个，他们是相互隔离的</p>
+</li>
+</ul>
+<h2 id="脚本和引擎交互"><a href="#脚本和引擎交互" class="headerlink" title="脚本和引擎交互"></a>脚本和引擎交互</h2><p>这部分两种模式下都是通用的。</p>
+<h3 id="生成TypeScript声明文件"><a href="#生成TypeScript声明文件" class="headerlink" title="生成TypeScript声明文件"></a>生成TypeScript声明文件</h3><ul>
+<li><p>会对所有（C++/蓝图）的UCLASS，UPPROPERTY，UFUNCTION，USTRUCT，UENUM生成TypeScript声明</p>
+</li>
+<li><p>C++/蓝图均按TypeScript声明调用即可，除了C++类是常驻内存，蓝图需要手动加载之外，其它对象上的方法/属性访问等没区别</p>
+</li>
+<li><p>点击如下按钮进行声明文件的生成</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/puerts_gen_dts.jpg" alt="puerts_gen_dts.png"></p>
+<ul>
+<li>或者，也可以通过控制台命令生成声明文件：<code>Puerts.Gen</code><ul>
+<li>注：UE5 EA版的工具栏扩展按钮目前无法使用，故可用这种方式替代。</li>
+</ul>
+</li>
+</ul>
+<h3 id="成员及函数"><a href="#成员及函数" class="headerlink" title="成员及函数"></a>成员及函数</h3><pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token comment" spellcheck="true">//对象构造</span>
+<span class="token keyword">let</span> obj <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UE<span class="token punctuation">.</span>MainObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//成员访问</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"before set"</span><span class="token punctuation">,</span> obj<span class="token punctuation">.</span>MyString<span class="token punctuation">)</span>
+obj<span class="token punctuation">.</span>MyString <span class="token operator">=</span> <span class="token string">"PPPPP"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"after set"</span><span class="token punctuation">,</span> obj<span class="token punctuation">.</span>MyString<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//简单类型参数函数</span>
+<span class="token keyword">let</span> sum <span class="token operator">=</span> obj<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'sum'</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">//复杂类型参数函数</span>
+obj<span class="token punctuation">.</span><span class="token function">Bar</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">UE<span class="token punctuation">.</span>Vector</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//引用类型参数函数</span>
+<span class="token keyword">let</span> vectorRef <span class="token operator">=</span> <span class="token function">$ref</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">UE<span class="token punctuation">.</span>Vector</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+obj<span class="token punctuation">.</span><span class="token function">Bar2</span><span class="token punctuation">(</span>vectorRef<span class="token punctuation">)</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span><span class="token function">Bar</span><span class="token punctuation">(</span><span class="token function">$unref</span><span class="token punctuation">(</span>vectorRef<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//静态函数</span>
+<span class="token keyword">let</span> str1 <span class="token operator">=</span> UE<span class="token punctuation">.</span>JSBlueprintFunctionLibrary<span class="token punctuation">.</span><span class="token function">GetName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> str2 <span class="token operator">=</span> UE<span class="token punctuation">.</span>JSBlueprintFunctionLibrary<span class="token punctuation">.</span><span class="token function">Concat</span><span class="token punctuation">(</span><span class="token string">', '</span><span class="token punctuation">,</span> str1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+UE<span class="token punctuation">.</span>JSBlueprintFunctionLibrary<span class="token punctuation">.</span><span class="token function">Hello</span><span class="token punctuation">(</span>str2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//枚举</span>
+obj<span class="token punctuation">.</span><span class="token function">EnumTest</span><span class="token punctuation">(</span>UE<span class="token punctuation">.</span>EToTest<span class="token punctuation">.</span>V1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="蓝图-amp-其它资源加载"><a href="#蓝图-amp-其它资源加载" class="headerlink" title="蓝图&amp;其它资源加载"></a>蓝图&amp;其它资源加载</h3><pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token comment" spellcheck="true">//加载蓝图类</span>
+<span class="token keyword">let</span> bpClass <span class="token operator">=</span> UE<span class="token punctuation">.</span>Class<span class="token punctuation">.</span><span class="token function">Load</span><span class="token punctuation">(</span><span class="token string">'/Game/StarterContent/TestBlueprint.TestBlueprint_C'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//UE.XXX.Load等同于在C++里头写LoadObject&lt;XXX>，所以UE.Class.Load等同于C++的LoadObject&lt;UClass></span>
+<span class="token keyword">let</span> bpActor <span class="token operator">=</span> world<span class="token punctuation">.</span><span class="token function">SpawnActor</span><span class="token punctuation">(</span>bpClass<span class="token punctuation">,</span> undefined<span class="token punctuation">,</span> UE<span class="token punctuation">.</span>ESpawnActorCollisionHandlingMethod<span class="token punctuation">.</span>Undefined<span class="token punctuation">,</span> undefined<span class="token punctuation">,</span> undefined<span class="token punctuation">)</span> as UE<span class="token punctuation">.</span>TestBlueprint_C<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>蓝图类本质也是一种资源，用类似的方式也可以加载其它资源，比如例子和Static Mesh的加载：</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">let</span> bulletImpact <span class="token operator">=</span> UE<span class="token punctuation">.</span>ParticleSystem<span class="token punctuation">.</span><span class="token function">Load</span><span class="token punctuation">(</span><span class="token string">"/Game/BlockBreaker/ParticleSystems/PS_BulletImpact"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> rifle <span class="token operator">=</span> UE<span class="token punctuation">.</span>StaticMesh<span class="token punctuation">.</span><span class="token function">Load</span><span class="token punctuation">(</span><span class="token string">"/Game/BlockBreaker/Meshes/SM_Rifle"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="TArray、TSet、TMap"><a href="#TArray、TSet、TMap" class="headerlink" title="TArray、TSet、TMap"></a>TArray、TSet、TMap</h3><ul>
+<li>创建</li>
+</ul>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token comment" spellcheck="true">//TArray&lt;int></span>
+<span class="token keyword">let</span> a2 <span class="token operator">=</span> UE<span class="token punctuation">.</span><span class="token function">NewArray</span><span class="token punctuation">(</span>UE<span class="token punctuation">.</span>BuiltinInt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//TArray&lt;FString></span>
+<span class="token keyword">let</span> a3 <span class="token operator">=</span> UE<span class="token punctuation">.</span><span class="token function">NewArray</span><span class="token punctuation">(</span>UE<span class="token punctuation">.</span>BuiltinString<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//TArray&lt;UActor></span>
+<span class="token keyword">let</span> a4 <span class="token operator">=</span> UE<span class="token punctuation">.</span><span class="token function">NewArray</span><span class="token punctuation">(</span>UE<span class="token punctuation">.</span>Actor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//TArray&lt;FVector></span>
+<span class="token keyword">let</span> a5 <span class="token operator">=</span> UE<span class="token punctuation">.</span><span class="token function">NewArray</span><span class="token punctuation">(</span>UE<span class="token punctuation">.</span>Vector<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//TSet&lt;FString></span>
+<span class="token keyword">let</span> s1 <span class="token operator">=</span> UE<span class="token punctuation">.</span><span class="token function">NewSet</span><span class="token punctuation">(</span>UE<span class="token punctuation">.</span>BuiltinString<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//TMap&lt;FString, int></span>
+<span class="token keyword">let</span> m1 <span class="token operator">=</span> UE<span class="token punctuation">.</span><span class="token function">NewMap</span><span class="token punctuation">(</span>UE<span class="token punctuation">.</span>BuiltinString<span class="token punctuation">,</span> UE<span class="token punctuation">.</span>BuiltinInt<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>访问，按IDE的自动提示访问容器即可</li>
+</ul>
+<pre class="line-numbers language-typescript"><code class="language-typescript">a2<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token number">888</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+a2<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a2<span class="token punctuation">.</span><span class="token function">Num</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+m1<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token string">"John"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+m1<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span><span class="token string">"Che"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>m1<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token string">"John"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="ArrayBuffer"><a href="#ArrayBuffer" class="headerlink" title="ArrayBuffer"></a>ArrayBuffer</h3><p>处理网络消息需要用到这个</p>
+<h4 id="TypeScript访问C-的Buffer"><a href="#TypeScript访问C-的Buffer" class="headerlink" title="TypeScript访问C++的Buffer"></a>TypeScript访问C++的Buffer</h4><p>C++</p>
+<pre class="line-numbers language-c++"><code class="language-c++">UPROPERTY()
+FArrayBuffer ArrayBuffer;
+
+//设置内容
+ArrayBuffer.Data = "hello";
+ArrayBuffer.Length = 5;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TypeScript</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">let</span> ab <span class="token operator">=</span> obj<span class="token punctuation">.</span>ArrayBuffer<span class="token punctuation">;</span>
+<span class="token keyword">let</span> u8a1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span>ab<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> u8a1<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> u8a1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="TypeScript传ArrayBuffer给C"><a href="#TypeScript传ArrayBuffer给C" class="headerlink" title="TypeScript传ArrayBuffer给C++"></a>TypeScript传ArrayBuffer给C++</h2><p>C++</p>
+<pre class="line-numbers language-c++"><code class="language-c++">void UMainObject::ArrayBufferTest(const FArrayBuffer& Ab) const
+{
+    UE_LOG(LogTemp, Warning, TEXT("Ab(%p, %d)"), Ab.Data, Ab.Length);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TypeScript</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">21</span><span class="token punctuation">,</span><span class="token number">31</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span><span class="token function">ArrayBufferTest</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h3><p>引擎侧可以通过DYNAMIC_DELEGATE，DYNAMIC_MULTICAST_DELEGATE来主动调用TypeScript</p>
+<ul>
+<li><p>UI的用户操作、网络消息可以通过这个通知到TypeScript</p>
+</li>
+<li><p>如果希望导出个TypeScript函数给C++调用，也可以用这个</p>
+</li>
+</ul>
+<p>C++定义</p>
+<pre class="line-numbers language-c++"><code class="language-c++">DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FNotifyWithInt, int32, A);
+DECLARE_DYNAMIC_DELEGATE_RetVal_OneParam(FString, FNotifyWithStringRet, FString, A);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FNotifyWithRefString, FString&, A);
+
+UCLASS()
+class PUERTS_UNREAL_DEMO_API AMyActor : public AActor
+{
+    GENERATED_BODY()
+
+public:
+    UPROPERTY()
+    FNotifyWithInt NotifyWithInt;
+
+    UPROPERTY()
+    FNotifyWithRefString NotifyWithRefString;
+
+    UPROPERTY()
+    FNotifyWithStringRet NotifyWithStringRet;
+    //...
+};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TypeScript绑定</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">function</span> <span class="token function">MutiCast1</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">"MutiCast1&lt;&lt;&lt;"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">MutiCast2</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">warn</span><span class="token punctuation">(</span><span class="token string">"MutiCast2>>>"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+actor<span class="token punctuation">.</span>NotifyWithInt<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>MutiCast1<span class="token punctuation">)</span>
+actor<span class="token punctuation">.</span>NotifyWithInt<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>MutiCast2<span class="token punctuation">)</span>
+
+actor<span class="token punctuation">.</span>NotifyWithRefString<span class="token punctuation">.</span><span class="token function">Bind</span><span class="token punctuation">(</span><span class="token punctuation">(</span>strRef<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"NotifyWithRefString"</span><span class="token punctuation">,</span> <span class="token function">$unref</span><span class="token punctuation">(</span>strRef<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    $<span class="token keyword">set</span><span class="token punctuation">(</span>strRef<span class="token punctuation">,</span> <span class="token string">"out to NotifyWithRefString"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//引用参数输出</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+actor<span class="token punctuation">.</span>NotifyWithStringRet<span class="token punctuation">.</span><span class="token function">Bind</span><span class="token punctuation">(</span><span class="token punctuation">(</span>inStr<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">"////"</span> <span class="token operator">+</span> inStr<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>C++触发</p>
+<pre class="line-numbers language-c++"><code class="language-c++">NotifyWithInt.Broadcast(0);
+NotifyWithStringRet.ExecuteIfBound("hi...");
+if (NotifyWithRefString.IsBound())
+{
+    FString Str = TEXT("hello john che ");
+
+    NotifyWithRefString.Execute(Str);
+    UE_LOG(LogTemp, Warning, TEXT("NotifyWithRefString out ? %s"), *Str);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="扩展函数"><a href="#扩展函数" class="headerlink" title="扩展函数"></a>扩展函数</h3><p>UE有很多C++函数没有UFUNCTION标记，这种API要怎么调用呢？方式有两种：</p>
+<ul>
+<li>扩展函数，这是推荐的方式</li>
+<li>用Puerts一个未发布的代码生成器生成wrap代码</li>
+</ul>
+<p>以UObject::GetClass和UObject::FindFunction为例</p>
+<p>C++扩展</p>
+<pre class="line-numbers language-c++"><code class="language-c++">//ObjectExtension.h
+UCLASS()
+class UObjectExtension : public UExtensionMethods
+{
+    GENERATED_BODY()
+
+    UFUNCTION(BlueprintCallable, Category = "ObjectExtension")
+    static UClass *GetClass(UObject *Object);
+
+    UFUNCTION(BlueprintCallable, Category = "ObjectExtension")
+    static UFunction* FindFunction(UObject *Object, FName InName);
+};<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-c++"><code class="language-c++">//ObjectExtension.cpp
+#include "ObjectExtension.h"
+
+UClass * UObjectExtension::GetClass(UObject *Object)
+{
+    return Object->GetClass();
+}
+
+UFunction* UObjectExtension::FindFunction(UObject *Object, FName InName)
+{
+    return Object->FindFunction(InName);
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>要点：</p>
+<ul>
+<li>新建一个类继承自UExtensionMethods</li>
+<li>扩展函数的参数1就是被扩展类</li>
+</ul>
+<p>在TypeScript访问时，跟访问一个对象的成员方法类似</p>
+<ul>
+<li>ps，新增扩展函数需要重新生成声明文件</li>
+</ul>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">let</span> cls <span class="token operator">=</span> obj<span class="token punctuation">.</span><span class="token function">GetClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> func <span class="token operator">=</span> obj<span class="token punctuation">.</span><span class="token function">FindFunction</span><span class="token punctuation">(</span><span class="token string">"Func"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="自动绑定模式"><a href="#自动绑定模式" class="headerlink" title="自动绑定模式"></a>自动绑定模式</h2><h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><p>一个TypeScript满足如下以下三点，一个类才能被UE编辑器识别</p>
+<ul>
+<li>这个类继承自UE的类或者另一继承UE的类；</li>
+<li>类名和去掉.ts后缀的文件名相同；</li>
+<li>把这个类export default。</li>
+</ul>
+<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>和标准的typescript构造函数不一样，自动绑定模式被UE初始化调用的构造函数首字母需大写，也就是Constructor</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">TsTestActor</span> <span class="token keyword">extends</span> <span class="token class-name">UE<span class="token punctuation">.</span>Actor</span> <span class="token punctuation">{</span>
+    tickCount<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//注意，继承UE类的js类，构造函数必须大写开头</span>
+    <span class="token function">Constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>PrimaryActorTick<span class="token punctuation">.</span>bCanEverTick <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+        tickCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>构造函数中可以调用一些UE限定必须在构造函数调用的API，比如CreateDefaultSubobject</li>
+<li>如果一个类定义了构造函数，该类成员变量的初始化会被TypeScript接管，这时你在UE编辑器下设置的值将会无效</li>
+<li>如果没定义构造函数，则支持在UE编辑器手动设置成员变量值</li>
+<li>Constructor是UE调用的构造函数，不能在该函数中做js的初始化工作，比如no-blueprint标注的变量的初始化</li>
+</ul>
+<h3 id="自动绑定模式支持的数据类型"><a href="#自动绑定模式支持的数据类型" class="headerlink" title="自动绑定模式支持的数据类型"></a>自动绑定模式支持的数据类型</h3><p>只有用自动绑定模式支持的类型声明的字段、方法，才能被UE识别</p>
+<p><strong>直接映射的类型</strong></p>
+<p>void，number，string，bigint，boolean，UE模块下的UObject派生类、枚举、UStruct，TArray、TSet、TMap、TSubclassOf（类引用）、TSoftObjectPtr（软对象引用）、TSoftClassPtr（软类引用）</p>
+<p>注意：一个函数返回类型声明为void才是无返回值，如果一个函数不声明返回类型，等同于返回any类型，而自动半丁模式并不支持any类型</p>
+<p>如下是几个字段和方法的示例：</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">TsTestActor</span> <span class="token keyword">extends</span> <span class="token class-name">UE<span class="token punctuation">.</span>Actor</span> <span class="token punctuation">{</span>
+    tickCount<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+
+    actor<span class="token punctuation">:</span> UE<span class="token punctuation">.</span>Actor<span class="token punctuation">;</span> 
+
+    map<span class="token punctuation">:</span> UE<span class="token punctuation">.</span>TMap<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token punctuation">,</span> <span class="token keyword">number</span><span class="token operator">></span><span class="token punctuation">;</span>
+
+    arr<span class="token punctuation">:</span> UE<span class="token punctuation">.</span>TArray<span class="token operator">&lt;</span>UE<span class="token punctuation">.</span>Object<span class="token operator">></span><span class="token punctuation">;</span>
+
+    <span class="token keyword">set</span><span class="token punctuation">:</span> UE<span class="token punctuation">.</span>TSet<span class="token operator">&lt;</span><span class="token keyword">string</span><span class="token operator">></span><span class="token punctuation">;</span>
+
+    <span class="token function">Add</span><span class="token punctuation">(</span>a<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    e<span class="token punctuation">:</span> UE<span class="token punctuation">.</span>ETickingGroup<span class="token punctuation">;</span>
+
+    clsOfWidget<span class="token punctuation">:</span> UE<span class="token punctuation">.</span>TSubclassOf<span class="token operator">&lt;</span>UE<span class="token punctuation">.</span>Widget<span class="token operator">></span><span class="token punctuation">;</span>
+
+    softObject<span class="token punctuation">:</span> UE<span class="token punctuation">.</span>TSoftObjectPtr<span class="token operator">&lt;</span>UE<span class="token punctuation">.</span>Actor<span class="token operator">></span><span class="token punctuation">;</span>
+
+    softClass<span class="token punctuation">:</span> UE<span class="token punctuation">.</span>TSoftClassPtr<span class="token operator">&lt;</span>UE<span class="token punctuation">.</span>Actor<span class="token operator">></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>类型注解</strong></p>
+<p>TypeScript和UE两者间的数据类型丰富程度不一样，因而两者并不是一一映射的，比如UE里头的byte，int，float都对应TypeScript的number，那么我们如何告诉puerts生成我们所需的类型呢？puerts提供了类型注解，如下是几个例子：</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">TsTestActor</span> <span class="token keyword">extends</span> <span class="token class-name">UE<span class="token punctuation">.</span>Actor</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//@cpp:text</span>
+    <span class="token function">Foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">Bar</span><span class="token punctuation">(</span>p1<span class="token punctuation">:</span><span class="token keyword">number</span><span class="token comment" spellcheck="true">/*@cpp:int*/</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//@cpp:name</span>
+    Field<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>Foo的返回值是FText</li>
+<li>Bar的参数是int</li>
+<li>Field字段的类型是FName</li>
+<li>目前支持的类型注解支持的类型有：text，name，int，byte</li>
+</ul>
+<h3 id="其它注解"><a href="#其它注解" class="headerlink" title="其它注解"></a>其它注解</h3><p>除了类型注解，puerts还支持其它注解</p>
+<ul>
+<li>@no-blueprint</li>
+</ul>
+<p>表示不被UE编辑器识别，方法和字段均可用</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">TsTestActor</span> <span class="token keyword">extends</span> <span class="token class-name">UE<span class="token punctuation">.</span>Actor</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//@no-blueprint</span>
+    <span class="token function">TsOnlyMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><span class="token keyword">void</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//@no-blueprint</span>
+    TsOnlyField<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="rpc"><a href="#rpc" class="headerlink" title="rpc"></a>rpc</h3><p>可以通过decorator来设置方法、字段的RPC属性。</p>
+<p>注意：TypeScript的decorator默认不打开，需要在tsconfig.json上将experimentalDecorators属性设置为true</p>
+<ul>
+<li>rpc.flags</li>
+</ul>
+<p>为字段，方法设置flags</p>
+<ul>
+<li>rpc.condition</li>
+</ul>
+<p>为字段设置replicate condition</p>
+<pre class="line-numbers language-typescript"><code class="language-typescript"><span class="token keyword">class</span> <span class="token class-name">TsTestActor</span> <span class="token keyword">extends</span> <span class="token class-name">UE<span class="token punctuation">.</span>Actor</span> <span class="token punctuation">{</span>
+    @rpc<span class="token punctuation">.</span><span class="token function">flags</span><span class="token punctuation">(</span>rpc<span class="token punctuation">.</span>PropertyFlags<span class="token punctuation">.</span>CPF_Net <span class="token operator">|</span> rpc<span class="token punctuation">.</span>PropertyFlags<span class="token punctuation">.</span>CPF_RepNotify<span class="token punctuation">)</span>
+    @rpc<span class="token punctuation">.</span><span class="token function">condition</span><span class="token punctuation">(</span>rpc<span class="token punctuation">.</span>ELifetimeCondition<span class="token punctuation">.</span>COND_InitialOrOwner<span class="token punctuation">)</span>
+    dint<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+
+    @rpc<span class="token punctuation">.</span><span class="token function">flags</span><span class="token punctuation">(</span>rpc<span class="token punctuation">.</span>FunctionFlags<span class="token punctuation">.</span>FUNC_Net <span class="token operator">|</span> rpc<span class="token punctuation">.</span>FunctionFlags<span class="token punctuation">.</span>FUNC_NetClient<span class="token punctuation">)</span>
+    <span class="token function">Fire</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+
+    @rpc<span class="token punctuation">.</span><span class="token function">flags</span><span class="token punctuation">(</span>rpc<span class="token punctuation">.</span>FunctionFlags<span class="token punctuation">.</span>FUNC_Net <span class="token operator">|</span> rpc<span class="token punctuation">.</span>FunctionFlags<span class="token punctuation">.</span>FUNC_NetServer <span class="token operator">|</span> rpc<span class="token punctuation">.</span>FunctionFlags<span class="token punctuation">.</span>FUNC_NetReliable<span class="token punctuation">)</span>
+    <span class="token function">FireServer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//如果字段设置了CPF_RepNotify，需要增加“OnRep_字段名”为名字的方法</span>
+    <span class="token function">OnRep_dint</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="虚拟机切换"><a href="#虚拟机切换" class="headerlink" title="虚拟机切换"></a>虚拟机切换</h2><p>puerts同时支持V8和quickjs两种虚拟机，而V8目前有两套版本</p>
+<ul>
+<li>对于UE4.24及以下，android用的是7.4.288版本的v8，其它系统用的是7.7.299版本的v8</li>
+<li>对于高于4.24的版本，可以各操作性统一为8.4.371.19</li>
+<li>对于包大小苛刻的场景，可以选用quickjs</li>
+</ul>
+<p>默认提供的上述第一种V8版本。</p>
+<p>希望使用8.4.371.19的v8的话，先到<a href="https://github.com/Tencent/puerts/actions/workflows/build_v8.yml" target="_blank" rel="noopener">这里</a>下载编译好的V8，解压到Plugins/Puerts/ThirdParty下，然后把<a href="../../unreal/Puerts/Source/JsEnv/JsEnv.Build.cs">JsEnv.Build.cs</a>的UseNewV8修改为true</p>
+<p>希望使用quickjs的话，先到<a href="https://github.com/Tencent/puerts/actions/workflows//build_quickjs.yml" target="_blank" rel="noopener">这里</a>下载编译好的V8，解压到Plugins/Puerts/ThirdParty下，然后把<a href="../../unreal/Puerts/Source/JsEnv/JsEnv.Build.cs">JsEnv.Build.cs</a>的UseQuickjs修改为true  </p>
+<h2 id="关于使用puerts后的打包"><a href="#关于使用puerts后的打包" class="headerlink" title="关于使用puerts后的打包"></a>关于使用puerts后的打包</h2><p>因为打包需要将*.js一起打包，需要在Edit-&gt;Project Settings-&gt;Packageing下，Additional Non-Asset Directories to Package,添加Content/JavaScript目录。  </p>
+<pre><code>都说DefaultPuerts.ini或者Puerts.ini里要设置如下两行
+[/Script/Puerts.PuertsSetting]  
+AutoModeEnable=True  
+可是我的工程并不需要这两行也能打包运行呀。。
+</code></pre><h2 id="puerts里任意执行js脚本"><a href="#puerts里任意执行js脚本" class="headerlink" title="puerts里任意执行js脚本"></a>puerts里任意执行js脚本</h2><p>每次执行js的虚拟机环境都是新的，彼此变量并不联通。  </p>
+<p>TsGameInstance.h:  </p>
+<pre class="line-numbers language-c++"><code class="language-c++">#pragma once
+#include "JsEnv.h"
+#include "CoreMinimal.h"
+#include "Engine/GameInstance.h"
+#include "TsGameInstance.generated.h"
+
+UCLASS()
+class PUERTS_UNREAL_DEMO_API UTsGameInstance : public UGameInstance
+{
+    GENERATED_BODY()
+
+public:
+    virtual void Init() override;
+    virtual void OnStart() override;
+    virtual void Shutdown() override;
+    UFUNCTION(BlueprintCallable, Category = "MyFunc_Lib")
+    void CallJsRunning(FString jsModuleName);    
+private:
+    TSharedPtr<puerts::FJsEnv> GameScript;
+};
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>TsGameInstance.cpp:  </p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include "TsGameInstance.h"
+void UTsGameInstance::Init()
+{
+}
+void UTsGameInstance::OnStart()
+{
+    GameScript = MakeShared<puerts::FJsEnv>();
+    TArray<TPair<FString, UObject*>> Arguments;
+    Arguments.Add(TPair<FString, UObject*>(TEXT("GameInstance"), this));
+    GameScript->Start("myhello", Arguments);
+}
+void UTsGameInstance::Shutdown()
+{
+    GameScript.Reset();
+}
+void UTsGameInstance::CallJsRunning(FString jsModuleName) {
+    GameScript = MakeShared<puerts::FJsEnv>();
+    TArray<TPair<FString, UObject*>> Arguments;
+    Arguments.Add(TPair<FString, UObject*>(TEXT("GameInstance"), this));
+    GameScript->Start(*jsModuleName, Arguments);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Content/JavaScript/mytest.js:  </p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token string">"use strict"</span><span class="token punctuation">;</span>
+Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>exports<span class="token punctuation">,</span> <span class="token string">"__esModule"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> value<span class="token punctuation">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> UE2 <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"ue"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> puerts_2 <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"puerts"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> world <span class="token operator">=</span> puerts_2<span class="token punctuation">.</span>argv<span class="token punctuation">.</span><span class="token function">getByName</span><span class="token punctuation">(</span><span class="token string">"GameInstance"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">GetWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> bpClass <span class="token operator">=</span> UE2<span class="token punctuation">.</span>Class<span class="token punctuation">.</span><span class="token function">Load</span><span class="token punctuation">(</span><span class="token string">'/Game/ABCDEFG.ABCDEFG_C'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> bpActor <span class="token operator">=</span> world<span class="token punctuation">.</span><span class="token function">SpawnActor</span><span class="token punctuation">(</span>bpClass<span class="token punctuation">,</span> undefined<span class="token punctuation">,</span> UE2<span class="token punctuation">.</span>ESpawnActorCollisionHandlingMethod<span class="token punctuation">.</span>Undefined<span class="token punctuation">,</span> undefined<span class="token punctuation">,</span> undefined<span class="token punctuation">)</span><span class="token punctuation">;</span>
+bpActor<span class="token punctuation">.</span><span class="token function">NewLoad</span><span class="token punctuation">(</span><span class="token string">"sunning a day"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"结束 mytess.js"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/*
+console.log(THREE.REVISION);
+会报错，证明调用每次GameScript->Start("mytest", Arguments);
+都是独立的js环境，变量环境彼此不通
+*/</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>蓝图里通过CallJsRunning方法执行js脚本。  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/calljsRunningByName12144925.jpg" alt="">  </p>
+<h2 id="蓝图方法返回给puerts为未定义"><a href="#蓝图方法返回给puerts为未定义" class="headerlink" title="蓝图方法返回给puerts为未定义"></a>蓝图方法返回给puerts为未定义</h2><p>蓝图方法里ReturnNode节点输出值名字必须为ReturnValue，在puerts里才能接受到<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/blueprint2puertsFunReturn0.jpg" alt=""><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/blueprint2puertsFunReturn1.jpg" alt="">  </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/07/22/diary-20210722-2/" class="b-link-green">Puerts-Unreal使用手册</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/07/23/diary-20210723-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/16.jpg" class="responsive-img" alt="three.js实践">
+                        
+                        <span class="card-title">three.js实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            threejs配合TWEEN缓动动画https://blog.csdn.net/ithanmang/article/details/82344171  
+threejs使用各种坑实验过程https://www.cnblogs.com/sme
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-07-23
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/three-js/" target="_blank">
+                        <span class="chip bg-color">three.js</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/07/22/diary-20210722-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/9.jpg" class="responsive-img" alt="JavaWeb实践">
+                        
+                        <span class="card-title">JavaWeb实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            手工搭建JavaWeb项目
+前提条件（安装好JDK及环境变量环境、安装好tomcat容器配置端口8080）  
+
+首先，在webapps目录下新建一个文件夹，起名myapp。在myapp目录下新建WEB-INF文件夹，里面新建一个web.x
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-07-22
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                    <a href="/diary/tags/SpringCloud/" target="_blank">
+                        <span class="chip bg-color">SpringCloud</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

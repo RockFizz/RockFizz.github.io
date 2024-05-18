@@ -1,0 +1,2256 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Node中的Buffer和TcpUdp、文件传输, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Node的Buffer转数字const buf=Buffer.allocUnsafe(4)
+buf.writeUInt32BE(156)
+console.log(buf) //&amp;lt;Buffer 01 02 03 04&gt;
+console.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Node中的Buffer和TcpUdp、文件传输 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/16.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Node中的Buffer和TcpUdp、文件传输
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/NodeRPC/" target="_blank">
+                                <span class="chip bg-color">NodeRPC</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-21
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        6.3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        28 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Node的Buffer转数字"><a href="#Node的Buffer转数字" class="headerlink" title="Node的Buffer转数字"></a>Node的Buffer转数字</h2><pre class="line-numbers language-html"><code class="language-html">const buf=Buffer.allocUnsafe(4)
+buf.writeUInt32BE(156)
+console.log(buf) //<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">01</span> <span class="token attr-name">02</span> <span class="token attr-name">03</span> <span class="token attr-name">04</span><span class="token punctuation">></span></span>
+console.log(buf.readUInt32BE())  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Node的udp、tcp开发"><a href="#Node的udp、tcp开发" class="headerlink" title="Node的udp、tcp开发"></a>Node的udp、tcp开发</h2><p>新建工程目录nodesocket<br>npm init -y  </p>
+<h3 id="socketTcpServer-js和socketTcpClient-js"><a href="#socketTcpServer-js和socketTcpClient-js" class="headerlink" title="socketTcpServer.js和socketTcpClient.js"></a>socketTcpServer.js和socketTcpClient.js</h3><p>运行Tcp服务器 node .\socketTcpServer.js<br>运行Tcp客户端 node .\socketTcpClient.js  </p>
+<pre class="line-numbers language-html"><code class="language-html">//新建 socketTcpServer.js
+// 1 引入模块
+const net = require('net');
+// 2 创建服务器
+let clientArr = [];
+const server = net.createServer();
+// 3 绑定服务端connection事件
+server.on('connection',(person)=>{
+    // 记录链接的进程
+    person.id = Date.now().toString(36) + Math.random().toString(36).substring(13)+clientArr.length;
+    console.log("client: "+person.id + " is connected");
+    clientArr.push(person);
+    person.setEncoding('utf8');
+    // 客户socket进程绑定data事件
+    person.on('data',(chunk)=>{
+        console.log(chunk);
+        switch(chunk.toString()){
+            case "iexit":{
+                clientArr.forEach((val)=>{
+                    if(val.id==person.id){
+                        val.write(chunk);
+                    }                
+                })
+                clientArr=clientArr.filter(item=>(item.id!=person.id&amp;&amp;item!=null));
+                person=null
+            }break;
+            default:{
+                clientArr.forEach((val)=>{     
+                    val.write(chunk);         
+                })
+            }break;
+        }
+
+    })
+    // 客户socket进程绑定close事件
+    person.on('close',(t)=>{
+        console.log("[client close]");
+        if(person!=null){
+            console.log("[client close after]");            
+            clientArr=clientArr.filter(item=>(item.id!=person.id&amp;&amp;item!=null));
+        }
+
+    })
+    // 客户socket进程绑定error事件
+    person.on('error',(p1)=>{
+        if(person!=null){
+            console.log("client "+person.id+" error");
+            clientArr=clientArr.filter(item=>(item.id!=person.id&amp;&amp;item!=null));
+        }else{
+            console.log("client error");
+            clientArr=clientArr.filter(item=>(item!=null));
+        }
+    })
+
+})
+
+server.on('listening',()=>{
+    console.log("tcpserver start");
+})
+
+// server.on('close',()=>{
+//     console.log("server closed");
+// })
+// server.on('end',()=>{
+//     console.log("server end");
+// })
+
+server.listen(800);
+
+
+//新建 socketTcpClient.js
+// 1 引入模块
+const net = require('net');
+const readline = require('readline');
+// 2 创建套接字和输入输出命令行
+let rl = readline.createInterface({
+    // 调用std接口
+    input:process.stdin,
+    output:process.stdout
+})
+let client = new net.Socket();
+
+// 3 链接
+client.connect(800,'localhost');
+
+client.setEncoding('utf8');
+client.on('data',(chunk)=>{
+    console.log("client receive: "+chunk);
+    // 服务端让客户端自己退出下线
+    if(chunk.toString()=="iexit"){    
+        client=null
+        rl=null
+        process.exit(1) 
+    }
+})
+
+client.on('error',(e)=>{
+    console.log("client error: "+e.message);
+    client=null
+    rl=null
+    process.exit(1)  
+
+})
+// 绑定输io流事件,获取输入输出字符
+rl.on('line',(mes)=>{
+    client.write(mes);
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="socketUdp-js和socketUdpBroadcast-js"><a href="#socketUdp-js和socketUdpBroadcast-js" class="headerlink" title="socketUdp.js和socketUdpBroadcast.js"></a>socketUdp.js和socketUdpBroadcast.js</h3><p>Node为我们提供了dgram模块用于构建UDP服务。使用该模块创建UDP套接字非常简单<br>UDP套接字一旦创建，既可以作为客户端发送数据，也可以作为服务器接收数据。   </p>
+<p>socketUdp.js绑定端口后即可以监听自己的udp端口，也可以给别的ip端口发udp信息<br>socketUdpBroadcast.js在局域网内给所有ip发送广播udp信息  </p>
+<pre class="line-numbers language-html"><code class="language-html">// socketUdp.js 
+const dgram = require('dgram')
+const udpsocket = dgram.createSocket('udp4')
+
+udpsocket.on('listening', () => {
+    //bind后只执行一次
+    const address = udpsocket.address() // 监听本地IP地址端口，由后面的bind(8001)决定
+    console.log(`server running ${address.address}:${address.port}`)
+
+    setInterval(function(){
+        // 给某个ip端口发送udp信息
+        udpsocket.send('xxxx '+new Date().toTimeString().split(' ')[0],8000,'192.168.157.134') 
+    },4000)
+})
+
+udpsocket.on('message', (msg, remoteInfo) => {
+    console.log(`udpsocket got ${msg} from ${remoteInfo.address}:${remoteInfo.port}`)
+
+})
+
+udpsocket.on('error', err => {
+    console.log('udpsocket error', err)
+})
+
+udpsocket.bind(8001)  
+
+// socketUdpBroadcast.js  
+const dgram = require('dgram')
+const server = dgram.createSocket('udp4')
+
+server.on('listening', () => {
+    const address = server.address()
+    console.log(`server running ${address.address}:${address.port}`)
+
+    server.setBroadcast(true)
+    // // 直接地址 192.168.157.255
+    // // 受限地址 255.255.255.255
+    server.send('hello',8000,'255.255.255.255')
+    setInterval(function(){
+        server.send('hello '+new Date().toTimeString().split(' ')[0],8000,'192.168.157.255')
+    },3000)
+})
+
+server.on('message', (msg, remoteInfo) => {
+    console.log(`server got ${msg} from ${remoteInfo.address}:${remoteInfo.port}`)
+    // server.send('world', remoteInfo.port, remoteInfo.address)
+    // server.send("addmore: "+msg, 8000, '192.168.157.134')
+})
+
+server.on('error', err => {
+    console.log('server error', err)
+})
+
+server.bind(8000)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Node关注内容的读写和不关注内容的流式读写"><a href="#Node关注内容的读写和不关注内容的流式读写" class="headerlink" title="Node关注内容的读写和不关注内容的流式读写"></a>Node关注内容的读写和不关注内容的流式读写</h2><p>常规的文件读写，我们会把文件一次性的读取到内存中，这种方法时间效率和内存效率都很低<br>流式文件读写，不需要在内存中加载大量（或整个）数据</p>
+<h3 id="readFile和writeFile-关心内容"><a href="#readFile和writeFile-关心内容" class="headerlink" title="readFile和writeFile(关心内容)"></a>readFile和writeFile(关心内容)</h3><p>readFile和writeFile的读写操作，Node.js将文件内容视为一个整体，为其分配缓存区并且一次性将文件内容读取到缓存区中，在这个期间，Node.js将不能执行任何其他处理。所以当读写大文件的时候，有可能造成缓存区“爆仓”。   </p>
+<p>readFile方法是将要读取的文件内容完整读入缓存区，再从该缓存区中读取文件内容</p>
+<pre class="line-numbers language-html"><code class="language-html">const { log } = require('console');
+let fs = require('fs')
+fs.readFile('./files/1.txt','utf8',function(err,dataStr){
+    console.log(err);
+    console.log('-------------');
+    console.log(dataStr);
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>与其对应的同步方法为  </p>
+<pre class="line-numbers language-html"><code class="language-html">let niu = fs.readFileSync('./files/1.txt','utf8')
+log("同步读取",niu)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>writeFile方法是将要写入的文件内容完整的读入缓存区，然后一次性的将缓存区中的内容写入都文件中，其同步和异步具体操作如下  </p>
+<pre class="line-numbers language-html"><code class="language-html">//异步写入
+fs.writeFile('./index1.txt',"开心阿松大",function(err){
+    console.log(err);
+    console.log('---------');
+    console.log("写入成功");
+})
+//同步写入
+let shangXin = fs.writeFileSync('./index2.txt',"伤心太平洋")
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="read和write-关心内容"><a href="#read和write-关心内容" class="headerlink" title="read和write(关心内容)"></a>read和write(关心内容)</h3><p>read和write的读写操作，node.js会将文件分成一块一块逐步操作，在读写文件过程中允许执行其他操作</p>
+<p>read或readSync方法读取文件内容是不断地将文件中的一小块内容读入缓存区，最后从该缓存区中读取文件内容  </p>
+<pre class="line-numbers language-html"><code class="language-html">fs.open('./index1.txt','r',function(err,fd){    
+    var buf = new Buffer(225);    //读取fd文件内容到buf缓存区
+    fs.read(fd,buf,0,9,3,function(err,bytesRead,buffer){
+        console.log(buf.slice(0,bytesRead).toString());
+    }); 
+    var buff = new Buffer(225);    //位置设置为null会默认从文件当前位置读取
+    fs.read(fd,buff,0,3,null,function(err,bytesRead,buffer){
+        console.log(buff.slice(0,bytesRead).toString());
+    });    
+    var buffer = new Buffer(225);    //同步方法读取文件
+    var bytesRead = fs.readFileSync(fd,buffer,0,9,3);
+    console.log(bytesRead);
+    console.log(buffer.slice(0,bytesRead).toString());
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>write或writeSync方法写入内容时，node.js执行以下过程：1将需要写入的数据写入到一个内存缓存区；2待缓存区写满后再将缓存区中的内容写入到文件中；3重复执行步骤1和步骤2，知道数据全部写入文件为止。  </p>
+<pre class="line-numbers language-html"><code class="language-html">var fs = require('fs');var buf = new Buffer('我喜爱编程');
+fs.open('./mess.txt','w',function(err,fd){
+    fs.write(fd,buf,3,9,0,function(err,written,buffer){
+        fs.write(fd,buf,12,3,null,function(err,written,buffer){            
+            if(err) console.log('写文件操作失败');
+            console.log('写文件操作成功');
+        });
+    });    
+    //同步写入
+    fs.writeSync(fd,buf,3,9,0);
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="createReadStream和createWriteStream-不关心内容"><a href="#createReadStream和createWriteStream-不关心内容" class="headerlink" title="createReadStream和createWriteStream(不关心内容)"></a>createReadStream和createWriteStream(不关心内容)</h3><p>并不关心整个文件的内容，而只关注从文件中读取到的某些数据，以及读取到数据时需要执行的处理，这时我们可以使用文件流来处理。  </p>
+<p>createReadStream方法创建一个将文件内容读取为流数据的ReadStream对象  </p>
+<pre class="line-numbers language-html"><code class="language-html">var fs = require('fs');var readStream = fs.createReadStream('./message.txt',{start:3,end:12});
+readStream.on('open',function(fd){
+    console.log('开始读取文件');
+});
+readStream.on('data',function(data){
+    console.log('读取到数据：');
+    console.log(data);
+});
+readStream.on('end',function(){
+    console.log('文件已全部读取完毕');
+});
+readStream.on('close',function(){
+    console.log('文件被关闭');
+});
+readStream.on('error',function(err){
+    console.log('读取文件失败');
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>createWriteStream方法创建一个将流数据写入文件中的WriteStream对象  </p>
+<pre class="line-numbers language-html"><code class="language-html">var fs = require('fs');
+var file = fs.createReadStream('./message.txt');
+var out = fs.createWriteStream('./anotherMessage.txt');
+file.on('data',function(data){
+    out.write(data);
+});
+out.on('open',function(fd){
+    console.log('需要被写入的文件已打开');
+});
+file.on('end',function(){    //将操作系统缓存区中的数据全部写入文件
+    out.end('再见',function(){
+        console.log('文件全部写入完毕');
+        console.log('共写入'+out.bytesWritten+'数据');
+    });
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上方法可以对读写文件的过程中进行监听，并定义相关的方法pause和resume暂停或恢复文件的读取操作，可以监听写入时缓存区数据是否已满或者是否已全部输出，如下所示：  </p>
+<pre class="line-numbers language-html"><code class="language-html">//监听writeStream对象的drain事件
+var fs = require('fs');
+var out = fs.createWriteStream('./test1.txt');
+for(var i=0;i&lt;10000;i++){    
+    //返回true或false true代表缓存区已满
+    var flag = out.write(i.toString());
+    console.log(flag);
+}
+out.on('drain',function(){
+    console.log('操作系统缓存区中的数据已全部输出');    
+    var out = fs.createWriteStream('./test2.txt');    
+    for(var i=0;i&lt;10;i++){        
+        var flag = out.write(i.toString());
+        console.log(flag);
+    }
+    out.on('drain',function(){
+        console.log('操作系统缓存区中的数据已全部输出');
+    });
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Node通过tcp传输大文件"><a href="#Node通过tcp传输大文件" class="headerlink" title="Node通过tcp传输大文件"></a>Node通过tcp传输大文件</h2><p>传输文件并不关心整个文件的内容，而只关注从文件中读取到的某些数据，以及读取到数据时需要执行的处理，这时我们可以使用文件流来处理。<br>JavaScript语言自身只有字符串数据类型，没有二进制数据类型，需要通过Buffer对象来处理。在这里我们读取文件时，将数据直接存储到Buffer对象里，在传输时为了统一收发时的格式，全部以十六进制进行。</p>
+<h3 id="fileTransportTcpServer-js"><a href="#fileTransportTcpServer-js" class="headerlink" title="fileTransportTcpServer.js"></a>fileTransportTcpServer.js</h3><pre class="line-numbers language-html"><code class="language-html">const net = require('net'); 
+const fs = require('fs'); 
+const path = require('path'); 
+
+
+let chunks=[];
+async function delay(){
+    return new Promise((resolve)=>{
+        setTimeout(resolve,10)
+    });
+}
+
+const mergeNumberedChunks =async()=>{
+    chunks.sort((a,b)=>a.number-b.number);
+    const chunkSize=1;
+    const delayMs=1000;
+    var mergedBuffer=Buffer.alloc(0);
+    for(let i=0;i&lt;chunks.length;i+=chunkSize){
+        const chunk=chunks.slice(i,i+chunkSize);
+        var bufferArray=chunk.map(item=>{
+            return item.data
+        })
+        // console.log(mergedBuffer)
+        // console.log(Buffer.from(bufferArray[0]));
+        mergedBuffer=Buffer.concat([mergedBuffer,Buffer.from(bufferArray[0])]);
+        if(i+chunkSize&lt;chunks.length){
+            await delay()
+        }        
+    }
+    return mergedBuffer;
+};
+const bufferIntoFile=(buffer,filepath)=>{
+    // const path='./output.data'
+    fs.writeFile(filepath,buffer,(err)=>{
+        if(err){
+            console.log("save file error: ")
+            return
+        }
+        console.log("save file success");
+    })
+}
+
+var receivedPacketCount=-1;
+var receivedDocName="";
+const server = net.createServer((socket) => { 
+
+    console.log('Client connected'); 
+    // 接收文件分片并写入文件 
+    var startTransport=false;
+
+    socket.on('data', (chunk) => {
+        if(startTransport){
+            const receive = JSON.parse(chunk.toString());
+            chunks.push(receive)
+            console.log(receive.number+ "  chunks.length:"+chunks.length)
+            if(receive.number==receivedPacketCount){
+
+                mergeNumberedChunks(chunks).then((res)=>{    
+                    console.log("mergeNumberedChunks completed");
+
+                    if (!fs.existsSync('../upload/')) {
+                        fs.mkdirSync('../upload/');
+                        console.log(`目录 upload 已创建。`);
+                      } else {
+                        console.log(`目录 upload 已存在。`);
+                      }
+
+                    bufferIntoFile(res,'../upload/'+receivedDocName)
+                    console.log("upload file completed");
+                    startTransport=false;
+                }).catch((err)=>{
+                    console.log("mergeNumberedChunks failed"+err);
+                })
+
+            }
+        }else{
+            console.log("state is not receive data");
+            const message = JSON.parse(chunk.toString('utf8')); 
+            const { 
+                cmd: receivedCmd,
+                packetCount: receivedCount,
+                docName: documentName 
+            } = message; 
+            if(receivedCmd!=null){
+                if(receivedCmd=="startUpLoad"){
+                    chunks=[];
+                    startTransport=true;
+                    receivedPacketCount=receivedCount;
+                    receivedDocName=documentName;
+                }
+            }
+        }
+
+
+        return;
+        //测试接收json
+        // const message = JSON.parse(data.toString('utf8')); 
+        // const { 
+        //     chunkNumber: receivedChunkNumber, 
+        //     data: receivedData 
+        // } = message; 
+        // console.log(receivedData);
+
+
+    });
+    socket.on('close',()=>{
+        console.log("socket close");
+    }) 
+    socket.on('error',(err)=>{
+        // console.log("");
+    })
+}); 
+server.on('error',(err)=>{
+    console.log(err);
+})
+
+// var t1=fs.readFileSync("./filemore.txt")
+// console.log(t1.length)
+// var filelength=t1.length
+
+// var filelength;
+// const readFileSync = async () => {
+//     // let data = await fs.promises.readFile("./filemore.txt")
+//     let data = await fs.promises.readFile("./filemore.txt")
+//     filelength=data.length
+//     targetTotalSize=filelength
+//     server.listen(1234, () => { 
+//         console.log('Server is listening on port 1234'); 
+//     });
+// }
+// readFileSync()
+
+server.listen(1234, () => { 
+    console.log('Server is listening on port 1234'); 
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="fileTransportTcpClient-js"><a href="#fileTransportTcpClient-js" class="headerlink" title="fileTransportTcpClient.js"></a>fileTransportTcpClient.js</h3><pre class="line-numbers language-html"><code class="language-html">const net = require('net');
+let client = new net.Socket(); // tcpsocket
+client.connect(1234, '127.0.0.1', () => {
+    console.log('已连接到服务器');
+
+    // 发送数据给服务器
+    // client.write('Hello, server!');
+
+    // 发送测试json数据
+    // const chunkData=Buffer.from("123456789abc").toString('utf8')
+    // const msg={
+    //     chunkNumber:123321,
+    //     data:chunkData
+    // };
+    // client.write(JSON.stringify(msg))
+
+});
+client.on('error',(err)=>{
+    console.log("client error");
+})
+
+
+const fs = require("fs");
+const path = require('path');
+//读取文档内容转换成Buffer
+// var documentPath='./NetAssist.exe';
+// var documentName='NetAssist.exe';
+// // documentPath = "F:///Projects//常用工具.iso";
+// var documentContent=fs.readFileSync(documentPath);
+// var documentBuffer=Buffer.from(documentContent);
+var documentPath;
+var documentName;
+var documentContent;
+var documentBuffer;
+
+//将Buffer切为小片数据  
+const chunkSize = 15*1024; // 15kb / 100ms  单线程端口接近最大传输速率了 
+const splitAndNumberChunks =(buffer,chunkSize)=>{
+    const chunks=[];
+    let offset=0;
+    let chunkNumber=0;
+    while(offset&lt;buffer.length){
+        const chunk = buffer.slice(offset,offset+chunkSize);
+        chunks.push({number:chunkNumber,data:chunk});
+        offset += chunkSize;
+        chunkNumber++;
+    }
+    console.log("chunkNumber: "+chunkNumber)
+    return chunks;
+}
+// const dataChunks=splitAndNumberChunks(documentBuffer,chunkSize);
+
+//将小片数据重组还原为原先完整Buffer  
+const mergeNumberedChunks =(numberedChunks)=>{
+    numberedChunks.sort((a,b)=>a.number-b.number);
+    const mergedBuffer=Buffer.concat(numberedChunks.map(chunk=>chunk.data))
+    return mergedBuffer;
+};
+// const reconstructedBuffer = mergeNumberedChunks(dataChunks);
+
+
+//将Buffer写入文件  
+const bufferIntoFile=(buffer,filepath)=>{
+    // const path='./output.data'
+    fs.writeFile(filepath,buffer,(err)=>{
+        if(err){
+            console.log("save file error: "+err)
+            return
+        }
+        console.log("save file success");
+    })
+}
+// const dataToSave=Buffer.from("abcdefg12345678",'utf-8');
+// bufferIntoFile(documentBuffer,'./output.data');
+// bufferIntoFile(dataToSave,'./output.data');
+// bufferIntoFile(reconstructedBuffer,'./output.data')
+
+
+
+
+
+// const chunkSize = 128 * 1024;  
+    // 1024*1024 1MB
+    // 512*1024 512kb
+    // 128*1024 128kb
+
+var dataChunks;
+var indexNow;
+var intervalId;
+const sendNumberedBuffer=()=>{
+    const jsonString = JSON.stringify(dataChunks[indexNow])
+    client.write(jsonString)
+    // console.log(dataChunks[indexNow])
+    console.log(indexNow)
+    indexNow++;
+    if(indexNow>=dataChunks.length){
+        clearInterval(intervalId)
+        console.log("send over !!")
+        process.exit(1) 
+    } 
+}
+function sendBuffer(){
+    indexNow=0;
+    const msg={
+        cmd:"startUpLoad",
+        packetCount:dataChunks.length-1,
+        docName:documentName
+    };
+    client.write(JSON.stringify(msg))
+    intervalId=setInterval(sendNumberedBuffer,100);
+}
+
+function ReadFileAndSend(){
+    // console.log(process.argv);
+    const args=process.argv.slice(2);
+     if(args.length==0){
+        console.log('params of doc upload not exist')
+        process.exit(1) 
+        return;
+    }
+    if(!fs.existsSync(args[0])){
+        console.log('doc upload not exist')
+        process.exit(1) 
+        return;
+    }
+    const {name,ext}=path.parse(args[0])
+    documentPath=args[0];
+    documentName=name+'.'+ext;
+    // documentPath = "F:///Projects//常用工具.iso";
+    documentContent=fs.readFileSync(documentPath);
+    documentBuffer=Buffer.from(documentContent);
+    dataChunks=splitAndNumberChunks(documentBuffer,chunkSize);
+    sendBuffer()
+}
+
+ReadFileAndSend()
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Node的Buffer缓冲区理解"><a href="#Node的Buffer缓冲区理解" class="headerlink" title="Node的Buffer缓冲区理解"></a>Node的Buffer缓冲区理解</h2><p>Buffer 对象类似于数组，但它存储的是原始的二进制数据。它可以分配固定大小的内存块来存储数据，从而避免了频繁的内存分配和垃圾回收，这在处理大量数据时非常有用。Node 使用 Buffer 来显示二进制数据，比如图像、文件等  </p>
+<h3 id="创建Buffer"><a href="#创建Buffer" class="headerlink" title="创建Buffer"></a>创建Buffer</h3><pre class="line-numbers language-html"><code class="language-html">// 最常用的是使用构造函数来分配指定大小的内存块  
+const buffer = Buffer.alloc(10); // 创建一个大小为 10 字节的 Buffer
+
+// 使用现有的数据来创建 Buffer  
+const bufferFromData = Buffer.from("Hello, Node.js"); // 从字符串创建 Buffer
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="操作Buffer"><a href="#操作Buffer" class="headerlink" title="操作Buffer"></a>操作Buffer</h3><p>一旦创建了 Buffer 对象，你可以通过索引访问其中的数据，也可以使用各种方法来修改、拼接和截取数据。  </p>
+<pre class="line-numbers language-html"><code class="language-html">buffer.length：获取 Buffer 的长度（字节数）。
+buffer.write(string[, offset[, length]][, encoding])：将字符串写入 Buffer。
+buffer.toString([encoding[, start[, end]]])：将 Buffer 转换为字符串。
+buffer.slice([start[, end]])：截取 Buffer 的一部分。
+Buffer.concat(list[, totalLength])：将多个 Buffer 拼接成一个。
+
+// write() 方法向 Buffer 写入数据:
+const buf = Buffer.alloc(10);
+buf.write('Hello');
+console.log(buf.toString()); // Hello
+
+// 从 Buffer 读取数据  
+const buf = Buffer.from('Hello World');
+console.log(buf.toString()); // Hello World 
+console.log(buf.slice(0, 5).toString()); // Hello
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="自定义RPC的前提"><a href="#自定义RPC的前提" class="headerlink" title="自定义RPC的前提"></a>自定义RPC的前提</h2><blockquote>
+<p>socket建立的连接是长久连接。应用层的http是短链接<br>可以把http理解成一个人办一件事情就跑一次连接流程。socket理解成只跑一次连接流程，只到把所有的事情都做完了才回去。  </p>
+</blockquote>
+<p>既然RPC传输的是二进制，那么实现定义自己的RPC，必然要先具备有效数据转成二进制、二进制转成有效数据这功能。  </p>
+<h3 id="RPC-vs-HTTP"><a href="#RPC-vs-HTTP" class="headerlink" title="RPC vs HTTP"></a>RPC vs HTTP</h3><p>http协议，它是一个文本协议，我们交互数据的时候文件格式要么是html，要么是json对象,适合人类阅读。</p>
+<p>RPC采用二进制协议。采用二进制传输，它传输的包是这样子的[0001 0001 0111 0110 0010]，里面都是二进制，一般采用那几位表示一个字段，比如前6位是一个字段，依次类推。RPC更适合计算机理解，有更小的数据体积，及更快的解读速度。  </p>
+<pre class="line-numbers language-html"><code class="language-html">TCP通信方式：  
+1 单工通信：只能客户端给服务端发消息，或者只能服务端给客户端发消息
+2 半双工通信：在某个时间段内只能客户端给服务端发消息，过了这个时间段服务端可以给客户端发消息。如果把时间分成很多时间片，在一个时间片内就属于单工通信
+3 全双工通信：客户端和服务端能相互通信
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="buffer编码、解码二进制数据包"><a href="#buffer编码、解码二进制数据包" class="headerlink" title="buffer编码、解码二进制数据包"></a>buffer编码、解码二进制数据包</h3><p>通过buffer将数据转成二进制  </p>
+<pre class="line-numbers language-html"><code class="language-html">const buffer1 = Buffer.from('geekbang')
+const buffer2 = Buffer.from([0, 1, 2, 3, 4])
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">67</span> <span class="token attr-name">65</span> <span class="token attr-name">65</span> <span class="token attr-name">6b</span> <span class="token attr-name">62</span> <span class="token attr-name">61</span> <span class="token attr-name">6e</span> <span class="token attr-name">67</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">00</span> <span class="token attr-name">01</span> <span class="token attr-name">02</span> <span class="token attr-name">03</span> <span class="token attr-name">04</span><span class="token punctuation">></span></span>
+
+// 创建一个空的二进制
+const buffer3 = Buffer.alloc(20)
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>往buffer里写东西  </p>
+<pre class="line-numbers language-html"><code class="language-html">buffer.write(string, offset): 写入字符串
+buffer.writeInt8(value, offset): int8表示二进制8位(8位表示一个字节)所能表示的整数，offset开始写入之前要跳过的字节数。
+buffer.writeInt16BE(value, offset): int16(两个字节数)，表示16个二进制位所能表示的整数，即32767。超过这个数程序会报错。
+
+const buffer = Buffer.from([1, 2, 3, 4]) // <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">01</span> <span class="token attr-name">02</span> <span class="token attr-name">03</span> <span class="token attr-name">04</span><span class="token punctuation">></span></span>
+// 往第二个字节里面写入12
+buffer.writeInt8(12, 1) // <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">01</span> <span class="token attr-name">0c</span> <span class="token attr-name">03</span> <span class="token attr-name">04</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>大端BE与小端LE：主要是对于2个以上字节的数据排列方式不同(writeInt8因为只有一个字节，所以没有大端和小端)，大端的话就是低位地址放高位，小端就是低位地址放低位。如下：  </p>
+<pre class="line-numbers language-html"><code class="language-html">const buffer = Buffer.from([1, 2, 3, 4])
+
+buffer.writeInt16BE(512, 2) // <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">01</span> <span class="token attr-name">02</span> <span class="token attr-name">02</span> <span class="token attr-name">00</span><span class="token punctuation">></span></span>
+buffer.writeInt16LE(512, 2) // <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">01</span> <span class="token attr-name">02</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="RPC传输的二进制如何表示传递的字段"><a href="#RPC传输的二进制如何表示传递的字段" class="headerlink" title="RPC传输的二进制如何表示传递的字段"></a>RPC传输的二进制如何表示传递的字段</h4><p>PC传输的二进制是如何表示字段的呢？现在有个二进制包[00, 00, 00, 00, 00, 00, 00]，我们假定前三个字节表示一个字段值，后面两个表示一个字段的值，最后两个也表示一个字段的值。那写法如下：</p>
+<pre class="line-numbers language-html"><code class="language-html">writeInt16BE(value, 0)
+writeInt16BE(value, 2)
+writeInt16BE(value, 4)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="使用库protocol-buffers编码解码二进制字段化"><a href="#使用库protocol-buffers编码解码二进制字段化" class="headerlink" title="使用库protocol-buffers编码解码二进制字段化"></a>使用库protocol-buffers编码解码二进制字段化</h4><p>发现像这样写，不仅要知道写入的值，还要知道值的数据类型，这样就很麻烦。不如json格式那么方便。针对这种情况业界也有解决方案。npm有个库protocol-buffers，把我们写的参数转化为buffer：  </p>
+<pre class="line-numbers language-html"><code class="language-html">// test.proto 定义的协议文件
+message Column {
+  required float num  = 1;
+  required string payload = 2;
+}
+// index.js
+const fs = require('fs')
+var protobuf = require('protocol-buffers')
+var messages = protobuf(fs.readFileSync('test.proto'))
+
+var buf = messages.Column.encode({
+    num: 42,
+    payload: 'hello world'
+})
+console.log(buf)
+// <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">0d</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">28</span> <span class="token attr-name">42</span> <span class="token attr-name">12</span> <span class="token attr-name">0b</span> <span class="token attr-name">68</span> <span class="token attr-name">65</span> <span class="token attr-name">6c</span> <span class="token attr-name">6c</span> <span class="token attr-name">6f</span> <span class="token attr-name">20</span> <span class="token attr-name">77</span> <span class="token attr-name">6f</span> <span class="token attr-name">72</span> <span class="token attr-name">6c</span> <span class="token attr-name">64</span><span class="token punctuation">></span></span>
+
+var obj = messages.Column.decode(buf)
+console.log(obj)
+// { num: 42, payload: 'hello world' }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="建立RPC通道-半双工"><a href="#建立RPC通道-半双工" class="headerlink" title="建立RPC通道(半双工)"></a>建立RPC通道(半双工)</h4><p>半双工服务端：  </p>
+<pre class="line-numbers language-html"><code class="language-html">const net = require('net')
+
+const LESSON_DATA = {
+  136797: '01 | 课程介绍',
+  136798: '02 | 内容综述',
+  136799: '03 | Node.js是什么？',
+  136800: '04 | Node.js可以用来做什么？',
+  136801: '05 | 课程实战项目介绍',
+  136803: '06 | 什么是技术预研？',
+  136804: '07 | Node.js开发环境安装',
+  136806: '08 | 第一个Node.js程序：石头剪刀布游戏',
+  136807: '09 | 模块：CommonJS规范',
+  136808: '10 | 模块：使用模块规范改造石头剪刀布游戏',
+  136809: '11 | 模块：npm',
+  141994: '12 | 模块：Node.js内置模块',
+  143517: '13 | 异步：非阻塞I/O',
+  143557: '14 | 异步：异步编程之callback',
+  143564: '15 | 异步：事件循环',
+  143644: '16 | 异步：异步编程之Promise',
+  146470: '17 | 异步：异步编程之async/await',
+  146569: '18 | HTTP：什么是HTTP服务器？',
+  146582: '19 | HTTP：简单实现一个HTTP服务器'
+}
+
+const server = net.createServer(socket => {
+  // 监听客户端发送的消息
+  socket.on('data', buffer => {
+    const lessonId = buffer.readInt32BE()
+    setTimeout(() => {
+      // 往客户端发送消息
+      socket.write(LESSON_DATA[lessonId])
+    }, 1000)
+  })
+})
+
+server.listen(4000)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>半双工客户端  </p>
+<pre class="line-numbers language-html"><code class="language-html">const net = require('net')
+
+const socket = new net.Socket({})
+
+const LESSON_IDS = [
+  '136797',
+  '136798',
+  '136799',
+  '136800',
+  '136801',
+  '136803',
+  '136804',
+  '136806',
+  '136807',
+  '136808',
+  '136809',
+  '141994',
+  '143517',
+  '143557',
+  '143564',
+  '143644',
+  '146470',
+  '146569',
+  '146582'
+]
+
+socket.connect({
+  host: '127.0.0.1',
+  port: 4000
+})
+
+let buffer = Buffer.alloc(4)
+buffer.writeInt32BE(LESSON_IDS[Math.floor(Math.random() * LESSON_IDS.length)])
+
+// 往服务端发送消息
+socket.write(buffer)
+
+// 监听从服务端传回的消息
+socket.on('data', buffer => {
+  console.log(buffer.toString())
+
+  // 获取到数据之后再次发送消息
+  buffer = Buffer.alloc(4)
+  buffer.writeInt32BE(LESSON_IDS[Math.floor(Math.random() * LESSON_IDS.length)])
+
+  socket.write(buffer)
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上半双工通信步骤如下：<br>客户端发送消息 socket.write(buffer)<br>服务端接受消息后往客户端发送消息 socket.write(buffer)<br>客户端接受消息后再次发送消息<br>这样在一个时间端之内，只有一个端往另一个端发送消息，这样就实现了半双工通信。那如何实现全双工通信呢，也就是在客户端往服务端发送消息的同时，服务端还没有消息返回给客户端之前，客户端又发送了一个消息给服务端。</p>
+<h3 id="建立RPC通道-全双工"><a href="#建立RPC通道-全双工" class="headerlink" title="建立RPC通道(全双工)"></a>建立RPC通道(全双工)</h3><h4 id="错位处理"><a href="#错位处理" class="headerlink" title="错位处理"></a>错位处理</h4><p>客户端发送了一个id1的请求，但是服务端还来不及返回，接着客户端又发送了一个id2的请求。<br>等了一个之后，服务端先把id2的结果返回了，然后再把id1的结果返回。<br>那如何结果匹配到对应的请求上呢？<br>如果按照时间顺序，那么id1的请求对应了id2的结果，因为id2是先返回的；id2的请求对应了id1的结果，这样就导致请求包和返回包错位的情况。<br>怎么办呢？<br>我们可以给请求包和返回包都带上序号，这样就能对应上。</p>
+<p>客户端把包序号和对应的id给服务端<br>服务端取出包序号和对应的id，然后把包序号和id对应的内容返回给客户端，同时设置返回的时间是随机的，这样就不会按照顺序返回。</p>
+<pre class="line-numbers language-html"><code class="language-html">//客户端
+socket.on('data', buffer => {
+  // 包序号
+  const seqBuffer = buffer.slice(0, 2)
+  // 服务端返回的内容
+  const titleBuffer = buffer.slice(2)
+
+  console.log(seqBuffer.readInt16BE(), titleBuffer.toString())
+})
+
+// 包序号
+let seq = 0
+function encode(index) {
+  // 请求包的长度现在是6 = 2(包序号) + 4(课程id)
+  buffer = Buffer.alloc(6)
+  buffer.writeInt16BE(seq)
+  buffer.writeInt32BE(LESSON_IDS[index], 2)
+
+  seq++
+  return buffer
+}
+
+// 每50ms发送一次请求
+setInterval(() => {
+  id = Math.floor(Math.random() * LESSON_IDS.length)
+  socket.write(encode(id))
+}, 50)  
+
+//服务端  
+const server = net.createServer(socket => {
+  socket.on('data', buffer => {
+    // 把包序号取出
+    const seqBuffer = buffer.slice(0, 2)
+    // 从第2个字节开始读取
+    const lessonId = buffer.readInt32BE(2)
+    setTimeout(() => {
+      const buffer = Buffer.concat([
+        seqBuffer,
+        Buffer.from(LESSON_DATA[lessonId])
+      ])
+      socket.write(buffer)
+      // 这里返回时间采用随机的，这样就不会按顺序返回，就可以测试错位的情况
+    }, 10 + Math.random() * 1000)
+  })
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="粘包处理"><a href="#粘包处理" class="headerlink" title="粘包处理"></a>粘包处理</h4><p>如果我们这样发送请求  </p>
+<pre class="line-numbers language-html"><code class="language-html">for (let i = 0; i &lt; 100; i++) {
+  id = Math.floor(Math.random() * LESSON_IDS.length)
+  socket.write(encode(id))
+}
+
+我们发现服务端接收到的信息如下:  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Buffer</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span> <span class="token attr-name">16</span> <span class="token attr-name">64</span> <span class="token attr-name">00</span> <span class="token attr-name">01</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span> <span class="token attr-name">16</span> <span class="token attr-name">68</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span> <span class="token attr-name">31</span> <span class="token attr-name">1c</span> <span class="token attr-name">00</span> <span class="token attr-name">03</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span> <span class="token attr-name">3c</span> <span class="token attr-name">96</span> <span class="token attr-name">00</span> <span class="token attr-name">04</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span> <span class="token attr-name">16</span> <span class="token attr-name">68</span> <span class="token attr-name">00</span> <span class="token attr-name">05</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span> <span class="token attr-name">16</span> <span class="token attr-name">5e</span> <span class="token attr-name">00</span> <span class="token attr-name">06</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span> <span class="token attr-name">16</span> <span class="token attr-name">66</span> <span class="token attr-name">00</span> <span class="token attr-name">07</span> <span class="token attr-name">00</span> <span class="token attr-name">02</span> <span class="token attr-name">16</span> <span class="token attr-name">67</span> <span class="token attr-name">00</span> <span class="token attr-name">08</span> <span class="token attr-name">...</span> <span class="token attr-name">550</span> <span class="token attr-name">more</span> <span class="token attr-name">bytes</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>是因为TCP自己做的一个优化，它会把所有的请求包拼接在一起，这样就会产生粘包的现象。<br>服务端需要把包进行拆分，拆分成100个小包。<br>那如何拆分呢？<br>首先客户端发送的数据包包括两部分：定长的包头和不定长的包体。<br>包头又分为两部分：包序号及包体的长度。只有知道包体的长度，才能知道从哪里进行分割。</p>
+<h5 id="客户端组包发送"><a href="#客户端组包发送" class="headerlink" title="客户端组包发送"></a>客户端组包发送</h5><pre class="line-numbers language-html"><code class="language-html">let seq = 0
+function encode(data) {
+    // 正常情况下，这里应该是使用 protocol-buffers 来encode一段代表业务数据的数据包
+    // 为了不要混淆重点，这个例子比较简单，就直接把课程id转buffer发送
+    const body = Buffer.alloc(4);
+    body.writeInt32BE(LESSON_IDS[data.id]);
+
+    // 一般来说，一个rpc调用的数据包会分为定长的包头和不定长的包体两部分
+    // 包头的作用就是用来记载包的序号和包的长度，以实现全双工通信
+    const header = Buffer.alloc(6); // 包序号占2个字节，包体长度占4个字节，共6个字节
+    header.writeInt16BE(seq)
+    header.writeInt32BE(body.length, 2);
+
+    // 包头和包体拼起来发送
+    const buffer = Buffer.concat([header, body])
+
+    console.log(`包${seq}传输的课程id为${LESSON_IDS[data.id]}`);
+    seq++;
+    return buffer;
+}
+
+// 并发
+for (let i = 0; i &lt; 100; i++) {
+    id = Math.floor(Math.random() * LESSON_IDS.length)
+    socket.write(encode({ id }))
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="服务端拆包接受"><a href="#服务端拆包接受" class="headerlink" title="服务端拆包接受"></a>服务端拆包接受</h5><pre class="line-numbers language-html"><code class="language-html">const server = net.createServer(socket => {
+  let oldBuffer = null
+  socket.on('data', buffer => {
+    // 把上一次data事件使用残余的buffer接上来
+    if (oldBuffer) {
+      buffer = Buffer.concat([oldBuffer, buffer])
+    }
+    let packageLength = 0
+    // 只要还存在可以解成完整包的包长
+    while ((packageLength = checkComplete(buffer))) {
+      // 确定包的长度后进行slice分割
+      const package = buffer.slice(0, packageLength)
+      // 剩余的包利用循环继续分割
+      buffer = buffer.slice(packageLength)
+
+      // 把这个包解成数据和seq
+      const result = decode(package)
+
+      // 计算得到要返回的结果，并write返回
+      socket.write(encode(LESSON_DATA[result.data], result.seq))
+    }
+
+    // 把残余的buffer记下来
+    oldBuffer = buffer
+  })
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="确定数据包长度后分割"><a href="#确定数据包长度后分割" class="headerlink" title="确定数据包长度后分割"></a>确定数据包长度后分割</h5><pre class="line-numbers language-html"><code class="language-html">function checkComplete(buffer) {
+  // 如果包的长度小于6个字节说明只有包头，没有包体，那么直接返回0
+  if (buffer.length &lt;= 6) {
+    return 0
+  }
+  // 读取包头的第二个字节，取出包体的长度
+  const bodyLength = buffer.readInt32BE(2)
+  // 请求包包括包头(6个字节)和包体body
+  return 6 + bodyLength
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="拆包后解密"><a href="#拆包后解密" class="headerlink" title="拆包后解密"></a>拆包后解密</h5><pre class="line-numbers language-html"><code class="language-html">function decode(buffer) {
+  // 读取包头
+  const header = buffer.slice(0, 6)
+  const seq = header.readInt16BE()
+
+  // 读取包体  
+  // 正常情况下，这里应该是使用 protobuf 来decode一段代表业务数据的数据包
+  // 为了不要混淆重点，这个例子比较简单，就直接读一个Int32即可
+  const body = buffer.slice(6).readInt32BE()
+
+  // 这里把seq和数据返回出去
+  return {
+    seq,
+    data: body
+  }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="返回客户端的二进制数据组包"><a href="#返回客户端的二进制数据组包" class="headerlink" title="返回客户端的二进制数据组包"></a>返回客户端的二进制数据组包</h5><p>encode把客户端想要的数据转化为二进制返回，这个包同样包括包头和包体，包头又包括包需要包序号和包体的长度。  </p>
+<pre class="line-numbers language-html"><code class="language-html">function encode(data, seq) {
+  // 正常情况下，这里应该是使用 protobuf 来encode一段代表业务数据的数据包
+  // 为了不要混淆重点，这个例子比较简单，就直接把课程标题转buffer返回
+  const body = Buffer.from(data)
+
+  // 一般来说，一个rpc调用的数据包会分为定长的包头和不定长的包体两部分
+  // 包头的作用就是用来记载包的序号和包的长度，以实现全双工通信
+  const header = Buffer.alloc(6)
+  header.writeInt16BE(seq)
+  header.writeInt32BE(body.length, 2)
+
+  const buffer = Buffer.concat([header, body])
+
+  return buffer
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h5 id="客户端接受返回二进制数据"><a href="#客户端接受返回二进制数据" class="headerlink" title="客户端接受返回二进制数据"></a>客户端接受返回二进制数据</h5><blockquote>
+<p>当客户端收到服务端发送的包之后，同样也要进行拆包，因为所有的包同样都粘在一起了<br>客户端拆包与服务端拆包策略是一样的  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">let oldBuffer = null
+socket.on('data', buffer => {
+  // 把上一次data事件使用残余的buffer接上来
+  if (oldBuffer) {
+    buffer = Buffer.concat([oldBuffer, buffer])
+  }
+  let completeLength = 0
+
+  // 只要还存在可以解成完整包的包长
+  while ((completeLength = checkComplete(buffer))) {
+    const package = buffer.slice(0, completeLength)
+    buffer = buffer.slice(completeLength)
+
+    // 把这个包解成数据和seq
+    const result = decode(package)
+    console.log(`包${result.seq}，返回值是${result.data}`)
+  }
+
+  // 把残余的buffer记下来
+  oldBuffer = buffer
+})
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>到这里就实现了双全工通行，这样客户端和服务端随时都可以往对方发小消息了。  </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/09/21/diary-20230921-1/" class="b-link-green">Node中的Buffer和TcpUdp、文件传输</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/09/26/diary-20230926-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/1.jpg" class="responsive-img" alt="Android确认框、共享公共变量、异步操作和一些androidstudio的Tips">
+                        
+                        <span class="card-title">Android确认框、共享公共变量、异步操作和一些androidstudio的Tips</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Android全局静态类提供公共变量// 用一个单例类存放公共变量
+public class RunTime {
+    private static volatile RunTime runTime;
+    public RunTime
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-09-26
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/09/19/diary-20230919-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/8.jpg" class="responsive-img" alt="NodeRPC、MongoDB和Express">
+                        
+                        <span class="card-title">NodeRPC、MongoDB和Express</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Express作为API服务的cors跨域访问npm install --save cors  
+在app.js中：  
+var cors=require('cors');
+app.use(cors());
+
+Node-操作Sqlite3数
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-09-19
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/MongoDB/" target="_blank">
+                        <span class="chip bg-color">MongoDB</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Express/" target="_blank">
+                        <span class="chip bg-color">Express</span>
+                    </a>
+                    
+                    <a href="/diary/tags/NodeRPC/" target="_blank">
+                        <span class="chip bg-color">NodeRPC</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

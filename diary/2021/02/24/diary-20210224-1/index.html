@@ -1,0 +1,1993 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Linux备忘, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="计算机硬件由运算器、控制器、存储器、输入输出设备等组成，系统内核负责驱动硬件、管理活动、分配/管理硬件资源。让各设备各司其职。系统内核太重要，不能直接被用户操作，需要基于”系统调用接口”开发的程序来满足用户日常工作。shell充当用户与内核">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Linux备忘 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/5.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Linux备忘
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Linux/" target="_blank">
+                                <span class="chip bg-color">Linux</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-02-24
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        14 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>计算机硬件由运算器、控制器、存储器、输入输出设备等组成，系统内核负责驱动硬件、管理活动、分配/管理硬件资源。让各设备各司其职。<br>系统内核太重要，不能直接被用户操作，需要基于”系统调用接口”开发的程序来满足用户日常工作。shell充当用户与内核(硬件)间的翻译官，用户将命令告诉shell，shell调用内核服务工作。<br>bash是大多数linux系统默认字符器(shell)。本文linux环境是Deepin。</p>
+<h2 id="echo和date"><a href="#echo和date" class="headerlink" title="echo和date"></a>echo和date</h2><p>echo命令在终端显示字符串或变量。  </p>
+<pre><code>zzz@zzz-PC:~$ zs=123
+zzz@zzz-PC:~$ echo $zs
+123
+
+//显示本机主机名
+zzz@zzz-PC:~$ echo $HOSTNAME
+zzz-PC</code></pre><p>date命令显示/设置系统时间或日期。键入”+”开头的字符串指定格式。  </p>
+<table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>%t</td><td>跳格(Tab键)</td>
+</tr>
+<tr>
+<td>%H</td><td>小时(00-23)</td>
+</tr>
+<tr>
+<td>%I</td><td>小时(01-12)</td>
+</tr>
+<tr>
+<td>%M</td><td>分钟(00-59)</td>
+</tr>
+<tr>
+<td>%S</td><td>秒(00-60)</td>
+</tr>
+<tr>
+<td>%X</td><td>相当于%H:%M:%S</td>
+</tr>
+<tr>
+<td>%Z</td><td>显示时区</td>
+</tr>
+<tr>
+<td>%p</td><td>显示本地AM或PM</td>
+</tr>
+<tr>
+<td>%A</td><td>星期几(Sunday-Saturday)</td>
+</tr>
+<tr>
+<td>%a</td><td>缩写星期几(Sun-Sat)</td>
+</tr>
+<tr>
+<td>%B</td><td>完整月份(January-Decembeer)</td>
+</tr>
+<tr>
+<td>%b</td><td>缩写月份(Jan-Dec)</td>
+</tr>
+<tr>
+<td>%d</td><td>日(01-31)</td>
+</tr>
+<tr>
+<td>%j</td><td>一年中的第几天(001-366)</td>
+</tr>
+<tr>
+<td>%m</td><td>月份(01-12)</td>
+</tr>
+<tr>
+<td>%Y</td><td>完整年份</td>
+</tr>
+</tbody></table>  
+
+<pre><code>zzz@zzz-PC:~$ date  
+2021年 02月 24日 星期三 11:05:08 CST
+zzz@zzz-PC:~$ date "+%Y-%m-%d %H:%M:%S"  
+2021-02-24 11:09:27  
+
+设置系统时间为2015年9月1日8点半  
+zzz@zzz-PC:~$ date -s "20150901 8:30:00"  
+查看本地系统时区
+zzz@zzz-PC:~$ date "+%Z"
+查看星期几  
+zzz@zzz-PC:~$ date "+%A"
+查看当前是上午还是下午  
+zzz@zzz-PC:~$ date "+%p"</code></pre><h2 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h2><p>使用shell下载网络文件。  </p>
+<table>
+<tbody><tr>
+    <td>参数</td><td>作用</td>
+</tr>
+<tr>
+    <td>-b</td><td>后台下载模式</td>
+</tr>
+<tr>
+    <td>-O</td><td>下载到指定目录</td>
+</tr>
+<tr>
+    <td>-t</td><td>最大尝试次数</td>
+</tr>
+<tr>
+    <td>-c</td><td>断点续传</td>
+</tr>
+<tr>
+    <td>-p</td><td>下载页面内所有资源，包括图片、视频等</td>
+</tr>
+<tr>
+    <td>-r</td><td>递归下载</td>
+</tr>
+
+<tr>
+    <td>-k</td><td>将下载的HTML页面中的链接转换为相对链接即本地链接</td>
+</tr>
+<tr>
+    <td>-np</td><td>不追溯至父级目录</td>
+</tr>
+</tbody></table>  
+
+<pre><code>zzz@zzz-PC:~$ wget https://www.baidu.com/img/flexible/logo/pc/result.png  
+
+//扒站，递归下载整个网站。  
+zzz@zzz-PC:~$ wget -r -p -np -k http://***.net/xl**2020/  </code></pre><h2 id="查看系统状态"><a href="#查看系统状态" class="headerlink" title="查看系统状态"></a>查看系统状态</h2><pre><code>获取网卡配置与网络状态  
+zzz@zzz-PC:~$ ifconfig  
+
+查看系统内核版本  
+zzz@zzz-PC:~$ uname  
+zzz@zzz-PC:~$ uname -a  
+Linux zzz-PC 5.4.70-amd64-desktop #1 SMP Wed Oct 14 15:24:23 CST 2020 x86_64 GNU/Linux  
+内核名称、内核发行版、内核版本、节点名、硬件名称、硬件平台、处理器类型、操作系统等信息。  
+
+查看系统负载情况  
+zzz@zzz-PC:~$ uptime 
+12:02:58 up 1:27, 3 users, load average: 0.03, 0.07, 0.08  
+输出内容分别为系统当前时间、系统已经运行时间、当前在线用户、平均负载值（平均负载分为最近1分钟、5分钟、15分钟的系统负载情况，值越低越好，小于1是正常）
+每秒刷新一次获得当前系统负载情况
+zzz@zzz-PC:~$ wathc -n 1 uptime
+
+查看当前内存使用量情况,以m为单位  
+zzz@zzz-PC:~$ free -m   
+查看当前内存使用量情况,以g为单位  
+zzz@zzz-PC:~$ free -g  
+
+查看当前登入主机的用户情况  
+zzz@zzz-PC:~$ who 
+zzz        tty1    2021-02-24 10:37(:0)
+zzz        tty2    2021-02-24 10:38
+zzz        pts/1    2021-02-24 10:49(192.168.211.1)  
+
+查看系统的登入记录  
+zzz@zzz-PC:~$ last 
+
+查看历史执行过的命令  
+zzz@zzz-PC:~$ histroy  
+历史命令会被保存在用户home目录中的.bash_history文件里。  
+
+清空历史命令记录  
+zzz@zzz-PC:~$ history -c 
+历史命令默认保存1000条，可以直接编辑/etc/profile文件的HISTSIZE值修改。  
+</code></pre><h2 id="工作目录切换"><a href="#工作目录切换" class="headerlink" title="工作目录切换"></a>工作目录切换</h2><pre><code>显示当前工作目录  
+zzz@zzz-PC:~$ pwd 
+显示当前工作目录(显示真实地址，非快捷链接地址)  
+zzz@zzz-PC:~$ pwd -P
+
+切换到上一次的目录 
+zzz@zzz-PC:~$ cd -  
+切换到家目录
+zzz@zzz-PC:~$ cd ~
+切换到其他用户的家目录  
+zzz@zzz-PC:~$ cd ~otherUserName  
+切换到上级目录  
+zzz@zzz-PC:~$ cd ..  </code></pre><p>ls用于查看目录中有哪些文件  </p>
+<table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-a</td><td>查看全部文件，包括隐藏</td>
+</tr>
+<tr>
+<td>-d</td><td>仅看目录本身</td>
+</tr>
+<tr>
+<td>-h</td><td>易读的文件容量</td>
+</tr>
+<tr>
+<td>-l</td><td>显示文件详细信息</td>
+</tr>
+</tbody></table>  
+
+<pre><code>zzz@zzz-PC:~$ ls -al  
+
+查看/etc目录本身的权限和属性  
+zzz@zzz-PC:~$ ls -ld /etc</code></pre><h2 id="文本编辑"><a href="#文本编辑" class="headerlink" title="文本编辑"></a>文本编辑</h2><p>cat命令用来查看纯文本文件(较短)  </p>
+<table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-n</td><td>显示行号</td>
+</tr>
+<tr>
+<td>-b</td><td>显示行号(不包括空行)</td>
+</tr>
+<tr>
+<td>-A</td><td>显示不可见符号，如tab、空格</td>
+</tr>
+</tbody></table>  
+
+<pre><code>zzz@zzz-PC:~$ cat 文件名</code></pre><p>more命令用来查看纯文本文件(较长)  </p>
+<table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-数字</td><td>预先显示的行数，默认为一页</td>
+</tr>
+<tr>
+<td>-d</td><td>显示提示语句与报错信息</td>
+</tr>
+</tbody></table>  
+
+<pre><code>zzz@zzz-PC:~$ more 文件名</code></pre><p>cut命令通过列来提取文本字符  </p>
+<table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-d 分隔符</td><td>指定分隔符，默认为tab</td>
+</tr>
+<tr>
+<td>-f</td><td>指定显示的列数</td>
+</tr>
+<tr>
+<td>-c</td><td>单位改为字符</td>
+</tr>
+</tbody></table>  
+
+<pre><code>获取当前系统所有用户名称  
+zzz@zzz-PC:~$ cut -d: -f1 /etc/passwd  
+-d:代表以:作为分隔符，-f1表示只看第一列
+
+获取root用户的默认shell解释器  
+zzz@zzz-PC:~$ grep ^root /etc/passwd | cut -d: -f7  
+/bin/bash</code></pre><p>比较多个文本的差异  </p>
+<pre><code>diff A.txt B.txt</code></pre><h2 id="文件目录管理"><a href="#文件目录管理" class="headerlink" title="文件目录管理"></a>文件目录管理</h2><p>touch命令用于创建空白文件和修改文件时间。<br>Linux中文件有三种时间:  </p>
+<ul>
+<li>更改时间(mtime):内容修改时间(不包括权限)</li>
+<li>更改权限(ctime):更改权限与属性的时间</li>
+<li>读取时间(atime):读取文件内容的时间</li>
+</ul>  
+<table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-a</td><td>仅修改访问时间atime</td>
+</tr>
+<tr>
+<td>-m</td><td>仅修改更改时间mtime</td>
+</tr>
+<tr>
+<td>-d</td><td>同时修改atime和mtime</td>
+</tr>
+<tr>
+<td>-t</td><td>修改成的时间为[YYMMDDhhmm]</td>
+</tr>
+</tbody></table>  
+
+<p>mkdir命令用于创建空白目录  </p>
+<table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-m=MODE</td><td>默认新建目录权限 如 -m 755</td>
+</tr>
+<tr>
+<td>-p</td><td>连续创建多层目录</td>
+</tr>
+<tr>
+<td>-v</td><td>显示创建的过程</td>
+</tr>
+</tbody></table>  
+
+<pre><code>zzz@zzz-PC:~$ mkdir linuxprobe  
+zzz@zzz-PC:~$ mkdir -p a/b/c/d</code></pre><p>cp命令用于复制文件或目录。<br>复制命令有三种情况:  </p>
+<ul>
+<li>目标文件是一个目录，会将源文件复制到该目录下。</li>
+<li>目标文件是一个文件，会将源文件覆盖该文件</li>
+<li>目标文件不存在，会将源文件复制并修改为目标文件名称(重命名)</li>
+</ul>  
+```  
+zzz@zzz-PC:~$ cp [选项] 源文件 目标文件
+```  
+
+<table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-p</td><td>保留原始文件属性</td>
+</tr>
+<tr>
+<td>-d</td><td>如对象为链接文件，则保留该链接文件的属性</td>
+</tr>
+<tr>
+<td>-r</td><td>递归复制(用于目录)</td>
+</tr>
+<tr>
+<td>-i</td><td>若目标文件存在则询问是否覆盖</td>
+</tr>
+<tr>
+<td>-a</td><td>相当于-pdr</td>
+</tr>
+</tbody></table>  
+
+<p>mv命令用于移动文件或改名。<br>rm命令用于删除文件或目录。  </p>
+<pre><code>zzz@zzz-PC:~$ mv [选项] 文件名 [目标路径|目标文件]  
+zzz@zzz-PC:~$ rm [选项] 文件  </code></pre><p>rm -rf会删除一切。<br>rmdir仅仅删除空目录，遇见目录非空会报错。  </p>
+<h2 id="用户与组管理命令"><a href="#用户与组管理命令" class="headerlink" title="用户与组管理命令"></a>用户与组管理命令</h2><p>useradd命令用于创建新的用户。  </p>
+<pre><code>useradd [选项] 用户名  
+
+创建名为myusername的用户，并定义家目录路径，UID，指定登录shell解释器(nologin即为不允许登录)  
+useradd -d /home/linuxa -u 8888 -s /sbin/nologin myusername  
+</code></pre><table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-d</td><td>指定用户的家目录(默认为/home/username)</td>
+</tr>
+<tr>
+<td>-D</td><td>展示默认值</td>
+</tr>
+<tr>
+<td>-e</td><td>账号有效截至日期，格式：YYYY-MM-DD</td>
+</tr>
+<tr>
+<td>-g</td><td>指定一个初始用户组(必须已存在)</td>
+</tr>
+<tr>
+<td>-G</td><td>指定一个或多个扩展用户组</td>
+</tr>
+<tr>
+<td>-N</td><td>不创建与用户同名的用户组</td>
+</tr>
+<tr>
+<td>-s</td><td>指定默认shell解释器</td>
+</tr>
+<tr>
+<td>-u</td><td>指定用户UID</td>
+</tr>
+</tbody></table>  
+
+<p>pass命令用于修改用户密码  </p>
+<pre><code>修改当前用户密码：  
+passwd
+修改其他用户密码:
+passwd [选项] 用户名</code></pre><table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-l</td><td>锁定用户禁止其登陆</td>
+</tr>
+<tr>
+<td>-u</td><td>解除锁定，允许用户登陆</td>
+</tr>
+<tr>
+<td>-stdin</td><td>允许从标准输入修改用户密码，如(echo "NewPassWord" | passwd -stdin Username)</td>
+</tr>
+<tr>
+<td>-d</td><td>使账号无密码</td>
+</tr>
+<tr>
+<td>-e</td><td>强制用户下次登陆时修改密码</td>
+</tr>
+<tr>
+<td>-S</td><td>显示用户的密码状态</td>
+</tr>
+</tbody></table>  
+
+<p>userdel命令用于删除用户所有表格。  </p>
+<pre><code>zzz@zzz-PC:~$ userdel -d 用户名</code></pre><table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-f</td><td>强制删除用户、家目录及相关文件</td>
+</tr>
+<tr>
+<td>-r</td><td>同时删除用户、家目录及相关文件</td>
+</tr>
+</tbody></table>  
+
+<p>usermod命令用于修改用户属性。  </p>
+<table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-c</td><td>填写账号的备注信息</td>
+</tr>
+<tr>
+<td>-d -m</td><td>-d -m连用，可重新指定用户家目录并自动把旧数据转移过去</td>
+</tr>
+<tr>
+<td>-e</td><td>账户到期时间，格式YYYY-MM-DD</td>
+</tr>
+<tr>
+<td>-g</td><td>变更所属用户组</td>
+</tr>
+<tr>
+<td>-G</td><td>变更扩展用户组</td>
+</tr>
+<tr>
+<td>-L</td><td>锁定用户，禁止其登陆系统</td>
+</tr>
+<tr>
+<td>-U</td><td>解锁用户，允许其登陆系统</td>
+</tr>
+<tr>
+<td>-s</td><td>变更默认终端</td>
+</tr>
+<tr>
+<td>-u</td><td>修改用户UID</td>
+</tr>
+</tbody></table>  
+
+<p>groupadd命令用于创建群组。  </p>
+<pre><code>zzz@zzz-PC:~$ groupadd [选项] 群组名</code></pre><h2 id="打包和解压文件"><a href="#打包和解压文件" class="headerlink" title="打包和解压文件"></a>打包和解压文件</h2><p>tar命令打包并压缩文件</p>
+<pre><code>zzz@zzz-PC:~$ tar -czvf 压缩包名.tar.gz 文件名  
+
+将/etc目录内文件打包并通过gzip格式压缩  
+zzz@zzz-PC:~$ tar -czvf etc.tar.gz /etc
+</code></pre><p>tar命令解压并展开压缩包  </p>
+<pre><code>zzz@zzz-PC:~$ tar -xzvf 压缩包名.tar.gz  
+
+将etc.tar.gz解压到/root/etc目录  
+zzz@zzz-PC:~$ tar -xzvf etc.tar.gz -C /root/etc</code></pre><table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-c</td><td>创建压缩文件</td>
+</tr>
+<tr>
+<td>-x</td><td>解开压缩文件</td>
+</tr>
+<tr>
+<td>-t</td><td>查看压缩包内有哪些文件</td>
+</tr>
+<tr>
+<td>-z</td><td>用gzip压缩或解压</td>
+</tr>
+<tr>
+<td>-j</td><td>用bzip2压缩或解压</td>
+</tr>
+<tr>
+<td>-v</td><td>显示压缩或解压的过程</td>
+</tr>
+<tr>
+<td>-f</td><td>目标文件名</td>
+</tr>
+<tr>
+<td>-p</td><td>保留原始的权限与属性</td>
+</tr>
+<tr>
+<td>-P</td><td>使用绝对路径来压缩</td>
+</tr>
+<tr>
+<td>-C</td><td>指定解压到的目录路径</td>
+</tr>
+</tbody></table>  
+
+<h2 id="文件内容的查询搜索"><a href="#文件内容的查询搜索" class="headerlink" title="文件内容的查询搜索"></a>文件内容的查询搜索</h2><p>grep命令用于对文件内文本进行搜索。  </p>
+<pre><code>zzz@zzz-PC:~$ grep [选项] [文件]  
+zzz@zzz-PC:~$ grep 关键词 文本文件  </code></pre><table>
+<tbody><tr>
+<td>参数</td><td>作用</td>
+</tr>
+<tr>
+<td>-b</td><td>将可执行文件(binary)当作文本文件来搜索</td>
+</tr>
+<tr>
+<td>-c</td><td>仅显示找到的次数</td>
+</tr>
+<tr>
+<td>-i</td><td>忽略大小写</td>
+</tr>
+<tr>
+<td>-n</td><td>显示行号</td>
+</tr>
+<tr>
+<td>-v</td><td>反向选择（列出不含关键词的行）</td>
+</tr>
+</tbody></table>  
+
+<pre><code>找出系统中不允许登录的用户  
+zzz@zzz-PC:~$ grep /sbin/nologin /etc/passwd  </code></pre><p>find命令用于查找文件  </p>
+<pre><code>zzz@zzz-PC:~$ find [查找路径] 寻找条件 操作 
+
+搜索在/etc/中所有以host开头的文件  
+zzz@zzz-PC:~$ find /etc -name "host*" -print</code></pre><h2 id="管道命令符"><a href="#管道命令符" class="headerlink" title="管道命令符"></a>管道命令符</h2><p>管道命令符|的作用是将前一个命令的标准输出当做后一个命令的标准输入。格式为”命令A|命令B”:  </p>
+<pre><code>搜索找出被限制登陆用户的命令：grep /sbin/nologin /etc/passwd  
+统计文本行数的命令： wc -l  
+将搜索命令的输出值传递给统计命令，把管道符夹在中间即可。  
+zzz@zzz-PC:~$ grep /sbin/nologin /etc/passwd | wc -l  
+
+用翻页的形式查看/etc目录中有哪些文件：  
+zzz@zzz-PC:~$ ls -l /etc/ | more  
+
+向linuxprobe用户发送一封邮件  
+zzz@zzz-PC:~$ echo "Content" | mail -s "Subject" linuxprobe
+</code></pre><p>管道命令符|并非只能用一次，”命令A|命令B|命令C”也是可以的。  </p>
+<h2 id="输入输出重定向"><a href="#输入输出重定向" class="headerlink" title="输入输出重定向"></a>输入输出重定向</h2><ul>
+<li>标准输入(STDIN,文件描述符0)：默认从键盘输入，为0时表示是从其他文件或命令的输出</li>
+<li>标准输出(STDOUT,文件描述符1)：默认输出到屏幕，为1表示是文件</li>
+<li>错误输出(STDERR,文件描述符2)：默认输出到屏幕，为2表示是文件</li>
+</ul>
+对于输出重定向  
+<table>
+<tbody><tr>
+<td>符号</td><td>作用</td>
+</tr>
+<tr>
+<td>命令 &gt; 文件</td><td>将标准输出重定向到一个文件中(清空原有文件内数据)</td>
+</tr>
+<tr>
+<td>命令 2&gt; 文件</td><td>将错误输出重定向到一个文件中(清空原有文件内数据)</td>
+</tr>
+<tr>
+<td>命令 &gt;&gt; 文件</td><td>将标准输出重定向到一个文件中(追加到原有内容的后面)</td>
+</tr>
+<tr>
+<td>命令 2&gt;&gt; 文件</td><td>将错误输出重定向到一个文件中(追加到原有内容的后面)</td>
+</tr>
+</tbody></table>  
+对于输入重定向  
+<table>
+<tbody><tr>
+<td>符号</td><td>作用</td>
+</tr>
+<tr>
+<td>命令 &lt; 文件</td><td>将文件作为命令的标准输入</td>
+</tr>
+<tr>
+<td>命令 &lt;&lt; 分界符</td><td>从标准输入中读入，直到遇见分界符才停止</td>
+</tr>
+<tr>
+<td>命令 &lt; 文件1 &gt; 文件2 </td><td>将文件1作为命令的标准输入，将文件2作为命令的标准输出</td>
+</tr>
+</tbody></table>  
+
+<pre><code>zzz@zzz-PC:~$ echo "welcom to BeiJing" &gt; readme.txt</code></pre><h2 id="命令行通配符"><a href="#命令行通配符" class="headerlink" title="命令行通配符"></a>命令行通配符</h2><p>bash解释器支持多种文本通配符：  </p>
+<table>
+<tbody><tr>
+<td>通配符</td><td>含义</td>
+</tr>
+<tr>
+<td>*</td><td>匹配零个或多个字符</td>
+</tr>
+<tr>
+<td>?</td><td>匹配任意单个字符</td>
+</tr>
+<tr>
+<td>[0-9]</td><td>匹配范围内的数字</td>
+</tr>
+<tr>
+<td>[abcde]</td><td>匹配已列出的任意字符</td>
+</tr>
+
+<tr>
+<td>\（反斜杠）</td><td>转义后面单个字符</td>
+</tr>
+<tr>
+<td>''（单引号）</td><td>转义所有字符(变量无效，不在取值，全当纯字符处理)</td>
+</tr>
+<tr>
+<td>""（双引号）</td><td>变量依然生效</td>
+</tr>
+<tr>
+<td>``（反引号）</td><td>执行命令语句</td>
+</tr>
+</tbody></table>  
+
+<pre><code>查看当前目录下sda开头的所有设备文件：  
+zzz@zzz-PC:~$ ls /dev/sda*
+
+查看当前目录下sda后面有一个字符的设备文件：  
+zzz@zzz-PC:~$ ls /dev/sda?
+
+查看当前目录下sda后面包含0-9的设备文件：  
+zzz@zzz-PC:~$ ls /dev/sda[0-9]
+
+查看当前目录下sda后面是1或3或5的设备文件：  
+zzz@zzz-PC:~$ ls /dev/sda[135]
+
+定义变量
+zzz@zzz-PC:~$ PRICE=5
+zzz@zzz-PC:~$ echo "Price is $PRICE"
+zzz@zzz-PC:~$ echo "Price is \$$PRICE"
+zzz@zzz-PC:~$ echo 'Price is \$$PRICE'
+zzz@zzz-PC:~$ echo `uname -a`</code></pre><h2 id="实用的PATH变量"><a href="#实用的PATH变量" class="headerlink" title="实用的PATH变量"></a>实用的PATH变量</h2><p>alias命令用于设置命令的别名，格式为”alias 别名=命令”。<br>unalias命令用于取消命令的别名，格式为”unalias 别名”。  </p>
+<pre><code>zzz@zzz-PC:~$ alias cp="cp -i"  
+zzz@zzz-PC:~$ unalias cp  </code></pre><p>Linux中一切都是文件，命令文件也不例外。当用户键入”ls”命令后发生了什么？</p>
+<ul>
+<li>1.如果是以绝对/相对路径输入的命令，直接执行。(如/bin/ls)</li>
+<li>2.检查是否为alias别名命令</li>
+<li>3.由bash判断是内部命令(属于bash解释器内部)还是外部命令(独立于解释器外的命令)。</li>
+<li>4.通过$PATH变量中定义的路径进行命令查找</li>
+</ul>  
+
+<pre><code>//查看$PATH变量
+zzz@zzz-PC:~$ echo $PATH
+
+//为变量增加新的值  
+zzz@zzz-PC:~$ PATH=$PATH:/root/bin  
+
+有经验的运维人员接受一台新的Linux后一定会检查$PATH变量是否有可疑目录  </code></pre><p>Linux系统中还有许多其他重要的环境变量  </p>
+<table>
+<tbody><tr>
+<td>变量名称</td><td>作用</td>
+</tr>
+<tr>
+<td>HOME</td><td>用户的主目录(家目录)</td>
+</tr>
+<tr>
+<td>SHELL</td><td>当前shell是哪个程序</td>
+</tr>
+<tr>
+<td>HISTSIZE</td><td>历史命令记录条数</td>
+</tr>
+<tr>
+<td>MAIL</td><td>邮件信箱文件</td>
+</tr>
+<tr>
+<td>LANG</td><td>语系数据</td>
+</tr>
+<tr>
+<td>RANDOM</td><td>随机数字</td>
+</tr>
+<tr>
+<td>PS1</td><td>bash提示符</td>
+</tr>
+<tr>
+<td>HISTFILESIZE</td><td>history命令存储数量</td>
+</tr>
+<tr>
+<td>PATH</td><td>在路径中的目录查找执行文件</td>
+</tr>
+</tbody></table>
+
+<pre><code>//定义变量v1;
+zzz@zzz-PC:~$ v1=233
+//查看变量v1;
+zzz@zzz-PC:~$ echo $v1  
+
+某个用户设置的环境变量，切换用户后不能被其他用户使用。因为变量存在作用范围。  
+export命令用户将局部变量提升为全局变量
+
+zzz@zzz-PC:~$ export v1  
+
+提升为全局变量后，切换用户后别的用户也能识别变量。  
+</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/02/24/diary-20210224-1/" class="b-link-green">Linux备忘</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/03/30/diary-20210330-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/14.jpg" class="responsive-img" alt="vue备忘(console查看vue和js)">
+                        
+                        <span class="card-title">vue备忘(console查看vue和js)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            浏览器console中调用vue内部方法在vue中
+export default{
+    name:'HelloWorld',
+    data(){
+        return{
+
+        }
+    },
+    mount
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-03-30
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Vue/" target="_blank">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/02/21/diary-20210221-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/13.jpg" class="responsive-img" alt="Python备忘">
+                        
+                        <span class="card-title">Python备忘</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Windows的CMD下
+python -V        查看版本  
+
+查看安装路径
+&gt;&gt;&gt;import sys  
+&gt;&gt;&gt;sys.path  
+['E:\\','C:\\HealthCenter\\
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-02-21
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Python/" target="_blank">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

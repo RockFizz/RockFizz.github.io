@@ -1,0 +1,3186 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Unity3d常用代码2, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="UGUI的不换行空格UGUI的Text组件文本中有空格时，往往会自动换行显示，需要将字符中的换行空格变成不换行空格，Unicode编码为/u00A0。  
+static readonly string no_breaking_space =">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Unity3d常用代码2 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/2.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Unity3d常用代码2
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/unity3d/" target="_blank">
+                                <span class="chip bg-color">unity3d</span>
+                            </a>
+                        
+                            <a href="/diary/tags/xLua/" target="_blank">
+                                <span class="chip bg-color">xLua</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-14
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        7.8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        41 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="UGUI的不换行空格"><a href="#UGUI的不换行空格" class="headerlink" title="UGUI的不换行空格"></a>UGUI的不换行空格</h2><p>UGUI的Text组件文本中有空格时，往往会自动换行显示，需要将字符中的换行空格变成不换行空格，Unicode编码为/u00A0。  </p>
+<pre><code>static readonly string no_breaking_space = "\u00A0\u00A0\u00A0";  
+。。。。。。
+if (topic.Contains("___")) {  
+    topic = topic.Replace("___", no_breaking_space);  
+}  
+。。。。。。</code></pre><h2 id="异步跳转场景"><a href="#异步跳转场景" class="headerlink" title="异步跳转场景"></a>异步跳转场景</h2><p>目标场景文件比较大，带进度条显示进度，异步切换进入该新场景Scene。  </p>
+<pre><code>
+using UnityEngine;  
+using UnityEngine.UI;  
+using UnityEngine.SceneManagement;  
+
+。。。。。。
+
+public Slider slider;
+private AsyncOperation async;  
+private bool IsEntering = false;
+
+
+void Update(){
+
+    if (IsEntering){
+        slider.value=async.progress;
+        Debug.Log(async.progress);
+    }
+
+}
+
+IEnumerator EnterOtherScene()
+{
+
+    StartCoroutine(enterNewScene());
+    yield return StartCoroutine(WaitLoadingFinish());
+}
+
+IEnumerator enterNewScene(){
+    async== SceneManager.LoadSceneAsync("targetSceneName");
+    IsEntering=true;
+    yield return async;
+}
+
+
+IEnumerator WaitEnteringSceneFinish()
+{
+    while (slider.value &lt; 0.98f)
+    {
+        print("加载进度:" + slider.value);
+        yield return null;
+    }
+    IsEntering = false;
+}
+
+//带进度条显示进度，切换进入某个新场景Scene。
+public Void OnClickBtnEnterNewScene(){
+    StartCoroutine(EnterOtherScene());
+}
+</code></pre><h2 id="即时战略游戏视角控制"><a href="#即时战略游戏视角控制" class="headerlink" title="即时战略游戏视角控制"></a>即时战略游戏视角控制</h2><p>当鼠标移动到窗口上下左右边界的时候， 平面移动摄像机。<br>将屏幕分为9份， 每一份一个标记。  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(Camera))]
+public class RtsCamera : MonoBehaviour {
+
+
+    //整体移动速度
+  public  float speed = 15;
+
+    //关于鼠标滑轮的参数
+    float MouseWheelSensitivity = 0.0001f;
+    float MouseZoomMin = -2.4f;
+    float MouseZoomMax = 1.0f;
+    float normalDistance = -1.1f;
+
+    //水平和垂直的移动速度
+    float horizontalMoveSpeed = 0.1f;
+    float verticalMoveSpeed = 0.1f;
+
+    //上左下右的标记
+    int topTag = 8;
+    int leftTag = 4;
+    int botTag = 2;
+    int rightTag = 1;
+
+    void Start()
+    {
+        speed = 25;
+    }
+
+    void Update()
+    {
+
+        //获取cursor坐标
+        var msPos = Input.mousePosition;
+
+        //边界最小值
+        var widthBorder = Screen.width / 3;
+        var heightBorder = Screen.height / 3;
+
+        var x = 0.0f;
+        var y = 0.0f;
+
+        //当前鼠标位置标记
+        var posTag = 0;
+
+        if (widthBorder &lt;= msPos.x &amp;&amp; msPos.x &lt;= Screen.width - widthBorder &amp;&amp;
+            heightBorder &lt;= msPos.y &amp;&amp; msPos.y &lt;= Screen.height - heightBorder)
+        {
+            transform.Translate(x, y, y);
+            Debug.Log("asd" + msPos.x + " " + msPos.y);
+        }
+        else
+        {
+            //  posTag
+            //
+            // 1100 | 1000 | 1001
+            // 0100 | 0000 | 0001
+            // 0110 | 0010 | 0011
+            //
+            // 12   |  8   |  9
+            // 4    |  0   |  1
+            // 6    |  2   |  3
+            //
+            if (msPos.y &gt; Screen.height - heightBorder)
+                posTag = posTag | topTag;
+            if (msPos.x &lt; widthBorder)
+                posTag = posTag | leftTag;
+            if (msPos.y &lt; heightBorder)
+                posTag = posTag | botTag;
+            if (msPos.x &gt; Screen.width - widthBorder)
+                posTag = posTag | rightTag;
+
+            switch (posTag)
+            {
+                case 0: break;
+                case 1: x = horizontalMoveSpeed; break;
+                case 2: y = -verticalMoveSpeed; break;
+                case 3: x = horizontalMoveSpeed; y = -verticalMoveSpeed; break;
+                case 4: x = -horizontalMoveSpeed; break;
+                case 6: x = -horizontalMoveSpeed; y = -verticalMoveSpeed; break;
+                case 8: y = verticalMoveSpeed; break;
+                case 9: x = horizontalMoveSpeed; y = verticalMoveSpeed; break;
+                case 12: x = -horizontalMoveSpeed; y = verticalMoveSpeed; break;
+                default: break;
+            }
+
+            x *= speed * Time.deltaTime;
+            y *= speed * Time.deltaTime;
+
+            //
+            transform.Translate(x, y, y);
+        }
+
+
+    }
+
+
+
+}
+</code></pre><h2 id="序列帧"><a href="#序列帧" class="headerlink" title="序列帧"></a>序列帧</h2><pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+[RequireComponent(typeof(Image))]
+public class GifBase : MonoBehaviour {
+    public bool autoFillpics = false;
+    public string autoPicDocumentName;
+    public int autoPicCount;
+    public List&lt;Sprite&gt; _Pics = new List&lt;Sprite&gt; ();
+
+    private Image _SourceImage;
+
+    public bool _IsReverse=false;
+    public bool _IsAutoPlay=true;
+    public float _DelayTime = 0;
+    public float _DeltaTime = 0.1f;
+    private int _PicIndex = 0;
+    private int _PicLength;
+
+    void Start () {
+        if (autoFillpics) {
+            _Pics = new List&lt;Sprite&gt; ();
+            for (int i = 0; i &lt; autoPicCount; i++) {
+                _Pics.Add(Resources.Load&lt;Sprite&gt;("EffectUI/"+autoPicDocumentName+"/"+i.ToString()));
+            }
+        }
+
+        _SourceImage = this.GetComponent&lt;Image&gt; ();
+        _PicLength = _Pics.Count;
+        if (_IsReverse)                                                          
+        {  
+            for (int i = _PicLength - 1; i &gt;= 0; i--)                           //按照目前的长度，反向存一遍  
+            {  
+                _Pics.Add(_Pics[i]);  
+            }  
+            _PicLength = _Pics.Count;                                           //重新设置长度  
+        }  
+        if (_IsAutoPlay) {
+            InvokeRepeating("ChangeBackGround", _DelayTime, _DeltaTime); 
+        }                                                        
+
+
+    }
+    private void ChangeBackGround()  
+    {  
+        if (_PicIndex &gt;= _PicLength) {
+            _PicIndex = 0;       
+        }                                                              
+        _SourceImage.sprite = _Pics[_PicIndex];                                       
+        _PicIndex++;                                                                 
+    }  
+
+    public void PlayGif(){
+        CancelInvoke ("ChangeBackGround");
+        InvokeRepeating("ChangeBackGround", _DelayTime, _DeltaTime); 
+    }
+    public void PauseGif(){
+        CancelInvoke ("ChangeBackGround");
+    }
+    // Update is called once per frame
+    void Update () {
+
+    }
+}
+
+</code></pre><h2 id="AssetBundle包的导出与导入"><a href="#AssetBundle包的导出与导入" class="headerlink" title="AssetBundle包的导出与导入"></a>AssetBundle包的导出与导入</h2><p>导出  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using System.IO;
+
+public class CreateAssetBundle : Editor {
+
+    [MenuItem("Assets/Build AssetBundle BuildABOnlyBySelected")]
+    static void BuildAssetBundleOnlyBySelected()
+    {
+
+        string[] oldAssetsBundleNames = AssetDatabase.GetAllAssetBundleNames();
+        for (int i = 0; i &lt; oldAssetsBundleNames.Length; i++)
+        {
+            AssetDatabase.RemoveAssetBundleName(oldAssetsBundleNames[i], true);
+        }
+
+        UnityEngine.Object[] selects = Selection.objects;
+        foreach (UnityEngine.Object selected in selects)
+        {
+            string path = AssetDatabase.GetAssetPath(selected);
+            AssetImporter asset = AssetImporter.GetAtPath(path);
+            asset.assetBundleName = selected.name;
+            asset.assetBundleVariant = "assetbundle";
+            asset.SaveAndReimport();
+        }
+
+        AssetDatabase.Refresh();
+
+        if (!File.Exists(Application.streamingAssetsPath))
+        {
+            Directory.CreateDirectory(Application.streamingAssetsPath+ "/AssetBundles");
+        }
+        //BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/AssetBundles", BuildAssetBundleOptions.None,BuildTarget.StandaloneWindows);
+        //BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/AssetBundles", BuildAssetBundleOptions.UncompressedAssetBundle, BuildTarget.StandaloneWindows);
+
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/AssetBundles", BuildAssetBundleOptions.None, BuildTarget.WebGL);
+
+
+
+        oldAssetsBundleNames = AssetDatabase.GetAllAssetBundleNames();
+        for (int i = 0; i &lt; oldAssetsBundleNames.Length; i++)
+        {
+            AssetDatabase.RemoveAssetBundleName(oldAssetsBundleNames[i], true);
+        }
+        Debug.Log("build successfully complete");
+
+    }
+}
+</code></pre><p>导入加载  </p>
+<pre><code>
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+//webgl发布加载assetbundle,不能勾选 Strip Engine Code*选项
+public static class DictionaryExtension
+{
+
+    /// &lt;summary&gt;
+    /// 尝试将键和值添加到字典中：如果不存在，才添加；存在，不添加也不抛导常
+    /// &lt;/summary&gt;
+    public static Dictionary&lt;TKey, TValue&gt; TryAdd&lt;TKey, TValue&gt;(this Dictionary&lt;TKey, TValue&gt; dict, TKey key, TValue value)
+    {
+        if (dict.ContainsKey(key) == false) dict.Add(key, value);
+        return dict;
+    }
+    /// &lt;summary&gt;
+    /// 将键和值添加或替换到字典中：如果不存在，则添加；存在，则替换
+    /// &lt;/summary&gt;
+    public static Dictionary&lt;TKey, TValue&gt; AddOrReplace&lt;TKey, TValue&gt;(this Dictionary&lt;TKey, TValue&gt; dict, TKey key, TValue value)
+    {
+        dict[key] = value;
+        return dict;
+    }
+
+}
+
+public class LoadAbs : MonoBehaviour {
+
+    // Use this for initialization
+    void Start () {
+
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+    }
+
+
+    public void FunLoadAbs() {
+        StartCoroutine(LoadmodeByNameIEnum("ab", new Vector3(5, 5, 5), new Vector3(0, 0, 0), new Vector3(1, 1, 1)));
+    }
+
+    public Transform Loaded;
+    public static Dictionary&lt;string, GameObject&gt; dictLoadedModel;
+
+    public IEnumerator LoadmodeByNameIEnum(string __name, Vector3 __pos, Vector3 __rot, Vector3 __scale)
+    {
+        if (dictLoadedModel == null) {
+            dictLoadedModel = new Dictionary&lt;string, GameObject&gt;();
+        }
+
+        WWW wwwData1;
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            wwwData1 = new WWW("file:///" + Application.dataPath + "/StreamingAssets/" + "model/" + __name + ".assetbundle");
+        }
+        else
+        {
+            //web相对目录
+            wwwData1 = new WWW("StreamingAssets/" + "model/" + __name + ".assetbundle");
+        }
+        yield return wwwData1;
+        GameObject cube = wwwData1.assetBundle.LoadAsset(__name) as GameObject;
+        if (cube != null)
+        {
+            GameObject model = Instantiate(cube);
+            model.transform.parent = Loaded;
+            model.name = __name;
+            model.transform.localPosition = __pos;
+            model.transform.localEulerAngles = __rot;
+            model.transform.localScale = __scale;
+
+            dictLoadedModel.AddOrReplace(__name, model);
+        }
+        else
+        {
+            UnityEngine.Debug.Log("load null");
+        }
+        wwwData1.assetBundle.Unload(false);
+        System.GC.Collect();
+
+        yield return null;
+    }
+}
+
+</code></pre><h2 id="Dotween"><a href="#Dotween" class="headerlink" title="Dotween"></a>Dotween</h2><p><a href="https://pan.baidu.com/s/13LGGNCdPudA6qSXKPvqBdQ" target="_blank">下载DotweenPlugins.rar</a></p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+public class HiDoTween : MonoBehaviour {
+
+    public GameObject testobj;
+    void Start () {
+        testobj.transform.DOMove(new Vector3(-10, 0, 0), 5);
+    }
+
+    void Update () {
+
+    }
+}
+</code></pre><p>其他Dotween用法的说明  </p>
+<pre><code>创建tween都会返回一个Tweener或一个序列(有区别)，  
+如需保存，两者皆可保存为Tween而无须关心有何区别。  
+DOTween.Rewind();    //DOTween静态方法撤销所有tween  
+DOTween.Rewind(myId);    //DOTween静态方法根据id撤销tween  
+mytween.Rewind();    //直接的tween引用，撤销引用的tween  
+transform.DORewind();    //撤销特定transform上的所有tween  
+
+transform.DOMove(new Vector3(2,2,2),2).SetEase(Ease.OutQuint).SetLoops(4).OnComplete(myFunction);  
+
+Tween myTween=transform.DOMove(new Vector3(2,2,2),2);  
+myTween.SetEase(Ease.OutQuint);  
+myTween.SetLoops(4);  
+myTween.OnComplete(myFunction);  
+
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a1.jpg" alt="dotween用法示例1"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a2.jpg" alt="dotween用法示例2"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a3.jpg" alt="dotween用法示例3"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a4.jpg" alt="dotween用法示例4"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a5.jpg" alt="dotween用法示例5"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a6.jpg" alt="dotween用法示例6"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a7.jpg" alt="dotween用法示例7"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a8.jpg" alt="dotween用法示例8"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a9.jpg" alt="dotween用法示例9"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a10.jpg" alt="dotween用法示例10"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/dotween2021a11.jpg" alt="dotween用法示例11">  </p>
+<h2 id="快速摄像头路径漫游动画"><a href="#快速摄像头路径漫游动画" class="headerlink" title="快速摄像头路径漫游动画"></a>快速摄像头路径漫游动画</h2><p><a href="https://pan.baidu.com/s/1eriI6m2Jof5uQgR1Vdz8sQ" target="_blank">dotween升级版本</a>后(使用的Unity3d版本2020.2.1f1)，用来快速制作摄像头路径动画。</p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+public class TestCameraFly : MonoBehaviour
+{
+    public Transform[] pathNodes;
+    public Transform[] lookatPos;    
+    void Start()
+    {
+        if (pathNodes.Length &gt;= 2) {
+            pathType = PathType.CatmullRom;
+            waypoints = new Vector3[pathNodes.Length];
+            for (int i = 0; i &lt; pathNodes.Length; i++) {
+                waypoints[i] = pathNodes[i].position;
+            }
+
+            Tween t = target.DOPath(waypoints, 10, pathType)
+                .SetOptions(false)
+                .SetLookAt(lookatPos[0],true)
+                .OnComplete(new TweenCallback(() =&gt; {
+
+                })); ;
+
+            t.SetEase(Ease.Linear).SetLoops(0);           
+        }        
+    }
+    public Transform target;
+    public PathType pathType = PathType.CatmullRom;
+    public Vector3[] waypoints =null;
+    void Update()
+    {
+
+    }
+}
+</code></pre><h2 id="AudioController"><a href="#AudioController" class="headerlink" title="AudioController"></a>AudioController</h2><pre><code>
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+// 在启动场景中 添加 空物体 添加这个代码组件就OK了
+// AudioController.Instance.PlaySington(AudioController.Instance.GetAudioClip("1"), this.transform);
+// AudioController.Instance.BGMPlay(AudioController.Instance.GetAudioClip("libai"));
+// AudioController.Instance.PlayNoneSington(AudioController.Instance.GetAudioClip("1"), this.transform);
+public class AudioController : MonoBehaviour
+{
+    //BGMPlay长时间循环 2d必须
+    //PlaySington   PlayNoneSington中时间一般一次性
+    //EffectPlay短暂附加一次性
+    public int maxAudioNoneSington;
+    private AudioSource bgmMuisc;
+    private Dictionary&lt;string, int&gt; DictNoneSingtonAudio = new Dictionary&lt;string, int&gt;();
+    private Dictionary&lt;string, AudioSource&gt; DictSingtonAudio = new Dictionary&lt;string, AudioSource&gt;();
+    public enum eResType
+    {
+        AB = 0,
+        CLIP = 1
+    }
+    void Update () {
+
+    }
+    private const string ResourcePath = "Audio/";
+
+    private AudioClip audioclip;
+    public AudioClip GetAudioClip(string aduioname, eResType type = eResType.AB)
+    {
+
+        audioclip = null;
+        switch (type)
+        {
+            case eResType.AB:
+                audioclip = GetAbAudioClip(aduioname);
+                break;
+            case eResType.CLIP:
+                audioclip = GetResAudioClip(aduioname);
+                break;
+            default:
+                break;
+        }
+        return audioclip;
+    }
+
+    private AudioClip GetAbAudioClip(string aduioname)
+    {
+        AssetBundle audioBundle = AssetBundle.LoadFromFile(Application.streamingAssetsPath + "/Audio/" + aduioname + ".assetbundle");
+        AudioClip clip = audioBundle.LoadAsset&lt;AudioClip&gt; (aduioname);
+        while (clip.loadState == AudioDataLoadState.Loading) {
+            continue;
+        }
+        if (clip.LoadAudioData ()) {
+            audioBundle.Unload (false);
+            return clip;
+        } else {
+            audioBundle.Unload (false);
+            return null; 
+        } 
+    }
+
+    private AudioClip GetResAudioClip(string aduioname)
+    {
+
+        return Resources.Load(ResourcePath + aduioname) as AudioClip;
+    }
+    public void CloseAudioByName(string aduioname) {
+        if (DictSingtonAudio.ContainsKey(aduioname))
+        {
+            StopAllCoroutines();
+            Destroy(DictSingtonAudio[aduioname].gameObject);
+            DictSingtonAudio.Remove(aduioname);
+        }
+    }
+    public void SoundAllPause()
+    {
+        AudioSource[] allsource = FindObjectsOfType&lt;AudioSource&gt;();
+        if (allsource != null &amp;&amp; allsource.Length &gt; 0)
+        {
+            for (int i = 0; i &lt; allsource.Length; i++)
+            {
+                allsource[i].Pause();
+            }
+        }
+    }
+    public void SoundAllStopExceptThisName(string _clipName){
+        AudioSource[] allsource = GameObject.FindObjectsOfType&lt;AudioSource&gt;();
+        if (allsource != null &amp;&amp; allsource.Length &gt; 0)
+        {
+
+            for (int i = 0; i &lt; allsource.Length; i++)
+            {
+                if(allsource[i].clip!=null){
+                    if (allsource[i].clip.name != _clipName) {
+                        allsource[i].Stop();
+                    }
+                }
+
+
+            }
+        }
+    }
+    public void SoundAllStopExceptbgMusic()
+    {
+        AudioSource[] allsource = FindObjectsOfType&lt;AudioSource&gt;();
+        if (allsource != null &amp;&amp; allsource.Length &gt; 0)
+        {
+            for (int i = 0; i &lt; allsource.Length; i++)
+            {
+                if (allsource[i].gameObject.name != "bgmMusic") {
+                    allsource[i].Stop();
+                }
+
+            }
+        }
+    }
+
+
+    public static AudioController Instance = null;
+    void Awake()
+    {
+        maxAudioNoneSington = 12;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            if (Instance != this)
+            {
+
+                Destroy(transform.gameObject);
+            }
+        }
+    }
+    public void EffectPlay(AudioClip _clip, float _vol = 1)
+    {
+        AudioSource.PlayClipAtPoint(_clip, GameObject.FindObjectOfType&lt;AudioListener&gt;().transform.position, _vol);
+    }
+
+    public AudioSource PlaySington(AudioClip clip, Transform emitter, float volume = 1, float pitch = 1)
+    {
+        //Create an empty game object
+        if (clip == null) {
+            Debug.Log("音频不存在");
+            return null;
+        }
+        if (DictSingtonAudio.ContainsKey(clip.name))
+        {
+            StopAllCoroutines();
+            if (DictSingtonAudio[clip.name] != null) {
+                Destroy(DictSingtonAudio[clip.name].gameObject);
+            }           
+            DictSingtonAudio.Remove(clip.name);
+        }
+        GameObject go = new GameObject(clip.name);
+        go.transform.position = emitter.position;
+        go.transform.parent = emitter;
+
+        //Create the source
+        AudioSource source = go.AddComponent&lt;AudioSource&gt;();
+        DictSingtonAudio.Add(clip.name, source);
+
+
+        source.gameObject.AddComponent&lt;AudioListener&gt;();
+
+
+        source.clip = clip;
+        source.volume = volume;
+        source.pitch = pitch;
+
+        BGMsetVolume(0.25f);
+        source.Play();
+
+        StartCoroutine(PlayClipEnd(clip, go));
+        return source;
+    }
+    public void PlayNoneSington(AudioClip clip, Transform emitter, float volume = 1, float pitch = 1)
+    {
+        //Create an empty game object
+        if (DictNoneSingtonAudio.ContainsKey(clip.name))
+        {
+            if (DictNoneSingtonAudio[clip.name] &lt;= maxAudioNoneSington)
+            {
+                DictNoneSingtonAudio[clip.name]++;
+            }
+            else
+            {
+                return;
+            }
+
+        }
+        else
+        {
+            DictNoneSingtonAudio.Add(clip.name, 1);
+        }
+        GameObject go = new GameObject("Audio:" + clip.name);
+        go.transform.position = emitter.position;
+        go.transform.parent = emitter;
+
+        //Create the source
+        AudioSource source = go.AddComponent&lt;AudioSource&gt;();
+
+        source.gameObject.AddComponent&lt;AudioListener&gt;();
+
+
+        source.clip = clip;
+        source.volume = volume;
+        source.pitch = pitch;
+
+        BGMsetVolume(0.18f);
+        source.Play();
+
+        StartCoroutine(PlayClipEnd(clip, go));
+
+    }
+    private IEnumerator PlayClipEnd(AudioClip _clip, GameObject _go)
+    {
+        yield return new WaitForSeconds(_clip.length * Time.timeScale);
+
+        if (DictSingtonAudio.ContainsKey(_clip.name))
+        {
+            BGMsetVolume(1);
+            DictSingtonAudio.Remove(_clip.name);
+        }
+        if (DictNoneSingtonAudio.ContainsKey(_clip.name))
+        {
+            DictNoneSingtonAudio[_clip.name]--;
+            if (DictNoneSingtonAudio[_clip.name] &lt; 1)
+            {
+                DictNoneSingtonAudio.Remove(_clip.name);
+                BGMsetVolume(1);
+            }
+        }
+        if (_clip.UnloadAudioData ()) {
+            Debug.Log ("音频已卸载成功");
+        } else {
+            Debug.Log ("音频已卸载失败");
+        }
+        Destroy(_go);
+    }
+    public void BGMstop()
+    {
+        if (this.bgmMuisc != null)
+        {
+            this.bgmMuisc.Stop();
+        }
+    }
+    public void BGMpause()
+    {
+        if (this.bgmMuisc != null)
+        {
+            this.bgmMuisc.Pause();
+        }
+    }
+    public void BGMsetVolume(float _v)
+    {
+        if (this.bgmMuisc != null)
+        {
+            this.bgmMuisc.volume = _v;
+        }
+    }
+    public void BGMPlay(AudioClip clip, float volume = 1.0f)
+    {
+        if (this.bgmMuisc == null)
+        {
+            GameObject obj = new GameObject("bgmMusic");
+            obj.transform.parent = this.transform;
+            obj.AddComponent&lt;AudioListener&gt;();
+            AudioSource LoopClip = obj.AddComponent&lt;AudioSource&gt;();
+            LoopClip.clip = clip;
+            LoopClip.volume = volume;
+            LoopClip.loop = true;
+            LoopClip.pitch = 1f;
+            LoopClip.Play();
+            this.bgmMuisc = LoopClip;
+        }
+        this.bgmMuisc.clip = clip;
+        this.bgmMuisc.volume = volume;
+        this.bgmMuisc.loop = true;
+        this.bgmMuisc.Play();
+    }
+
+    public AudioSource Play(AudioClip clip, Vector3 point, float volume = 1, float pitch = 1)
+    {
+        //Create an empty game object
+        GameObject go = new GameObject("Audio: " + clip.name);
+        go.transform.position = point;
+
+        //Create the source
+        AudioSource source = go.AddComponent&lt;AudioSource&gt;();
+        source.clip = clip;
+        source.volume = volume;
+        source.pitch = pitch;
+        source.Play();
+        Destroy(go, clip.length);
+        return source;
+    }
+}
+</code></pre><h2 id="数字小键盘确认面板"><a href="#数字小键盘确认面板" class="headerlink" title="数字小键盘确认面板"></a>数字小键盘确认面板</h2><p>退出系统需要密码，模拟数字小键盘输入数字密码。确认后退出系统。  </p>
+<p><a href="https://pan.baidu.com/s/18KNWelC5LpXAM-mGJr_qEA" target="_blank">unity3d数字小键盘模拟(退出确认功能).rar</a></p>
+<p>系统密码设置时，下面代码里有将配置文件放在streamingAssetsPath目录下的部分可以参考动态配置软件内容。</p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class shutPanel : MonoBehaviour {
+
+    void Start () {
+        StartCoroutine(readPass());
+    }
+
+    void Update () {
+
+    }
+    private string pass = "";
+    IEnumerator readPass()
+    {
+
+        WWW www = new WWW(Application.streamingAssetsPath + "/config.txt");
+        yield return www;
+        pass = www.text.Trim();
+    }
+
+    private string formatTxtFloat(string _txt){
+        return float.Parse(_txt).ToString();
+    }
+
+    public InputField yourPassword;
+    public void feedShutPanel(GameObject _g)
+    {
+
+        string valueYourPassword = yourPassword.text;
+
+        switch (_g.name)
+        {
+            case "0":
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+            case "6":
+            case "7":
+            case "8":
+            case "9":
+                if (valueYourPassword.Length &lt; 10)
+                {
+                    yourPassword.text = valueYourPassword + _g.name;
+                }
+
+                break;
+            case "dian":
+                if (!valueYourPassword.Contains(".") &amp;&amp; (valueYourPassword.Length &lt; 10))
+                {
+                    if (valueYourPassword.Length == 0)
+                    {
+                        yourPassword.text = valueYourPassword + "0.";
+                    }
+                    else
+                    {
+                        yourPassword.text = valueYourPassword + ".";
+                    }
+                }
+                break;
+            case "clear":
+                yourPassword.text = "";
+                break;
+            case "enter":
+
+                if (yourPassword.text == pass)
+                {
+                    Debug.Log("right");
+                    Application.Quit();
+                }
+                else {
+                    Debug.Log("error");
+                    yourPassword.text = "";
+                }
+                break;
+            default: break;
+        }
+    }
+}
+</code></pre><p>同一个界面里如果有多个输入需要数字键盘输入，通过点击InputField，选择数字键盘当前面向的InputField，可简单通过下面脚本绑到各个InputField上。  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+public class PointeSelect : MonoBehaviour ,IPointerClickHandler{
+
+    public Calculator m_Calculator;
+    void Start () {
+
+    }    
+    void Update () {
+
+    }
+    public void OnPointerClick(PointerEventData eventData){
+        m_Calculator.TargetText = transform.GetComponent&lt;InputField&gt; ();
+    }
+}</code></pre><h2 id="Unity3d调用win32接口"><a href="#Unity3d调用win32接口" class="headerlink" title="Unity3d调用win32接口"></a>Unity3d调用win32接口</h2><p>win32函数库调用，比如关机功能。  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+using System;
+using System.Runtime.InteropServices;
+using System.Diagnostics;
+using System.Threading;
+
+public class FunLib : MonoBehaviour {
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    internal struct TokPriv1Luid
+    {
+        public int Count;
+        public long Luid;
+        public int Attr;
+    }
+    [DllImport("kernel32.dll", ExactSpelling = true)]
+    internal static extern IntPtr GetCurrentProcess();
+    [DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
+    internal static extern bool OpenProcessToken(IntPtr h, int acc, ref IntPtr phtok);
+    [DllImport("advapi32.dll", SetLastError = true)]
+    internal static extern bool LookupPrivilegeValue(string host, string name, ref long pluid);
+    [DllImport("advapi32.dll", ExactSpelling = true, SetLastError = true)]
+    internal static extern bool AdjustTokenPrivileges(IntPtr htok, bool disall,
+    ref TokPriv1Luid newst, int len, IntPtr prev, IntPtr relen);
+    [DllImport("user32.dll", ExactSpelling = true, SetLastError = true)]
+    internal static extern bool ExitWindowsEx(int flg, int rea);
+    internal const int SE_PRIVILEGE_ENABLED = 0x00000002;
+    internal const int TOKEN_QUERY = 0x00000008;
+    internal const int TOKEN_ADJUST_PRIVILEGES = 0x00000020;
+    internal const string SE_SHUTDOWN_NAME = "SeShutdownPrivilege";
+    internal const int EWX_LOGOFF = 0x00000000;
+    internal const int EWX_SHUTDOWN = 0x00000001;
+    internal const int EWX_REBOOT = 0x00000002;
+    internal const int EWX_FORCE = 0x00000004;
+    internal const int EWX_POWEROFF = 0x00000008;
+    internal const int EWX_FORCEIFHUNG = 0x00000010;
+
+    private static void DoExitWin(int flg)
+    {
+        bool ok;
+        TokPriv1Luid tp;
+        IntPtr hproc = GetCurrentProcess();
+        IntPtr htok = IntPtr.Zero;
+        ok = OpenProcessToken(hproc, TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, ref htok);
+        tp.Count = 1;
+        tp.Luid = 0;
+        tp.Attr = SE_PRIVILEGE_ENABLED;
+        ok = LookupPrivilegeValue(null, SE_SHUTDOWN_NAME, ref tp.Luid);
+        ok = AdjustTokenPrivileges(htok, false, ref tp, 0, IntPtr.Zero, IntPtr.Zero);
+        ok = ExitWindowsEx(flg, 0);
+    }
+    //关机
+    public void GuanJi() {
+        DoExitWin(EWX_SHUTDOWN);
+    }
+
+
+    [DllImport("user32.dll",CharSet=CharSet.Unicode)]
+    public static extern int MessageBox(IntPtr hWnd, String text, String caption, uint type);
+    [DllImport ("user32.dll")]
+    static extern IntPtr GetForegroundWindow ();
+    [DllImport ("user32.dll")]
+    public static extern IntPtr FindWindow (string lpClassName, string lpWindowName);
+
+
+    const uint SWP_SHOWWINDOW = 0x0040;
+    const uint SWP_HIDEWINDOW=0x0000;
+    [DllImport ("user32.dll")]
+    public static extern IntPtr ShowWindow (IntPtr hwnd, int nCmdShow);
+
+    private const int SW_HIDE = 0;
+    private const int SW_RESTORE = 9;
+
+    private const int WM_CLOSE = 0x0010;
+    [DllImport ("User32.dll", EntryPoint = "SendMessage")]
+    public static extern IntPtr SendMessage (IntPtr hWnd, int Msg, int wParam, int lParam);
+
+
+    public struct LPRECT{
+        public int x;
+        public int y;
+        public int width;
+        public int height;
+    }
+    [DllImport ("user32.dll", EntryPoint = "SetParent")]
+    public static extern IntPtr SetParent (IntPtr hWndChild, IntPtr hWndNewParent);
+    [DllImport ("user32.dll")]
+    private static extern int GetWindowRect (IntPtr hwnd, out LPRECT _lpRect);
+    [DllImport ("user32.dll")]
+    static extern bool SetWindowPos (IntPtr hWnd, int hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+
+    public const int HWND_TOP = 0;
+    public const int HWND_BOTTOM = 1;
+    public const int HWND_TOPMOST = -1;
+    public const int HWND_NOTOPMOST = -2;
+
+
+    void Start () {
+
+        //InvokeRepeating("SetSelfFirst", 0.5f, 5);
+
+        /*
+        setwinrectName="Win32LibPhemi";
+        getwinrectName = "Win32LibPhemi";
+        showWinName = "HuXiang4";
+        hideWinName = "HuXiang4";
+        SetWinRectByWinTitle ("Win32LibPhemi",new Rect(0,0,800,600));
+        */
+    }
+    public void SetSelfFirst() {
+        //SetWindowPos(FindWindow(null, "ceshi"),0, 0, 0, 0, 0, 1 | 2);
+        //"bookFan"
+    }
+
+    void Update () {
+
+    }
+
+    public Rect GetWinRectByWinTitle(string __winTitle){
+        IntPtr hwnd = FindWindow (null, __winTitle);
+        Rect _rect = new Rect ();
+        if (hwnd != null) { 
+            LPRECT lpRect=new LPRECT();
+            int v = GetWindowRect (hwnd, out lpRect);
+            _rect.x = lpRect.x;
+            _rect.y = lpRect.y;
+            _rect.width = lpRect.width-lpRect.x;
+            _rect.height = lpRect.height-lpRect.y;                
+            return _rect;
+        } else {
+            return _rect;
+        }
+    }
+
+    public void SetWinRectByWinTitle(string _winTitle,Rect _rect){
+        IntPtr __hwnd = FindWindow (null, _winTitle);
+        SetWindowPos(__hwnd, 0, Mathf.FloorToInt(_rect.x), Mathf.FloorToInt(_rect.y), Mathf.FloorToInt(_rect.width), Mathf.FloorToInt(_rect.height), SWP_HIDEWINDOW);
+    }
+
+    private const int CP_NOCLOSE_BUTTON = 0x200;
+    public void StartUpExeHiddenly(string _name){
+        ShutDownExeHiddenly ();
+        ProcessStartInfo psi22 = new ProcessStartInfo (@"none.exe");
+        psi22.CreateNoWindow = false;
+        psi22.WindowStyle = ProcessWindowStyle.Hidden;
+        pKong = Process.Start (psi22);
+        ProcessStartInfo psi24 = new ProcessStartInfo (_name+".exe");
+        psi24.CreateNoWindow = true;
+        psi24.WindowStyle = ProcessWindowStyle.Hidden;
+
+        pSon = Process.Start (psi24);         
+
+        Rect rect0= GetWinRectByWinTitle ("Win32LibPhemi");
+        SetWinRectByWinTitle ("HuXiang4",rect0);
+        SetParent (pSon.MainWindowHandle, pKong.MainWindowHandle);
+    }
+    public void ShutDownExeHiddenly(){
+        //son关闭时要拦截，先把fm这个前提透明隐藏程序关闭
+        if (pSon != null) {
+            SetParent (pSon.MainWindowHandle, IntPtr.Zero);
+            pSon.CloseMainWindow ();
+        }
+        if (pKong != null) {
+            pKong.CloseMainWindow ();
+        }
+        pSon = null;
+        pKong = null;
+        System.GC.Collect ();
+    }
+
+    public void helpShowWindow(string _showWinName){
+        ShowWindow (FindWindow (null, _showWinName), SW_RESTORE);     
+    } 
+
+    public void helpHideWindow(string _showWinName){
+        ShowWindow (FindWindow (null, _showWinName), SW_HIDE);    
+    } 
+
+    void OnApplicationQuit(){
+        ShutDownExeHiddenly ();
+        Application.Quit();
+    }
+
+    Process pKong;
+    Process pSon;
+    private Rect v4rect=new Rect();
+    private string getwinrectName;
+    private string setwinrectName;
+    private string hideWinName;
+    private string showWinName;
+    private string rectX="";
+    private string rectY="";
+    private string rectWidth="";
+    private string rectHeight="";
+    void OnGUI(){
+        return;
+        if (GUILayout.Button ("alert")) {
+            MessageBox (GetForegroundWindow(), "screen width:"+Screen.width+" screen height:"+Screen.height, "alert", 0);
+        }
+        getwinrectName = GUILayout.TextField (getwinrectName);
+        if (GUILayout.Button ("GetWinRect")) {
+            Rect _rect= GetWinRectByWinTitle (getwinrectName);
+            MessageBox (GetForegroundWindow(), " x:"+_rect.x.ToString()+" y:"+_rect.y.ToString()+" width:"+_rect.width.ToString()+" height:"+_rect.height.ToString(), "GetWinRect", 0);
+        }
+        setwinrectName = GUILayout.TextField (setwinrectName);
+        rectX = GUILayout.TextField (rectX);
+        rectY = GUILayout.TextField (rectY);
+        rectWidth = GUILayout.TextField (rectWidth);
+        rectHeight = GUILayout.TextField (rectHeight);
+        if (GUILayout.Button ("SetWinRect")) {
+            float _x, _y, _w, _h;
+            float.TryParse (rectX,out _x);
+            float.TryParse (rectY,out _y);
+            float.TryParse (rectWidth,out _w);
+            float.TryParse (rectHeight,out _h);
+            SetWinRectByWinTitle (setwinrectName, new Rect(_x,_y,_w,_h));             
+        }
+
+        if (GUILayout.Button ("启动程序(隐藏5 任务栏图标)")) {
+            StartUpExeHiddenly ("out4");
+
+        }
+        showWinName = GUILayout.TextField (showWinName);
+        if (GUILayout.Button ("Show Other")) {            
+            IntPtr z = IntPtr.Zero;
+            z = FindWindow (null, showWinName);
+            if (z != IntPtr.Zero) {
+                Rect rect0 = GetWinRectByWinTitle ("Win32LibPhemi");
+                SetWinRectByWinTitle (showWinName, rect0);
+                helpShowWindow (showWinName);
+                helpHideWindow ("Win32LibPhemi");
+            }
+            //ShowWindow (FindWindow (null, showWinName), SW_RESTORE);
+        }
+        hideWinName = GUILayout.TextField (hideWinName);
+        if (GUILayout.Button ("Hide Other")) {
+            helpHideWindow (hideWinName);
+            //ShowWindow (FindWindow (null, hideWinName), SW_HIDE);
+        }
+        if (GUILayout.Button ("sonShutUp关闭隐藏程序")) {
+            ShutDownExeHiddenly ();
+        }
+    }
+}
+</code></pre><h2 id="打包ab包时材质丢失"><a href="#打包ab包时材质丢失" class="headerlink" title="打包ab包时材质丢失"></a>打包ab包时材质丢失</h2><p>可能Project视图中选中Material，Inspector视图的最底部Advanced Options选项中，Enable Instancing勾选。即可解决。  </p>
+<p>可能Edit-&gt;Project Settings-&gt;Graphics，Inspector视图GraphicsSettings中，将用到的Shader加到Always Included Shaders里。（不仅ab包导出的工程要添加AlwaysIncludedShaders，ab包导入使用的工程最好也添加相应的AlwaysIncludedShaders）。即可解决。  </p>
+<h2 id="安卓时加载StreamingAssets目录ab包"><a href="#安卓时加载StreamingAssets目录ab包" class="headerlink" title="安卓时加载StreamingAssets目录ab包"></a>安卓时加载StreamingAssets目录ab包</h2><p>我的导出安卓环境AssetBundle包的脚本，注意BuildAssetBundles参数。  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using System.IO;
+
+public class CreateAssetBundle : Editor {
+
+    [MenuItem("Assets/Build AssetBundle BuildABOnlyBySelected")]
+    static void BuildAssetBundleOnlyBySelected()
+    {
+
+        string[] oldAssetsBundleNames = AssetDatabase.GetAllAssetBundleNames();
+        for (int i = 0; i &lt; oldAssetsBundleNames.Length; i++)
+        {
+            AssetDatabase.RemoveAssetBundleName(oldAssetsBundleNames[i], true);
+        }
+
+        UnityEngine.Object[] selects = Selection.objects;
+        foreach (UnityEngine.Object selected in selects)
+        {
+            string path = AssetDatabase.GetAssetPath(selected);
+            AssetImporter asset = AssetImporter.GetAtPath(path);
+            asset.assetBundleName = selected.name;
+            asset.assetBundleVariant = "assetbundle";
+            asset.SaveAndReimport();
+        }
+
+        AssetDatabase.Refresh();
+
+        if (!File.Exists(Application.streamingAssetsPath))
+        {
+            Directory.CreateDirectory(Application.streamingAssetsPath+ "/AssetBundles");
+        }
+        BuildPipeline.BuildAssetBundles(Application.streamingAssetsPath + "/AssetBundles", BuildAssetBundleOptions.CollectDependencies|BuildAssetBundleOptions.CompleteAssets,BuildTarget.Android);
+
+        oldAssetsBundleNames = AssetDatabase.GetAllAssetBundleNames();
+        for (int i = 0; i &lt; oldAssetsBundleNames.Length; i++)
+        {
+            AssetDatabase.RemoveAssetBundleName(oldAssetsBundleNames[i], true);
+        }
+        Debug.Log("build successfully complete");
+
+    }
+}
+</code></pre><p>导出的安卓AssetBundle包，放在StreamingAssets目录下，同步、异步均可加载。<br>gui里debugcontent这个字符的使用，安卓打包用来输出调试信息蛮好用的。</p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LoadABOnAndroid : MonoBehaviour {
+
+
+    void Start () {
+        LoadModel();                  //同步加载ab包
+       // StartCoroutine(loadxml());//异步加载ab包
+    }
+
+
+    void Update () {
+
+    }
+    void OnGUI() {
+        GUILayout.Label(debugcontent);  
+    }
+    string debugcontent = "debugcontent";  
+
+    AssetBundle cubeBundle1;  
+    public void LoadModel()  
+    {    
+        debugcontent = "start load ab";
+        string urlpath = "";
+        #if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX
+                urlpath = Application.dataPath + "/StreamingAssets";
+#elif UNITY_ANDROID
+                urlpath="jar:file://"+Application.dataPath+"!/assets";
+#endif
+        debugcontent += " url: "+ urlpath+ "/AssetBundles/g1.assetbundle";
+        cubeBundle1 = AssetBundle.LoadFromFile(urlpath + "/AssetBundles/g1.assetbundle");
+        GameObject cube = cubeBundle1.LoadAsset("g1") as GameObject;
+        if (cube != null)
+        {
+            GameObject g1 = (GameObject)Instantiate(cube);
+
+        }
+        else
+        {
+            UnityEngine.Debug.Log("load null");
+        }
+        debugcontent += "   " + "COMPLETE"; 
+
+        //cubeBundle1.Unload(false);
+    }
+
+    private IEnumerator loadxml()
+    {
+        debugcontent = "start";
+        string streamingAssetsPathUri = "";
+        string abPath = "";
+#if UNITY_EDITOR
+        streamingAssetsPathUri = Application.dataPath + "/StreamingAssets";
+        abPath = "file://" + streamingAssetsPathUri + "/AssetBundles/g1.assetbundle";
+#elif UNITY_ANDROID
+            streamingAssetsPathUri="jar:file://"+Application.dataPath+"!/assets";
+            abPath=streamingAssetsPathUri+"/AssetBundles/g1.assetbundle";
+#endif
+        debugcontent = abPath;
+        WWW wab = new WWW(abPath);
+        yield return wab;
+        debugcontent += "  " + "end";
+        GameObject g1=Instantiate(wab.assetBundle.LoadAsset&lt;GameObject&gt;("g1"));
+        debugcontent += "  " + "complete";
+        yield return new WaitForSeconds(0.5f);
+    }
+}
+</code></pre><h2 id="Unity的UGUI分页"><a href="#Unity的UGUI分页" class="headerlink" title="Unity的UGUI分页"></a>Unity的UGUI分页</h2><pre><code>public RectTransform rectScrollContent;  
+//rectScrollContent为Scroll View自动生成的content重命名  
+public GameObject contentParent;
+//contentParent为新建空对象挂载GridLayoutGroup，是rectScrollContent子物体。  
+
+public int nowPageIndex = 0;  
+
+public void OnClickBtnPre() {  
+    if (nowPageIndex &gt; 0) {  
+        nowPageIndex--;  
+        SetArea();  
+    }  
+}  
+public void OnClickBtnNext() {  
+    if (nowPageIndex &lt; 1) {  
+        nowPageIndex++;  
+        SetArea();  
+    }  
+}  
+
+//数据源为xml，靠GridLayoutGroup自动填充实例在Scroll View的Content下。  
+private XmlDocument xmlDoc;
+private string xmlPath="";
+void ParseXml() {  
+    xmlPath = Application.dataPath + "/StreamingAssets/jijiubao.xml";
+    xmlDoc = new XmlDocument();  
+    xmlDoc.Load(xmlPath);
+    XmlNodeList node = xmlDoc.SelectSingleNode("data").ChildNodes;
+    foreach (XmlElement ele in node) {
+         if (ele.Name == "affair"){
+            Affair aff = new Affair();
+            aff._gridGo= Instantiate(Resources.Load&lt;GameObject&gt;("prefabs/affair"));
+            aff._gridGo.transform.parent = contentParent.transform;
+            aff._gridGo.transform.localScale = Vector3.one;
+         }
+    }
+}
+
+private void SetArea() {
+    switch (nowPageIndex) {
+        case 0:
+            rectScrollContent.anchoredPosition = new Vector2(0, 0);
+            break;
+        case 1:
+            rectScrollContent.anchoredPosition = new Vector2(0, 750);
+            break;
+        default:break;
+    }
+}
+void ScreenAdapt() {
+    //为全屏显示分页做的一个屏幕自适应  
+    //Scroll View的Content上挂载Grid Layout Group
+    int widthCount = Mathf.FloorToInt(Screen.width / 234.0f);
+    /*
+        234为rectScrollContent上挂载GridLayoutGroup的cellsize_X和spacing_X之和，  
+        widthCount为求得适应当前屏幕宽度一行适合容纳几个cell  
+    */
+    float realwidth = widthCount * 234.0f;
+    //realwidth为求得适应当前屏幕宽度包含cell一行有多宽。    
+    int paddingLeft = Mathf.FloorToInt((Screen.width - realwidth) / 2);
+    //偏移量
+    int heightCount = Mathf.CeilToInt(48.0f / widthCount);
+    float rectScrollContentHeight = (heightCount+4) * 250;
+    rectScrollContent.sizeDelta = new Vector2(0, rectScrollContentHeight);
+    contentParent.GetComponent&lt;RectTransform&gt;().sizeDelta = new Vector2(realwidth, rectScrollContentHeight);
+    //为求得Scroll View的Content实际内容高度设置在scrollview里显示内容的外面遮罩宽高
+    contentParent.GetComponent&lt;GridLayoutGroup&gt;().padding.left = 45;
+}
+</code></pre><h2 id="自带Lerp模拟缓动"><a href="#自带Lerp模拟缓动" class="headerlink" title="自带Lerp模拟缓动"></a>自带Lerp模拟缓动</h2><p>MyTween.cs:  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MyTween : MonoBehaviour {     
+    void Start () {
+    }
+
+
+    void Update () {    
+    }
+
+    public delegate void MyDelegate();
+    public MyDelegate mydel;
+    void FunProcess()
+    {
+        if (mydel != null)
+        {
+            mydel();
+        }
+    }
+    public void UseFunProcess()
+    {
+        CancelInvoke("FunProcess");
+        InvokeRepeating("FunProcess", 0.1f, 0.04f);
+    }
+}</code></pre><p>使用：  </p>
+<pre><code>    private float tempy = 0;
+    private float myTweenSpeed = 10f;
+    private bool needMyTween = false;
+    void MyRealDo() {
+
+        if (needMyTween)
+        {
+            tempy = Mathf.Lerp(ContentMessage.anchoredPosition.y, ContentMessage.sizeDelta.y - 200, myTweenSpeed * Time.deltaTime);
+            ContentMessage.anchoredPosition = new Vector2(0, tempy);
+            Debug.Log("needMyTween  " + tempy);
+            if (Mathf.Abs(ContentMessage.sizeDelta.y - 200 - tempy) &lt; 0.1f)
+            {
+                needMyTween = false;
+                ContentMessage.anchoredPosition = new Vector2(0, ContentMessage.sizeDelta.y - 200);
+            }
+        }
+    }
+
+    public MyTween _mytween;
+    void UseMyTween() {
+        needMyTween = true;
+        _mytween.mydel = MyRealDo;
+        _mytween.UseFunProcess();
+    }
+</code></pre><h2 id="模拟调试信息窗口"><a href="#模拟调试信息窗口" class="headerlink" title="模拟调试信息窗口"></a>模拟调试信息窗口</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/monitiaoshichuangkou01.jpg" alt=""><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/monitiaoshichuangkou02.jpg" alt=""><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/monitiaoshichuangkou03.jpg" alt=""><br>这是一个调试串口的工程demo。<a href="https://pan.baidu.com/s/1fA8uFJUt1ehgOEXK39Szmg" target="_blank">健康饮水串口调试工程Unity2018.2.10f1.rar</a>  </p>
+<pre><code>AddIntoMessagepanel("xxx"+"    "+ getNowTime());  
+..........
+public RectTransform ContentMessage;  
+..........
+public void AddIntoMessagepanel(string _message="debug message") {
+    GameObject temp = (GameObject)Instantiate(Resources.Load&lt;GameObject&gt;("prefab/TextMessage"));
+    temp.transform.SetParent(ContentMessage.transform);
+    temp.transform.localPosition = Vector3.zero;
+    temp.transform.localScale = Vector3.one;
+    temp.transform.localEulerAngles = Vector3.zero;
+    temp.GetComponent&lt;Text&gt;().text = _message;
+    ContentMessage.sizeDelta = new Vector2(0, ContentMessage.sizeDelta.y + 30);
+    if (ContentMessage.sizeDelta.y &gt;= 210)
+    {            
+
+        UseMyTween();
+
+    }
+    else
+    {
+        ContentMessage.anchoredPosition = Vector2.zero;
+    }
+}
+</code></pre><h2 id="当前时间格式化显示"><a href="#当前时间格式化显示" class="headerlink" title="当前时间格式化显示"></a>当前时间格式化显示</h2><pre><code>    string getNowTime() {
+        int hour = System.DateTime.Now.Hour;
+        int minute = System.DateTime.Now.Minute;
+        int second = System.DateTime.Now.Second;
+        int year = System.DateTime.Now.Year;
+        int month = System.DateTime.Now.Month;
+        int day = System.DateTime.Now.Day;
+
+        return string.Format("{0:D2}:{1:D2}:{2:D2} " + "{3:D4}/{4:D2}/{5:D2}", hour, minute, second, year, month, day);
+    }
+</code></pre><h2 id="一些常用脚本"><a href="#一些常用脚本" class="headerlink" title="一些常用脚本"></a>一些常用脚本</h2><p>1、快速模拟scene窗口里的镜头，开发时观察用。</p>
+<pre><code>using UnityEngine;
+using System.Collections;
+public class SceneCamera : MonoBehaviour {
+    public float Speed = 10f;
+    public float RotSpeed = 150.0f;
+    private Vector3 CameraR;
+    void Start()
+    {
+        Speed = 400;
+        RotSpeed = 250;
+        CameraR = this.transform.rotation.eulerAngles;
+    }
+    void Update()
+    {
+        Vector3 Face = transform.rotation * Vector3.forward;
+        Face = Face.normalized;
+        Vector3 Left = transform.rotation * Vector3.left;
+        Left = Left.normalized;
+        Vector3 Right = transform.rotation * Vector3.right;
+        Right = Right.normalized;
+        if (Input.GetMouseButton(1))
+        {
+            float yRot = Input.GetAxis("Mouse X");
+            float xRot = Input.GetAxis("Mouse Y");
+            Vector3 R = CameraR + new Vector3(-xRot, yRot, 0f);
+            CameraR = Vector3.Slerp(CameraR, R, RotSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Euler(CameraR);
+        }
+        if (Input.GetKey("w"))
+        {
+            transform.position += Face * Speed * Time.deltaTime;
+        }
+        if (Input.GetKey("a"))
+        {
+            transform.position += Left * Speed * Time.deltaTime;
+        }
+        if (Input.GetKey("d"))
+        {
+            transform.position += Right * Speed * Time.deltaTime;
+        }
+        if (Input.GetKey("s"))
+        {
+            transform.position -= Face * Speed * Time.deltaTime;
+        }
+        if (Input.GetKey("q"))
+        {
+            transform.position -= Vector3.up * Speed * Time.deltaTime;
+        }
+        if (Input.GetKey("e"))
+        {
+            transform.position += Vector3.up * Speed * Time.deltaTime;
+        }
+
+    }
+}
+</code></pre><p>2、获得帧率FPS  </p>
+<pre><code>using UnityEngine;
+using System.Collections;
+public class FPS : MonoBehaviour
+{
+    public float FPSCount;
+    IEnumerator Start()
+    {
+        while (true)
+        {
+            if (Time.timeScale == 1)
+            {
+                yield return new WaitForSeconds(0.1f);
+                FPSCount = Mathf.Round(1 / Time.deltaTime);
+            }
+            else
+            {
+                FPSCount = 0;
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+}</code></pre><p>3、编辑器工具脚本，参考着可以按名字等要求删除优化场景gameobject结构。  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+public class DelTest : MonoBehaviour
+{
+    [MenuItem("delwith/del_disable")]
+    static void del_disable() {
+        Transform tSelect = (Selection.activeGameObject).transform;
+        List&lt;GameObject&gt; listDel = new List&lt;GameObject&gt;();
+        for (int i = 0; i &lt; tSelect.childCount; i++) {
+            if (!tSelect.GetChild(i).gameObject.activeSelf) {
+                listDel.Add(tSelect.GetChild(i).gameObject);
+            }
+        }
+        for (int i = 0; i &lt; listDel.Count; i++) {
+            DestroyImmediate(listDel[i]);
+        }
+    }
+
+    [MenuItem("delwith/del_disables")]
+    static void del_disables()
+    {
+        for (int j = 0; j &lt; Selection.gameObjects.Length; j++) {
+            Transform tSelect = Selection.gameObjects[j].transform;
+            List&lt;GameObject&gt; listDel = new List&lt;GameObject&gt;();
+            for (int i = 0; i &lt; tSelect.childCount; i++)
+            {
+                if (!tSelect.GetChild(i).gameObject.activeSelf)
+                {
+                    listDel.Add(tSelect.GetChild(i).gameObject);
+                }
+            }
+            for (int i = 0; i &lt; listDel.Count; i++)
+            {
+                DestroyImmediate(listDel[i]);
+            }
+        }
+
+    }
+
+    [MenuItem("delwith/del_disables3")]
+    static void del_disables3()
+    {
+        for (int j = 0; j &lt; Selection.gameObjects.Length; j++)
+        {
+            Transform tSelect = Selection.gameObjects[j].transform;
+            List&lt;GameObject&gt; listDel = new List&lt;GameObject&gt;();
+            for (int i = 0; i &lt; tSelect.childCount; i++)
+            {
+                if (!tSelect.GetChild(i).gameObject.activeSelf)
+                {
+                    listDel.Add(tSelect.GetChild(i).gameObject);
+                } else if (tSelect.GetChild(i).name == "Lemon_Fruit_Low (2)") {
+                    listDel.Add(tSelect.GetChild(i).gameObject);
+                }
+
+            }
+            for (int i = 0; i &lt; listDel.Count; i++)
+            {
+                DestroyImmediate(listDel[i]);
+            }
+        }
+        Debug.Log("over");
+
+    }
+
+    [MenuItem("delwith/del_disables4")]
+    static void del_disables4()
+    {
+        for (int j = 0; j &lt; Selection.gameObjects.Length; j++)
+        {
+            Transform tSelect = Selection.gameObjects[j].transform;
+            List&lt;GameObject&gt; listDel = new List&lt;GameObject&gt;();
+            for (int i = 0; i &lt; tSelect.childCount; i++)
+            {
+
+                for (int k = 0; k &lt; tSelect.GetChild(i).childCount; k++) {
+                    tSelect.GetChild(i).gameObject.name = "tree";
+                    if (tSelect.GetChild(i).gameObject.transform.GetChild(k).name == "CollisionObject0")
+                    {
+                        listDel.Add(tSelect.GetChild(i).gameObject.transform.GetChild(k).gameObject);
+                    }
+                    else if (tSelect.GetChild(i).gameObject.transform.GetChild(k).name == "CollisionObject1")
+                    {
+                        listDel.Add(tSelect.GetChild(i).gameObject.transform.GetChild(k).gameObject);
+                    }
+                    else if (tSelect.GetChild(i).gameObject.transform.GetChild(k).name == "CollisionObject2")
+                    {
+                        listDel.Add(tSelect.GetChild(i).gameObject.transform.GetChild(k).gameObject);
+                    }
+                    else if (tSelect.GetChild(i).gameObject.transform.GetChild(k).name == "CollisionObject3")
+                    {
+                        listDel.Add(tSelect.GetChild(i).gameObject.transform.GetChild(k).gameObject);
+                    }
+                    else if (tSelect.GetChild(i).gameObject.transform.GetChild(k).name.EndsWith("LOD0"))
+                    {
+                        tSelect.GetChild(i).gameObject.transform.GetChild(k).transform.parent = tSelect.GetChild(i);
+                        Debug.Log("456");
+                    } else if (!tSelect.GetChild(i).gameObject.transform.GetChild(k).gameObject.activeSelf) {
+                        listDel.Add(tSelect.GetChild(i).gameObject.transform.GetChild(k).gameObject);
+                    }
+                    else {
+                        Debug.Log("123");
+                    }
+                }       
+
+            }
+            for (int i = 0; i &lt; listDel.Count; i++)
+            {
+                DestroyImmediate(listDel[i]);
+            }
+        }
+        Debug.Log("over");
+
+    }
+
+
+    [MenuItem("delwith/del_disables5")]
+    static void del_disables5()
+    {
+        Debug.Log(Selection.gameObjects.Length);
+
+
+        for (int j = 0; j &lt; Selection.gameObjects.Length; j++)
+        {
+            Transform tSelect = Selection.gameObjects[j].transform;
+            List&lt;GameObject&gt; listDel = new List&lt;GameObject&gt;();
+            for (int i = 0; i &lt; tSelect.childCount; i++)
+            {
+
+               // listDel.Add(tSelect.GetChild(i).gameObject);
+            }
+            for (int i = 0; i &lt; listDel.Count; i++)
+            {
+               // DestroyImmediate(listDel[i]);
+            }
+        }
+        Debug.Log("over");
+
+    }
+}
+</code></pre><p>4、编辑器脚本:合并网格，按相同材质的网格体mesh，减少drawcall起优化作用。  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+public class CombineMesh : MonoBehaviour
+{
+    [MenuItem("MeshCombine/CombineChildren")]
+    static void CreatMeshCombine()
+    {
+        //获取到当前点击的游戏物体
+        Transform tSelect = (Selection.activeGameObject).transform;
+
+        //如果当前点击的游戏物体无子物体，则无操作
+        if (tSelect.childCount &lt; 1)
+        {
+            return;
+        }
+        //确保当前点击的游戏物体身上有MeshFilter组件
+        if (!tSelect.GetComponent&lt;MeshFilter&gt;())
+        {
+            tSelect.gameObject.AddComponent&lt;MeshFilter&gt;();
+        }
+        //确保当前点击的游戏物体身上有MeshRenderer组件
+        if (!tSelect.GetComponent&lt;MeshRenderer&gt;())
+        {
+            tSelect.gameObject.AddComponent&lt;MeshRenderer&gt;();
+        }
+        //获取到所有子物体的MeshFilter组件
+        MeshFilter[] tFilters = tSelect.GetComponentsInChildren&lt;MeshFilter&gt;();
+
+        //根据所有MeshFilter组件的个数申请一个用于Mesh联合的类存储信息
+        CombineInstance[] tCombiners = new CombineInstance[tFilters.Length];
+
+        //遍历所有子物体的网格信息进行存储
+        for (int i = 0; i &lt; tFilters.Length; i++)
+        {
+            //记录网格
+            tCombiners[i].mesh = tFilters[i].sharedMesh;
+            //记录位置
+            tCombiners[i].transform = tFilters[i].transform.localToWorldMatrix;
+        }
+        //新申请一个网格用于显示组合后的游戏物体
+        Mesh tFinalMesh = new Mesh();
+        //重命名Mesh
+        tFinalMesh.name = "tCombineMesh";
+        //调用Unity内置方法组合新Mesh网格
+        tFinalMesh.CombineMeshes(tCombiners);
+        //赋值组合后的Mesh网格给选中的物体
+        tSelect.GetComponent&lt;MeshFilter&gt;().sharedMesh = tFinalMesh;
+        //赋值新的材质
+        tSelect.GetComponent&lt;MeshRenderer&gt;().material = new Material(Shader.Find("VertexLit"));
+    }
+
+
+    public static List&lt;Material&gt; materials;
+    [MenuItem("MeshCombine/CombineChildrenAutoFillMateril")]
+    static void CreatMeshCombineAutoFillMateril() {
+        materials = new List&lt;Material&gt;();
+        Transform tSelect = (Selection.activeGameObject).transform;
+        materials.Add(tSelect.GetChild(0).transform.GetComponent&lt;MeshRenderer&gt;().material);
+        if (tSelect.childCount &lt; 1)
+        {
+            return;
+        }
+        if (!tSelect.GetComponent&lt;MeshFilter&gt;())
+        {
+            tSelect.gameObject.AddComponent&lt;MeshFilter&gt;();
+        }
+        if (!tSelect.GetComponent&lt;MeshRenderer&gt;())
+        {
+            tSelect.gameObject.AddComponent&lt;MeshRenderer&gt;();
+        }
+        MeshFilter[] tFilters = tSelect.GetComponentsInChildren&lt;MeshFilter&gt;();
+        CombineInstance[] tCombiners = new CombineInstance[tFilters.Length];
+
+        for (int i = 0; i &lt; tFilters.Length; i++)
+        {           
+            tCombiners[i].mesh = tFilters[i].sharedMesh;           
+            tCombiners[i].transform = tFilters[i].transform.localToWorldMatrix;
+        }
+
+        Mesh tFinalMesh = new Mesh();        
+        tFinalMesh.name = "tCombineMesh";       
+        tFinalMesh.CombineMeshes(tCombiners);         
+        tSelect.GetComponent&lt;MeshFilter&gt;().sharedMesh = tFinalMesh;
+        tSelect.GetComponent&lt;MeshRenderer&gt;().material = materials[0];
+    }
+
+    public static Dictionary&lt;string,Material&gt; dictMaterials;
+    public static Dictionary&lt;string, List&lt;CombineInstance&gt;&gt; dictCombineInstance;
+
+    [MenuItem("MeshCombine/CombineChildrenAutoMutliFillMateril")]
+    static void CreatMeshCombineAutoMutliFillMateril()
+    {
+        /*
+      按不同材质分类处理
+      被选中父物体transport归零
+      */
+
+
+        dictMaterials = new Dictionary&lt;string, Material&gt;();
+        dictCombineInstance = new Dictionary&lt;string, List&lt;CombineInstance&gt;&gt;();
+
+        Transform tSelect = (Selection.activeGameObject).transform;
+
+        for (int i = 0; i &lt; tSelect.childCount; i++) {
+            Debug.Log(i+"  "+ tSelect.GetChild(i).name);
+
+            if (!tSelect.GetChild(i).transform.GetComponent&lt;MeshRenderer&gt;())
+            {
+                continue;
+            }
+            Material _m = tSelect.GetChild(i).transform.GetComponent&lt;MeshRenderer&gt;().sharedMaterial;
+            if (_m == null) {
+                continue;
+            }
+            Debug.Log(_m.name);
+            MeshFilter tFilter = tSelect.GetChild(i).transform.GetComponent&lt;MeshFilter&gt;();            
+            CombineInstance ci = new CombineInstance();           
+            ci.mesh = tFilter.sharedMesh;
+           ci.transform = tFilter.transform.localToWorldMatrix;
+
+           if (dictMaterials.ContainsKey(_m.name))
+           {
+               dictCombineInstance[_m.name].Add(ci);
+           }
+           else {
+               dictMaterials.Add(_m.name, _m);
+               dictCombineInstance.Add(_m.name, new List&lt;CombineInstance&gt;());
+               dictCombineInstance[_m.name].Add(ci);
+           }           
+        }
+        foreach (KeyValuePair&lt;string, Material&gt; kv in dictMaterials){
+            Mesh tFinalMeshOne = new Mesh();
+            tFinalMeshOne.name = "CombineMesh_"+kv.Key;
+            CombineInstance[] tCombinersOne = new CombineInstance[dictCombineInstance[kv.Key].Count];
+            for (int i = 0; i &lt; dictCombineInstance[kv.Key].Count; i++) {
+                tCombinersOne[i] = dictCombineInstance[kv.Key][i];
+            }
+            tFinalMeshOne.CombineMeshes(tCombinersOne);
+            GameObject go= new GameObject(kv.Key);
+            go.transform.parent = tSelect.transform;
+            go.transform.position = Vector3.zero;
+            go.transform.localEulerAngles = Vector3.zero;
+            go.transform.localScale = Vector3.one;
+            go.AddComponent&lt;MeshFilter&gt;();
+            go.AddComponent&lt;MeshRenderer&gt;();
+            go.GetComponent&lt;MeshFilter&gt;().sharedMesh = tFinalMeshOne;
+            go.GetComponent&lt;MeshRenderer&gt;().material = kv.Value;
+        }      
+    }
+
+}
+</code></pre><p>5、<a href="https://pan.baidu.com/s/1tlgiwgvSVdCKfrKkAf-4eA" target="_blank">Unity FBX Exporter</a>将gameObject导成fbx，相当于手动保存prefab为文件。(编辑器运行时动态生成的mesh数据也可带贴图保存fbx)。  </p>
+<p>高版本通过Window/Package Manager下载官方的包FBX Exporter 也已经够好用的了。  </p>
+<h2 id="Unity3d里的贝塞尔曲线"><a href="#Unity3d里的贝塞尔曲线" class="headerlink" title="Unity3d里的贝塞尔曲线"></a>Unity3d里的贝塞尔曲线</h2><p>贝塞尔曲线是应用于二维图形应用的数学曲线，通过调整控制点，贝塞尔曲线发生变化。<br>关键点就是线性插值。以下为理解思路。  </p>
+<pre><code>借助Unity里有个线性插值函数来理解。 
+Mathf.Lerp(float a,float b,float t)
+参数a为起始值，参数b为终止值，
+参数t为a到b之间的比例。
+
+参数t介于0~1间，超过或等于1返回b，等于0返回a，其余返回值=a+(b-a)*t，返回a到b之间以t作为比例的插值。
+
+这是线性插值。a=Mathf.Lerp(a,b,Time.deltaTime)可以用来对a值做动画。 
+
+n个控制点构成(n-1)次贝塞尔曲线
+
+B(t)=P0+(P1-P0)t=(1-t)P0+P1    ,0&lt;=t&lt;=1
+这就是一阶线性贝塞尔曲线。
+
+一次(线性)贝塞尔曲线两个控制点P0,P1.
+一次线性贝塞尔曲线相当于线性插值给出。
+一次贝塞尔曲线是由P0至P1的连续点，描述的一条线段
+
+
+
+B2(t)二次贝塞尔曲线3个控制点P0,P1,P2，
+对于某个t值，二阶贝塞尔曲线其实由两条线性的贝塞尔曲线叠加而成。
+对应某个t值
+点P0到P1的线性插值给出，起名为点P01
+点P1到P2的线性插值给出。起名为点P12
+点P01和点P12组成一个线段(根据P1点位置不同，该线段位置是会灵活变换的)  
+该线段P01到P12对于此时的t做线性插值，得到点PX
+针对t从0~1，无数个连续的PX连成一条曲线(抛物线)，这就是二次贝塞尔曲线。
+
+
+三个数据点构成二次贝塞尔曲线,二次贝塞尔曲线参数方程
+B2(t)=(1 - t)^2 P0 + 2 t (1 - t) P1 + t^2 P2;
+曲线起点P0,终点P2,但一般不过P1点.
+
+依次类推，
+4个控制点构成三次贝塞尔曲线。  
+B3(t)三次贝塞尔曲线4个控制点p0,p1,p2,p3  
+对于某个t值，三阶贝塞尔曲线其实由三条线性的贝塞尔曲线叠加而成。  
+对应某个t值  
+点P0到P1的线性插值给出，起名为点P01
+点P1到P2的线性插值给出，起名为点P12
+点P2到P3的线性插值给出，起名为点P23
+点P01和点P12组成一个线段A(根据P1位置不同，该线段位置是会灵活变换的)  
+点P12和点P23组成一个线段B(根据P2位置不同，该线段位置是会灵活变换的)  
+线段A做此时t的线性插值得到点x
+线段B做此时t的线性插值得到点y
+点x与点y构成线段xy，
+线段xy做此时t的线性插值得到点z
+
+t在0到1之间变，一一对应无数个连续的这样的点z构成的曲线，就是三次贝塞尔曲线
+
+B3(t)=(1 - t)^3 P0 + 3 *(1-t)^2 * t * P1 + 3 * (1-t) * t^2 * P2 + t^3 * P3;
+</code></pre><p>理解了意思n次贝塞尔曲线就是上面这个意思。  </p>
+<h2 id="根据点动态生成模型并贴图"><a href="#根据点动态生成模型并贴图" class="headerlink" title="根据点动态生成模型并贴图"></a>根据点动态生成模型并贴图</h2><p>由点建面，ok，调整面uv进行贴图，测试原理功能通，uv调整后的效果要在max或其他建模软件结合看看再返回来修改这个调整uv值和顺序的功能，另外应该在建模软件里找到uv点的规律(不然模型稍复杂贴图就感觉会有问题。)。这来来回回有的调，以后再测。</p>
+<h2 id="Chart-and-Graph图表插件"><a href="#Chart-and-Graph图表插件" class="headerlink" title="Chart and Graph图表插件"></a>Chart and Graph图表插件</h2><p>新建空物体,摆放位置和大小。  </p>
+<pre><code>Anchors:0011  
+AnchorMax,AnchorMin:0000  </code></pre><p>添加组件脚本GraphChart、VerticalAxis、HorizontalAxis，设置如图：<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/drawXYfjdlajio23et4.jpg" alt="">  </p>
+<p>在xy坐标轴打点画线的脚本:(此例X,Y轴上坐标值默认自动延伸)  </p>
+<pre><code>using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using ChartAndGraph;
+public class MyTestLine : MonoBehaviour
+{     
+    void Start(){
+    }    
+    void Update(){
+    }
+
+    public GraphChart Graph;
+    void OnGUI() {
+        if (GUILayout.Button("StartLine")) {
+            drawLine = true;
+            StartCoroutine("addOne");
+        }
+        if (GUILayout.Button("StopLine"))
+        {
+            drawLine = false;
+            StopCoroutine("addOne");
+        }
+        if (GUILayout.Button("ClearDraw")) {
+            CleanDraw();
+        }
+    }
+    bool drawLine = false;
+    IEnumerator addOne() {
+        while (drawLine) {
+            Graph.DataSource.StartBatch();
+            Graph.DataSource.AddPointToCategory("Player1", float.Parse(Time.time.ToString("f2")), UnityEngine.Random.value * 100f);
+            Graph.DataSource.EndBatch();
+            yield return new WaitForSeconds(0.04f);
+        }
+        yield return null;
+    }
+    void CleanDraw() {
+        Graph.DataSource.StartBatch();
+        Graph.DataSource.ClearCategory("Player1");
+        Graph.DataSource.EndBatch();
+    }
+}</code></pre><h2 id="Unity3D下Lua编程解决方案xLua"><a href="#Unity3D下Lua编程解决方案xLua" class="headerlink" title="Unity3D下Lua编程解决方案xLua"></a>Unity3D下Lua编程解决方案xLua</h2><p>腾讯已开源 <a href="https://github.com/Tencent/xLua" target="_blank" rel="noopener">https://github.com/Tencent/xLua</a><br><a href="https://pan.baidu.com/s/1Yae4xbV3hz3Ip0PsloeqXg" target="_blank">xLua-2.1.16</a>  </p>
+<p>手游的热更新流程很简单，启动时检测下是否有新版本文件，有的话就下载覆盖老文件，然后启动。<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/shouyouregengxin.png" alt=""><br>下载的文件如果是图片，模型这些是没问题的，但如果是Unity原生的代码逻辑，无论是以前的MonoAOT或者后来的il2cpp，都是编译成nativeCode，iOS下是跑不了的。解决办法就一个，别用nativeCode，别用jit，解析执行就可以了。包括xLua在内的所有热更新支持方案都是通过“解析执行”来实现代码逻辑热更新。  </p>
+<pre><code>下载xLua后解压到Unity工程Assets目录下，建一个MonoBehaviour拖到场景，在Start里头加上这么三行：  
+XLua.LuaEnv luaenv = new XLua.LuaEnv();  
+luaenv.DoString("CS.UnityEngine.Debug.Log('hello world')");  
+luaenv.Dispose();  
+
+第一和第三行分别LuaEnv的创建以及销毁，所谓LuaEnv可以理解为lua虚拟机，往往整个工程一个虚拟机即可：  
+第二行里DoString里头可以是任意合法的lua代码，例子中调用了UnityEngine.Debug.Log接口打印了一个log（C#的静态函数在CS下直接可用）；  
+
+xLua支持把一个Lua函数绑定到C# delegate  
+先声明一个delegate，并为它加上CSharpCallLua标签：  
+[XLua.CSharpCallLua]  
+public delegate double LuaMax(double a, double b);  
+
+在上面那例子加上这么两行（luaenv销毁前）：  
+var max = luaenv.Global.GetInPath&lt;LuaMax&gt;("math.max");
+Debug.Log("max:" + max(32, 12));
+
+就那么简单，把lua的math.max绑定到C#的max变量后，调用就和一个C#函数调用差不多了，而且，最最重要的是，执行了“XLua/Generate Code”后，max(32, 12)调用是不产生（C#）gc alloc的，既优雅，又高效！  
+
+提供了接口、教程，在不修改xLua代码的情况下，开发者可以根据个人喜好加入库；  
+通过cmake实现跨平台编译，可以选择伴随xLua一起编译，修改一个makefile文件，搞定各平台编译。  
+除了很方便加入第三方Lua插件，xLua的生成引擎支持二次开发，可以编写生成插件，生成自己所需的一些代码以及配置。  
+</code></pre><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2020/12/14/diary-20201214-1/" class="b-link-green">Unity3d常用代码2</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2020/12/17/diary-20201217-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/30.jpg" class="responsive-img" alt="拉玛泽生产呼吸法(图解)">
+                        
+                        <span class="card-title">拉玛泽生产呼吸法(图解)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            拉玛泽呼吸法是一种助产法，通过调节呼吸、做助产体操来放松心情、减轻阵痛，让产妇将注意力转移到呼吸的控制上。一般来说，孕7月开始就可以进行练习，如此一来到分娩时就可以灵活运用。  
+拉玛泽生产呼吸法，是一种帮助产妇在分娩过程中，尤其是第一产程
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-17
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2020/12/02/diary-20201202-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/26.jpg" class="responsive-img" alt="Electron将网页打包">
+                        
+                        <span class="card-title">Electron将网页打包</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            简介Electron 是一个基于 Chrominum 和 Node.js 的跨平台桌面应用框架。Electron使您可以通过为运行时提供丰富的本地（操作系统）API来使用纯JavaScript创建桌面应用程序。您可以将其看作是专注于桌面应用
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-02
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Electron/" target="_blank">
+                        <span class="chip bg-color">Electron</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

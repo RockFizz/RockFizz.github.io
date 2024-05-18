@@ -1,0 +1,2205 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="重温mapboxgl和vue, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="重温nodejs和vue下载安装nodejs下载node-v14.18.3-x64.msi，双击安装即可。
+中途的&#34;Automatically install necessary tools...&#34;不用勾选。  
+node -v  
+npm">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>重温mapboxgl和vue | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/10.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        重温mapboxgl和vue
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/AI/" target="_blank">
+                                <span class="chip bg-color">AI</span>
+                            </a>
+                        
+                            <a href="/diary/tags/ARM64/" target="_blank">
+                                <span class="chip bg-color">ARM64</span>
+                            </a>
+                        
+                            <a href="/diary/tags/UBuntu/" target="_blank">
+                                <span class="chip bg-color">UBuntu</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-08-21
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        28 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="重温nodejs和vue"><a href="#重温nodejs和vue" class="headerlink" title="重温nodejs和vue"></a>重温nodejs和vue</h2><h3 id="下载安装nodejs"><a href="#下载安装nodejs" class="headerlink" title="下载安装nodejs"></a>下载安装nodejs</h3><pre class="line-numbers language-html"><code class="language-html">下载node-v14.18.3-x64.msi，双击安装即可。
+中途的"Automatically install necessary tools..."不用勾选。  
+node -v  
+npm -v  出现版本号即安装成功
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>创建全局安装目录和缓存日志目录  </p>
+<pre class="line-numbers language-html"><code class="language-html">在nodejs的安装目录下分别创建node_global文件夹和node_cache文件夹(两个新建目录与安装目内的node_modules同级)  
+打开命令提示符，将npm的全局模块目录和缓存目录配置到我们刚才创建的两个文件夹目录下  
+npm config set prefix 安装目录\node_global   
+npm config set cache 安装目录\node_cache  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>修改源为淘宝镜像，后续就不需要再安装cnpm了。  </p>
+<pre class="line-numbers language-html"><code class="language-html">npm config set registry https://registry.npm.taobao.org  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>配置环境变量  </p>
+<pre class="line-numbers language-html"><code class="language-html">我的电脑-->系统属性-->高级系统设置  
+用户变量 -> Path -> 添加"C:\User\用户名\AppData\Roaming\npm"或者"安装路径\node_global"
+
+环境变量 -> 新建变量NODE_PATH,变量值"安装路径\node_global\node_modules"  
+此时node_modules文件夹还未生成，但是等我们把模块安装到全局目录下面时，系统会自动生成该文件夹。 
+系统变量 -> Path -> 添加%NODE_PATH%  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="下载安装vue"><a href="#下载安装vue" class="headerlink" title="下载安装vue"></a>下载安装vue</h3><p>以管理员身份运行命令提示符<br>安装vue到nodejs的全局目录下。  </p>
+<pre class="line-numbers language-html"><code class="language-html">npm install vue -g  
+// -g 指的是全局安装，即安装到node_global全局目录下  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>安装webpack模板到nodejs的全局目录下。  </p>
+<pre class="line-numbers language-html"><code class="language-html">npm install webpack -g  
+// 验证是否安装成功，输入 webpack -v 能输出版本号就表示安装成功
+由于webpack 4x以上webpack将命令相关的内容放在了webpack-cli中，故需要安装webpack-cli  
+npm install webpack-cli -g  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>安装vue-cli脚手架到nodejs的全局目录下。  </p>
+<pre class="line-numbers language-html"><code class="language-html">npm install -g @vue/cli     (3.0版本) ---选这个！！！  
+npm install vue-cli -g      （2.0版本）  
+//vue -V 验证版本号
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>安装vue-router脚手架到nodejs的全局目录下。  </p>
+<pre class="line-numbers language-html"><code class="language-html">npm install vue-router -g  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>打开nodejs全局模块目录（安装路径\node_global）下的 node_modules 文件夹就可以看到我们安装的配置都在这里  </p>
+<pre class="line-numbers language-html"><code class="language-html">@vue  
+vue  
+vue-router  
+webpack  
+webpack-cli  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="创建vue项目"><a href="#创建vue项目" class="headerlink" title="创建vue项目"></a>创建vue项目</h3><pre class="line-numbers language-html"><code class="language-html">在项目目录vue create vue_prj1  
+
+如何vue create xxx 创建项目时提示系统禁止运行  
+进入WindowsPowerShell(管理员)  
+输入：set-ExecutionPolicy RemoteSigned 然后输入Y即可
+
+通过WindowsPowerShell(管理员)进入目标目录vue create xxx  
+新建结束后运行  
+cd xxx  
+npm run serve  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装依赖包的区别"><a href="#安装依赖包的区别" class="headerlink" title="安装依赖包的区别"></a>安装依赖包的区别</h3><p>进行某项目开发时，npm install 命令安装依赖包时，可以使用-D或-S后缀  </p>
+<pre class="line-numbers language-html"><code class="language-html">npm install 依赖包 -D
+这些依赖项通常是用于项目开发、构建、测试和调试的工具、库或辅助工具。
+它们在开发过程中起作用，但在项目部署或发布时通常不会包含在最终的生产环境中
+npm install 依赖包 -S  
+这些依赖项是项目在运行时所需的核心库或功能模块。  
+它们是项目正常运行所必需的，会包含在最终的生产环境中  
+
+在 package.json 文件中，依赖项将被保存在不同的字段中：
+开发环境依赖项保存在 devDependencies 字段中。
+生产环境依赖项保存在 dependencies 字段中。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="重温mapbox"><a href="#重温mapbox" class="headerlink" title="重温mapbox"></a>重温mapbox</h2><p>Mapbox官网注册一个账号，生成一个开发token，另外在mapbox-gl在使用自搭建的后台地图服务时，可以通过修改源码，把需要token权限的方法注释掉，因而不使用此token就可以使用mapbox，具体方法如下  </p>
+<pre class="line-numbers language-html"><code class="language-html">从github上克隆一份mapbox-gl的源码，最好是按照版本进行克隆，这样代码比较稳定  
+需要修改的文件：mapbox-gl-js-2.2.0\src\ui\map.js  
+代码开始位置: /***** START WARNING - REMOVAL OR MODIFICATION OF THE  
+其中 _authenticate()引用注释掉，就能达到去掉token的效果。  
+上边的警告，需要仔细看一下，  
+开源协议修改后，这段代码，官方不允许修改，在商业应用中，需要注意。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>搭建最初的helloworld Mapboxgl  </p>
+<pre class="line-numbers language-html"><code class="language-html">新建vue项目后  
+npm install -S mapbox-gl  
+npm install -S @mapbox/mapbox-gl-language  
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>hello<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>map<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+<span class="token keyword">import</span> mapboxGl <span class="token keyword">from</span> <span class="token string">'mapbox-gl'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> MapboxLanguage <span class="token keyword">from</span> <span class="token string">'@mapbox/mapbox-gl-language'</span><span class="token punctuation">;</span>
+mapboxGl<span class="token punctuation">.</span>accessToken <span class="token operator">=</span> <span class="token string">'pk.eyJ1IjoiZml6ejExIiwiYSI6ImNrc244am0xczB5N2kycW1tMTQxenptcmMifQ.jCWWOQsBLvRssVVwTgUZsA'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> map<span class="token operator">=</span><span class="token keyword">null</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'HelloMapboxgl'</span><span class="token punctuation">,</span>
+  <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+      map<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">mapboxGl<span class="token punctuation">.</span>Map</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          container<span class="token punctuation">:</span> <span class="token string">'map'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// container ID</span>
+          style<span class="token punctuation">:</span> <span class="token string">'mapbox://styles/mapbox/streets-v12'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 地图样式URL</span>
+          center<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">114.309286</span><span class="token punctuation">,</span><span class="token number">30.565884</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 地图起始位置</span>
+          zoom<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 地图起始比列</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> language<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">MapboxLanguage</span><span class="token punctuation">(</span><span class="token punctuation">{</span>defaultLanguage<span class="token punctuation">:</span><span class="token string">"zh-Hans"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      map<span class="token punctuation">.</span><span class="token function">addControl</span><span class="token punctuation">(</span>language<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  props<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    msg<span class="token punctuation">:</span> String
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">scoped</span><span class="token punctuation">></span></span><span class="token style language-css">
+<span class="token selector">body </span><span class="token punctuation">{</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector"><span class="token id">#map</span> </span><span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span>absolute<span class="token punctuation">;</span> 
+  <span class="token property">top</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token property">bottom</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">;</span> 
+  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="离线环境本地PC运行Alpaca和LLaMA"><a href="#离线环境本地PC运行Alpaca和LLaMA" class="headerlink" title="离线环境本地PC运行Alpaca和LLaMA"></a>离线环境本地PC运行Alpaca和LLaMA</h2><p>Alpaca是由斯坦福大学开发的小型人工智能语言模型,独特之处在于它的规模和成本效益。只有70亿个参数，Alpaca和OpenAI的text-davinci-003模型一样好。而且你可以在你的本地电脑上运行它，不需要互联网连接。<br>Alpaca是在LLaMa上进行训练微调的，LLaMa是Meta的大型语言模型，最近在网上泄露了。而为了训练这个语言模型，科学家们使用OpenAI的”text-davinci-003”模型，生成了52K高质量的自我指导数据。有了这个数据集，他们使用HuggingFace的训练框架对LLaMA模型进行了微调，并发布了Alpaca 7B。你也可以使用Meta的LLaMA模型，斯坦福的Alpaca LLM表现得更好，而且速度也相当快。  </p>
+<h3 id="硬件要求"><a href="#硬件要求" class="headerlink" title="硬件要求"></a>硬件要求</h3><p>你可以在任何像样的机器上使用Alpaca7B。我在我的入门级电脑上安装了Alpaca7B，它运行得相当好。为了让你了解情况，我的电脑采用了第十代英特尔i3处理器，配有256GB的固态硬盘和8GB的内存。对于GPU，我使用Nvidia的入门级GeForceGT730GPU，配备2GB的VRAM。<br>即使没有专用的GPU，你也可以在本地运行Alpaca。但是，响应时间会很慢。除此之外，还有用户甚至能够在RaspberryPi4这样的小型计算机上运行Alpaca。所以你可以推断，Alpaca语言模型也可以很好地在入门级电脑上运行。  </p>
+<h3 id="设置软件环境以运行Alpaca和LLaMA"><a href="#设置软件环境以运行Alpaca和LLaMA" class="headerlink" title="设置软件环境以运行Alpaca和LLaMA"></a>设置软件环境以运行Alpaca和LLaMA</h3><p>Windows,你需要安装Python、Node.js和C++来开始在你的计算机上离线使用大型语言模型  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 下载Python3.10（或以下）。向下滚动并点击 “Windows installer (64-bit)” 来下载安装文件  
+启动安装文件，启用 “Add Python.exe to PATH” 旁边的复选框。现在，用所有的默认设置安装Python。  
+2. 下载安装Node.js 18.0版（或以上）。在安装程序时，保持一切默认。
+3. 下载Visutal Studio2022，确保 “Desktop development with C++” 被启用。点击 “Install“，等待它完成安装。
+4. 所有东西都安装完毕后，重新启动你的计算机。接下来，打开 “Command Prompt“，运行以下命令，检查Python和Node.js是否安装成功。两者都应该返回版本号。  
+python --version  
+node --version
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="在你的电脑上安装Alpaca和LLaMA模型"><a href="#在你的电脑上安装Alpaca和LLaMA模型" class="headerlink" title="在你的电脑上安装Alpaca和LLaMA模型"></a>在你的电脑上安装Alpaca和LLaMA模型</h3><p>一旦你设置好了Python和Node.js，就该在你的电脑上安装运行LLM了。<br>在你继续之前，请确保终端检测到python和node命令。  </p>
+<p>安装Alpaca7B模型</p>
+<pre class="line-numbers language-html"><code class="language-html">打开终端（在我的例子中是命令提示符），运行下面的命令来安装Alpaca 7B LLM模型（大约需要4.2GB磁盘空间）。如果你想安装Alpaca 13B模型，用 13B 代替 7B 。这个较大的模型需要8.1GB的空间。  
+npx dalai alpaca install 7B  
+现在，输入 “y” 并点击回车。这将开始安装Alpaca 7B模型。  
+整个过程将需要20至30分钟，这取决于你的互联网连接和模型的大小。  
+
+立即测试Alpaca模型,运行下面的命令，它将立即启动Webserver。  
+npx dalai serve  
+在你的电脑上使用网络浏览器，打开以下地址。这将使你进入网络用户界面，在那里你可以在本地和没有互联网的情况下测试Alpaca模型  
+http://localhost:3000  
+现在你可以在没有互联网连接的情况下在你的电脑上开始使用这个类似ChatGPT的语言模型。将 “PROMPT” 替换成你的查询，然后点击 “Go”。  
+
+如果你想删除下载的模型以释放磁盘空间，请打开你的用户配置文件目录。这里，”dalai” 文件夹有所有的文件，包括模型。删除 “dalai” 文件夹将立即释放空间。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>你可以选择同时安装LLaMA模型，记住，LLaMA的体积要大得多。它的7B模型需要多达31GB的空间。要安装它，请运行下面的命令。你可以用 13B, 30B, 和 65B替换 7B。最大的模型需要多达432GB的空间。  </p>
+<pre class="line-numbers language-html"><code class="language-html">npx dalai llama install 7B  
+npx dalai llama install 13B  
+npx dalai llama install 30B  
+npx dalai llama install 65B  
+
+安装完毕后，同样通过npx dalai serve启动Webserver  
+http://localhost:3000右上角的"model"下拉菜单中选择"Alpaca 7B"或"LLaMA 7B"或其它你下载安装的模型。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Ubuntu试试cmake、arm64"><a href="#Ubuntu试试cmake、arm64" class="headerlink" title="Ubuntu试试cmake、arm64"></a>Ubuntu试试cmake、arm64</h2><h3 id="安装交叉编译工具链"><a href="#安装交叉编译工具链" class="headerlink" title="安装交叉编译工具链"></a>安装交叉编译工具链</h3><pre class="line-numbers language-html"><code class="language-html">// 查看可以安装的版本  
+apt-cache search aarch64  
+// 选择gcc-5-aarch64-linux-gnu以及g++-5-aarch64-linux-gnu进行安装  
+sudo apt-get install gcc-5-aarch64-linux-gnu  
+sudo apt-get install g++-5-aarch64-linux-gnu  
+// 安装依赖  
+sudo apt --fix-broken install
+
+// 安装一个没有版本号的gcc和g++  
+sudo apt-get install gcc-aarch64-linux-gnu
+sudo apt-get install g++-aarch64-linux-gnu
+// 查看版本  
+aarch64-linux-gnu-g++ -v  
+aarch64-linux-gnu-gcc -v  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="cmake的安装和使用"><a href="#cmake的安装和使用" class="headerlink" title="cmake的安装和使用"></a>cmake的安装和使用</h3><p>安装  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo apt-get install cmake  
+// 查看版本  
+cmake --version
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>使用  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 首选新建工程目录helloworld  
+mkdir helloworld  
+2. 新建cmake需要的工作目录  
+cd helloworld
+mkdir bin
+mkdir lib
+mkdir src
+mkdir include
+mkdir build
+touch CMakeLists.txt  
+其中：  
+helloworld/bin 保存可执行文件  
+helloworld/lib 存放生成的链接库  
+helloworld/src 存放源文件  
+helloworld/include 存放头文件  
+helloworld/build 存放编译过程生成的文件  
+3. 新建源文件，新建头文件  
+touch src/main.cpp  
+touch src/helloworld.cpp  
+touch include/helloworld.h  
+编辑内容如下：  
+//  main.cpp
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>helloworld.h</span><span class="token punctuation">></span></span>
+int main()
+{
+    helloworld obt;
+    obt.outputWord();
+    return 0;
+}
+
+//  helloworld.cpp
+#include "helloworld.h"
+void helloworld::outputWord()
+{
+    std::cout &lt;&lt; "hello world!" &lt;&lt; std::endl;
+}
+
+//  helloworld.h
+#ifndef HELLOWORLD_H_
+#define HELLOWORLD_H_
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+class helloworld
+{
+public:
+    void outputWord();
+};
+#endif
+
+4. 编写CMakeLists.txt文件：  
+cmake_minimum_required(VERSION 2.8)        //cmake最低版本
+project(helloworld)        //工程名称
+SET(CMAKE_BUILD_TYPE Release)        //设置编译方式debug或release
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)        //设置可执行文件保存路径
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)        //设置链接库保存路径  
+include_directories(        //设置头文件目录，使系统可以找到对应的头文件
+${PROJECT_SOURCE_DIR}/include
+)
+add_executable(helloworld src/helloworld.cpp src/main.cpp)        //选择需要编译的源文件，凡是要编译的源文件都需要列举出来
+
+假如需要用到/usr/lib下的静态库libmy.a，则需要添加以下两行  
+link_directories(/usr/lib) //静态库所在位置  
+target_link_libraries(helloworld my)
+
+5. 编译程序  
+cd build  
+cmake ..
+make  
+6. 运行程序  
+./../bin/helloworld
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="交叉编译工具链结合Cmake使用示例"><a href="#交叉编译工具链结合Cmake使用示例" class="headerlink" title="交叉编译工具链结合Cmake使用示例"></a>交叉编译工具链结合Cmake使用示例</h3><p>按之前cmake的要求，准备好目录和相关文件  </p>
+<pre class="line-numbers language-html"><code class="language-html">mkdir helloworld  
+cd helloworld
+mkdir bin
+mkdir lib
+mkdir src
+mkdir include
+mkdir build
+touch CMakeLists.txt  
+touch src/main.cpp  
+touch src/helloworld.cpp  
+touch include/helloworld.h  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过CMakeLists.txt指定编译器为交叉编译工具链  </p>
+<pre class="line-numbers language-html"><code class="language-html">cmake_minimum_required(VERSION 2.8)
+project(helloworld)
+set(CMAKE_C_COMPILER "/usr/bin/aarch64-linux-gnu-gcc")
+set(CMAKE_CXX_COMPILER "/usr/bin/aarch64-linux-gnu-g++")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")  
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")  
+SET(CMAKE_BUILD_TYPE Release)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+include_directories(
+${PROJECT_SOURCE_DIR}/include
+)
+add_executable(helloworld src/helloworld.cpp src/main.cpp)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>编译后生成在arm64环境中的可执行程序  </p>
+<pre class="line-numbers language-html"><code class="language-html">在本机交叉编译
+cd build  
+cmake ..
+make  
+得到ARM64的可执行文件  
+
+在ARM64环境下运行  
+./../bin/helloworld  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="模拟ARM64环境机"><a href="#模拟ARM64环境机" class="headerlink" title="模拟ARM64环境机"></a>模拟ARM64环境机</h3><p>方法一，自己编译linux内核，然后制作initramfs，再用qemu跑模拟器<br>（暂时搁置，待后续深入学习linux系统裁剪后再尝试这个方法）</p>
+<pre class="line-numbers language-html"><code class="language-html">
+wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.4.11.tar.gz
+tar -zxvf linux-4.4.11.tar.gz
+cd linux-4.4.11
+make distclean
+make menuconfig
+make zimage 或者 make bzImage
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方法二，基于docker使用arm架构的Ubuntu镜像  </p>
+<pre class="line-numbers language-html"><code class="language-html">Docker Hub上下载最新版本的arm版Ubuntu镜像  
+sudo docker pull arm64v8/ubuntu
+先拉取镜像，然后创建容器  
+sudo docker run --name myarm64 -it arm64v8/ubuntu  
+创建一个新容器(起名myarm64)并进入交互式模式。你可以在容器中执行任意命令，就像在一个实际的Ubuntu系统中一样。exit退出
+OK。。。
+docker start myarm64  //根据容器名开始运行容器  
+docker stop myarm64 //根据容器名停止运行容器  
+
+
+文件互传:  
+从容器内拷贝到宿主机：  
+宿主机执行 docker cp 容器名:文件/路径 宿主机路径  
+docker cp wordpress-lee:/root/example.sh /root  
+docker cp d:/share/helloworld myarm64:/home/test
+
+从宿主机拷贝到容器:  
+宿主机执行 docker cp 宿主局文件/路径 容器名:容器内路径  
+docker cp /home/Download/index.html wordpress-lee:/var/www/html
+
+
+创建Dockerfile以下内容定制自己的镜像  
+# 使用arm版的ubuntu作为基础镜像
+FROM arm32v7/ubuntu  
+# 设置工作目录  
+WORKDIR /app  
+# 复制应用程序到镜像中  
+COPY . /app  
+# 安装所需依赖  
+RUN apt-get update &amp;&amp; apt-get install -y <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>  
+# 设置容器启动时运行的命令  
+CMD ["<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>command</span><span class="token punctuation">></span></span>"]  
+
+将<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>替换为应用程序所需的依赖  
+将<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>command</span><span class="token punctuation">></span></span>替换为应用程序的启动命令
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过<a href="https://blog.csdn.net/qq_44667259/article/details/129867255" target="_blank" rel="noopener">https://blog.csdn.net/qq_44667259/article/details/129867255</a> 来实现：<br>给arm64容器里的ubuntu安装ssh服务，使之可以从外界登录<br>给arm64容器里的ubuntu适配SSHSecureShellClient，使之与外界window通过ftp互通文件</p>
+<h2 id="安装boost库和卸载boost库"><a href="#安装boost库和卸载boost库" class="headerlink" title="安装boost库和卸载boost库"></a>安装boost库和卸载boost库</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre class="line-numbers language-html"><code class="language-html">下载https://zenlayer.dl.sourceforge.net/project/boost/boost/1.58.0/boost_1_58_0.tar.gz  
+tar -zxvf boost_1_58_0.tar.gz -C ./  
+cd boost_1_58_0  
+sudo ./bootstrap.sh --with-libraries=all --with-toolset=gcc
+sudo ./b2 toolset=gcc
+sudo ./b2 install
+sudo ldconfig
+
+boost库的include目录：/usr/local/include/boost  
+boost库的lib目录：/usr/local/lib  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h3><pre class="line-numbers language-html"><code class="language-html">//删除头文件和库文件  
+sudo rm -f /usr/local/lib/libboost*
+sudo rm -rf /usr/local/include/boost
+// 删除cmake的遗留文件，避免影响下一次安装  
+sudo rm -r /usr/local/lib/cmake/boost*
+sudo rm -r /usr/local/lib/cmake/Boost*
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="查询是否已安装boost"><a href="#查询是否已安装boost" class="headerlink" title="查询是否已安装boost"></a>查询是否已安装boost</h3><pre class="line-numbers language-html"><code class="language-html">sudo find /usr -name "libboost"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Ubuntu下boost的hellowrold"><a href="#Ubuntu下boost的hellowrold" class="headerlink" title="Ubuntu下boost的hellowrold"></a>Ubuntu下boost的hellowrold</h2><p>“boost/timer.hpp”不适用于高精度的时间测量任务，它的精度依赖操作系统或编译器，难以做到跨平台，每秒的clock数则由宏CLOCKS_PER_SEC定义，在不同的操作系统中其值不同，在win32下，其值是1000，精度为毫秒，而在linux下为1000000，精度为微秒；</p>
+<pre class="line-numbers language-html"><code class="language-html">//.Pro文件:  
+TEMPLATE = app
+CONFIG += console c++11
+CONFIG -= app_bundle
+CONFIG -= qt
+LIBS += -lboost_thread -lboost_system
+SOURCES += \
+        main.cpp
+
+// main.cpp:  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include &lt;boost/timer.hpp>
+#include &lt;boost/thread/thread.hpp>
+using namespace std;
+
+void runSomeThing(){
+    boost::timer t;
+    t.restart();
+    cout &lt;&lt; "max timespan: "&lt;&lt;t.elapsed_max()/3600&lt;&lt;" h " &lt;&lt; endl;
+    cout &lt;&lt; "min timespan: "&lt;&lt;t.elapsed_min()&lt;&lt;" s "&lt;&lt; endl;
+    cout &lt;&lt; "now time elapsed:" &lt;&lt;t.elapsed()&lt;&lt;" s "&lt;&lt; endl;
+    cout &lt;&lt; "start record!" &lt;&lt; endl;
+    t.restart();
+    for(auto i=0;i&lt;1000000;i++){
+        auto z=i;
+        // delay 1 second = 1000 millisecond
+        // sleep(1);
+        // delay 500 millisecond
+        // boost::this_thread::sleep_for(boost::chrono::milliseconds(500));
+        cout &lt;&lt; "now recording: " &lt;&lt;i&lt;&lt; endl;
+    }
+    cout &lt;&lt; "1 million cycles consumed time:" &lt;&lt;t.elapsed()&lt;&lt;" s "&lt;&lt; endl;
+}
+int main()
+{
+    boost::thread thrd(&amp;runSomeThing);
+    thrd.join();
+    cout &lt;&lt; "Hello World! complete." &lt;&lt; endl;
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="尝试REST-Web服务器的C-库Served"><a href="#尝试REST-Web服务器的C-库Served" class="headerlink" title="尝试REST Web服务器的C++库Served"></a>尝试REST Web服务器的C++库Served</h2><p><a href="https://gitee.com/cambriconknight/restfulserved" target="_blank" rel="noopener">https://gitee.com/cambriconknight/restfulserved</a><br>环境就是ubunt16.04和boost_1_58_0.tar.gz安装完毕  </p>
+<p>RestfulAPI无连接也有好处呀。。</p>
+<h3 id="下载编译"><a href="#下载编译" class="headerlink" title="下载编译"></a>下载编译</h3><pre class="line-numbers language-html"><code class="language-html">// 因为后面cmake源码时会将当前目录设置为served运行时的库目录  
+// 所以下载解压源码时尽量放在一个不容易被删除，比较像库存放的位置  
+sudo apt-get install cmake
+sudo apt-get install git  
+
+git clone https://gitee.com/cambriconknight/restfulserved  
+cd restfulserved &amp;&amp; mkdir build &amp;&amp; cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=./restfulserved_install
+make -j4
+make install  
+
+目录restfulserved_install会生成对应的lib目录和include目录内容
+cd restfulserved_install/lib  
+sudo cp ./* /usr/local/lib/ -a  
+cd restfulserved_install/include
+sudo cp ./served/ /usr/local/include/ -a
+现在： 
+served库的include目录：/usr/local/include/boost  
+served库的lib目录：/usr/local/lib  
+
+新建qt工程其中.Pro这样修改
+TEMPLATE = app
+CONFIG += console c++11
+CONFIG -= app_bundle
+CONFIG -= qt
+INCLUDEPATH+= /usr/local/include/served
+LIBS += -L/usr/local/lib -lserved
+LIBS += -lboost_thread -lboost_system
+SOURCES += \
+        main.cpp
+
+Shadow build去除勾选
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="编写served的helloworld程序"><a href="#编写served的helloworld程序" class="headerlink" title="编写served的helloworld程序"></a>编写served的helloworld程序</h3><pre class="line-numbers language-html"><code class="language-html">// main.cpp
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include &lt;boost/timer.hpp>
+#include &lt;boost/thread/thread.hpp>
+using namespace std;
+void runSomeThing(){
+    boost::timer t;
+    t.restart();
+    cout &lt;&lt; "max timespan: "&lt;&lt;t.elapsed_max()/3600&lt;&lt;" h " &lt;&lt; endl;
+    cout &lt;&lt; "min timespan: "&lt;&lt;t.elapsed_min()&lt;&lt;" s "&lt;&lt; endl;
+    cout &lt;&lt; "now time elapsed:" &lt;&lt;t.elapsed()&lt;&lt;" s "&lt;&lt; endl;
+    cout &lt;&lt; "start record!" &lt;&lt; endl;
+    t.restart();
+    for(auto i=0;i&lt;1000000;i++){
+        auto z=i;
+        // delay 1 second = 1000 millisecond
+        // sleep(1);
+        // delay 500 millisecond
+        // boost::this_thread::sleep_for(boost::chrono::milliseconds(500));
+        cout &lt;&lt; "now recording: " &lt;&lt;i&lt;&lt; endl;
+    }
+    cout &lt;&lt; "1 million cycles consumed time:" &lt;&lt;t.elapsed()&lt;&lt;" s "&lt;&lt; endl;
+}
+
+#include &lt;served/served.hpp>
+
+int main()
+{
+//    boost::thread thrd(&amp;runSomeThing);
+//    thrd.join();
+    served::multiplexer mux;
+    mux.handle("/hello").get([](served::response &amp;res,const served::request &amp;req){
+        res&lt;&lt;"hello,this is served!";
+    });
+    cout &lt;&lt; "start served" &lt;&lt; endl;
+    served::net::server server("0.0.0.0","8085",mux);
+    server.run(10);
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h3><p>可能会报error while loading shared libraries: libXXXXXXX.so.的错误无法运行  </p>
+<p>默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件，通常通过源码包进行安装时，如果不指定–prefix，会将库安装在/usr/local/lib目录下；当运行程序需要链接动态库时，提示找不到相关的.so库，会报错。也就是说，/usr/local/lib目录不在系统默认的库搜索目录中，需要将目录加进去。  </p>
+<pre class="line-numbers language-html"><code class="language-html">sudo vim /etc/ld.so.conf  
+在"include ld.so.conf.d/*.conf"下方添加"/usr/local/lib"  
+保存退出后  
+sudo /sbin/ldconfig -v  
+sudo ldconfig
+然后执行可执行文件。解决问题
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="交叉编译served"><a href="#交叉编译served" class="headerlink" title="交叉编译served"></a>交叉编译served</h3><pre class="line-numbers language-html"><code class="language-html">git clone https://gitee.com/cambriconknight/restfulserved
+cd restfulserved &amp;&amp; mkdir build &amp;&amp; cd build
+cmake .. -DCMAKE_TOOLCHAIN_FILE=../cmake/ToolChainEdge.cmake \
+        -DCMAKE_INSTALL_PREFIX=./restfulserved_install
+make -j4
+make install
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="安装使用gedit比vim直观"><a href="#安装使用gedit比vim直观" class="headerlink" title="安装使用gedit比vim直观"></a>安装使用gedit比vim直观</h3><p>有复制粘贴图形界面也更方便</p>
+<pre class="line-numbers language-html"><code class="language-html">检查命令是否安装
+whick gedit  
+如果没有安装则进行安装  
+sudo apt-get install gedit
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="防止界面卡死"><a href="#防止界面卡死" class="headerlink" title="防止界面卡死"></a>防止界面卡死</h2><p>传统直接调用Sleep会使程序阻塞，<br>开启本地事件循环，搭配QTimer，不会卡界面  </p>
+<pre class="line-numbers language-html"><code class="language-html">void Widget::on_pushButton_clicked()
+{
+    //在10s后执行某功能：
+    QEventLoop loop;
+    QTimer::singleShot(10*1000,this,SLOT(runSomeFunction()));
+    QTimer::singleShot(10*1000,&amp;loop,SLOT(quit()));
+    loop.exec();
+}
+void Widget::runSomeFunction()
+{
+    qDebug()&lt;&lt;"runSomeFunction()";
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ubuntu使用jsoncpp"><a href="#ubuntu使用jsoncpp" class="headerlink" title="ubuntu使用jsoncpp"></a>ubuntu使用jsoncpp</h2><p>jsoncpp属于第三方库，c++本身不自带处理json数据的库  </p>
+<h3 id="下载安装"><a href="#下载安装" class="headerlink" title="下载安装"></a>下载安装</h3><pre class="line-numbers language-html"><code class="language-html">下载jsoncpp-1.6.0.zip，解压  
+cd jsoncpp-1.6.0 &amp;&amp; mkdir build &amp;&amp; cd build  
+cmake .. -DCMAKE_INSTALL_PREFIX=./jsoncpp_install
+make
+make install 
+
+在build/jsoncpp_install下会生成头文件include和库文件lib两个目录  
+cd jsoncpp_install/lib  
+sudo cp ./* /usr/local/lib/ -a  
+cd jsoncpp_install/include
+sudo cp ./json/ /usr/local/include/ -a
+
+默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件  
+如果当运行程序需要链接动态库时，提示找不到相关的.so库，会报错。也就是说，/usr/local/lib目录不在系统默认的库搜索目录中，需要将目录加进去。  
+sudo vim /etc/ld.so.conf  
+在"include ld.so.conf.d/*.conf"下方添加"/usr/local/lib"  
+保存退出后  
+sudo /sbin/ldconfig -v  
+sudo ldconfig
+然后执行可执行文件。解决
+
+编译时指定要连接的库，使用-l参数
+-L（大L）：指定库文件（动态库为.so文件，静态库为.a文件）所在的目录
+-l（小L）：指定具体的库文件
+g++ -ljsoncpp  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt使用jsoncpp"><a href="#qt使用jsoncpp" class="headerlink" title="qt使用jsoncpp"></a>qt使用jsoncpp</h3><p>.pro文件内容  </p>
+<pre class="line-numbers language-html"><code class="language-html">TEMPLATE = app
+CONFIG += console c++11
+CONFIG -= app_bundle
+CONFIG -= qt
+
+LIBS += -ljsoncpp
+
+SOURCES += \
+        main.cpp  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>main.cpp:  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include &lt;json/json.h>
+using namespace std;
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>fstream</span><span class="token punctuation">></span></span>
+
+int main()
+{
+    cout &lt;&lt; "read json from file:" &lt;&lt; endl;
+    ifstream ifs("alice.json");
+    Json::Reader read_ali;
+    Json::Value obj_ali;
+    if(read_ali.parse(ifs,obj_ali)){
+        cout &lt;&lt; "Book: " &lt;&lt; obj_ali["book"].asString() &lt;&lt; endl;
+        cout &lt;&lt; "Year: " &lt;&lt; obj_ali["year"].asInt() &lt;&lt; endl;
+        const Json::Value &amp;characters=obj_ali["characters"];
+        for(int i=0;i&lt;characters.size();i++){
+            cout &lt;&lt; "    name:" &lt;&lt; characters[i]["name"].asString();
+            cout &lt;&lt; " chapter: " &lt;&lt; characters[i]["chapter"].asInt();
+            cout &lt;&lt; endl;
+        }
+    }else{
+        cout &lt;&lt; "parse error!!" &lt;&lt; endl;
+    }
+
+    cout &lt;&lt; "read json from string:" &lt;&lt; endl;
+    string jsonString="{\"name\":\"aaa\",\"age\":18}";
+    cout &lt;&lt; jsonString &lt;&lt;endl;
+    Json::Reader reader;
+    Json::Value value;
+    if(reader.parse(jsonString,value)){
+        string name=value["name"].asString();
+        int age=value["age"].asInt();
+        cout&lt;&lt; name&lt;&lt;" : "&lt;&lt;age&lt;&lt;endl;
+    }else{
+         cout &lt;&lt; "parse error!" &lt;&lt; endl;
+    }
+
+    cout &lt;&lt; "write json to file" &lt;&lt; endl;
+    Json::Value root;
+    root["name"]=Json::Value("shuiyixin");
+    root["age"]=Json::Value(21);
+    root["sex"]=Json::Value("man");
+
+    Json::Value friends;
+    friends["friend_name"]=Json::Value("ZhaoWuxian");
+    friends["friend_age"]=Json::Value(21);
+    friends["friend_sex"]=Json::Value("man");
+    root["friends"]=Json::Value(friends);
+
+    root["hobby"].append("sing");
+    root["hobby"].append("run");
+    root["hobby"].append("Tai Chi");
+
+    cout&lt;&lt; "FastWriter:"&lt;&lt; endl;
+    Json::FastWriter fw;
+    cout &lt;&lt; fw.write(root)&lt;&lt; endl &lt;&lt;endl;
+
+    cout&lt;&lt; "StyleWriter:"&lt;&lt; endl;
+    Json::StyledWriter sw;
+    cout &lt;&lt; sw.write(root)&lt;&lt; endl &lt;&lt;endl;
+
+    string jsonstr=sw.write(root);
+    cout &lt;&lt; jsonstr &lt;&lt; endl;
+
+    ofstream os;
+    os.open("demo.json");
+    if(!os.is_open()){
+        cout&lt;&lt; "error: can not find or create the file" &lt;&lt; endl;
+    }else{
+        os &lt;&lt; sw.write(root);
+        os.close();
+    }
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>示例数据文件 alice.json:  </p>
+<pre class="line-numbers language-html"><code class="language-html">{
+    "book":"Alice in Wonderland",
+    "year":1865,
+    "characters":
+    [
+        {"name":"Jabberwock", "chapter":1},
+        {"name":"Cheshire Cat", "chapter":6},
+        {"name":"Mad Hatter", "chapter":7}
+    ]
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="ubuntu使用tinyxml2"><a href="#ubuntu使用tinyxml2" class="headerlink" title="ubuntu使用tinyxml2"></a>ubuntu使用tinyxml2</h2><p>TinyXML2 是简单实用的开源的 C++XML 文件解析库  </p>
+<pre class="line-numbers language-html"><code class="language-html">下载tinyxml2-3.0.0.zip，解压tinyxml2-3.0.0  
+cd tinyxml2-3.0.0 &amp;&amp; mkdir build &amp;&amp; cd build  
+cmake .. -DCMAKE_INSTALL_PREFIX=./tinyxml2_install
+make
+make install 
+
+在build/tinyxml2_install下会生成头文件include和库文件lib两个目录  
+cd tinyxml2_install/lib  
+sudo cp ./* /usr/local/lib/ -a  
+cd tinyxml2_install/include
+sudo cp ./json/ /usr/local/include/ -a
+
+sudo vim /etc/ld.so.conf  
+在"include ld.so.conf.d/*.conf"下方添加"/usr/local/lib"  
+保存退出后  
+sudo /sbin/ldconfig -v  
+sudo ldconfig
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>qt使用tinyxml2示例增删查改  </p>
+<pre class="line-numbers language-html"><code class="language-html">// .pro文件  
+TEMPLATE = app
+CONFIG += console c++11
+CONFIG -= app_bundle
+CONFIG -= qt
+
+LIBS += -ltinyxml2
+
+SOURCES += \
+        main.cpp
+
+// main.cpp  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tinyxml2.h</span><span class="token punctuation">></span></span>
+using namespace std;
+
+int createXML(const char* xmlPath){
+    tinyxml2::XMLDocument doc;
+    if(doc.LoadFile(xmlPath)!=3){
+        cout&lt;&lt;"file has been existed!"&lt;&lt; endl;
+        return 0;
+    }
+    tinyxml2::XMLDeclaration* declaration=doc.NewDeclaration();
+    doc.InsertFirstChild(declaration);
+    tinyxml2::XMLElement* root=doc.NewElement("XMLUSER");
+    doc.InsertEndChild(root);
+
+    tinyxml2::XMLElement* userNode=doc.NewElement("User");
+    userNode->SetAttribute("Name","liangbaikai");
+    userNode->SetAttribute("Password","bbbaaa");
+    root->InsertEndChild(userNode);
+
+    cout&lt;&lt;"file start create"&lt;&lt; endl;
+    return doc.SaveFile(xmlPath);
+}
+
+int addXML1(const char* xmlPath)
+{
+    tinyxml2::XMLDocument doc;
+    if(doc.LoadFile(xmlPath) != 0)
+    {
+        cout&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"load</span> <span class="token attr-name">xml</span> <span class="token attr-name">file</span> <span class="token attr-name">failed"&lt;&lt;endl;</span>
+        <span class="token attr-name">return</span> <span class="token attr-name">false;</span>
+    <span class="token attr-name">}</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">root</span><span class="token attr-value"><span class="token punctuation">=</span>doc.RootElement();</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">userNode</span><span class="token attr-value"><span class="token punctuation">=</span>root-</span><span class="token punctuation">></span></span>FirstChildElement("User");
+
+    tinyxml2::XMLElement* gender = doc.NewElement("Gender");
+    tinyxml2::XMLText* genderText=doc.NewText("man");
+    gender->InsertFirstChild(genderText);
+    userNode->InsertFirstChild(gender);
+
+    tinyxml2::XMLElement* mobile = doc.NewElement("Mobile");
+    mobile->InsertFirstChild(doc.NewText("188****6211"));
+    userNode->InsertEndChild(mobile);
+
+    tinyxml2::XMLElement* email = doc.NewElement("Email");
+    email->InsertFirstChild(doc.NewText("1157***657@qq.com"));
+    userNode->InsertEndChild(email);
+
+    tinyxml2::XMLElement* userNode1 = doc.NewElement("User");
+    userNode1->SetAttribute("Name","Wenbaikai");
+    userNode1->SetAttribute("Password ","aaaaa");
+    root->InsertEndChild(userNode1);
+
+    tinyxml2::XMLElement* mobile1 = doc.NewElement("Mobile");
+    mobile1->InsertFirstChild(doc.NewText("166****6666"));
+    userNode1->InsertEndChild(mobile1);
+
+    return doc.SaveFile(xmlPath);
+}
+
+int addXML2(const char* xmlPath)
+{
+    tinyxml2::XMLDocument doc;
+    if(doc.LoadFile(xmlPath) != 0)
+    {
+        cout&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"load</span> <span class="token attr-name">xml</span> <span class="token attr-name">file</span> <span class="token attr-name">failed"&lt;&lt;endl;</span>
+        <span class="token attr-name">return</span> <span class="token attr-name">false;</span>
+    <span class="token attr-name">}</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">root</span><span class="token attr-value"><span class="token punctuation">=</span>doc.RootElement();</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">userNode</span><span class="token attr-value"><span class="token punctuation">=</span>root-</span><span class="token punctuation">></span></span>FirstChildElement("User");
+
+    tinyxml2::XMLElement*gender = userNode->FirstChildElement("Gender");
+    tinyxml2::XMLElement* age = doc.NewElement("Age");
+    age->InsertFirstChild(doc.NewText("18"));
+    userNode->InsertAfterChild(gender,age);
+
+    tinyxml2::XMLElement*mobile = userNode->FirstChildElement("Mobile");
+    mobile->SetAttribute("Location","home");
+    tinyxml2::XMLElement* mobile1 = doc.NewElement("Mobile");
+    mobile1->SetAttribute("Location","company");
+    mobile1->InsertFirstChild(doc.NewText("188****8888"));
+    userNode->InsertAfterChild(mobile,mobile1);
+
+    return doc.SaveFile(xmlPath);
+}
+
+int deleteXML(const char* xmlPath)
+{
+    tinyxml2::XMLDocument doc;
+    if(doc.LoadFile(xmlPath) != 0)
+    {
+        cout&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"load</span> <span class="token attr-name">xml</span> <span class="token attr-name">file</span> <span class="token attr-name">failed"&lt;&lt;endl;</span>
+        <span class="token attr-name">return</span> <span class="token attr-name">false;</span>
+    <span class="token attr-name">}</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">root</span><span class="token attr-value"><span class="token punctuation">=</span>doc.RootElement();</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">userNode</span><span class="token attr-value"><span class="token punctuation">=</span>root-</span><span class="token punctuation">></span></span>FirstChildElement("User");
+    tinyxml2::XMLElement* mobile = userNode->FirstChildElement("Mobile");
+    userNode->DeleteChild(mobile);
+    tinyxml2::XMLElement*mobile1 = userNode->FirstChildElement("Mobile");
+    mobile1->DeleteAttribute("Location");
+    return doc.SaveFile(xmlPath);
+}
+
+int changeXML(const char* xmlPath)
+{
+    tinyxml2::XMLDocument doc;
+    if(doc.LoadFile(xmlPath)!=0)
+    {
+        cout&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"load</span> <span class="token attr-name">xml</span> <span class="token attr-name">file</span> <span class="token attr-name">failed"&lt;&lt;endl;</span>
+        <span class="token attr-name">return</span> <span class="token attr-name">false;</span>
+    <span class="token attr-name">}</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">root</span><span class="token attr-value"><span class="token punctuation">=</span>doc.RootElement();</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">userNode</span><span class="token attr-value"><span class="token punctuation">=</span>root-</span><span class="token punctuation">></span></span>FirstChildElement("User");
+    while(userNode != NULL)
+    {
+        if( 0 == strncmp("liangbaikai",(userNode->Attribute("Name")),11))
+        {
+            userNode->FirstChildElement("Age")->SetText("10000");
+            userNode = userNode->NextSiblingElement();
+        }
+        else if(( 0 == strncmp("Wenbaikai",(userNode->Attribute("Name")),11)))
+        {
+            userNode->FirstChildElement("Mobile")->SetText("166****8888");
+            userNode = userNode->NextSiblingElement();
+        }
+        else
+        {
+            userNode = userNode->NextSiblingElement();
+        }
+    }
+    return doc.SaveFile(xmlPath);
+}
+
+int selectXML(const char* xmlPath)
+{
+    tinyxml2::XMLDocument doc;
+    if(doc.LoadFile(xmlPath)!=0)
+    {
+        cout&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"load</span> <span class="token attr-name">xml</span> <span class="token attr-name">file</span> <span class="token attr-name">failed"&lt;&lt;endl;</span>
+        <span class="token attr-name">return</span> <span class="token attr-name">false;</span>
+    <span class="token attr-name">}</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">root</span><span class="token attr-value"><span class="token punctuation">=</span>doc.RootElement();</span>
+    <span class="token attr-name"><span class="token namespace">tinyxml2:</span>:XMLElement*</span> <span class="token attr-name">userNode</span><span class="token attr-value"><span class="token punctuation">=</span>root-</span><span class="token punctuation">></span></span>FirstChildElement("User");
+    while(userNode != NULL)
+    {
+        if( 0 == strncmp("liangbaikai",(userNode->Attribute("Name")),11))
+        {
+            cout &lt;&lt; userNode->Attribute("Name") &lt;&lt; endl;
+            cout &lt;&lt; userNode->Attribute("Password") &lt;&lt; endl;
+            cout &lt;&lt; userNode->FirstChildElement("Age")->GetText() &lt;&lt; endl;
+            cout &lt;&lt; userNode->FirstChildElement("Gender")->GetText() &lt;&lt; endl;
+            cout &lt;&lt; userNode->FirstChildElement("Mobile")->GetText() &lt;&lt; endl;
+            cout &lt;&lt; userNode->FirstChildElement("Email")->GetText() &lt;&lt; endl;
+            userNode = userNode->NextSiblingElement();
+        }
+        else
+        {
+            userNode = userNode->NextSiblingElement();
+        }
+    }
+    return 0;
+}
+
+int main()
+{
+//    createXML("./bbb.xml");
+    /*增*/
+//    addXML1("./bbb.xml");/*添加性别，号码，邮箱*/ /*再添加一个用户*/
+//    addXML2("./bbb.xml");/*在性别后面添加年龄，再添加一个号码*/
+    /*删*/
+//    deleteXML("./bbb.xml");/*删除第一个号码，删除第二个号码的属性*/
+    /*改*/
+//    changeXML("./bbb.xml");/*将liangbaikai的年龄改为10000岁，将wenbaikai的号码改为8888结尾*/
+    /*查*/
+//    selectXML("./bbb.xml");/*将liangbaikai的信息打印出来*/
+    cout &lt;&lt; "Hello World!" &lt;&lt; endl;
+    return 0;
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/08/21/diary-20230821-1/" class="b-link-green">重温mapboxgl和vue</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/08/27/diary-20230827-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/19.jpg" class="responsive-img" alt="Docker的使用">
+                        
+                        <span class="card-title">Docker的使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            基于docker使用nginx容器挂载宿主机文件夹的方式使用nginx容器获得Nginx容器里原始配置文件  
+// 拉取Nginx镜像
+docker pull nginx  
+
+// 宿主机新建目录d:\data\nginx\conf
+
+
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-08-27
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Docker/" target="_blank">
+                        <span class="chip bg-color">Docker</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/08/10/diary-20230810-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/15.jpg" class="responsive-img" alt="8月Qt和Ubuntu串口">
+                        
+                        <span class="card-title">8月Qt和Ubuntu串口</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Qt事件循环#include &lt;stdio.h>
+int main(int argc, char *argv[]) 
+{
+    printf("Hello World");
+    return 0;
+}  
+这是一段大家都很熟悉的
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-08-10
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Ubuntu/" target="_blank">
+                        <span class="chip bg-color">Ubuntu</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Qt/" target="_blank">
+                        <span class="chip bg-color">Qt</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

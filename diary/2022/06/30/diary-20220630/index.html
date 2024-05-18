@@ -1,0 +1,1925 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="win10_vs2019_pcl环境配置, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="配置环境第一步：安装pcl
+在官网下载exe安装包和如图zip文件  
+
+PCL-1.12.1-AllInOne-msvc2019-win64.exe  
+pcl-1.12.1-pdb-msvc2019-win64.zip
+
+使用管理员权限">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>win10_vs2019_pcl环境配置 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/10.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        win10_vs2019_pcl环境配置
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/C/" target="_blank">
+                                <span class="chip bg-color">C++</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-06-30
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.4k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        14 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="配置环境第一步：安装pcl"><a href="#配置环境第一步：安装pcl" class="headerlink" title="配置环境第一步：安装pcl"></a>配置环境第一步：安装pcl</h2><blockquote>
+<p>在官网下载exe安装包和如图zip文件  </p>
+</blockquote>
+<pre><code>PCL-1.12.1-AllInOne-msvc2019-win64.exe  
+pcl-1.12.1-pdb-msvc2019-win64.zip
+</code></pre><blockquote>
+<p>使用管理员权限打开exe进行安装  </p>
+</blockquote>
+<pre><code>add PCL to the system Path for all users
+弹出对话框是否安装这个设备软件PrimeSense 选择不安装
+</code></pre><blockquote>
+<p>解压pcl-1.12.1-pdb-msvc2019-win64.zip  </p>
+</blockquote>
+<pre><code>解压得到的pdb文件都放入安装目录的bin目录下  
+C:\Program Files\PCL 1.12.1\bin
+</code></pre><blockquote>
+<p>重装OpenNI  </p>
+</blockquote>
+<pre><code>C:\Program Files\PCL 1.12.1\3rdParty\OpenNI2\OpenNI-Windows-x64-2.2.msi  
+先执行卸载，然后双击它重新安装  
+指定安装目录C:\Program Files\PCL 1.12.1\3rdParty\OpenNI2
+</code></pre><h2 id="配置环境第二步：vs2019新建项目配置pcl"><a href="#配置环境第二步：vs2019新建项目配置pcl" class="headerlink" title="配置环境第二步：vs2019新建项目配置pcl"></a>配置环境第二步：vs2019新建项目配置pcl</h2><p>正常新建c++控制台应用  </p>
+<pre><code>项目-右键-属性进入设置 
+选择配置：Debug还是Release，活动平台选择X64  
+
+分别在Debug-X64和Release-X64中修改包含目录、库目录、链接器中的附加依赖项  
+
+debug和release的附加依赖项有区别，另外两项包含目录和库目录是一样的  
+
+1. 通用属性 -&gt; VC++目录 修改 常规-&gt;包含目录 和 库目录：  
+2. 通用属性 -&gt; 链接器 -&gt; 输入 修改 附加依赖项 
+3. 通用属性 -&gt; C/C++ -&gt; 预处理器 编辑预处理器定义  
+增加  
+BOOST_USE_WINDOWS_H 
+NOMINMAX 
+_CRT_SECURE_NO_DEPRECATE
+_CRT_SECURE_NO_WARNINGS 
+
+4. 通用属性 -&gt; C/C++ -&gt; 所有选项 编辑SDL检查 为 否(/sdl-)
+
+5. 复制测试代码  
+
+6. 点击F5Debug，如果提示找不到OpenNI2.dll,就去C:\Program Files\PCL 1.12.1\3rdParty\OpenNI2\Tools中把OpenNI2.dll放置到项目的debug文件夹中。
+</code></pre><p>包含目录：  </p>
+<pre class="line-numbers language-html"><code class="language-html">C:\Program Files\PCL 1.12.1\3rdParty\Eigen\eigen3
+C:\Program Files\PCL 1.12.1\3rdParty\FLANN\include
+C:\Program Files\PCL 1.12.1\3rdParty\VTK\include\vtk-9.1
+C:\Program Files\PCL 1.12.1\3rdParty\Qhull\include
+C:\Program Files\PCL 1.12.1\include\pcl-1.12
+C:\Program Files\PCL 1.12.1\3rdParty\Boost\include\boost-1_78
+C:\Program Files\PCL 1.12.1\3rdParty\OpenNI2\Include
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>库目录：  </p>
+<pre class="line-numbers language-html"><code class="language-html">C:\Program Files\PCL 1.12.1\3rdParty\Boost\lib
+C:\Program Files\PCL 1.12.1\3rdParty\FLANN\lib
+C:\Program Files\PCL 1.12.1\3rdParty\OpenNI2\Lib
+C:\Program Files\PCL 1.12.1\3rdParty\Qhull\lib
+C:\Program Files\PCL 1.12.1\3rdParty\VTK\lib
+C:\Program Files\PCL 1.12.1\lib
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>Debug的依赖项lib列表：  </p>
+<pre><code>pcl_commond.lib
+pcl_featuresd.lib
+pcl_filtersd.lib
+pcl_iod.lib
+pcl_io_plyd.lib
+pcl_kdtreed.lib
+pcl_keypointsd.lib
+pcl_mld.lib
+pcl_octreed.lib
+pcl_outofcored.lib
+pcl_peopled.lib
+pcl_recognitiond.lib
+pcl_registrationd.lib
+pcl_sample_consensusd.lib
+pcl_searchd.lib
+pcl_segmentationd.lib
+pcl_stereod.lib
+pcl_surfaced.lib
+pcl_trackingd.lib
+pcl_visualizationd.lib
+libboost_atomic-vc142-mt-gd-x64-1_78.lib
+libboost_bzip2-vc142-mt-gd-x64-1_78.lib
+libboost_chrono-vc142-mt-gd-x64-1_78.lib
+libboost_container-vc142-mt-gd-x64-1_78.lib
+libboost_context-vc142-mt-gd-x64-1_78.lib
+libboost_contract-vc142-mt-gd-x64-1_78.lib
+libboost_coroutine-vc142-mt-gd-x64-1_78.lib
+libboost_date_time-vc142-mt-gd-x64-1_78.lib
+libboost_exception-vc142-mt-gd-x64-1_78.lib
+libboost_filesystem-vc142-mt-gd-x64-1_78.lib
+libboost_graph-vc142-mt-gd-x64-1_78.lib
+libboost_graph_parallel-vc142-mt-gd-x64-1_78.lib
+libboost_iostreams-vc142-mt-gd-x64-1_78.lib
+libboost_json-vc142-mt-gd-x64-1_78.lib
+libboost_locale-vc142-mt-gd-x64-1_78.lib
+libboost_log-vc142-mt-gd-x64-1_78.lib
+libboost_log_setup-vc142-mt-gd-x64-1_78.lib
+libboost_math_c99-vc142-mt-gd-x64-1_78.lib
+libboost_math_c99f-vc142-mt-gd-x64-1_78.lib
+libboost_math_c99l-vc142-mt-gd-x64-1_78.lib
+libboost_math_tr1-vc142-mt-gd-x64-1_78.lib
+libboost_math_tr1f-vc142-mt-gd-x64-1_78.lib
+libboost_math_tr1l-vc142-mt-gd-x64-1_78.lib
+libboost_mpi-vc142-mt-gd-x64-1_78.lib
+libboost_nowide-vc142-mt-gd-x64-1_78.lib
+libboost_numpy38-vc142-mt-gd-x64-1_78.lib
+libboost_prg_exec_monitor-vc142-mt-gd-x64-1_78.lib
+libboost_program_options-vc142-mt-gd-x64-1_78.lib
+libboost_python38-vc142-mt-gd-x64-1_78.lib
+libboost_random-vc142-mt-gd-x64-1_78.lib
+libboost_regex-vc142-mt-gd-x64-1_78.lib
+libboost_serialization-vc142-mt-gd-x64-1_78.lib
+libboost_system-vc142-mt-gd-x64-1_78.lib
+libboost_test_exec_monitor-vc142-mt-gd-x64-1_78.lib
+libboost_thread-vc142-mt-gd-x64-1_78.lib
+libboost_timer-vc142-mt-gd-x64-1_78.lib
+libboost_type_erasure-vc142-mt-gd-x64-1_78.lib
+libboost_unit_test_framework-vc142-mt-gd-x64-1_78.lib
+libboost_wave-vc142-mt-gd-x64-1_78.lib
+libboost_wserialization-vc142-mt-gd-x64-1_78.lib
+libboost_zlib-vc142-mt-gd-x64-1_78.lib
+flann-gd.lib
+flann_cpp-gd.lib
+flann_cpp_s-gd.lib
+flann_s-gd.lib
+OpenNI2.lib
+qhullcpp_d.lib
+qhullstatic_d.lib
+qhullstatic_rd.lib
+qhull_rd.lib
+vtkcgns-9.1d.lib
+vtkChartsCore-9.1d.lib
+vtkCommonColor-9.1d.lib
+vtkCommonComputationalGeometry-9.1d.lib
+vtkCommonCore-9.1d.lib
+vtkCommonDataModel-9.1d.lib
+vtkCommonExecutionModel-9.1d.lib
+vtkCommonMath-9.1d.lib
+vtkCommonMisc-9.1d.lib
+vtkCommonSystem-9.1d.lib
+vtkCommonTransforms-9.1d.lib
+vtkDICOMParser-9.1d.lib
+vtkDomainsChemistry-9.1d.lib
+vtkDomainsChemistryOpenGL2-9.1d.lib
+vtkdoubleconversion-9.1d.lib
+vtkexodusII-9.1d.lib
+vtkexpat-9.1d.lib
+vtkFiltersAMR-9.1d.lib
+vtkFiltersCore-9.1d.lib
+vtkFiltersExtraction-9.1d.lib
+vtkFiltersFlowPaths-9.1d.lib
+vtkFiltersGeneral-9.1d.lib
+vtkFiltersGeneric-9.1d.lib
+vtkFiltersGeometry-9.1d.lib
+vtkFiltersHybrid-9.1d.lib
+vtkFiltersHyperTree-9.1d.lib
+vtkFiltersImaging-9.1d.lib
+vtkFiltersModeling-9.1d.lib
+vtkFiltersParallel-9.1d.lib
+vtkFiltersParallelImaging-9.1d.lib
+vtkFiltersPoints-9.1d.lib
+vtkFiltersProgrammable-9.1d.lib
+vtkFiltersSelection-9.1d.lib
+vtkFiltersSMP-9.1d.lib
+vtkFiltersSources-9.1d.lib
+vtkFiltersStatistics-9.1d.lib
+vtkFiltersTexture-9.1d.lib
+vtkFiltersTopology-9.1d.lib
+vtkFiltersVerdict-9.1d.lib
+vtkfmt-9.1d.lib
+vtkfreetype-9.1d.lib
+vtkGeovisCore-9.1d.lib
+vtkgl2ps-9.1d.lib
+vtkglew-9.1d.lib
+vtkhdf5-9.1d.lib
+vtkhdf5_hl-9.1d.lib
+vtkImagingColor-9.1d.lib
+vtkImagingCore-9.1d.lib
+vtkImagingFourier-9.1d.lib
+vtkImagingGeneral-9.1d.lib
+vtkImagingHybrid-9.1d.lib
+vtkImagingMath-9.1d.lib
+vtkImagingMorphological-9.1d.lib
+vtkImagingSources-9.1d.lib
+vtkImagingStatistics-9.1d.lib
+vtkImagingStencil-9.1d.lib
+vtkInfovisCore-9.1d.lib
+vtkInfovisLayout-9.1d.lib
+vtkInteractionImage-9.1d.lib
+vtkInteractionStyle-9.1d.lib
+vtkInteractionWidgets-9.1d.lib
+vtkIOAMR-9.1d.lib
+vtkIOAsynchronous-9.1d.lib
+vtkIOCGNSReader-9.1d.lib
+vtkIOChemistry-9.1d.lib
+vtkIOCityGML-9.1d.lib
+vtkIOCONVERGECFD-9.1d.lib
+vtkIOCore-9.1d.lib
+vtkIOEnSight-9.1d.lib
+vtkIOExodus-9.1d.lib
+vtkIOExport-9.1d.lib
+vtkIOExportGL2PS-9.1d.lib
+vtkIOExportPDF-9.1d.lib
+vtkIOGeometry-9.1d.lib
+vtkIOHDF-9.1d.lib
+vtkIOImage-9.1d.lib
+vtkIOImport-9.1d.lib
+vtkIOInfovis-9.1d.lib
+vtkIOIOSS-9.1d.lib
+vtkIOLegacy-9.1d.lib
+vtkIOLSDyna-9.1d.lib
+vtkIOMINC-9.1d.lib
+vtkIOMotionFX-9.1d.lib
+vtkIOMovie-9.1d.lib
+vtkIONetCDF-9.1d.lib
+vtkIOOggTheora-9.1d.lib
+vtkIOParallel-9.1d.lib
+vtkIOParallelXML-9.1d.lib
+vtkIOPLY-9.1d.lib
+vtkIOSegY-9.1d.lib
+vtkIOSQL-9.1d.lib
+vtkioss-9.1d.lib
+vtkIOTecplotTable-9.1d.lib
+vtkIOVeraOut-9.1d.lib
+vtkIOVideo-9.1d.lib
+vtkIOXML-9.1d.lib
+vtkIOXMLParser-9.1d.lib
+vtkjpeg-9.1d.lib
+vtkjsoncpp-9.1d.lib
+vtkkissfft-9.1d.lib
+vtklibharu-9.1d.lib
+vtklibproj-9.1d.lib
+vtklibxml2-9.1d.lib
+vtkloguru-9.1d.lib
+vtklz4-9.1d.lib
+vtklzma-9.1d.lib
+vtkmetaio-9.1d.lib
+vtknetcdf-9.1d.lib
+vtkogg-9.1d.lib
+vtkParallelCore-9.1d.lib
+vtkParallelDIY-9.1d.lib
+vtkpng-9.1d.lib
+vtkpugixml-9.1d.lib
+vtkRenderingAnnotation-9.1d.lib
+vtkRenderingContext2D-9.1d.lib
+vtkRenderingContextOpenGL2-9.1d.lib
+vtkRenderingCore-9.1d.lib
+vtkRenderingFreeType-9.1d.lib
+vtkRenderingGL2PSOpenGL2-9.1d.lib
+vtkRenderingImage-9.1d.lib
+vtkRenderingLabel-9.1d.lib
+vtkRenderingLOD-9.1d.lib
+vtkRenderingOpenGL2-9.1d.lib
+vtkRenderingSceneGraph-9.1d.lib
+vtkRenderingUI-9.1d.lib
+vtkRenderingVolume-9.1d.lib
+vtkRenderingVolumeOpenGL2-9.1d.lib
+vtkRenderingVtkJS-9.1d.lib
+vtksqlite-9.1d.lib
+vtksys-9.1d.lib
+vtkTestingRendering-9.1d.lib
+vtktheora-9.1d.lib
+vtktiff-9.1d.lib
+vtkverdict-9.1d.lib
+vtkViewsContext2D-9.1d.lib
+vtkViewsCore-9.1d.lib
+vtkViewsInfovis-9.1d.lib
+vtkWrappingTools-9.1d.lib
+vtkzlib-9.1d.lib
+</code></pre><p>Release的依赖项lib列表：  </p>
+<pre class="line-numbers language-html"><code class="language-html">pcl_common.lib
+pcl_features.lib
+pcl_filters.lib
+pcl_io.lib
+pcl_io_ply.lib
+pcl_kdtree.lib
+pcl_keypoints.lib
+pcl_ml.lib
+pcl_octree.lib
+pcl_outofcore.lib
+pcl_people.lib
+pcl_recognition.lib
+pcl_registration.lib
+pcl_sample_consensus.lib
+pcl_search.lib
+pcl_segmentation.lib
+pcl_stereo.lib
+pcl_surface.lib
+pcl_tracking.lib
+pcl_visualization.lib
+libboost_atomic-vc142-mt-x64-1_78.lib
+libboost_bzip2-vc142-mt-x64-1_78.lib
+libboost_chrono-vc142-mt-x64-1_78.lib
+libboost_container-vc142-mt-x64-1_78.lib
+libboost_context-vc142-mt-x64-1_78.lib
+libboost_contract-vc142-mt-x64-1_78.lib
+libboost_coroutine-vc142-mt-x64-1_78.lib
+libboost_date_time-vc142-mt-x64-1_78.lib
+libboost_exception-vc142-mt-x64-1_78.lib
+libboost_filesystem-vc142-mt-x64-1_78.lib
+libboost_graph-vc142-mt-x64-1_78.lib
+libboost_graph_parallel-vc142-mt-x64-1_78.lib
+libboost_iostreams-vc142-mt-x64-1_78.lib
+libboost_json-vc142-mt-x64-1_78.lib
+libboost_locale-vc142-mt-x64-1_78.lib
+libboost_log-vc142-mt-x64-1_78.lib
+libboost_log_setup-vc142-mt-x64-1_78.lib
+libboost_math_c99-vc142-mt-x64-1_78.lib
+libboost_math_c99f-vc142-mt-x64-1_78.lib
+libboost_math_c99l-vc142-mt-x64-1_78.lib
+libboost_math_tr1-vc142-mt-x64-1_78.lib
+libboost_math_tr1f-vc142-mt-x64-1_78.lib
+libboost_math_tr1l-vc142-mt-x64-1_78.lib
+libboost_mpi-vc142-mt-x64-1_78.lib
+libboost_nowide-vc142-mt-x64-1_78.lib
+libboost_numpy38-vc142-mt-x64-1_78.lib
+libboost_prg_exec_monitor-vc142-mt-x64-1_78.lib
+libboost_program_options-vc142-mt-x64-1_78.lib
+libboost_python38-vc142-mt-x64-1_78.lib
+libboost_random-vc142-mt-x64-1_78.lib
+libboost_regex-vc142-mt-x64-1_78.lib
+libboost_serialization-vc142-mt-x64-1_78.lib
+libboost_system-vc142-mt-x64-1_78.lib
+libboost_test_exec_monitor-vc142-mt-x64-1_78.lib
+libboost_thread-vc142-mt-x64-1_78.lib
+libboost_timer-vc142-mt-x64-1_78.lib
+libboost_type_erasure-vc142-mt-x64-1_78.lib
+libboost_unit_test_framework-vc142-mt-x64-1_78.lib
+libboost_wave-vc142-mt-x64-1_78.lib
+libboost_wserialization-vc142-mt-x64-1_78.lib
+libboost_zlib-vc142-mt-x64-1_78.lib
+flann.lib
+flann_cpp.lib
+flann_cpp_s.lib
+flann_s.lib
+OpenNI2.lib
+qhullcpp.lib
+qhullstatic.lib
+qhullstatic_r.lib
+qhull_r.lib
+vtkcgns-9.1.lib
+vtkChartsCore-9.1.lib
+vtkCommonColor-9.1.lib
+vtkCommonComputationalGeometry-9.1.lib
+vtkCommonCore-9.1.lib
+vtkCommonDataModel-9.1.lib
+vtkCommonExecutionModel-9.1.lib
+vtkCommonMath-9.1.lib
+vtkCommonMisc-9.1.lib
+vtkCommonSystem-9.1.lib
+vtkCommonTransforms-9.1.lib
+vtkDICOMParser-9.1.lib
+vtkDomainsChemistry-9.1.lib
+vtkDomainsChemistryOpenGL2-9.1.lib
+vtkdoubleconversion-9.1.lib
+vtkexodusII-9.1.lib
+vtkexpat-9.1.lib
+vtkFiltersAMR-9.1.lib
+vtkFiltersCore-9.1.lib
+vtkFiltersExtraction-9.1.lib
+vtkFiltersFlowPaths-9.1.lib
+vtkFiltersGeneral-9.1.lib
+vtkFiltersGeneric-9.1.lib
+vtkFiltersGeometry-9.1.lib
+vtkFiltersHybrid-9.1.lib
+vtkFiltersHyperTree-9.1.lib
+vtkFiltersImaging-9.1.lib
+vtkFiltersModeling-9.1.lib
+vtkFiltersParallel-9.1.lib
+vtkFiltersParallelImaging-9.1.lib
+vtkFiltersPoints-9.1.lib
+vtkFiltersProgrammable-9.1.lib
+vtkFiltersSelection-9.1.lib
+vtkFiltersSMP-9.1.lib
+vtkFiltersSources-9.1.lib
+vtkFiltersStatistics-9.1.lib
+vtkFiltersTexture-9.1.lib
+vtkFiltersTopology-9.1.lib
+vtkFiltersVerdict-9.1.lib
+vtkfmt-9.1.lib
+vtkfreetype-9.1.lib
+vtkGeovisCore-9.1.lib
+vtkgl2ps-9.1.lib
+vtkglew-9.1.lib
+vtkhdf5-9.1.lib
+vtkhdf5_hl-9.1.lib
+vtkImagingColor-9.1.lib
+vtkImagingCore-9.1.lib
+vtkImagingFourier-9.1.lib
+vtkImagingGeneral-9.1.lib
+vtkImagingHybrid-9.1.lib
+vtkImagingMath-9.1.lib
+vtkImagingMorphological-9.1.lib
+vtkImagingSources-9.1.lib
+vtkImagingStatistics-9.1.lib
+vtkImagingStencil-9.1.lib
+vtkInfovisCore-9.1.lib
+vtkInfovisLayout-9.1.lib
+vtkInteractionImage-9.1.lib
+vtkInteractionStyle-9.1.lib
+vtkInteractionWidgets-9.1.lib
+vtkIOAMR-9.1.lib
+vtkIOAsynchronous-9.1.lib
+vtkIOCGNSReader-9.1.lib
+vtkIOChemistry-9.1.lib
+vtkIOCityGML-9.1.lib
+vtkIOCONVERGECFD-9.1.lib
+vtkIOCore-9.1.lib
+vtkIOEnSight-9.1.lib
+vtkIOExodus-9.1.lib
+vtkIOExport-9.1.lib
+vtkIOExportGL2PS-9.1.lib
+vtkIOExportPDF-9.1.lib
+vtkIOGeometry-9.1.lib
+vtkIOHDF-9.1.lib
+vtkIOImage-9.1.lib
+vtkIOImport-9.1.lib
+vtkIOInfovis-9.1.lib
+vtkIOIOSS-9.1.lib
+vtkIOLegacy-9.1.lib
+vtkIOLSDyna-9.1.lib
+vtkIOMINC-9.1.lib
+vtkIOMotionFX-9.1.lib
+vtkIOMovie-9.1.lib
+vtkIONetCDF-9.1.lib
+vtkIOOggTheora-9.1.lib
+vtkIOParallel-9.1.lib
+vtkIOParallelXML-9.1.lib
+vtkIOPLY-9.1.lib
+vtkIOSegY-9.1.lib
+vtkIOSQL-9.1.lib
+vtkioss-9.1.lib
+vtkIOTecplotTable-9.1.lib
+vtkIOVeraOut-9.1.lib
+vtkIOVideo-9.1.lib
+vtkIOXML-9.1.lib
+vtkIOXMLParser-9.1.lib
+vtkjpeg-9.1.lib
+vtkjsoncpp-9.1.lib
+vtkkissfft-9.1.lib
+vtklibharu-9.1.lib
+vtklibproj-9.1.lib
+vtklibxml2-9.1.lib
+vtkloguru-9.1.lib
+vtklz4-9.1.lib
+vtklzma-9.1.lib
+vtkmetaio-9.1.lib
+vtknetcdf-9.1.lib
+vtkogg-9.1.lib
+vtkParallelCore-9.1.lib
+vtkParallelDIY-9.1.lib
+vtkpng-9.1.lib
+vtkpugixml-9.1.lib
+vtkRenderingAnnotation-9.1.lib
+vtkRenderingContext2D-9.1.lib
+vtkRenderingContextOpenGL2-9.1.lib
+vtkRenderingCore-9.1.lib
+vtkRenderingFreeType-9.1.lib
+vtkRenderingGL2PSOpenGL2-9.1.lib
+vtkRenderingImage-9.1.lib
+vtkRenderingLabel-9.1.lib
+vtkRenderingLOD-9.1.lib
+vtkRenderingOpenGL2-9.1.lib
+vtkRenderingSceneGraph-9.1.lib
+vtkRenderingUI-9.1.lib
+vtkRenderingVolume-9.1.lib
+vtkRenderingVolumeOpenGL2-9.1.lib
+vtkRenderingVtkJS-9.1.lib
+vtksqlite-9.1.lib
+vtksys-9.1.lib
+vtkTestingRendering-9.1.lib
+vtktheora-9.1.lib
+vtktiff-9.1.lib
+vtkverdict-9.1.lib
+vtkViewsContext2D-9.1.lib
+vtkViewsCore-9.1.lib
+vtkViewsInfovis-9.1.lib
+vtkWrappingTools-9.1.lib
+vtkzlib-9.1.lib
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>复制测试代码：  </p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include <iostream>
+#include <pcl/io/pcd_io.h>
+#include <pcl/point_types.h>
+int  main (int argc, char** argv)
+{ 
+    pcl::PointCloud<pcl::PointXYZ> cloud;   // Fill in the cloud data  
+    cloud.width    = 5;  
+    cloud.height   = 1;  
+    cloud.is_dense = false;  
+    cloud.points.resize (cloud.width * cloud.height);  
+    for (std::size_t i = 0; i < cloud.points.size (); ++i) 
+    {    
+        cloud.points[i].x = 1024 * rand () / (RAND_MAX + 1.0f);    
+        cloud.points[i].y = 1024 * rand () / (RAND_MAX + 1.0f);    
+        cloud.points[i].z = 1024 * rand () / (RAND_MAX + 1.0f);
+    }  
+        pcl::io::savePCDFileASCII ("test_pcd.pcd", cloud);  
+        std::cerr << "Saved " << cloud.points.size () << " data points to test_pcd.pcd." << std::endl;  
+        for (std::size_t i = 0; i < cloud.points.size (); ++i)    
+             std::cerr << "    " << cloud.points[i].x << " " << cloud.points[i].y << " " << cloud.points[i].z << std::endl;  
+        return (0);
+}       
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="pcl读取PCD文件"><a href="#pcl读取PCD文件" class="headerlink" title="pcl读取PCD文件"></a>pcl读取PCD文件</h2><p>将rabbit.pcd和**.cpp放在同一目录下  </p>
+<pre class="line-numbers language-c++"><code class="language-c++">#include<pcl/visualization/cloud_viewer.h>
+#include<iostream>//标准C++库中的输入输出类相关头文件。
+#include<pcl/io/io.h>
+#include<pcl/io/pcd_io.h>//pcd 读写类相关的头文件。
+#include<pcl/io/ply_io.h>
+#include<pcl/point_types.h> //PCL中支持的点类型头文件。
+int user_data;
+using std::cout;
+
+
+void viewerOneOff(pcl::visualization::PCLVisualizer& viewer) {
+    viewer.setBackgroundColor(1.0, 0.5, 1.0);   //设置背景颜色
+}
+
+int main() {
+    //创建了一个名为cloud的指针，储存XYZ类型的点云数据   （Boost共享指针？）
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
+    //指定点云文件名
+    char strfilepath[256] = "rabbit.pcd";
+    //加载点云文件
+    if (-1 == pcl::io::loadPCDFile(strfilepath, *cloud)) {
+        cout << "error input!" << endl;
+        return -1;
+    }
+
+    // 控制台输出点云文件内容 
+    // 滤波，剪裁，拟合等其他操作是不是调用类似的算法进行操作？
+    std::cout << "Loaded: " << cloud->width * cloud->height << " data points from rabbit.pcd with the following fields:" << std::endl;
+    // cout << cloud->points.size() << endl;
+    for (size_t i = 0; i < cloud->points.size(); ++i) {
+        std::cout << "      " << cloud->points[i].x << "   " << cloud->points[i].y << "   " << cloud->points[i].z << "   " << std::endl;
+    }
+
+    //创建viewer对象 可视化显示点云
+    pcl::visualization::CloudViewer viewer("Cloud Viewer");   
+    viewer.showCloud(cloud);
+    viewer.runOnVisualizationThreadOnce(viewerOneOff);
+    system("pause");
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>滚下滚轮，一个兔子出来了  </p>
+<pre class="line-numbers language-html"><code class="language-html">PointCloud是PCL中的一个基类，pcl::PointCloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">pcl:</span>:PointXYZ</span><span class="token punctuation">></span></span>::Ptr是一个Boost共享指针  
+
+关于PointCloud中的数据域：  
+
+width（int），如果是无组织，无结构的点云数据，表示点云的个数；如果是有结构的点云数据，表示点云数据集一行的点数。   
+height（int），如果是无结构的点云数据，height=1；如果是有结构的点云数据，height表示点云总行数。  
+points（std::vector）存储了数据类型为PointT的一个动态数组。  
+PointXYZ 是最常见的一个点数据类型，它只包含三维X,Y,Z坐标信息　X：points[i].x  
+size_t 整型，保存一个整数，记录一个大小（size）  
+points.size（） 表示点云数据大小  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>PCD文件由文件头和数据域组成，文件头存储了点云数据的字段格式信息<br>读入数据后，可以遍历点云数据，并访问各个域上的值。  </p>
+<pre class="line-numbers language-html"><code class="language-html"># .PCD v0.7 - Point Cloud Data file format
+ VERSION 0.7
+ FIELDS x y z rgb
+
+SIZE 4 4 4 4
+
+TYPE F F F F
+
+COUNT 1 1 1 1
+WIDTH 246868
+HEIGHT 1
+VIEWPOINT 0 0 0 1 0 0 0
+POINTS 246868
+
+DATA ascii
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2022/06/30/diary-20220630/" class="b-link-green">win10_vs2019_pcl环境配置</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2022/07/02/diary-20220702-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/28.jpg" class="responsive-img" alt="离线环境使用androidStudio">
+                        
+                        <span class="card-title">离线环境使用androidStudio</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            可以联网就随便搞1. Project/build.gradle替换国内仓库  
+
+buildscript {
+    repositories {
+        // google()
+        // mavenCentral()
+
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-07-02
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/AndroidStudio/" target="_blank">
+                        <span class="chip bg-color">AndroidStudio</span>
+                    </a>
+                    
+                    <a href="/diary/tags/qt/" target="_blank">
+                        <span class="chip bg-color">qt</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2022/06/25/diary-20220625/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/25.jpg" class="responsive-img" alt="C++学习笔记">
+                        
+                        <span class="card-title">C++学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            预备知识+
+C++三件法宝，融合了三种不同的编程方式
+
+继承C语言高效、简洁、快速、可移植  
+
+
+标准的C语言代表着过程性语言，提供了基本类型，运算符，控制结构和语法规则，能生成简洁快速运行的程序。  
+标准C语言提供了处理硬件的能力，如
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-06-25
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/C/" target="_blank">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

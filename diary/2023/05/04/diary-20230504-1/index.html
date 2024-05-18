@@ -1,0 +1,2331 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="qt自定义监听拖动和界面布局, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="qt自定义监听事件和拖动Qt的事件模型是使用一个QObject对象，
+监视发送其他QObject对象的事件，在事件到达之前对其进行处理。这里要使用一个函数  
+void QObject::installEventFilter(QObject">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>qt自定义监听拖动和界面布局 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/4.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        qt自定义监听拖动和界面布局
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Qt/" target="_blank">
+                                <span class="chip bg-color">Qt</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-05-04
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        8k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        34 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="qt自定义监听事件和拖动"><a href="#qt自定义监听事件和拖动" class="headerlink" title="qt自定义监听事件和拖动"></a>qt自定义监听事件和拖动</h2><p>Qt的事件模型是使用一个QObject对象，</p>
+<pre class="line-numbers language-html"><code class="language-html">监视发送其他QObject对象的事件，在事件到达之前对其进行处理。这里要使用一个函数  
+void QObject::installEventFilter(QObject *filterObj)  
+在monitoredObj对象上安装一个事件过滤器filterObj。如下  
+monitoredObj->installEventFilter(filterObj);
+其中monitoredObj、filterObj都是QObject的子类。上面代码意思是：在monitoredObj对象上安装一个事件过滤器filterObj。该函数一般和如下函数配合使用：  
+[virtual] bool QObject::eventFilter(QObject *watched, QEvent *event)  
+注意：该函数是虚函数，也就是说派生自QObject的子类可以重写该函数。  
+
+class KeyPressEater : public QObject
+{
+    Q_OBJECT
+    ...
+
+    protected:
+      bool eventFilter(QObject *obj, QEvent *event) override;
+};
+
+bool KeyPressEater::eventFilter(QObject *obj, QEvent *event)
+{
+  if (event->type() == QEvent::KeyPress) {
+      QKeyEvent *keyEvent = static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QKeyEvent</span> <span class="token attr-name">*</span><span class="token punctuation">></span></span>(event);
+      qDebug("Ate key press %d", keyEvent->key());
+      return true;
+  } else {
+      // standard event processing
+      return QObject::eventFilter(obj, event);
+  }
+}
+在按钮或QListView两个窗体部件上安装过滤器，如下：  
+  KeyPressEater *keyPressEater = new KeyPressEater(this);
+
+  QPushButton *pushButton = new QPushButton(this);
+  QListView *listView = new QListView(this);
+  pushButton->installEventFilter(keyPressEater);
+  listView->installEventFilter(keyPressEater);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>另一个例子,dialog.h  </p>
+<pre class="line-numbers language-html"><code class="language-html">#ifndef DIALOG_H
+#define DIALOG_H
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDialog</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QLabel</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QHBoxLayout</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QVBoxLayout</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QPixmap</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMouseEvent</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QImage</span><span class="token punctuation">></span></span>
+namespace Ui {
+class Dialog;
+}
+
+class Dialog : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit Dialog(QWidget *parent = 0);
+    ~Dialog();
+public:
+    QLabel * label1;
+    QLabel * label2;
+    QLabel * label3;
+    QLabel * labelstate;
+    QImage image1;
+    QImage image2;
+    QImage image3;
+
+private:
+    Ui::Dialog *ui;
+private slots:
+    bool eventFilter(QObject *, QEvent *);
+};
+
+#endif // DIALOG_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>dialog.cpp  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include "dialog.h"
+#include "ui_dialog.h"
+
+Dialog::Dialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::Dialog)
+{
+    ui->setupUi(this);
+
+    label1 = new QLabel;
+    label2 = new QLabel;
+    label3 = new QLabel;
+    labelstate = new QLabel;
+    labelstate->setAlignment(Qt::AlignHCenter);
+
+    image1.load(":/BABY.jpg");
+    image2.load(":/baby.jpg");
+    image3.load(":/huanhuan.jpg");
+
+    QMatrix matrix;
+    matrix.scale(0.3, 0.3);
+    image1 = image1.transformed(matrix);
+    image2 = image2.transformed(matrix);
+    image3 = image3.transformed(matrix);
+
+    label1->setPixmap(QPixmap::fromImage(image1));
+    label2->setPixmap(QPixmap::fromImage(image2));
+    label3->setPixmap(QPixmap::fromImage(image3));
+
+    QHBoxLayout * hor = new QHBoxLayout;
+    hor->addWidget(label1);
+    hor->addWidget(label2);
+    hor->addWidget(label3);
+
+    QVBoxLayout * ver = new QVBoxLayout;
+    ver->addLayout(hor);
+    ver->addWidget(labelstate);
+    setLayout(ver);
+
+    label1->installEventFilter(this);
+    label2->installEventFilter(this);
+    label3->installEventFilter(this);
+
+
+
+}
+bool Dialog::eventFilter(QObject *watched, QEvent *event)
+{
+    //判断当前发生事件的对象
+    if (watched == label1)
+    {
+        if (event->type() == QEvent::MouseButtonPress) //判断发生的事件类型
+        {
+            //将事件event转化为鼠标事件
+            QMouseEvent * mouseEvent = (QMouseEvent *)event;
+            if (mouseEvent->button()&amp;Qt::LeftButton)
+            {
+                labelstate->setText(tr("Left mouse button pressed on left image"));
+            }
+            if (mouseEvent->button()&amp;Qt::RightButton)
+            {
+                labelstate->setText(tr("middle mouse button pressed on left image"));
+            }
+            if (mouseEvent->button()&amp;Qt::MidButton)
+            {
+                labelstate->setText(tr("right mouse button pressed on left image"));
+            }
+            QMatrix matrix;
+            matrix.scale(2, 2);
+            QImage tmp1 = image1.transformed(matrix);
+            label1->setPixmap(QPixmap::fromImage(tmp1));
+        }
+        if (event->type() == QEvent::MouseButtonRelease)
+        {
+            labelstate->setText(tr("Mouse button released from left image"));
+            label1->setPixmap(QPixmap::fromImage(image1));
+
+        }
+    }
+    if (watched == label2)
+    {
+        if (event->type() == QEvent::MouseButtonPress)
+        {
+            QMouseEvent * mouseEvent = (QMouseEvent *)event;
+            if (mouseEvent->button()&amp;Qt::LeftButton)
+            {
+                labelstate->setText(tr("Left mouse button pressed on middle image"));
+            }
+            if (mouseEvent->button()&amp;Qt::RightButton)
+            {
+                labelstate->setText(tr("middle mouse button pressed on middle image"));
+            }
+            if (mouseEvent->button()&amp;Qt::MidButton)
+            {
+                labelstate->setText(tr("right mouse button pressed on middle image"));
+            }
+            QMatrix matrix;
+            matrix.scale(2, 2);
+            QImage  tmp2 = image2.transformed(matrix);
+            label2->setPixmap(QPixmap::fromImage(tmp2));
+        }
+        if (event->type() == QEvent::MouseButtonRelease)
+        {
+            labelstate->setText(tr("Mouse button released from middle image"));
+            label2->setPixmap(QPixmap::fromImage(image2));
+        }
+
+    }
+    if (watched == label3)
+    {
+        if (event->type() == QEvent::MouseButtonPress)
+        {
+            QMouseEvent * mouseEvent = (QMouseEvent *)event;
+            if (mouseEvent->button()&amp;Qt::LeftButton)
+            {
+                labelstate->setText(tr("Left mouse button pressed on right image"));
+            }
+            if (mouseEvent->button()&amp;Qt::RightButton)
+            {
+                labelstate->setText(tr("middle mouse button pressed on right image"));
+            }
+            if (mouseEvent->button()&amp;Qt::MidButton)
+            {
+                labelstate->setText(tr("right mouse button pressed on right image"));
+            }
+            QMatrix matrix;
+            matrix.scale(2, 2);
+            QImage  tmp3 = image3.transformed(matrix);
+            label3->setPixmap(QPixmap::fromImage(tmp3));
+        }
+        if (event->type() == QEvent::MouseButtonRelease)
+        {
+            labelstate->setText(tr("Mouse button released from right image"));
+            label3->setPixmap(QPixmap::fromImage(image3));
+        }
+    }
+    //调用QDialog::eventFilter将事件交给上层对话框
+    return QDialog::eventFilter(watched, event);
+}
+Dialog::~Dialog()
+{
+    delete ui;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="拖动组件、拖动窗口"><a href="#拖动组件、拖动窗口" class="headerlink" title="拖动组件、拖动窗口"></a>拖动组件、拖动窗口</h3><blockquote>
+<p>QPoint QMouseEvent::globalPos() 鼠标在窗口的全局坐标  </p>
+</blockquote>
+<p>利用Qt事件过滤器(installEventFilter函数)，对需要拖动的窗口进行鼠标事件的拦截，实现窗口可拖动<br>利用Qt事件过滤器(installEventFilter函数)，对需要拖动的组件进行鼠标事件的拦截，实现组件可拖动<br>都在下面一个例子里：  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 头文件.h:
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMainWindow</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMouseEvent</span><span class="token punctuation">></span></span>
+namespace Ui {
+class MainWindow;
+}
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+
+private:
+    Ui::MainWindow *ui;
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event);
+    bool mousePress=false;
+    QPoint point;
+    QWidget *pWidget; //可拖拽移动的组件
+
+};
+
+#endif // MAINWINDOW_H
+
+// 实现文件.cpp:  
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDebug</span><span class="token punctuation">></span></span>
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    // 拖动组件label2
+//    pWidget=ui->label2;
+//    ui->label2->installEventFilter(this);
+    pWidget=ui->pushButton3;
+    ui->pushButton3->installEventFilter(this);
+
+    //点击窗体内任意处可拖动整个窗体
+    //    installEventFilter(this);
+    //自定义了一个标题栏label1,点击这个标题栏label1拖动窗体
+    //    ui->label1->installEventFilter(this);
+
+    connect(ui->pushButton3,&amp;QPushButton::clicked,[](){
+        qDebug()&lt;&lt;"click btn3";
+    });
+
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+bool MainWindow::eventFilter(QObject *watched, QEvent *event){
+    // 拖动窗口
+    if(watched==this || watched==ui->label1){ // 监视不同的窗口时，需要把this改成对应窗口的指针
+        switch (static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span>(event->type())) {
+            case QEvent::MouseMove: {
+                        QMouseEvent *mouseEvent =(QMouseEvent *)(event);
+                        if(mousePress) {
+                            QPoint p = mouseEvent->globalPos();
+                            this->move(p - point);
+                        }
+                        return true;
+                    }
+            case QEvent::MouseButtonPress: {
+                QMouseEvent *mouseEvent =(QMouseEvent *)(event);
+                if(mouseEvent->button() == Qt::LeftButton) {
+                    mousePress = true;
+                    point = mouseEvent->globalPos() - this->pos();
+                }
+                return true;
+            }
+            case QEvent::MouseButtonRelease: {
+                QMouseEvent *mouseEvent =(QMouseEvent *)(event);
+                if(mouseEvent->button() == Qt::LeftButton) {
+                    mousePress = false;
+                }
+                return true;
+            }
+            default:
+                break;
+        }
+    }
+    // 拖动组件
+    if(watched==ui->label2||watched==ui->pushButton3){
+        switch (static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>int</span><span class="token punctuation">></span></span>(event->type())) {
+            case QEvent::MouseMove: {
+                QMouseEvent *mouseEvent = static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMouseEvent</span> <span class="token attr-name">*</span><span class="token punctuation">></span></span>(event);
+                if(mousePress) {
+                    QPoint p = mouseEvent->globalPos();
+                    pWidget->move(p - point);
+                }
+//                return true; // 在此处处理完并屏蔽该事件，不冒泡
+                 return QMainWindow::eventFilter(watched,event); // 冒泡，组件仍可通过槽函数处理事件
+            }
+            case QEvent::MouseButtonPress: {
+                QMouseEvent *mouseEvent = static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMouseEvent</span> <span class="token attr-name">*</span><span class="token punctuation">></span></span>(event);
+                if(mouseEvent->button() == Qt::LeftButton) {
+                    mousePress = true;
+                    point = mouseEvent->globalPos() - pWidget->pos();
+                }
+//                return true; // 在此处处理完并屏蔽该事件，不冒泡
+                 return QMainWindow::eventFilter(watched,event); // 冒泡，组件仍可通过槽函数处理事件
+            }
+            case QEvent::MouseButtonRelease: {
+                QMouseEvent *mouseEvent = static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMouseEvent</span> <span class="token attr-name">*</span><span class="token punctuation">></span></span>(event);
+                if(mouseEvent->button() == Qt::LeftButton) {
+                    mousePress = false;
+                }
+//                return true; // 在此处处理完并屏蔽该事件，不冒泡
+                 return QMainWindow::eventFilter(watched,event); // 冒泡，组件仍可通过槽函数处理事件
+            }
+            default:
+                break;
+        }
+    }
+    return QMainWindow::eventFilter(watched,event);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Lamda表达式用于Qt槽函数"><a href="#Lamda表达式用于Qt槽函数" class="headerlink" title="Lamda表达式用于Qt槽函数"></a>Lamda表达式用于Qt槽函数</h2><blockquote>
+<p>[]中的内容：<br>=：把外部的所有局部变量和类中成员按值传递<br>this：把类中成员按值传递<br>&amp;：把外部的所有局部变量以引用的方式传进来  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">普通用法  
+connect(ui->pushButton3,&amp;QPushButton::clicked,[](){
+    qDebug()&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>"click</span> <span class="token attr-name">btn3";</span>
+<span class="token attr-name">});</span>
+
+<span class="token attr-name">想要把外部所有局部变量和类中成员全部传参，那么就可以使用[</span><span class="token attr-value"><span class="token punctuation">=</span>],但是这样传参都是只读</span>
+<span class="token attr-name">外部定义局部变量或类成员int</span> <span class="token attr-name">Gimgoon</span><span class="token attr-value"><span class="token punctuation">=</span>886;</span>
+<span class="token attr-name">connect(ui-</span><span class="token punctuation">></span></span>pushButton3,&amp;QPushButton::released,[=](){
+    ui->pushButton3->setText("改变");
+    qDebug()&lt;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Gimgoon;</span>
+    <span class="token attr-name">Gimgoon++;</span>
+<span class="token attr-name">});</span>
+<span class="token attr-name">想要修改变量值也是可以的，在参数列表（）后添加关键字mutable</span>  
+<span class="token attr-name">connect(ui-</span><span class="token punctuation">></span></span>pushButton3,&amp;QPushButton::released,[=]()mutable{
+    ui->pushButton3->setText("改变");
+    qDebug()&lt;&lt;Gimgoon;
+    Gimgoon++;
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Qt通过提升为…自定义控件"><a href="#Qt通过提升为…自定义控件" class="headerlink" title="Qt通过提升为…自定义控件"></a>Qt通过提升为…自定义控件</h2><p>提升为在qt里主要是可以使用自定义的部件，尤其是频繁使用同一控件时会很高效。<br>自处以自定义按钮为里:  </p>
+<h3 id="1-自定义类"><a href="#1-自定义类" class="headerlink" title="1.自定义类"></a>1.自定义类</h3><p>添加c++类 MyBtn，基类BaseClass选择QPushButton作为继承类。<br>添加自定义方法void SetMyText(QString str)  </p>
+<pre class="line-numbers language-html"><code class="language-html">// MyBtn.h  
+#ifndef MYBTN_H
+#define MYBTN_H
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QPushButton</span><span class="token punctuation">></span></span>
+class MyBtn : public QPushButton
+{
+public:
+    MyBtn(QWidget *parent=0);
+
+public slots:
+    void SetMyText(QString str);    
+};
+
+#endif // MYBTN_H
+
+// MyBtn.cpp  
+#include "mybtn.h"
+
+MyBtn::MyBtn(QWidget *parent):QPushButton(parent)
+{
+
+}
+
+void MyBtn::SetMyText(QString str)
+{
+    setText(str);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="2-UI界面使用提升为…"><a href="#2-UI界面使用提升为…" class="headerlink" title="2.UI界面使用提升为…"></a>2.UI界面使用提升为…</h3><p>UI界面添加基类控件QPushButton控件，右键点击提升为…出现对话框，<br>下方”提升的类名称：”填写刚才新建的MyBtn，点击右侧”添加”按钮<br>添加之后上方出现MyBtn mybtn.h勾选上，然后点击下方”提升”按钮  </p>
+<h3 id="3-使用提升后的自定义控件"><a href="#3-使用提升后的自定义控件" class="headerlink" title="3.使用提升后的自定义控件"></a>3.使用提升后的自定义控件</h3><p>通过正常ui引用，获取自定义控件和自定义方法</p>
+<pre class="line-numbers language-html"><code class="language-html">ui->pushButton1->SetMyText("helloworld");
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="Qt关闭标题栏、窗口置顶、其他功能"><a href="#Qt关闭标题栏、窗口置顶、其他功能" class="headerlink" title="Qt关闭标题栏、窗口置顶、其他功能"></a>Qt关闭标题栏、窗口置顶、其他功能</h2><pre class="line-numbers language-html"><code class="language-html">    ui->setupUi(this);
+    ......  
+    this->setWindowFlags(windowFlags()|Qt::WindowStaysOnTopHint|Qt::FramelessWindowHint);
+    // 永远窗口置顶和关闭标题栏
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDesktopWidget</span><span class="token punctuation">></span></span>  
+
+    QDesktopWidget *desktop = QApplication::desktop();
+    // 初始化窗口显示在屏幕正中间
+    //    move((desktop->width()-this->width())/2,(desktop->height()-this->height())/2);
+    // 初始化窗口显示在屏幕左下方
+    move(0,desktop->height()-this->height());
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="布局器"><a href="#布局器" class="headerlink" title="布局器"></a>布局器</h3><blockquote>
+<p>垂直布局器 QVBoxLayout：将内部的控件按照垂直方向排布，一行一个。<br>水平布局器 QHBoxLayout：将内部的控件按照水平方向排布，一列一个。<br>网格布局器 QGridLayout：按照多行、多列的网格排布内部控件，单个控件可以占一个格子或者占据连续多个格子。<br>表单布局器 QFormLayout：对应网页设计的表单，通常用于接收用户输入。该布局器就如它的图标一样，就是固定的两列控 件，第一列通常是标签，第二列是输入控件或含有输入控件的布局器。<br>之后介绍的容器类组件也可以用于容纳多个子窗口布局。  </p>
+</blockquote>
+<p>与布局紧密关联的是两个空白条（或叫弹簧条）：Horizontal Spacer 水平空白条和 Vertical Spacer 垂直空白条，空白条的作用就是填充无用的空隙，如果不希望看到控件拉伸后变丑，就可以塞一个空白条到布局器里面，布局器通常会优先拉伸空白条。两种空白条的类名都是 QSpacerItem，两种空白条只是默认的拉伸方向不一样。  </p>
+<p>点击主窗体的空白区域，不选中任何控件、布局器、分裂器（其实就是唯一选中主界面窗口自身），直接点击上面的垂直布局按钮，这样新的垂直布局器自动成为窗体的主布局器  </p>
+<p>如果主布局其为垂直布局，layoutStretch 属性设置为：1,0  这样就表明新增的空闲区域全部分给上面第一行，而第二行的保持固定高度不变<br>如果主布局其为水平布局同理类推。  </p>
+<p>布局器不能直接添加到分裂器里面，但反过来是可以的，  </p>
+<p>对界面进行布局有两种方式，第一种方式是预先设计好整体布局，先拖入布局器，后拖入功能控件到布局器里面，这种方式不太方便，因为脑海里得提前做好布局规划。第二种方式才是是最常用的，先把所有功能控件拖入主界面，然后根据设置好的功能控件来决定如何进行布局。Qt的布局器中既可以添加普通功能控件，也可以添加其他布局器，所以布局器的使用是非常灵活的。界面里的控件，可以先按行排列布局，再按列排列布局；或者反过来，先排好列，再排好行；当然也可以直接用网格布局器或表单布局器。条条大道通罗马，可以按实际控件的关系和用户喜好进行布局。  </p>
+<p>之前布局器中控件大小是根据窗口大小自动调整，用户能拉伸窗口但是不能直接拉伸界面内部的某个控件。    而分裂器是将每个控件的大小调整都交给用户手动控制，用户能在程序运行时自由调整分裂器内各个控件的大小，并能自动隐藏缩到很窄或很扁的控件，为其他控件腾出显示空间。注意分裂器内部不能直接放置布局器，只能放置QWidget对象或其派生类对象（可以用QWidget对象封装布局器，然后添加到分裂器）。   通常窗体都采用布局器，少数情况采用分裂器，比如界面有多个占用面积很大的子控件，使用分裂器可以由用户拖动隐藏部分子控件，这样可以为其他控件腾出更多显示空间。  </p>
+<p>分裂器QSplitter是一个实体功能控件，它的基类是QFrame，QFrame基类正是QWidget。QSplitter可以独立存在，可以作为父窗口容纳多个子控件，分裂器会完全拥有内部的子控件。  </p>
+<p>Qt设计师左边列的四个布局器，其实不是经常需要拖动它们到主界面，更为常见的操作是选中控件，然后点击设计师上面布局工具栏里的快捷按钮实现布局，这些快捷按钮的功能更丰富，也更常用。布局工具栏有8个按钮，下面依次介绍：<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/layouttoolqt.jpg" alt="">  </p>
+<blockquote>
+<p>①将选中的控件添加到水平布局器里<br>②将选中的控件添加到垂直布局器里<br>③将选中的控件添加到水平分裂器里<br>④将选中的控件添加到垂直分裂器里<br>⑤将选中的控件添加到网格布局器里，行列数目不限<br>⑥将选中的控件添加到表单布局器里，固定为两列控件<br>⑦打破布局，消除当前选中的布局器，保留其内部控件和子布局<br>⑧根据显示内容自动调整控件或窗体尺寸，相当于调用一次adjustSize()  </p>
+</blockquote>
+<h4 id="分割器说明"><a href="#分割器说明" class="headerlink" title="分割器说明"></a>分割器说明</h4><p>Qt通过QSplitter类实现整个窗口内各部分窗口可随意拖拽改变大小，在运行时才表现出来。<br>在程序运行时，水平分裂器内各个控件的宽度、垂直分裂器内部各个控件的高度，一般都是用户拖动手柄(手柄其实就是分裂器内子控件之间的分割区域)控制，这是分裂器和布局器最大的不同。  </p>
+<h4 id="qt布局的方法"><a href="#qt布局的方法" class="headerlink" title="qt布局的方法"></a>qt布局的方法</h4><p>Qt提供了几种在窗口部件上管理子窗口部件的基本方式。一共有3种方法用于管理窗体上子窗口部件的布局：绝对位置法、人工布局法和布局管理器法。  </p>
+<blockquote>
+<p>绝对位置  </p>
+</blockquote>
+<p>最原始的拖放窗口部件的方法。它对窗体的各个子窗口部件分配固定的大小和位置，是通过调用基类QWidget提供的setGeometry()函数来实现的。  </p>
+<pre class="line-numbers language-html"><code class="language-html">所以绝对位置法有很多缺点：
+1 用户无法改变窗口的大小，当父窗口改变时，子窗口不能做出相应的调整。
+2 如果用户选择的字体太大或者翻译成多国语言，特别是俄语，很多都会显示不全被截断。
+3 对于不同风格的平台，这些窗口部件可能会具有并不合适的尺寸大小。
+4 必须人工计算这些位置和大小。这样做不仅非常枯燥而且极易出错，并且还会让后
+期的维护工作变得痛苦万分。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>人工布局  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">这种方法的核心是通过重载QWidget::resizeEvent(QResizeEvent*)函数来使得子窗口
+的的大小尺寸总是和父窗口的大小成比例，也就在一定程度上减轻了计算量，但是在其中也
+要通过setGeometry()函数来设置子窗口部件的位置和大小。在程序的规模比较小，并且不需要时常变更设计的情况下，绝对位置法勉强可以胜任。但是它就像前面的绝对位置法一样，仍然需要计算许多手写代码中的常量，尤其是当设计被改变的时候，这种情况更加突出，而且它并没有消除文本会被截断的危险。辅以社会自子窗口部件的大小提示，应该可以规避这种风险，但是这样会使代码变得尤为复杂。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>布局管理器法  </p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>空白和间距：每种布局都有两个重要的属性，空白和间距。空白指的是整个布局四周距离窗体边缘的距离；间距指的是布局管理器内部各个窗口部件之间的距离。空白属性即margin()，间距属性即spacing()，它们的默认值是有窗体的风格决定的。  </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>大小约束：设置它的子窗口部件的最大大小、最小大小或固定大小。这些是通过设置sizeConstraint属性来完成的。该属性值是一个枚举常量，定义了布局的大小约束的模式。  </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>大小策略：大小策略会告诉布局系统应该如何对它进行拉伸或收缩。Qt为它所有的内置窗口部件都提供了合理的默认大小策略值，但是由于不可能为每一种可能产生的布局都提供唯一的默认值，所以在一个窗体中，开发人员改变它上面的一个或两个窗口部件的大小策略是非常普遍的现象。一个QSizePolicy 既包含一个水平分量也包含一个垂直分量。可以通过QSizePolicy 找到对应的枚举值；  </p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>伸缩因子：除了大小策略中包含的水平方向和垂直方向两个分量之外，QSizePolicy类还保存了水平方向和垂直方向的一个伸缩因子。这些伸缩因子可以用来说明在增大窗体时，对不同的子窗口部件应使用的不同放大比例。即需要设置QSizePolicy::horizontalStretch和QSizePolicy::verticalStretch的值来实现。默认情况下，被布局管理器组合在一起的窗口部件的伸缩因子是相等的，都为0。</p>
+</blockquote>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">这种方式是使用Qt 设计用户界面、组织管理Qt 窗口部件的最好方法。布局管理器为窗口部件提供了能变化的默认值（sensible default sizes），可以随着窗口部件大小的变化，对子窗口部件的大小和位置做出适当的调整。
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="部件拉伸原理和大小策略"><a href="#部件拉伸原理和大小策略" class="headerlink" title="部件拉伸原理和大小策略"></a>部件拉伸原理和大小策略</h4><p>部件的大小策略、大小限制、拉伸因子从三个方面对布局内的部件怎样进行拉伸以填满布局进行了说明。  </p>
+<pre class="line-numbers language-html"><code class="language-html">拉伸因子描述了各个部件在进行拉伸时，多个部件之间应以怎样的比例进行拉伸，比如把按钮1、按钮2、按钮3的拉伸因子分别为设置为1，2，3，则按钮将按1：2：3的大小进行拉伸以填满整个布局空间。注意：当主窗口的大小不能按计算出来的比例容纳下所有子部件时，子部件不一定会按设计好的比例进行排列。  
+
+大小策略规定了部件以何种方式进行拉伸及压缩，限制了部件可以被拉伸或压缩的范围，比如不能把部件压缩得比最小大小更小，或不能拉伸得比最大大小更大等。  
+
+若部件的拉伸因子大于0，则按照拉伸因子的比例分配空间；若拉伸因子为0，则只有在其他部件不需要空间时才会获得空间；也就是说若一些部件拉伸因子大于0，而一些部件拉伸因子为0，则只有拉伸因子大于0的部件会被拉伸，而拉伸因子为0的部件不会被拉伸。
+若所有部件的拉伸因子都为0，则按照大小策略的规则对部件进行拉伸。
+注意：若部件的大小策略为Fixed，则即使设置了拉伸因子，该部件也不会被拉伸。
+以上规则可总结为，拉伸因子会使大小策略不起作用或失效(除了Fixed策略外)
+除QSizePolicy::Ignored外，任何部件，都不能压缩得比最小大小更小(若未设置最小大小，则为最小大小提示)，任何部件都不能拉伸得比最大大小更大。    
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/20181103114857327.png" alt="QWidget类中对部件大小进行限制的属性"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/201811031149265.png" alt="设置拉伸因子的函数"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/20181103115013187.png" alt="设置大小策略"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/2018110310272578.png" alt="部件的大小策略"><br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/20181103101930159.png" alt="QSizePolicy::Policy枚举">  </p>
+<h2 id="qt窗口尺寸位置"><a href="#qt窗口尺寸位置" class="headerlink" title="qt窗口尺寸位置"></a>qt窗口尺寸位置</h2><pre class="line-numbers language-html"><code class="language-html">设置窗口占用矩形范围的函数
+void setGeometry(int x, int y, int w, int h)
+void setGeometry(const QRect &amp;)
+x和y是控件距离父窗口左上角的坐标，w 是宽度，h 是高度  
+
+如果不改变窗口大小，只是移动窗口左上角坐标，那么使用如下函数：  
+void move(int x, int y)
+void move(const QPoint &amp;)
+如果不移动窗口左上角坐标，只改变窗口的尺寸大小，那么使用如下函数：  
+void resize(int w, int h) 
+void resize(const QSize &amp;)  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当窗体尺寸变化时，不会发送信号，而是调用内部保护类型的虚函数 resizeEvent()。<br>注意一般不要在 ​resizeEvent() 函数内部调用 setGeometry() 或者 resize() 改变窗口尺寸，那样容易导致​resizeEvent() 函数循环触发，进入死循环。  </p>
+<pre class="line-numbers language-html"><code class="language-html">void QWidget::​resizeEvent(QResizeEvent * event)    //virtual protected
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>限定窗口的尺寸范围有两个属性 minimumSize （最小尺寸，该属性又可细分为 minimumWidth、minimumHeight）和 maximumSize （最大尺寸，该属性又可细分为 maximumWidth、maximumHeight），无论使用代码调用设置函数还是用 Qt 设计师直接设置属性都可以限定窗口尺寸范围：  </p>
+<pre class="line-numbers language-html"><code class="language-html">void setMinimumSize(const QSize &amp;)        //最小尺寸
+void setMinimumSize(int minw, int minh)   //最小尺寸 
+void setMaximumSize(const QSize &amp;)        //最大尺寸 
+void setMaximumSize(int maxw, int maxh)   //最大尺寸  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>如果同时将窗口的最大尺寸和最小尺寸设置为一样大，那么窗口就是固定尺寸的，不能拉伸或缩小。<br>设置固定大小的窗口，可以同时设置上面的最小尺寸和最大尺寸，或者调用一个比较方便的函数：  </p>
+<pre class="line-numbers language-html"><code class="language-html">void setFixedSize(const QSize &amp; s)  
+void setFixedSize(int w, int h)  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>如果只希望单独设置固定宽度或者固定高度，则可以使用如下函数：  </p>
+<pre class="line-numbers language-html"><code class="language-html">void setFixedWidth(int w)    //单独设置固定宽度
+void setFixedHeight(int h)   //单独设置固定高度
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="制作qt界面UI"><a href="#制作qt界面UI" class="headerlink" title="制作qt界面UI"></a>制作qt界面UI</h2><h3 id="添加使用图片资源"><a href="#添加使用图片资源" class="headerlink" title="添加使用图片资源"></a>添加使用图片资源</h3><p>1.将一个装着图片文件的images文件夹放到工程目录中(与.pro同级)。<br>2.右键工程名，添加新文件-&gt;选择模板Qt/QtResourceFile,设置资源名称，选择location路径为相应images目录，下一步<br>3.资源文件添加完成<br>4.选中<strong>.qrc资源文件，为文件添加前缀，点击”添加”按钮，选择添加前缀。添加前缀可以方便管理，本文前缀为“/testres”<br>5.选中</strong>.qrc资源文件，点击”添加”按钮，选择添加文件。添加图片后重新构建可在目录中显示。<br>6.选中**.qrc资源文件，右键”open in editor” 可以再次编辑前缀或者继续添加文件。<br>7.右键欲使用的图片可copy path获取路径，如”:/testres/close_clicked.png”<br>8.更新qrc资源后，需要重新qmake构建后才release生效  </p>
+<pre class="line-numbers language-html"><code class="language-html">    ui->pushButton_close->setFixedSize(20,20);
+    ui->pushButton_close->move(this->width()-25-20,2);
+    ui->pushButton_close->setStyleSheet("QPushButton#pushButton_close{border-image: url(:/testres/close.png);}\
+                                         QPushButton#pushButton_close:hover{border-image: url(:/testres/close_clicked.png);}\
+                                         QPushButton#pushButton_close:pressed{border-image: url(:/testres/close.png);}");
+    connect(ui->pushButton_close,&amp;QPushButton::released,[=]()mutable{
+        QApplication::quit();
+    });
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="国际化字符串"><a href="#国际化字符串" class="headerlink" title="国际化字符串"></a>国际化字符串</h3><p>1.在pro文件中添加  </p>
+<pre class="line-numbers language-html"><code class="language-html">TRANSLATIONS += tr_zh.ts
+TRANSLATIONS += tr_en.ts
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>2.代码中所有需要翻译的字符串用tr(“”)，如tr(“good morning”)<br>3.菜单-&gt;工具-&gt;外部-&gt;Qt语言家-&gt;更新翻译，会在当前工程目录生成了tr_en.ts 和 tr_zh.ts 两个文件。<br>4.使用QtLinguist工具或文本编辑工具编辑tr_en.ts 和 tr_zh.ts 两个文件<br>5.菜单-&gt;工具-&gt;外部-&gt;Qt语言家-&gt;发布翻译，会在当前工程目录生成了tr_en.qm 和 tr_zh.qm 两个文件。<br>6.工程名右键”添加现有文件…”，将qm文件添加到工程中。<br>7.切换,翻译文件加载的位置必须在界面实例化之前完成，否则是没有效果的  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QTranslator</span><span class="token punctuation">></span></span>  
+
+    QTranslator *qtranslator=new QTranslator();
+    qtranslator->load("./tr_zh.qm");
+    QApplication::instance()->installTranslator(qtranslator);
+...
+    ui->setupUi(this);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="隐藏布局layout内所有控件"><a href="#隐藏布局layout内所有控件" class="headerlink" title="隐藏布局layout内所有控件"></a>隐藏布局layout内所有控件</h3><pre class="line-numbers language-html"><code class="language-html">// 先获取所有控件，再隐藏L 
+for (int i = 0; i &lt; ui->horizontalLayout->count(); ++i) {
+    QWidget* w = ui->horizontalLayout->itemAt(i)->widget();
+    if (w != NULL)
+        w->setVisible(false);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="布局内动态添加和删除控件"><a href="#布局内动态添加和删除控件" class="headerlink" title="布局内动态添加和删除控件"></a>布局内动态添加和删除控件</h3><p>添加代码很简单，按需要添加即可, 但是每次添加前必须将布局里面的控件删除，在操作过程中发现极易出错。</p>
+<pre class="line-numbers language-html"><code class="language-html">void QFormLayout::addRow(const QString &amp;labelText, QWidget *field)
+void QGridLayout::addWidget(QWidget *widget, int row, int column, Qt::Alignment alignment = Qt::Alignment())
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>动态删除,  </p>
+<pre class="line-numbers language-html"><code class="language-html">void QFormLayout::removeRow(int row)
+//从布局中删除并删除相应的widgets 无内存泄漏危险
+ui->formLayout->rowCount()是动态更新的  
+
+while (ui->formLayout->rowCount())
+{
+    ui->formLayout->removeRow(0);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过QLayoutItem删除</p>
+<pre class="line-numbers language-html"><code class="language-html">    QLayoutItem* item;
+    while((item = ui->formLayout_2->takeAt(0)) != 0)
+    {
+        if(item->widget())
+        {
+            ui->formLayout_2->removeWidget(item->widget());
+            item->widget()->setParent(0);
+            delete item->widget();
+        }
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>通过查找Groupbox容器的子控件进行删除  </p>
+<pre class="line-numbers language-html"><code class="language-html">    QList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QLabel*</span><span class="token punctuation">></span></span> all_labs = ui->groupBox->findChildren<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QLabel*</span><span class="token punctuation">></span></span>();//注意不是gridLayout
+    for (auto* lab : all_labs)    
+    {
+       delete lab;
+    }
+layout是需要一个QWidget作为容器的，所有加入layout中的控件都是对应容器的子控件，因此从容器中查找子控件，然后删除是最合适的方法。你原来删除的是QLayoutItem，不是QPushButton，所以有内存泄露，也就是说你只是把QPushButton从layout里面移除了，所以它不显示，但是并不代表这个QPushButton被完全删除了
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>1、QFormLayout动态删除控件，请注意循环体内的范围，不要是可变的；<br>2、通过QLayoutItem删除时，一定要记得setParent(0);<br>3、通过查找控件类的方法，记得不要查找的（layout）布局中的控件，一定要是容器（widgets)内的控件！</p>
+<h3 id="layout内控件大小"><a href="#layout内控件大小" class="headerlink" title="layout内控件大小"></a>layout内控件大小</h3><p>通过调整sizePolicy  </p>
+<blockquote>
+<p>布局内隐藏控件，但不影星其他控件大小布局  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">    ui->pushButton_2->hide();
+    QSizePolicy sp_retain = ui->pushButton_2->sizePolicy();
+    sp_retain.setRetainSizeWhenHidden(true);
+    ui->pushButton_2->setSizePolicy(sp_retain);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="隐藏控件后改变窗口大小需要延时"><a href="#隐藏控件后改变窗口大小需要延时" class="headerlink" title="隐藏控件后改变窗口大小需要延时"></a>隐藏控件后改变窗口大小需要延时</h3><pre class="line-numbers language-html"><code class="language-html">ui->pushButton1->setHidden(true);
+ui->pushButton2->setHidden(true);
+QTimer::singleShot(50,[=](){
+    resize(257,30);
+});  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="INK2019-LNK1120错误"><a href="#INK2019-LNK1120错误" class="headerlink" title="INK2019 LNK1120错误"></a>INK2019 LNK1120错误</h2><p>复制别人代码出现编译失败问题，可以尝试将项目文件下的.user文件删除，再编译。<br>也可能是32位 64位的编译器区别  </p>
+<h2 id="常用功能点"><a href="#常用功能点" class="headerlink" title="常用功能点"></a>常用功能点</h2><h3 id="更保险的qt窗口置顶"><a href="#更保险的qt窗口置顶" class="headerlink" title="更保险的qt窗口置顶"></a>更保险的qt窗口置顶</h3><p>置顶qt窗口，调用window api比使用qt提供的方法更保险  </p>
+<pre class="line-numbers language-html"><code class="language-html">项目.pro内添加  
+LIBS +=-lUser32  
+// main.cpp：  
+#include "mainwindow.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QApplication</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Windows.h</span><span class="token punctuation">></span></span>
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    SetWindowPos(HWND(w.winId()),HWND_TOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE);
+    return a.exec();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="窗口大小调整事件的监听"><a href="#窗口大小调整事件的监听" class="headerlink" title="窗口大小调整事件的监听"></a>窗口大小调整事件的监听</h3><p>重载QObject的虚函数resizeEvent事件处理函数</p>
+<pre class="line-numbers language-html"><code class="language-html">// .h头文件：
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QResizeEvent</span><span class="token punctuation">></span></span>  
+protected:
+    void resizeEvent(QResizeEvent *event);
+
+// .cpp实现文件  
+void MainWindow::resizeEvent(QResizeEvent *event){
+    qDebug("width:%d , height:%d",event->size().width(),event->size().height());
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt程序日志保存到本地"><a href="#qt程序日志保存到本地" class="headerlink" title="qt程序日志保存到本地"></a>qt程序日志保存到本地</h3><p>头文件myutil.h  </p>
+<pre class="line-numbers language-html"><code class="language-html">#ifndef MYUTIL_H
+#define MYUTIL_H
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMutex</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QString</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDir</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QFile</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QTextStream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QDateTime</span><span class="token punctuation">></span></span>
+#include "Singleton.hpp"
+
+#define LOG_INIT(fmt) Singleton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyUtil</span><span class="token punctuation">></span></span>::getInstance()->initLog(fmt);
+#define LOG_INFO(fmt) Singleton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyUtil</span><span class="token punctuation">></span></span>::getInstance()->UTIL_LOG_INFO(fmt);
+#define LOG_ERROR(fmt) Singleton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyUtil</span><span class="token punctuation">></span></span>::getInstance()->UTIL_LOG_ERROR(fmt);
+
+class MyUtil
+{
+public:
+    MyUtil();
+    QMutex logLock;
+    QString logName="";
+    int WriteLog(QString type,QString content);
+    void initLog(QString name="");
+    int UTIL_LOG_INFO(QString content);
+    int UTIL_LOG_ERROR(QString content);
+};
+#endif // MYUTIL_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>实现文件myutil.cpp  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include "myutil.h"
+
+MyUtil::MyUtil()
+{
+
+}
+
+void MyUtil::initLog(QString name){
+    if(name.isNull()||name.isEmpty()){
+        QDateTime currentTime = QDateTime::currentDateTime();
+        QString time = currentTime.toString("yyyy-MM-dd hh:mm:ss.zzz");
+        QString hour = time.mid(11, 2);
+        QString minute = time.mid(14, 2);
+        QString second = time.mid(17, 2);
+        logName=hour+minute+second;
+    }else{
+        logName=name.trimmed();
+    }
+}
+int MyUtil::WriteLog(QString type, QString content){
+    logLock.lock();
+    QDateTime currentTime = QDateTime::currentDateTime();
+    QString time = currentTime.toString("yyyy-MM-dd hh:mm:ss.zzz");
+    QString date= currentTime.toString("yyyyMMdd");
+    QString path="Logs/";
+    QString fileName = path + date + "_" + logName + ".log";
+    QString data = "[" + time +" "+ type + "]" + " " + content;
+    QDir dir;
+    if (! (dir.exists(path)))
+        dir.mkpath(path);
+
+    QFile f(fileName);
+    f.open(QIODevice::WriteOnly|QIODevice::Append) ;
+    QTextStream t(&amp;f);
+    t &lt;&lt; data&lt;&lt; endl;
+    f.close();
+    logLock.unlock();
+    return 0;
+
+}
+int MyUtil::UTIL_LOG_INFO(QString content){
+    return WriteLog("I",content);
+}
+int MyUtil::UTIL_LOG_ERROR(QString content){
+    return WriteLog("E",content);
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>用法  </p>
+<pre class="line-numbers language-html"><code class="language-html">第1步：引入头文件
+#include "myutil.h"  
+第2步：初始化log文件名
+// 自定义log文件名
+//  LOG_INIT("new Name");
+// 以时间命令log文件
+   LOG_INIT("");
+第3步：在需要的位置输出log内容  
+LOG_INFO("application start");  
+LOG_ERROR("application close");  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt单例模式使用"><a href="#qt单例模式使用" class="headerlink" title="qt单例模式使用"></a>qt单例模式使用</h3><p>Singleton.hpp：  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMutex</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QScopedPointer</span><span class="token punctuation">></span></span>
+template<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>class</span> <span class="token attr-name">T</span><span class="token punctuation">></span></span>
+class Singleton
+{
+    Singleton(){}
+
+public:
+    static T* getInstance(){
+        static QMutex mutex;
+        static QScopedPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">></span></span> inst;
+        if(Q_UNLIKELY(!inst)){
+            mutex.lock();
+            if(!inst){
+                inst.reset(new T);
+            }
+            mutex.unlock();
+        }
+        return inst.data();
+    }
+};
+
+// Singleton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TestCls</span><span class="token punctuation">></span></span>::getInstance()->mmid=6;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="模拟Ping网址是否联通"><a href="#模拟Ping网址是否联通" class="headerlink" title="模拟Ping网址是否联通"></a>模拟Ping网址是否联通</h3><p>使用  </p>
+<pre class="line-numbers language-html"><code class="language-html">Singleton<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>CustPing</span><span class="token punctuation">></span></span>::getInstance()->Ping(ip)  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>CustPing.h  </p>
+<pre class="line-numbers language-html"><code class="language-html">#ifndef CUSTPING_H
+#define CUSTPING_H
+#include "../../core.h"
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdio.h</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Winsock2.h</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ws2tcpip.h</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>stdlib.h</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>malloc.h</span><span class="token punctuation">></span></span>
+#include<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string.h</span><span class="token punctuation">></span></span>
+#pragma comment(lib , "Ws2_32.lib")
+#define ICMP_ECHO_REQUEST 8 //定义回显请求类型
+#define DEF_ICMP_DATA_SIZE 20 //定义发送数据长度
+#define DEF_ICMP_PACK_SIZE 32 //定义数据包长度
+#define MAX_ICMP_PACKET_SIZE 1024 //定义最大数据包长度
+#define DEF_ICMP_TIMEOUT 2500  //定义超时为3秒
+#define ICMP_TIMEOUT 11 //ICMP超时报文
+#define ICMP_ECHO_REPLY 0 //定义回显应答类型
+
+class CustPing
+{
+     NON_COPYABLE(CustPing);
+public:
+    CustPing();
+    typedef struct
+    {
+        unsigned char h_len_ver ; //IP版本号
+        unsigned char tos ; // 服务类型
+        unsigned short total_len ; //IP包总长度
+        unsigned short ident ; // 标识
+        unsigned short frag_and_flags ; //标志位
+        unsigned char ttl ; //生存时间
+        unsigned char proto ; //协议
+        unsigned short cksum ; //IP首部校验和
+        unsigned long sourceIP ; //源IP地址
+        unsigned long destIP ; //目的IP地址
+    } IP_HEADER ;
+    typedef struct _ICMP_HEADER
+    {
+        unsigned char type ; //类型-----8
+        unsigned char code ; //代码-----8
+        unsigned short cksum ; //校验和------16
+        unsigned short id ; //标识符-------16
+        unsigned short seq ; //序列号------16
+        unsigned int choose ; //选项-------32
+    } ICMP_HEADER ;
+    typedef struct
+    {
+        int usSeqNo ; //记录序列号
+        DWORD dwRoundTripTime ; //记录当前时间
+        unsigned char ttl ; //生存时间
+        in_addr dwIPaddr ; //源IP地址
+    } DECODE_RESULT ;
+    unsigned short GenerateChecksum(unsigned short *pBuf , int iSize);
+    unsigned char DecodeIcmpResponse_Ping(char *pBuf , int iPacketSize , DECODE_RESULT *stDecodeResult);
+    int Ping(char *IP);
+
+};
+
+#endif // CUSTPING_H
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>CustPing.cpp  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include "custping.h"
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+CustPing::CustPing()
+{
+
+}
+unsigned short CustPing::GenerateChecksum(unsigned short *pBuf, int iSize){
+    unsigned long cksum = 0 ; //开始时将网际校验和初始化为0
+    while(iSize > 1)
+    {
+        cksum += *pBuf++ ; //将待校验的数据每16位逐位相加保存在cksum中
+        iSize -= sizeof(unsigned short) ; //每16位加完则将带校验数据量减去16
+    }
+    //如果待校验的数据为奇数，则循环完之后需将最后一个字节的内容与之前结果相加
+    if(iSize)
+    {
+        cksum += *(unsigned char*)pBuf ;
+    }
+        //之前的结果产生了进位，需要把进位也加入最后的结果中
+    cksum = (cksum >> 16) + (cksum &amp; 0xffff) ;
+    cksum += (cksum >> 16) ;
+    return (unsigned short)(~ cksum) ;
+}
+
+unsigned char CustPing::DecodeIcmpResponse_Ping(char *pBuf, int iPacketSize, DECODE_RESULT *stDecodeResult){
+    IP_HEADER *pIpHrd = (IP_HEADER*)pBuf ;
+    int iIphedLen = 20 ;
+    if(iPacketSize &lt; (int)(iIphedLen + sizeof(ICMP_HEADER)))
+    {
+        std::cout&lt;&lt;("size error! \n");
+        return 0 ;
+    }
+    //指针指向ICMP报文的首地址
+    ICMP_HEADER *pIcmpHrd = (ICMP_HEADER*)(pBuf + iIphedLen) ;
+    unsigned short usID , usSeqNo ;
+    //获得的数据包的type字段为ICMP_ECHO_REPLY，即收到一个回显应答ICMP报文
+    if(pIcmpHrd->type == ICMP_ECHO_REPLY)
+    {
+        usID = pIcmpHrd->id ;
+        //接收到的是网络字节顺序的seq字段信息 ， 需转化为主机字节顺序
+        usSeqNo = ntohs(pIcmpHrd->seq) ;
+    }
+    if(usID != GetCurrentProcessId() || usSeqNo != stDecodeResult->usSeqNo)
+    {
+        std::cout&lt;&lt;("usID error!\n");
+        return 0 ;
+    }
+    //记录对方主机的IP地址以及计算往返的时延RTT
+    if(pIcmpHrd->type == ICMP_ECHO_REPLY)
+    {
+        stDecodeResult->dwIPaddr.s_addr = pIpHrd->sourceIP ;
+        stDecodeResult->ttl = pIpHrd->ttl ;
+        stDecodeResult->dwRoundTripTime = GetTickCount() - stDecodeResult->dwRoundTripTime ;
+        return 1 ;
+    }
+    return 0 ;
+}
+
+int CustPing::Ping(char *IP){
+    int retVal=1;
+    unsigned long ulDestIP = inet_addr(IP) ; //将IP地址转化为长整形
+    if(ulDestIP == INADDR_NONE)
+    {
+        //转化不成功时按域名解析
+        HOSTENT *pHostent = gethostbyname(IP) ;
+        if(pHostent)
+        {
+            ulDestIP = (*(IN_ADDR*)pHostent->h_addr).s_addr ; //将HOSTENT转化为长整形
+        }
+        else
+        {
+//            printf("TIMEOUT\n") ;
+            return retVal ;
+        }
+    }
+    //填充目的Socket地址
+    SOCKADDR_IN destSockAddr ; //定义目的地址
+    ZeroMemory(&amp;destSockAddr , sizeof(SOCKADDR_IN)) ; //将目的地址清空
+    destSockAddr.sin_family = AF_INET ;
+    destSockAddr.sin_addr.s_addr = ulDestIP ;
+    destSockAddr.sin_port = htons(0);
+     //初始化WinSock
+     WORD wVersionRequested = MAKEWORD(2,2);
+     WSADATA wsaData;
+     if(WSAStartup(wVersionRequested,&amp;wsaData) != 0)
+     {
+//         std::cout&lt;&lt;("初始化WinSock失败！\n");
+         return retVal;
+     }
+    //使用ICMP协议创建Raw Socket
+    SOCKET sockRaw = WSASocket(AF_INET , SOCK_RAW , IPPROTO_ICMP , NULL , 0 , WSA_FLAG_OVERLAPPED) ;
+    if(sockRaw == INVALID_SOCKET)
+    {
+//        std::cout&lt;&lt;("创建Socket失败 !\n");
+        return retVal;
+    }
+    //设置端口属性
+    int iTimeout = DEF_ICMP_TIMEOUT ;
+    if(setsockopt(sockRaw , SOL_SOCKET , SO_RCVTIMEO , (char*)&amp;iTimeout , sizeof(iTimeout)) == SOCKET_ERROR)
+    {
+//           std::cout&lt;&lt;("设置参数失败！\n");
+          return retVal;
+    }
+    if(setsockopt(sockRaw , SOL_SOCKET , SO_SNDTIMEO , (char*)&amp;iTimeout , sizeof(iTimeout)) == SOCKET_ERROR)
+    {
+//           std::cout&lt;&lt;("设置参数失败！\n");
+          return retVal;
+    }
+    //定义发送的数据段
+    char IcmpSendBuf[DEF_ICMP_PACK_SIZE] ;
+    //填充ICMP数据包个各字段
+    ICMP_HEADER *pIcmpHeader  = (ICMP_HEADER*)IcmpSendBuf;
+    pIcmpHeader->type = ICMP_ECHO_REQUEST ;
+    pIcmpHeader->code = 0 ;
+    pIcmpHeader->id = (unsigned short)GetCurrentProcessId() ;
+    memset(IcmpSendBuf + sizeof(ICMP_HEADER) , 'E' , DEF_ICMP_DATA_SIZE) ;
+    //循环发送四个请求回显icmp数据包
+    int usSeqNo = 0 ;
+    DECODE_RESULT stDecodeResult ;
+    int countSendRequest=0;
+    while(usSeqNo &lt;= countSendRequest)
+    {
+      pIcmpHeader->seq = htons(usSeqNo) ;
+      pIcmpHeader->cksum = 0 ;
+      pIcmpHeader->cksum = GenerateChecksum((unsigned short*)IcmpSendBuf , DEF_ICMP_PACK_SIZE) ; //生成校验位
+      //记录序列号和当前时间
+      stDecodeResult.usSeqNo = usSeqNo ;
+      stDecodeResult.dwRoundTripTime = GetTickCount() ;
+      //发送ICMP的EchoRequest数据包
+      if(sendto(sockRaw , IcmpSendBuf , DEF_ICMP_PACK_SIZE , 0 , (SOCKADDR*)&amp;destSockAddr , sizeof(destSockAddr)) == SOCKET_ERROR)
+      {
+         //如果目的主机不可达则直接退出  情况1
+         if(WSAGetLastError() == WSAEHOSTUNREACH)
+         {
+//             std::cout&lt;&lt;("Destination host was unreachable!\n");
+             return retVal;
+         }
+      }
+      SOCKADDR_IN from ;
+      int iFromLen = sizeof(from) ;
+      int iReadLen ;
+      //定义接收的数据包
+      char IcmpRecvBuf[MAX_ICMP_PACKET_SIZE] ;
+      while(1)
+      {
+          iReadLen = recvfrom(sockRaw , IcmpRecvBuf , MAX_ICMP_PACKET_SIZE , 0 , (SOCKADDR*)&amp;from , &amp;iFromLen) ;
+          if(iReadLen != SOCKET_ERROR)
+          {
+              // 目标主机ip可以访问
+              if(DecodeIcmpResponse_Ping(IcmpRecvBuf , sizeof(IcmpRecvBuf) , &amp;stDecodeResult))
+              {
+//                   std::cout&lt;&lt;("Destination host can reachable!\n");
+                   retVal=0;
+                   return retVal;
+//                 printf("from %s response: bytelength = %d time = %dms TTL = %d\n" , inet_ntoa(stDecodeResult.dwIPaddr) ,
+//                          iReadLen - 20,stDecodeResult.dwRoundTripTime ,stDecodeResult.ttl) ;
+              }
+              break ;
+          }
+          else if(WSAGetLastError() == WSAETIMEDOUT)
+          {
+              // 目标ip不可达,退出 情况2
+//               std::cout&lt;&lt;("time out !  Destination ip was unreachable!\n");
+               break ;
+          }
+          else
+          {
+               std::cout&lt;&lt;("发生未知错误！\n");
+              break ;
+          }
+      }
+      usSeqNo++ ;
+    }
+    //输出屏幕信息
+//    std::cout&lt;&lt;("ping complete !\n");
+    closesocket(sockRaw) ;
+    WSACleanup() ;
+    return retVal;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/05/04/diary-20230504-1/" class="b-link-green">qt自定义监听拖动和界面布局</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/06/17/diary-20230617-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/16.jpg" class="responsive-img" alt="Qt通信之QByteArray及数据格式转换">
+                        
+                        <span class="card-title">Qt通信之QByteArray及数据格式转换</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            接收和发送数据QT上位机的串口通信发送和接收数据都需要用到QByteArrayQByteArray存储的是char型字符，但QByteArray提供的数组操作，比char更方便。  
+// 初始化
+QByteArray senddata(1
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-17
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/qt/" target="_blank">
+                        <span class="chip bg-color">qt</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/04/24/diary-20230424-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/30.jpg" class="responsive-img" alt="Qt串口及字节处理、Tlv生成解析">
+                        
+                        <span class="card-title">Qt串口及字节处理、Tlv生成解析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Qt串口通信,自制调试工具项目.pro文件中添加serialport模块，支持c++11  
+QT += core gui serialport
+CONFIG += c++11
+
+mainwindow.h#ifndef MAINWINDOW
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-04-24
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/串口/" target="_blank">
+                        <span class="chip bg-color">串口</span>
+                    </a>
+                    
+                    <a href="/diary/tags/Qt/" target="_blank">
+                        <span class="chip bg-color">Qt</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

@@ -1,0 +1,2745 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="HeadFirstJava阅读笔记, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="第一章Java中所有东西都会属于某个类，建立源文件(.java)，编译成类文件(.class)。真正被执行的是类。编辑保存源文件源文件编译成类(.class字节码)调用Java虚拟机运行类执行程序就是命令Java虚拟机(JVM)加载某个类，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>HeadFirstJava阅读笔记 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/28.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        HeadFirstJava阅读笔记
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-02-08
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        12k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        46 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><p>Java中所有东西都会属于某个类，建立源文件(.java)，编译成类文件(.class)。真正被执行的是类。<br>编辑保存源文件<br>源文件编译成类(.class字节码)<br>调用Java虚拟机运行类<br>执行程序就是命令Java虚拟机(JVM)加载某个类，开始执行这个类的main()方法，一直运行直到该main所有代码结束为止。<br>无论程序有多大，有多少个类，一定有一个main()作为程序的起点。<br>你让Java虚拟机在main()里做事就是通过写各种语句传达命令。<br>做某事：声明、赋值、调用方法调用属性等<br>反复做某事：Java三种循环结构(while,do-while,for)<br>某条件下做某事: if/else条件分支  </p>
+<h2 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h2><p>对象是靠类的模型塑造出来的。类是对象的蓝图设计。<br>对象是已知的事物。<br>对象会执行动作。<br>对象本身已知的事物被称为实例变量(代表对象的状态数据)。<br>对象可以执行的动作称为方法。<br>面向对象的应用程序只会用对象与对象交互。<br>对象自治，无需在意对象内部如何完成任务。<br>main()是面向过程的产物，在Java面向对象的两种用途<br>1.测试真正的类<br>2.启动你的Java应用程序  </p>
+<p>举个例子，下面3个类：<br>GuessGame.class<br>Player.class<br>GameLauncher.class (内含main()方法)<br>面向对象的程序逻辑：<br>1.GameLauncher.class带有main方法，是应用程序的入口。<br>2.在GameLauncher.class的main()中创建GuessGame对象，调用GuessGame对象的startGame()方法。<br>3.startGame()方法是游戏的起点，它会创建3个Player对象，进行游戏。  </p>
+<p>Java创建对象时，对象会被存在称为堆的内存区域中，此区域是可回收垃圾的堆。Java会根据对象大小分配内存空间。比如15个实例变量的对象所占用的内存空间就可能会比只有两个实例变量的对象要大。Java虚拟机(JVM)会主动帮你管理内存。<br>数量庞大的类文件(.class)可以被一起被打包装进.jar文件。在jar文件内可以引入一个简单的文本文件manifest，在manifest里定义了jar包中哪个类带有启动应用程序的main()方法。  </p>
+<h2 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h2><p>为了让类能安全的发挥作用，编译器会检查源代码各种规则是否达到要求。<br>所有变量必须声明类型。<br>变量类型主要有两类，<br>保存基础数据类型的值的变量<br>保存创建对象的引用的变量<br>变量就像个具有一定容器的杯子，当保存基础数据类型的值的变量被赋值时，代表相应数值的字节被放进变量里。当保存创建对象的引用的变量被赋值时，代表取得相应对象的方法形式被放进变量，对象本身并不在变量里，java虚拟机(JVM)知道如何通过该方法形式获取对象。  </p>
+<p>对象的声明、创建、赋值分为三个步骤。  </p>
+<pre><code>
+Dog myDog     =    new Dog();  
+
+( 1声明  )( 3赋值 )(  2创建   )  </code></pre><p>声明一个引用变量时，JVM会分配空间给应用变量。此引用变量类型固定为*类。<br>创建对象时，JVM分配堆空间给新建的对象。<br>赋值时，将引用变量引用的对象设定为刚才新建的对象。<br>Java不是C语言，不能对引用变量进行运算。  </p>
+<h2 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h2><p>类描述的是对象知道什么，对象可以做什么。<br>对象有各自的状态和行为两种属性，分别用实例变量和方法来表示。<br>你可以传值给方法，调用方传入实参（值），实参进入方法内形成形参（在方法内跟局部变量一样）。方法最多只能有一个返回值。<br>为保护数据安全，封装的基本原则：将对象的实例变量标记为私有，并提供public公有的getter和setter来控制存取动作。<br>对象的实例变量永远都有个默认值，即使声明后没有初始化。<br>对象内实例变量与局部变量的差别：<br>实例变量声明在类内，局部变量声明在方法内。<br>实例变量只有声明就能通过编译，局部变量声明后使用前必须初始化，否则无法通过编译。<br>两个引用变量使用”==”比较，比较的是是否引用到堆上的同一个对象。两个引用变量使用equals()来判断两个对象是否在意义上相等(意义相等的意思是视对象类型不同而不同)。比如判断两个String字符串对象的意义是字面值是否都是”xxx”使用equals(“xxx”)  </p>
+<h2 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h2><p>根据目标业务流程设想出需要哪些类，做哪些事：<br>找出类应该做的事情；<br>列出实例变量和方法；<br>编写方法的伪码;<br>实现类；<br>编写方法的测试用程序；<br>完善类重新测试；<br>Java能很容易逐个运行数组或其他集合(collection)的元素。  </p>
+<pre><code>for(String name:nameArray){  
+
+}  
+
+nameArray为之前声明带有单一类型元素的集合  
+
+String为此例这个集合的类型  
+
+:代表in(在)  
+
+name在循环过程中每次带有不同的值(集合内依次取值)  
+
+对集合nameArray内的每个元素对象依次执行一次{}里的内容：  </code></pre><h2 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h2><p>Java标准版自带数百个预先创建好的类。<br>比如这样的需求：某种数组会在删除掉某元素后自动缩小，可以查询其内是否含有欲寻找的值，Java函数库中的类ArrayList满足这样的需求。  </p>
+<pre><code>
+ArrayList&lt;Egg&gt; myList=new ArrayList&lt;Egg&gt;();        //创建对象
+
+Egg s=new Egg();                                //添加元素
+
+myList.add(s);
+
+Egg b=new Egg();
+
+myList.add(b);
+
+int theSize=myList.size();                        //查询大小
+
+boolean isIn=myList.contains(s);                //查询特定元素
+
+int idx=myList.indexOf(b);                        //查询特定元素位置
+
+boolean empty=myList.isEmpty();                    //查询是否为空
+
+myList.remove(s);                                //删除元素
+</code></pre><p>一般数组创建时必须确定大小，类ArrayList创建对象时不需要指定大小。<br>一般数组存放元素时必须要指定位置，类ArrayList创建的对象可以用方法add(int,Object)指定存放位置索引，也可以使用方法add(Object)让其自动管理。  </p>
+<p>在Java的API中，类是被包装在包里。要使用API中的类，得先知道它被放在哪个包里。<br>指明代码中所使用类的完整名称，放对应import语句在源文件最前面，或者在使用类的位置打出包括包名在内的全名。  </p>
+<p>包的作用：<br>帮助组织项目或函数库，将零散的类组织起来。<br>制造名称空间，以错开相同名称的类。<br>通过限制同一包内的类才能相互存取，维护安全性。<br>Java早期版本所有随附于Java的类都放在java开头的包中。<br>后来出现一些没有包含在标准函数库中的包。这些被称为扩展的类有两种类型：标准的与非标准的。<br>Sun公司认可标准版的扩展都以javax作为包名开头。<br>程序不会因为import语句而变大变慢。<br>查询API前必须知道库中有哪些类，这个类大概是做什么的。  </p>
+<h2 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h2><p>把共同的代码放在某个类里，告诉其他类此类是他们的父类。当某个类继承另外一个类时，也就是子类继承父类。<br>找出具有共同属性和行为的对象。设计代表共同状态(属性)和行为的类作为父类，用继承来防止子类出现重复的程序代码。<br>不同子类继承父类的实例变量(属性)都合用，可以直接使用继承来的实例变量。继承来的实例变量不能被覆盖。<br>不同子类有时需要让继承的方法有自己特定的运作方式，即子类覆盖父类的方法。<br>当调用对象引用的方法时，会调用到与该对象类型最接近的方法，即，最低阶的胜出。最低阶指位于继承层次树的最下方。<br>子类可以继承父类的成员（包括实例变量和方法）。<br>父类可以通过存取权限决定子类能否继承某些特定的成员。<br>private、default、protected、public、左边最受限制，越往右限制越小。<br>public类型的成员会被继承。private类型的成员不会被继承。<br>想要防止特定的方法被子类覆盖，可以用final修改这个方法。<br>任一子类的成员含有自己定义的变量和方法，再加上从父类继承下来的成员。<br>继承可以确保某个父类之下所以类都会有父型所持有的全部方法，可以通过继承来定义相关类之间的共同协议。<br>当你定义出一组类的父型时，你可以用子型的任何类来填补任何需要或期待父型的位置。<br>Dog myDog=new Dog();<br>上例中应用变量引用的类型与对象类型相同，均为Dog。<br>Animal myDog=new Dog();<br>上例中应用变量引用的类型Animal与新创建对象类型Dog不同。Animal是Dog的父类。<br>引用的类型是实际对象类型的父类。这就是多态。<br>通过多态，可以编写出引入新子类也不必修改的程序。<br>看下面这个运用多态的数组。  </p>
+<pre><code>Animal[] animals=new Animal[5];  
+animals[0]=new Dog();  
+animals[1]=new Cat();  
+animals[2]=new Wolf();  
+animals[3]=new Lion();  
+animals[4]=new Hippo();  
+for(int i=0;i&lt;anima1s.length;i++){  
+    anima1s[i].eat();  
+    anima1s[i].roam();  
+}  </code></pre><p>子类覆盖父类方法需要遵守以下规则：<br>参数要一样，且返回类型必须兼容。子类必须要声明返回一样的类型或该类型的子类。保证能够执行父类的一切。<br>不能降低方法的存取权限，代表方法的存取权必须相同或者更为开放。<br>重载的意思是两个方法名字相同，但参数不同。<br>重载与多态、继承毫无关系。<br>重载方法与覆盖方法不同。<br>重载方法的返回类型可以不同，你可以任意改变重载方法的返回类型。<br>方法名字相同的重载，如果只有返回类型不同，但参数一样，这是无法通过编译器编译，不被允许的。<br>重载的条件是使用不同的参数，返回类型可以自由定义。<br>重载可以任意设定方法的存取权限。  </p>
+<h2 id="第八章"><a href="#第八章" class="headerlink" title="第八章"></a>第八章</h2><p>继承只是开始，要使用多态，还需要接口。<br>我们需要超越简单的继承并前进到只有通过设计编写接口才能达成适应性与扩展性。<br>在类声明前加abstract，就是抽象类。<br>抽象类是无法实例化的类。只能被用来继承。<br>抽象类表示无法实例化创建该类的实例，但是，你可以使用该抽象类来声明作为引用类型给多态使用。<br>abstract public class Animal{}<br>类可以标记为抽象，方法也可以被标记为抽象。<br>抽象的类代表此类必须要被extend。抽象的方法代表此方法一定要被覆盖。<br>public abstract void eat();<br>因为抽象的方法一定要被覆盖，所以声明时不用写具体内容不需要{}，直接以分号结束。<br>如果你声明一个抽象方法，则必须将该类也标记为抽象类。不可以在非抽象类中拥有抽象方法。<br>抽象类的重点在于可以被子类继承的共同程序代码。但是有时候就是没有办法作出给任何子类都有意义的共同代码，这时就需要抽象方法，抽象方法的意义是就算无法实现共同方法的内容，但还是可以定义出一组子类共同的协议。<br>这样做的好处就是多态。想达成的目标是使用(父类)作为（方法参数、返回类型、数组类型）<br>通过这个机制，以后添加不同的子类到程序里，不用重写或修改内容。<br>多态的好处在于所有子类型都具有那些抽象的方法。<br>继承树下第一个具体类必须要实现所有的抽象方法。<br>抽象方法没有内容，只为标记多态而存在。表示在继承树结构下第一个具体类必须要实现出所有的抽象方法。<br>Object类有两个主要目的，作为多态让方法可以应付多种类型的机制，以及提供Java在执行期对任何对象都有需要的方法的实现程序代码。Object类常用的方法hashCode()，toString()，equals()，建议覆盖。<br>当某个对象是以Object类型来引用时，代表只能调用Object类中声明的方法。因为Java是类型检查很强的程序语言。编译器根据引用类型来判断有哪些方法可以调用。  </p>
+<pre><code>if(a instanceof Cat){
+    System.out.println("a 是类Cat的实例");
+    Cat c=(Cat)a;
+}</code></pre><p>接口可以解决某些需要多重继承的问题，像是一种100%纯抽象类。所有接口的方法都是抽象的，实现某接口必须实现接口的这些抽象方法。  </p>
+<pre><code>public interface Pet{...}  
+
+public class Dog extends Animal implements Pet{...}  </code></pre><p>extends继承父类 implements实现接口<br>不同继承树的类也可以实现相同的接口。<br>对于多态，接口有无比的适用性，如果以接口取代子类或抽象父类作为参数或返回类型。你就可以传入任何实现该接口的东西。接口代表一个共同的合约定义。<br>当你把一个类作为多态类型运用(当做参数或返回类型)，相同的类型必定来自同一个继承树而且必须是该类型的子类。<br>当你把一个接口作为多态类型运用(当做参数或返回类型)，对象可以来自任何地方，唯一的条件是实现该接口。<br>某具体的子类必须覆盖某个方法，但又需要执行父类方法。可以使用super.方法名()，在子类调用父类方法。  </p>
+<h2 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h2><p>对象的生存空间堆(heap)<br>方法调用和变量的生存空间栈(stack)<br>所有对象都存活于可垃圾回收的堆上。<br>变量分为实例变量和局部变量。<br>局部变量声明在方法内，局部变量和方法调用存活于栈上。<br>实例变量被声明在类里而不在方法里，实例变量存在于所属的对象内，位于堆上。<br>栈顶上的方法是目前正在被执行的。<br>唯一能调用构造函数的方法就是新建一个类。<br>构造函数与类名相同，没有返回类型。在对象被赋值给引用变量之前就执行。使我们有机会在对象被使用之前介入new作些有意义的事。<br>如果你没写构造函数，编译器会替你写一个没有参数的构造函数。<br>如果你已经写了一个有参数的构造函数，则必须在手动写一个没有参数的构造函数。<br>如果类有一个以上的构造函数，则参数一定要不一样。<br>在创建新对象时，所有继承下来的构造函数都会执行。<br>构造函数在执行时，第一件事就是执行它的父类构造函数，这会连锁反应到Object这个类为止。<br>子类构造函数中调用super()会把父类的构造函数放在栈的最上方。一路调用父类构造函数知道Object的构造函数为止。再一路执行弹回自己的构造函数。<br>对super()的调用必须是子类构造函数的第一个语句。<br>对象的生命周期要看其引用变量的生命周期而定。<br>局部变量只会存活在声明该变量的方法中。<br>实例变量的寿命与对象相同。<br>当最后一个引用消失时对象就变成可回收的了。<br>三种方法释放对象的引用。<br>1.引用永久性离开他的范围。<br>void methodx{Life z=new Life();}方法结束对象z消失<br>2.引用被赋值到其他对象上。<br>Life z=new Life();<br>z=new Life(); 第一次被赋值的对象消失<br>3.直接将引用设定位null。<br>Life z=new Life();<br>z=null;第一次被赋值的对象消失  </p>
+<h2 id="第十章"><a href="#第十章" class="headerlink" title="第十章"></a>第十章</h2><p>非静态方法通常需要类的实例，受实例变量状态的影响。<br>Java是面向对象的，但某些情况下(通常是一些实用的方法)，并需要类的实例。用static这个关键词标记出不需要类实例(不受实例变量影响)的方法。<br>以类的名称调用静态方法。<br>以引用变量的名称调用非静态方法。<br>静态方法不能调用非静态变量。<br>静态方法不能调用非静态方法。<br>静态变量的值对于所有该类实例来说都相同，是被同类所有实例所共享的变量。<br>实例变量每个实例一个，静态变量每个类一个。<br>静态变量会在该类的任何对象创建之前完成初始化。<br>静态变量会在该类的任何静态方法执行之前完成初始化。<br>被标记为final的变量代表它一旦被初始化后就不会变动。<br>静态final变量会一直维持原值。比如<br>public static final double PI=3.141592653589793<br>public因此可被各方读取。<br>static所以不需要Math的实例。<br>final因为圆周率是不变的。<br>常数变量名称应该全部大写字母。<br>静态final变量的初始化，<br>方式一，在声明的时候：<br>public class Foo{<br>    public static final int FOO_X=25;<br>}<br>方式二，在静态初始化程序中：<br>public class Foo{<br>    public static final int FOO_X;<br>    static{<br>        FOO_X=25;<br>    }<br>}<br>如果静态final变量没有按上述两种之一方式初始化，编译器会报错。<br>final修饰非静态变量（实例变量、局部变量、方法参数）时，都代表它的值不能变动。<br>final修改方法可以防止方法的覆盖。<br>final修改类，代表不能继承这个类，禁止创建它的子类。<br>Java5.0版本之后，每种基础数据类型都有个包装用的类。<br>Boolean,Character,Byte,Short,Integer,Long,Float,Double,<br>包装值<br>int i=288;<br>Integer iwrap=new Integer(i);<br>解开包装<br>int unWrapped=iwrap.intValue();<br>Java5.0版本之后创建int的ArrayList，能自动将基础数据类型转换成包装类。<br>ArrayList<integer> listInt=new ArrayList<integer>();<br>listInt.add(3);<br>int num=listInt.get(0);<br>ArrayList<int>无法通过编译，因为generic类型规则只能指定类或者接口类。<br>基础数据类型和对应包装类之间有autoboxing自动打包解包功能<br>在基础数据类型作为运算子的操作中，可以用包装类替换。（包装类可以递增运算）<br>你可以将包装类或基础数据类型赋值给声明成对应包装类或基础数据类型的变量<br>将数字以带逗号的形式格式化<br>String s=String.format(“%,d”,1000000000);<br>显示1,000,000,000<br>%表示把参数放在这里，当你看见%时，要把它想做是会被方法其余参数替换掉的位置。<br>%,d表示以十进制带逗号的方式来显示。<br>%.2f表示以小数点后两位的方式来格式浮点数。  </int></integer></integer></p>
+<p>完整显示日期和时间<br>String s=String.format(“%tc”,new Date());<br>显示Sun Nov 28 14:52:41 MST 2004<br>只显示时间<br>String s=String.format(“%tr”,new Date());<br>显示03:01:47 PM<br>周，月，日<br>Date today=new Date();<br>String s=String.format(“%tA,%tB %td”,today,today,today);<br>显示Sunday,November 28<br>java.util.GregorianCalendar  </p>
+<h2 id="第十一章"><a href="#第十一章" class="headerlink" title="第十一章"></a>第十一章</h2><pre><code>//Hello.java:
+
+import javax.sound.midi.*;
+
+public class Hello {
+
+    public  void play(){
+
+        try{
+
+            Sequencer sequencer=MidiSystem.getSequencer();
+
+            System.out.println("we get a sequencer");
+
+        }catch (MidiUnavailableException ex){
+
+            System.out.println("Bummer");
+
+            ex.printStackTrace();
+
+        }finally{
+
+            System.out.println("over");
+
+        }
+
+    }
+
+    public static void main(String[] args){
+
+        Hello he=new Hello();
+
+        he.play();
+
+    }
+
+}</code></pre><p>有风险，方法主动抛出异常  </p>
+<p>可能抛出异常的方法必须声明成throws Exception  </p>
+<pre><code>public void takeRisk() throws BadException{
+
+    if(abandonAllHope){
+
+        throw new BadException();
+
+    }
+
+}</code></pre><p>方法可能在运行时遇到问题抛出异常，异常是Exception类型的对象。</p>
+<p>编译器不会注意RuntimeException类型的异常。RuntimeException不需要声明或被包在try/catch的块中。  </p>
+<p>编译器关心的是称为检查异常的异常</p>
+<p>如果要处理异常情况，就把调用包在try/catch块里，并将异常处理/恢复程序放在catch块里。</p>
+<p>finally块用来存放不管有没有异常都得执行的程序。</p>
+<pre><code>
+如果有必要，方法可以抛出多个异常，方法声明必须要有含有全部可能异常。
+
+public void doLoadu()throws PantsException,LingerieException{...}
+
+处理多重异常
+
+try{
+
+......
+
+}catch (PantsException ex1){
+
+    ex1.printStackTrace();
+
+}catch (LingerieException ex2){
+
+    ex2.printStackTrace();
+
+}  </code></pre><h2 id="第十二章"><a href="#第十二章" class="headerlink" title="第十二章"></a>第十二章</h2><p>第一个GUI程序：</p>
+<pre><code>
+import javax.swing.*;
+
+public class Hello {
+
+    public static void main(String[] args){
+
+        JFrame frame=new JFrame();
+
+        JButton button=new JButton("Click me");
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.getContentPane().add(button);
+
+        frame.setSize(300,300);
+
+        frame.setVisible(true);
+
+    }
+
+}</code></pre><p>第二个GUI程序：  </p>
+<pre><code>
+import javax.swing.*;
+
+import java.awt.event.ActionEvent;
+
+import java.awt.event.ActionListener;
+
+public class Hello implements ActionListener{
+
+    public void actionPerformed(ActionEvent event){
+
+        button.setText("I have been clicked");
+
+    }    
+
+    JButton button;
+
+    public void go(){
+
+        JFrame frame=new JFrame();
+
+        button=new JButton("Click me");
+
+
+
+        button.addActionListener(this);
+
+
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.getContentPane().add(button);
+
+        frame.setSize(300,300);
+
+        frame.setVisible(true);
+
+    }
+
+
+
+    public static void main(String[] args){
+
+        Hello gui=new Hello();
+
+        gui.go();
+
+    }
+
+}
+</code></pre><p>1.监听获知事件：实现接口并向组件注册。  </p>
+<p>2.事件源发出事件对象：接受注册，在用户采取操作时调用监听事件的处理方法。  </p>
+<p>3.事件对象携带事件的信息。  </p>
+<p>注意API手册里以add开头的Listener且取用listener接口参数的方法，含有这种方法的类就是相应事件的来源。  </p>
+<p>比如含有方法addKeyListener(KeyListener k)的类是事件KeyEvent的事件源。  </p>
+<p>下面每个组件(widget，用户接口对象)都是一或多个事件的来源。  </p>
+<table>
+
+<tbody><tr>
+
+<td>Widgets</td><td>Event methods</td>
+
+</tr>
+
+<tr>
+
+<td>check box</td><td>windowClosing()</td>
+
+</tr>
+
+<tr>
+
+<td>text field</td><td>actionPerformed()</td>
+
+</tr>
+
+<tr>
+
+<td>scrolling list</td><td>itemStateChanged()</td>
+
+</tr>
+
+<tr>
+
+<td>button</td><td>mousePressed()</td>
+
+</tr>
+
+<tr>
+
+<td>dialog box</td><td>keyTyped()</td>
+
+</tr>
+
+<tr>
+
+<td>radio button</td><td>mouseExited()</td>
+
+</tr>
+
+<tr>
+
+<td>menu item</td><td>focusGained()</td>
+
+</tr>
+
+</tbody></table>  
+
+
+
+<p>在GUI上加东西的3种方式：</p>
+<p>1.在frame上放置组件widget。包javax.swing里有许多widget类型的组件。  </p>
+<p>frame.getContentPane().add(myButton);</p>
+<p>2.在widget上绘制2D图形。  </p>
+<p>graphics.fillOval(70,70,100,100);</p>
+<p>3.在widget上绘制jpeg图。  </p>
+<p>graphics.drawImage(myPic,10,10,this);</p>
+<p>创建自己具有绘图功能的widget组件就是创建JPanel的子类并覆盖paintComponent()这个方法。  </p>
+<p>paintComponent()方法的参数是跟实际屏幕有关的Graphics，你无法获取这个对象。它只能由系统来交给你，然而，你还是可以调用repaint()请求系统重新绘制屏幕产生paintComponent()的调用。</p>
+<pre><code>
+画一个矩形
+
+//Hello.java:
+
+import javax.swing.*;
+
+import java.awt.*;
+
+class MyDrawPanel extends JPanel{
+
+    public void paintComponent(Graphics g){
+
+        g.setColor(Color.orange);
+
+        g.fillRect(20,50,100,100);
+
+    }
+
+}
+
+public class Hello {
+
+    public void go(){
+
+        JFrame frame=new JFrame();
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        MyDrawPanel mydraw=new MyDrawPanel();
+
+        frame.getContentPane().add(mydraw);
+
+        frame.setSize(300,300);
+
+        frame.setVisible(true);
+
+    }
+
+    public static void main(String[] args){
+
+        Hello gui=new Hello();
+
+        gui.go();
+
+    }
+
+}  
+</code></pre><p>显示jpeg图  </p>
+<pre><code>//cat.jpg与Hello.class在同一目录下
+
+import javax.swing.*;
+
+import java.awt.*;
+
+class MyDrawPanel extends JPanel{
+
+    public void paintComponent(Graphics g){
+
+        Image image=new ImageIcon("cat.jpg").getImage();
+
+        g.drawImage(image,5,10,this);
+
+    }
+
+}
+
+public class Hello {
+
+    public void go(){
+
+        JFrame frame=new JFrame();
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        MyDrawPanel mydraw=new MyDrawPanel();
+
+        frame.getContentPane().add(mydraw);
+
+        frame.setSize(300,300);
+
+        frame.setVisible(true);
+
+    }
+
+    public static void main(String[] args){
+
+        Hello gui=new Hello();
+
+        gui.go();
+
+    }
+
+}</code></pre><p>黑色背景上画随机色彩的圆圈  </p>
+<pre><code>//Hello.java  
+
+import javax.swing.*;
+
+import java.awt.*;
+
+class MyDrawPanel extends JPanel{
+
+    public void paintComponent(Graphics g){
+
+        g.fillRect(0,0,this.getWidth(),this.getHeight());
+
+        int red=(int)(Math.random()*255);
+
+        int green=(int)(Math.random()*255);
+
+        int blue=(int)(Math.random()*255);
+
+        Color randomColor=new Color(red,green,blue);
+
+        g.setColor(randomColor);
+
+        g.fillOval(70,70,100,100);
+
+    }
+
+}
+
+public class Hello {
+
+    public void go(){
+
+        JFrame frame=new JFrame();
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        MyDrawPanel mydraw=new MyDrawPanel();
+
+        frame.getContentPane().add(mydraw);
+
+        frame.setSize(300,300);
+
+        frame.setVisible(true);
+
+    }
+
+    public static void main(String[] args){
+
+        Hello gui=new Hello();
+
+        gui.go();
+
+    }
+
+}</code></pre><p>因为多态的应用， paintComponent(Graphics g)的参数g是Graphics类型对象，代表参数也可以是其子类。实际上，系统由g参数所引用的对象是Graphpics2D类型的对象。Graphpics2D类型对象比Graphpics类型对象能做更多的事。  </p>
+<p>黑色背景上画渐变色彩的圆圈  </p>
+<pre><code>//Hello.java  
+
+import javax.swing.*;
+
+import java.awt.*;
+
+class MyDrawPanel extends JPanel{
+
+    public void paintComponent(Graphics g){
+
+        Graphics2D g2d=(Graphics2D)g;
+
+        GradientPaint gradient=new GradientPaint(10,20,Color.BLUE,150,150,Color.orange);
+
+        g2d.setPaint(gradient);
+
+        g2d.fillOval(5,5,180,180);
+
+    }
+
+}
+
+public class Hello {
+
+    public void go(){
+
+        JFrame frame=new JFrame();
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        MyDrawPanel mydraw=new MyDrawPanel();
+
+        frame.getContentPane().add(mydraw);
+
+        frame.setSize(300,300);
+
+        frame.setVisible(true);
+
+    }
+
+    public static void main(String[] args){
+
+        Hello gui=new Hello();
+
+        gui.go();
+
+    }
+
+}
+</code></pre><p>frame默认有5个区域可以放置widget：</p>
+<table>
+
+<tbody><tr>
+
+<td>North</td> 
+</tr>
+
+<tr>
+
+<td>West</td><td>Center</td>
+<td>East</td>
+
+</tr>
+
+<tr>
+
+<td>South</td> 
+</tr>
+
+</tbody></table> 
+
+
+
+<p>内部类可以使用外部类所有方法和变量，就算private的也一样用。当做自己的来用。  </p>
+<pre><code>class MyOutClass{
+
+    private int x;
+
+
+
+    MyInnerClass inner=new MyInnerClass();
+
+    public void DoStuff(){
+
+        inner.go();
+
+    }
+
+
+
+
+
+    class MyInnerClass{
+
+        void go(){
+
+            x=42;
+
+        }
+
+    }
+
+}</code></pre><p>内部类的实例一定绑在外部类的某个实例上。能随意存取特定的这个外部类实例的方法和变量。</p>
+<p>不同的按钮执行不同工作，运用内部类实现接口实现不同的监听处理Listener。即方便后期独立修改监听方法，又能方便共享某些变量和方法。</p>
+<pre><code>//Hello.java:  
+
+import javax.swing.*;
+
+import java.awt.*;
+
+import java.awt.event.ActionEvent;
+
+import java.awt.event.ActionListener;
+
+public class Hello  {
+
+
+
+    JLabel mylabel;
+
+
+
+    public void go(){
+
+        JFrame frame=new JFrame();
+
+
+
+        JButton labelbutton=new JButton("Change label");
+
+        frame.getContentPane().add(BorderLayout.SOUTH,labelbutton);
+
+        labelbutton.addActionListener(new LabelListener());
+
+
+
+        JButton colorbutton=new JButton("Change color");
+
+        frame.getContentPane().add(BorderLayout.NORTH,colorbutton);
+
+        colorbutton.addActionListener(new ColorListener());
+
+
+
+        mylabel=new JLabel("I`m a label");
+
+        frame.getContentPane().add(BorderLayout.CENTER,mylabel);
+
+
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setSize(300,300);
+
+        frame.setVisible(true);
+
+    }
+
+
+
+    public static void main(String[] args){
+
+        Hello gui=new Hello();
+
+        gui.go();
+
+    }
+
+
+
+    class LabelListener implements ActionListener{
+
+
+
+        @Override
+
+        public void actionPerformed(ActionEvent e) {
+
+            mylabel.setText("i`m Changed!!");
+
+        }
+
+    }
+
+    class ColorListener implements ActionListener{
+
+
+
+        @Override
+
+        public void actionPerformed(ActionEvent e) {
+
+            mylabel.setText("colorlabel is  Clicked");
+
+        }
+
+    }
+
+}</code></pre><p>内部类用来处理对事件的监听很好用。  </p>
+<p>内部类用来当做某种外部类无法继承的子类时也很好用。（用内部类搞定不同的继承层次）。  </p>
+<p>用内部类实现动画效果，比如下例,</p>
+<p>左上角的圆圈缓慢移动到右下角。</p>
+<pre><code>//Hello.java:
+
+import javax.swing.*;
+
+import java.awt.*;
+
+public class Hello  {
+
+    int x=10;
+
+    int y=10;
+
+    public void go(){
+
+        JFrame frame=new JFrame();
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+
+        MyDrawPanel drawPanel=new MyDrawPanel();
+
+        frame.getContentPane().add(drawPanel);
+
+
+
+
+
+        frame.setSize(300,300);
+
+        frame.setVisible(true);
+
+
+
+        for(int i=0;i&lt;200;i++){
+
+            x++;
+
+            y++;
+
+            drawPanel.repaint();
+
+            try{
+
+                Thread.sleep(50);
+
+            }catch (Exception ex){
+
+            }
+
+        }
+
+    }
+
+
+
+    public static void main(String[] args){
+
+        Hello gui=new Hello();
+
+        gui.go();
+
+    }
+
+
+
+    class MyDrawPanel extends JPanel{
+
+        public void paintComponent(Graphics g){
+
+            g.setColor(Color.white);
+
+            g.fillRect(0,0,this.getWidth(),this.getHeight());
+
+
+
+            g.setColor(Color.green);
+
+            g.fillOval(x,y,40,40);
+
+        }
+
+    }
+
+}  </code></pre><h2 id="第十三章"><a href="#第十三章" class="headerlink" title="第十三章"></a>第十三章</h2><p>Swing中所有组件都能嵌套，大部分情况下，把按钮或列表等用户交互组件放在框架和面板等背景组件上。  </p>
+<p>除了JFrame以外，其他交互组件与背景组件差异并不太大。</p>
+<p>创建GUI四个步骤：</p>
+<ul>
+
+<li>创建JFrame：JFrame frame=new JFrame()</li>
+
+<li>创建组件：JButton button=new JButton("clickme")</li>
+
+<li>把组件加到frame上:frame.getContentPanel().add(BorderLayout.EAST,button);</li>
+
+<li>显示出来:frame.setSize(300,300);frame.setVisible(true);</li>
+
+</ul>  
+
+
+
+<p>Swing的布局管理器用来控制所关联组件上携带的其他组件。  </p>
+<p>如果某个框架带有面板，面板带有按钮，  </p>
+<p>则面板的布局管理器控制按钮的大小和位置。</p>
+<p>框架的布局管理器控制面板的大小和位置，</p>
+<p>按钮因没有携带其他组件，所以不需要布局管理器。  </p>
+<p>三大布局管理器Border、Flow和Box  </p>
+<p>BorderLayout布局管理器把背景组件分为五个区域(North,South,Ease,West,Center)。每个区域只能放上一个组件。（center区域只能是上下左右剩下的空间了）  </p>
+<p>FlowLayout布局管理器将组件从左往右依照加入顺序以可能换行的方式排列，放不下时被放到下一行，这是面板默认的布局管理器。（依次从左到右，从上到下）  </p>
+<p>BoxLayout布局管理器一般将组件依照加入顺序以垂直的方向排列(每行一个),也可以设置成以水平方向排列(每列一个)。  </p>
+<pre><code>//Hello.java:  
+
+import javax.swing.*;
+
+import javax.swing.event.ListSelectionEvent;
+
+import javax.swing.event.ListSelectionListener;
+
+import java.awt.*;
+
+import java.awt.event.ItemEvent;
+
+import java.awt.event.ItemListener;
+
+
+
+public class Hello  {
+
+
+
+    JCheckBox check;
+
+    JList list;
+
+
+
+    public void go(){
+
+        JFrame frame=new JFrame();
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+
+        JPanel panel=new JPanel();
+
+
+
+        JTextArea text=new JTextArea(10,20);
+
+        text.setLineWrap(true);
+
+        JScrollPane scroller=new JScrollPane(text);
+
+        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        panel.add(scroller);
+
+
+
+        check=new JCheckBox("Goto11");
+
+        check.addItemListener(new checkLister());
+
+        panel.add(check);
+
+
+
+        String[] listEntries={"alpha","beta","gamma","delta","epsilon","zeta","eta","theta"};
+
+        list=new JList(listEntries);
+
+        JScrollPane scroller2=new JScrollPane(list);
+
+        scroller2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        scroller2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        list.setVisibleRowCount(4);
+
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        list.addListSelectionListener(new listValueListener());
+
+        panel.add(scroller2);
+
+
+
+
+
+        frame.getContentPane().add(BorderLayout.CENTER,panel);
+
+
+
+        frame.setSize(400,600);
+
+        frame.setVisible(true);
+
+
+
+
+
+    }
+
+
+
+    public static void main(String[] args){
+
+        Hello gui=new Hello();
+
+        gui.go();
+
+    }
+
+
+
+    class listValueListener implements ListSelectionListener{
+
+
+
+        @Override
+
+        public void valueChanged(ListSelectionEvent e) {
+
+            if(!list.getValueIsAdjusting()){
+
+                String selection=(String)list.getSelectedValue();
+
+                System.out.println(selection);
+
+            }
+
+        }
+
+    }
+
+    class checkLister implements ItemListener{
+
+
+
+        @Override
+
+        public void itemStateChanged(ItemEvent e) {
+
+            String onOrOff="off";
+
+            if(check.isSelected()){
+
+                onOrOff="on";
+
+            }
+
+            System.out.println("Checkbox is "+onOrOff);
+
+        }
+
+    }
+
+
+
+}
+</code></pre><h2 id="第十四章"><a href="#第十四章" class="headerlink" title="第十四章"></a>第十四章</h2><p>对象状态怎么存储？</p>
+<p>如果只有自己的Java程序会用到这些数据。可以使用序列化(serialization)。将被序列化的对象写到文件里，需要时然后用你的程序去文件读取序列化的对象并把他们展开回到活生生的状态。  </p>
+<p>如果数据需要被其他程序引用。写一个纯文本文件，用其它程序可以解析的字符写到文件里。（将字符串写入纯文本文件）  </p>
+<p>ObjectOutputStream把对象转化为串流的数据。</p>
+<p>FileOutputStream把字节写入文件。  </p>
+<p>Object—&gt;ObjectOutputStream（对象被碾平(序列化)成串流数据）—&gt;FileOutputStream（串流数据被当做字节流写入文件保存）—&gt;文件</p>
+<p>如果要让类能够被序列化，需要类实现Serializable接口，该接口并没有任何方法需要实现，它的唯一目的是声明实现它的类是可以被序列化的。如果某类可被序列化，则它的子类自动也可以被序列化。</p>
+<p>如果对象的某实例变量不需要被序列化就把它标记为transient(瞬时)的。  </p>
+<pre><code>//Hello.java序列化：
+
+import java.io.*;
+
+
+
+public class Hello implements Serializable {
+
+    private  int width;
+
+    private  int height;
+
+    transient String currentID;
+
+
+
+    public  void setWidth(int w){
+
+        width=w;
+
+    }
+
+    public  void setHeight(int h){
+
+        height=h;
+
+    }
+
+    public static void main(String[] args){
+
+        Hello he=new Hello();
+
+        he.setHeight(50);
+
+        he.setWidth(20);
+
+        Hello she=new Hello();
+
+        she.setHeight(350);
+
+        she.setWidth(420);
+
+        try{
+
+            FileOutputStream fs=new FileOutputStream("foo.ser");
+
+            ObjectOutputStream os=new ObjectOutputStream(fs);
+
+            os.writeObject(he);
+
+            os.writeObject(she);
+
+            os.close();
+
+        }catch (Exception ex){
+
+            ex.printStackTrace();
+
+        }
+
+    }
+
+}</code></pre><p>序列化整件事的重点在事后，解序列化，把对象恢复到存储时的状态。</p>
+<p>文件—&gt;FileInputStream（对象被当做字节串流读入）—&gt;ObjectIputStream（JVM通过存储的信息判断对象class类型，尝试寻找及加载对象的类。如果找不到JVM会抛出异常，如果找到，新的对象会被配置在堆上，实例变量会还原成序列化时的状态值，transient变量会被赋值为null,0,false等值。(但构造函数不会执行。因为构造函数一旦执行就会抹去对象的状态变成全新的，不是我们想要的结果)）—&gt;对象  </p>
+<pre><code>
+//Hello.java反序列化  
+
+import java.io.*;
+
+
+
+public class Hello implements Serializable {
+
+    private  int width;
+
+    private  int height;
+
+    transient String currentID;
+
+
+
+    public  void setWidth(int w){
+
+        width=w;
+
+    }
+
+    public  void setHeight(int h){
+
+        height=h;
+
+    }
+
+    public static void main(String[] args){
+
+
+
+        try{
+
+            FileInputStream fs=new FileInputStream("foo.ser");
+
+            ObjectInputStream os=new ObjectInputStream(fs);
+
+            //每次调用readObject()都会从流中读出下一个对象，
+
+            //读取顺序与写入顺序相同
+
+            //读取次数超过会抛出异常
+
+            Object one=os.readObject();
+
+            Object two=os.readObject();
+
+
+
+            Hello one_he=(Hello)one;
+
+            Hello two_she=(Hello)two;            
+
+
+
+            System.out.println("he.width="+one_he.width+" , he.height="+one_he.height);
+
+            System.out.println("she.width="+two_she.width+" , she.height="+two_she.height);
+
+            os.close();
+
+
+
+        }catch (Exception ex){
+
+            ex.printStackTrace();
+
+        }
+
+    }
+
+}
+</code></pre><p>解序列化时读取对象的顺序必须与写入时的顺序相同。</p>
+<p>readObject()返回类型是Object，因此解序列化回来的对象还需要一次类型转化为原类型。</p>
+<p>将字符串写入文本文件与写入对象很类似。</p>
+<pre><code>
+//Hello.java  
+
+import java.io.*;
+
+
+
+public class Hello implements Serializable {
+
+    public static void main(String[] args){
+
+        try{
+
+            FileWriter writer=new FileWriter("foo.txt");
+
+            writer.write("hello, foo!\n");
+
+            writer.write("I LOVE CHINA!\n");
+
+            writer.close();
+
+        }catch (Exception ex){
+
+            ex.printStackTrace();
+
+        }
+
+    }
+
+}
+</code></pre><p>java.io.File这个类，代表磁盘上的文件。但并不是文件中的内容。可以将File对象看成文件的路径，而不是文件本身。  </p>
+<p>File并没有读写文件的方法，关于File很有用的功能在于，它提供一种比使用字符串文件名来表示文件更安全的方式。  </p>
+<p>比如说，在构造函数中取用字符串文件名的类也可以用File对象来代替该参数。以便检查路径是否合法，然后再把对象传给FileWriter或FileInputStream。  </p>
+<p>File对象可以做的事：</p>
+<p>1.创建代表存盘文件的File对象</p>
+<p>File f=new File(“MyCode.txt”);  </p>
+<p>2.建立新的目录  </p>
+<p>File dir=new File(“Chapter7”);</p>
+<p>dir.mkdir();</p>
+<p>3.列出目录下内容  </p>
+<p>if(dir.isDirectory()){</p>
+<pre><code>String[] dirContents=dir.list();
+
+for(int i=0;i&lt;dirContents.length;i++){
+
+    System.out.println(dirContents[i]);
+
+}</code></pre><p>}</p>
+<p>4.取得文件或目录的绝对路径  </p>
+<p>System.out.println(dir.getAbsolutePath());</p>
+<p>5.删除文件或目录(成功会返回true)</p>
+<p>boolean isDel=f.delete();</p>
+<p>没有缓冲区，就像逛超市没有推车一样，只能一次拿一项东西结账。  </p>
+<p>缓冲区的奥妙在于使用缓冲区比没有使用缓冲区更有效率。  </p>
+<p>写文件你也可以直接用FileWriter,调用其write()写文件，但它每次都会直接写下去。每次磁盘操作都比内存操作花费更多时间，通过缓冲区BufferedWriter和FileWriter链接，BufferedWriter可以暂存一堆数据，到满时再实际写入磁盘。减少对磁盘操作的次数。如果想要强制缓冲区立即写入，只要调用writer.flush()即可要求缓冲区立刻把内容写下去。  </p>
+<p>非序列化对象文件最常见的读取数据方式就是以while循环逐行进行，一直到readLine()结果为null为止。  </p>
+<pre><code>
+//Hello.java:  
+
+import java.io.*;
+
+
+
+public class Hello implements Serializable {
+
+    public static void main(String[] args){
+
+        try{
+
+            File myFile=new File("foo.txt");
+
+            FileReader fileReader=new FileReader(myFile);
+
+            BufferedReader reader=new BufferedReader(fileReader);
+
+            String line=null;
+
+            while((line=reader.readLine())!=null){
+
+                System.out.println(line);
+
+            }
+
+            reader.close();
+
+        }catch (Exception ex){
+
+            ex.printStackTrace();
+
+        }
+
+    }
+
+}
+</code></pre><h2 id="第十五章"><a href="#第十五章" class="headerlink" title="第十五章"></a>第十五章</h2><p>java所有网络运作的底层细节都已经有java.net函数库处理掉了。  </p>
+<p>Java的一项好处就是传送与接收网络的数据都只不过是链接上使用不同链接串流的输入输出而已。有BufferedReader就可以读取。若数据来自文件或网络另一端，则BufferedReader不用花费额外精力去处理。  </p>
+<p>本章我们使用socket连接外面的世界，创建客户端socket，服务器端socket，并且会让两端相互交谈。</p>
+<p>Socket是代表两台机器之间网络连接的对象(java.net.Socket)。它是一种让运行在java虚拟机(JVM)上的程序能通过实际硬件（网卡）在机器之间传送数据的机制。  </p>
+<p>Socket连接的建立代表两台机器之间存有对方的信息，包括网络地址和TCP端口号。  </p>
+<p>网页服务器(http)默认端口号80，Telnet服务器默认端口号23，POP3邮件服务器默认端口号110，SMTP邮局交换服务器默认端口25.这些默认端口代表在服务器上执行软件的逻辑识别。</p>
+<p>用串流(使用BufferedReader)从Socket上读取数据，Java的好处在于大部分的输入输出工作并不在乎串流上下游实际是什么。你可以使用BufferedReader而不管串流来自文件或是来自Socket。  </p>
+<p>以下是最简单的sockt服务示例，HelloServer.class充当服务器，每次服务一个用户，Hello.class发出访问请求。（没有完成当前用户服务时无法回到accept()那里等待服务另外一个用户的请求）</p>
+<pre><code>//HelloServer.java:  
+
+import java.io.*;
+
+import java.net.ServerSocket;
+
+import java.net.Socket;
+
+
+
+public class HelloServer{
+
+    String[] adviceList={"Take smaller bites","One word:inappropriate","Just for today,be honest","you might want to rethink that haircut."};
+
+    public void HelloServerStart(){
+
+        try{
+
+
+
+            ServerSocket serverSocket=new ServerSocket(4242);
+
+            System.out.println("Server is Listening at 4242 ......");
+
+            while(true){
+
+                //这个方法会停下来，等待有请求到达时才继续往下执行。
+
+                Socket sock=serverSocket.accept();
+
+                PrintWriter writer=new PrintWriter(sock.getOutputStream());
+
+                String advice=getAdvice();
+
+                writer.println(advice);
+
+                writer.close();
+
+                System.out.println(advice);
+
+            }
+
+        }catch(Exception ex){
+
+            ex.printStackTrace();
+
+        }
+
+    }
+
+    private String getAdvice(){
+
+        int random=(int)(Math.random()*adviceList.length);
+
+        return adviceList[random];
+
+    }
+
+
+
+    public static void main(String[] args){
+
+        HelloServer hs=new HelloServer();
+
+        hs.HelloServerStart();
+
+    }
+
+
+
+}
+
+//Hello.java充当客户端
+
+import java.io.*;
+
+import java.net.Socket;
+
+public class Hello {
+
+    public  void go(){
+
+        try{
+
+            Socket s=new Socket("127.0.0.1",4242);
+
+            InputStreamReader streamReader=new InputStreamReader(s.getInputStream());
+
+            BufferedReader reader=new BufferedReader(streamReader);
+
+            String advice=reader.readLine();
+
+            System.out.println("Today you should "+advice);
+
+        }catch (Exception ex){
+
+            ex.printStackTrace();
+
+        }
+
+    }
+
+    public static void main(String[] args){
+
+        Hello h=new Hello();
+
+        h.go();
+
+    }
+
+}</code></pre><p>如何能让服务器同时处理多个用户呢？使用不同的线程，让新来的客户端取得新的线程就行。</p>
+<p>新的线程意味着一个新的独立的执行空间栈。Java语言内置多线程功能。  </p>
+<p>Thread t=new Thread();  </p>
+<p>t.start();  </p>
+<p>建立新的线程对象启动新的线程，具有独立的调用执行空间。启动新线程就是建立Thread类的实例。  </p>
+<p>每个Java应用程序会启动一个主线程，将main()放在主线程里执行。  </p>
+<p>Java虚拟机调用main(),main()启动新线程期间，main()所在主线程会暂时停止，Java虚拟机在新线程和原来主线程间来回切换知道两者都完成为止。</p>
+<p>如何启动新的线程</p>
+<p>1.建立Runnable对象(线程的任务)</p>
+<p>Runnable threadJob=new MyRunnable();</p>
+<p>2.建立Thread对象(执行工人)并赋值Runnable(任务)</p>
+<p>Thread myThread=new Thread(threadJob);</p>
+<p>3.启动Thread  </p>
+<p>myThread.start();启动后，会把Runnable对象的方法放到新的执行空间栈去执行。  </p>
+<p>Runnable是个接口，这个接口只有一个方法要实现，public void run();</p>
+<p>因为Runnable是个接口，所以线程的任务可以被定义在任务实现了接口runnable的类上。  </p>
+<p>线程只在乎传入给Thread的构造函数的参数是否实现了接口Runnable。  </p>
+<p>当你把Runnable传给Thread的构造函数，实际上就是给Thread取得run()的方法，等于传给Thread一项任务。新线程里运行的程序放在run()里  </p>
+<p>线程一旦进入可执行状态，就会在可执行与执行中两种状态来来去去，同时也有另外一种状态：暂时不可执行(堵塞状态)。因为java虚拟机的线程调度会把线程挑出来运行又把它踢回去以让其他的线程有执行机会。  </p>
+<p>调度器会因为某些原因把线程送进去关一阵子。</p>
+<p>例如线程可能执行在等待Socket输入串流的程序段，但没有数据可供读取，调度器会把线程移出可执行状态。</p>
+<p>例如线程本身程序要求小睡一下(sleep()).</p>
+<p>例如线程调用某个被锁住(locked)的对象上的方法，此时线程就得等到锁住该对象的线程放开这个对象才能继续下去。</p>
+<p>当Java虚拟机的调度器选择某个线程之后它就处于执行中的状态，单处理器的机器只能又一个执行中的线程。</p>
+<p>调度器不能保证任何执行时间和顺序，不能完全期待它会完全平均的分配执行，最多通过sleep()影响下最小保证时间。</p>
+<p>sleep()让线程休息几毫秒才能让所有线程都有机会被执行。</p>
+<p>一旦线程的run()方法完成后，该线程就不能再重新启动，事实上这个线程已经死翘翘了。失去了可执行性。</p>
+<p>线程可以有名字，可以用名字来判断当前运行的是哪个线程。</p>
+<p>不同线程可以在执行相同的工作。访问相同的资源时可能产生并发性问题。 </p>
+<pre><code>//Hello.java  
+
+public class Hello implements Runnable{    
+
+    public static void main(String[] args){
+
+        Hello runner=new Hello();        
+
+        Thread alpha=new Thread(runner);
+
+        Thread beta=new Thread(runner);
+
+        alpha.setName("Alpha thread");
+
+        beta.setName("Beta thread");
+
+        alpha.start();
+
+        beta.start();
+
+        System.out.println("hello world");
+
+    }
+
+
+
+    public void run(){
+
+        for(int i=0;i&lt;25;i++){
+
+            String threadName=Thread.currentThread().getName();
+
+            System.out.println(threadName+" is running ");
+
+        }
+
+    }
+
+}
+</code></pre><p>使用synchronized关键词修饰方法使它每次只能被单一的线程存取。</p>
+<p>synchronized关键词代表线程需要一把钥匙来存取被同步化过的线程。</p>
+<p>要保护数据，就把作用在数据上的方法给同步化。 </p>
+<pre><code>public synchronized void increment(){
+int i=balance;
+balance=i+1;
+}</code></pre><p>逻辑是这个逻辑</p>
+<p>对账号存取的锁，锁与银行账号交易有关（检查余额与提款），只有一把钥匙且钥匙与锁摆在一起。没有交易时，锁是开的，钥匙放在旁边。  </p>
+<p>你想要交易时，(拿走钥匙，把锁关上)用锁把账号锁起来。对账号进行交易操作。（因为账号被锁上了，所以其他人不能进行对该账号操作。）  </p>
+<p>直到你完成交易操作为止，你把锁解开，钥匙放回原处。(账号被解锁了，其他人才可以对账号操作)  </p>
+<p>使用synchronized关键词修饰方法使它每次只能被单一的线程存取。</p>
+<p>synchronized关键词代表线程需要一把钥匙来存取被同步化过的线程。</p>
+<p>要保护数据，就把作用在数据上的方法给同步化。 </p>
+<p>每个对象都有个锁，大部分时间都不锁上。并且可以想象假设有一个虚拟钥匙随时放在旁边待命。  </p>
+<p>对象的锁只有在被同步化的方法时才起作用。</p>
+<p>当对象有一个或多个同步化方法时，线程只有在取得对象的锁钥匙才能执行同步化方法。</p>
+<p>锁不是配在方法上，而是配在对象上，如果对象有两个同步化方法，表示两个线程无法进入同一个方法。（因为对象就一个钥匙，线程取得对象的锁钥匙才能执行同步化方法），也表示两个线程无法进入不同的方法。</p>
+<p>如果有多个方法会操作对象的实例变量，则这些方法都应该受同步化的保护。</p>
+<p>(synchronized)同步化的目标是保护重要数据。锁住的是存取数据的方法，而不是数据。</p>
+<p>线程在欲执行有同步化方法时，会认识到需要拿到对象的钥匙才能进入该方法执行（拿取对象钥匙的工作由java虚拟机来自动处理，无API可调用），线程会全力照顾好这个拿到的对象钥匙，除非完成同步化方法，否则线程绝不会交出钥匙。</p>
+<p>因此当线程持有对象钥匙时，没有其他的线程可以进入该对象的同步化方法(同一个方法或其他同步化方法都进不去)执行，因为每个对象只有一个钥匙。  </p>
+<p>多线程还有可能出现”丢失更新”的并发性问题。</p>
+<p>多线程时某个线程读取的变量值有可能不是当前值（这个线程读取值后还尚未应用处理的极短时间内，真实值有可能被其他线程修改了，导致这个线程用上次读取的值进行这个线程的处理。但真实值已经在你读取时后已经改变了）</p>
+<p>一旦线程进入方法，必须确保在其他线程可以进入该方法前，本次线程方法所有步骤均完成。同步化机制可以解决多线程”丢失更新”的问题。</p>
+<pre><code>public void go(){
+
+    doStuff();
+
+
+
+    synchronized(this){
+
+        //使用参数指定对象的锁来做对特定目标的方法来做同步化。
+
+        criticalStuff();
+
+        moreStuff();
+
+    }
+
+}</code></pre><p>进入同步化方法的程序会付出查询钥匙等性能上的代价。所以把所有东西同步化或对整个大方法同步化是个馊主意。</p>
+<p>虽然有别的方法可以达到同样效果，但通常会以当前对象(this)来同步化</p>
+<p>使用同步化要小心，如果两个线程互相持有对方正在等待的东西，没有办法脱离这个情形，所以两个线程只有停下来一直等一直等，造成死锁。  </p>
+<p>Java没有处理死锁的机制，甚至不知道死锁的存在。只能靠自己小心设计避免死锁。</p>
+<h2 id="第十六章"><a href="#第十六章" class="headerlink" title="第十六章"></a>第十六章</h2><p>Java集合框架提供了很多数据结构。<br> ArrayList不能排序，但它不是Java唯一的集合。add进新元素时总在最后面。  </p>
+<p>TreeSet以有序状态保持并可防止重复。  </p>
+<p>HashMap可用成对的name/value来保存与取出。  </p>
+<p>HashSet防止重复的集合，可快速查找相符元素。  </p>
+<p>LinkedHashMap类似HashMap，但可记住元素插入的顺序，也可以设计成依照元素上次存取的先后来排序。  </p>
+<p>Collections.sort()可以进行排序</p>
+<p>几乎所有以泛型写的程序都与处理集合有关。</p>
+<p>泛型出现前，编译器无法注意你加入集合的东西是什么，因为所有集合都可以处理成Object类型。你可以把任何东西放进ArrayList，类似ArrayList<object>  </object></p>
+<p>创建被泛型化类(比如ArrayList)的实例  </p>
+<p>new ArrayList<song>()  </song></p>
+<p>声明指定泛型类型的变量  </p>
+<p>ArrayList<song> songList;</song></p>
+<p>声明与调用取用泛型类型的方法  </p>
+<p>void foo(List<song> list){</song></p>
+<p>}</p>
+<p>List是一种知道索引位置的集合。知道某物在集合中的位置，可以有多个元素引用相同的对象。  </p>
+<p>Set注重独一无二性质，不允许重复。知道某物是否已经存在于集合中，不允许多个元素引用相同的对象。  </p>
+<p>Map是用key搜索的专家，使用键值对，维护key与value的关系。两个key可以引用相同的对象，但key不能重复必须唯一。</p>
+<p>对象如何才算相等？</p>
+<p>引用相等性:  </p>
+<p>引用到堆上同一个对象的两个引用是相等的。</p>
+<p>如果对这两个引用调用hashCode()会得到相同的结果。</p>
+<p>（Java依据内存位置计算hashCode()返回每个对象特有的序号）  </p>
+<p>对象相等性:</p>
+<p>如果你想要把两个不同Song对象视为相等。就必须覆盖从Object类继承下来的hashCode()方法与equals()方法  </p>
+<p>覆盖hashCode()确保两个对象有相同的hashcode值。</p>
+<p>也要确保以另一个对象为参数的equals()调用会返回true</p>
+<pre><code>if((foo.equals(bar)&amp;&amp;(foo.hashCode()==bar.hashCode())){
+
+    //两个对象相等
+
+}</code></pre><p>HashSet查重也是根据hashCode()方法与equals()方法 来查对象是否相同。 </p>
+<h2 id="第十七章"><a href="#第十七章" class="headerlink" title="第十七章"></a>第十七章</h2><p>部署的选择</p>
+<p>本机部署(包括Executable Jar完全本机和JavaWeb半本机本远程)、远程部署。  </p>
+<p>本机：</p>
+<p>整个程序都在用户计算机上，可携GUI执行，并以可执行的Jar来部署。  </p>
+<p>两者之间：</p>
+<p>应用程序被分散成，用户本地系统运行的客户端，连接到执行应用程序服务的服务器部分。</p>
+<p>远程：  </p>
+<p>整个应用程序在服务器端执行。客户端通过非Java形式(比如浏览器)存取。  </p>
+<p>将源代码与类文件分离：</p>
+<p>编译时加-d选项，指定编译输出的目录。</p>
+<p>javac -d ../classes myApp.java </p>
+<p>上例编译输出.class文件在上一层目录下的classes目录下。</p>
+<p>把程序包进jar：</p>
+<p>全大写的JAR是集合起来的文件。全小写的jar是用来整理文件的工具。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/02/08/diary-20210208-1/" class="b-link-green">HeadFirstJava阅读笔记</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/02/20/diary-20210220-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/29.jpg" class="responsive-img" alt="IDEA2020.1.1测试">
+                        
+                        <span class="card-title">IDEA2020.1.1测试</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            构建管理: Maven/Gradle 项目管理和构建工作代码管理Git/Perforce集成和分析管理:持续集成Jenkins, 代码分析Sonar测试框架: Junit/Mockito/TestNG  
+IDEA2020.1.1使用Jun
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-02-20
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/02/01/diary-20210201-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/0.jpg" class="responsive-img" alt="J2SE基础">
+                        
+                        <span class="card-title">J2SE基础</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            1windows的系统环境变量设置：（我以前安装jdk6时是这样将jdk，jre安装在同一级目录下的）  
+JAVA_HOME        C:\Program Files\Java\jdk1.6.0_24（jdk安装路径）  
+CLAS
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-02-01
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

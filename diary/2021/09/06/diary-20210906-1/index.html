@@ -1,0 +1,2195 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Unity3d输出webgl, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Unity3d输出webgl背景透明我的版本：Unity3d2021.1.6f1  
+
+/Assets/Plugins/WebGL目录下新建文件transparentbg-unity-webgl.jslib, Load on startup">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Unity3d输出webgl | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/20.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Unity3d输出webgl
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Unity3d/" target="_blank">
+                                <span class="chip bg-color">Unity3d</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-09-06
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        3.6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        19 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Unity3d输出webgl背景透明"><a href="#Unity3d输出webgl背景透明" class="headerlink" title="Unity3d输出webgl背景透明"></a>Unity3d输出webgl背景透明</h2><p>我的版本：Unity3d2021.1.6f1  </p>
+<ol>
+<li>/Assets/Plugins/WebGL目录下新建文件transparentbg-unity-webgl.jslib, Load on startup  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">// Clears the WebGL context alpha so you can have a transparent Unity canvas above DOM content
+// Add this .jslib to your project et voila!
+var LibraryGLClear = {
+        glClear: function(mask)
+        {
+                if (mask == 0x00004000)
+                {
+                        var v = GLctx.getParameter(GLctx.COLOR_WRITEMASK);
+                        if (!v[0] &amp;&amp; !v[1] &amp;&amp; !v[2] &amp;&amp; v[3])
+                                // We are trying to clear alpha only -- skip.
+                                return;
+                }
+                GLctx.clear(mask);
+        }
+};
+
+mergeInto(LibraryManager.library, LibraryGLClear);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li><p>Unity3d内场景摄像机：ClearFlags设置为SolidColor，Background的A设置为0。  </p>
+</li>
+<li><p>编辑器打包参数如下图  </p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/unitywebgl_dabaocanshu.jpg" alt="">  </p>
+<ol start="4">
+<li>修改打包后网页的样式,设置背景色透明（打包访问后容易有缓存，后来修改参数容易不生效，换个目录名字清缓存。。。）  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">
+    #citydemowidget {
+      height: 100%;
+      width: 100%;
+      text-align: center;
+      background-color:transparent;
+    }
+
+    #unity-canvas {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      background-color:transparent;
+
+    }
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Unity3d-环绕观察的观察点平滑切换"><a href="#Unity3d-环绕观察的观察点平滑切换" class="headerlink" title="(Unity3d)环绕观察的观察点平滑切换"></a>(Unity3d)环绕观察的观察点平滑切换</h2><p>使用如下脚本，挂到Camera上，Target为被观察点的初始化位置(该Transform可见，不可见都可以)，运行后修改TargetTo的位置，实现环绕观察的观察点平滑切换。  </p>
+<pre class="line-numbers language-html"><code class="language-html">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class See3DModelOneToOne : MonoBehaviour {
+
+    public Transform target;
+    public Transform targetTO;
+    public Vector3 targetOffset;
+    public float distance = 5.0f;
+    public float maxDistance = 20;//缩放
+    public float minDistance = .6f;//缩放
+    public float xSpeed = 200.0f;//速度
+    public float ySpeed = 200.0f;
+    public int yMinLimit = -80;//限定角度
+    public int yMaxLimit = 80;
+    public int zoomRate = 40;
+    public float zoomDampening = 5.0f;
+    public float xDeg = 0.0f;//自身的角度记录
+    public float yDeg = 0.0f;//自身的角度
+    public float currentDistance;//缩放记录
+    public float desiredDistance;//缩放
+    private Quaternion currentRotation;
+    private Quaternion desiredRotation;
+    public Quaternion rotation;
+    private Vector3 position;
+
+    public float X;//初始化角度X轴
+    public float Y;//初始化角度Y轴
+    /// <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>summary</span><span class="token punctuation">></span></span>
+    /// 初始化距离
+    /// <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>summary</span><span class="token punctuation">></span></span>
+    public float CameDistance;
+    void Start()
+    {
+        Init();
+        desiredDistance = CameDistance;
+        desiredDistance = 6.8f;
+        yDeg = X;
+        xDeg = Y;
+    }
+    void OnEnable()
+    {
+        Init();
+        desiredDistance = CameDistance;
+        desiredDistance = 6.8f;
+        yDeg = X;
+        xDeg = Y;
+
+    }
+
+    public void Init()
+    {
+
+        if (!target)
+        {
+            GameObject go = new GameObject("Cam Target");
+            go.transform.position = transform.position + (transform.forward * distance);
+            target = go.transform;
+        }
+
+        distance = Vector3.Distance(transform.position, target.position);
+        distance = 6.8f;
+        currentDistance = distance;
+        desiredDistance = distance;
+
+
+        position = transform.position;
+        rotation = transform.rotation;
+        currentRotation = transform.rotation;
+        desiredRotation = transform.rotation;
+
+        xDeg = Vector3.Angle(Vector3.right, transform.right);
+        yDeg = Vector3.Angle(Vector3.up, transform.up);
+    }
+
+
+    void LateUpdate()
+    {
+
+        if (Input.GetMouseButton(0))
+        {
+            xDeg += Input.GetAxis("Mouse X") * xSpeed * 0.02f;
+            yDeg -= Input.GetAxis("Mouse Y") * ySpeed * 0.02f;
+        }
+        yDeg = ClampAngle(yDeg, yMinLimit, yMaxLimit);
+        // 设置相机旋转
+
+        desiredRotation = Quaternion.Euler(yDeg, xDeg, 0);
+        currentRotation = transform.rotation;
+
+
+        rotation = Quaternion.Lerp(currentRotation, desiredRotation, Time.deltaTime * zoomDampening);
+        transform.rotation = rotation;
+
+
+
+        // 影响scrollwheel变焦距离
+        desiredDistance -= Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * zoomRate * Mathf.Abs(desiredDistance);
+        //变焦最小/最大
+        desiredDistance = Mathf.Clamp(desiredDistance, minDistance, maxDistance);
+        //平滑变焦
+        currentDistance = Mathf.Lerp(currentDistance, desiredDistance, Time.deltaTime * zoomDampening);
+
+
+        target.position = Vector3.Lerp(target.position, targetTO.position, Time.deltaTime * 5);
+
+
+        position = target.position - (rotation * Vector3.forward * currentDistance + targetOffset);
+        transform.position = position;
+    }
+
+    private static float ClampAngle(float angle, float min, float max)
+    {
+        if (angle &lt; -360)
+            angle += 360;
+        if (angle > 360)
+            angle -= 360;
+        return Mathf.Clamp(angle, min, max);
+    }
+
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Unity3d鼠标对3D物体的点击和悬浮"><a href="#Unity3d鼠标对3D物体的点击和悬浮" class="headerlink" title="Unity3d鼠标对3D物体的点击和悬浮"></a>Unity3d鼠标对3D物体的点击和悬浮</h2><pre class="line-numbers language-html"><code class="language-html">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ClickedInfo : MonoBehaviour
+{
+    public Camera _mainCamera;
+
+    void Update()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(_mainCamera.ScreenPointToRay(Input.mousePosition), out hit))
+        {
+            bool cube = false;
+            bool sphere = false;
+            bool cylinder = false;
+            //鼠标悬浮的操作（鼠标点击场景任何地方后）
+            if (hit.collider.gameObject.name == "Cube1")
+            {
+                Debug.Log("Mouse on the Cube");
+                cube = true;
+            }
+            else if (hit.collider.gameObject.name == "Sphere")
+            {
+                Debug.Log("Mouse on the Sphere");
+                sphere = true;
+            }
+            else if (hit.collider.gameObject.name == "Cylinder")
+            {
+                Debug.Log("Mouse on the Sphere");
+                cylinder = true;
+            }
+            else
+            {
+                Debug.Log("Mouse on Nothing");
+            }
+            //鼠标点击的操作
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (cube)
+                {
+                    Debug.Log("CUBE");
+                }
+                else if (sphere)
+                {
+                    Debug.Log("SPHERE");
+                }
+                else if (cylinder)
+                {
+                    Debug.Log("CYLINDER");
+                }
+                else
+                {
+                    Debug.Log("NOTHING!");
+                }
+            }
+        }
+    }
+
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Unity3d-环绕观察的例子FreeCamera"><a href="#Unity3d-环绕观察的例子FreeCamera" class="headerlink" title="(Unity3d)环绕观察的例子FreeCamera"></a>(Unity3d)环绕观察的例子FreeCamera</h2><p><a href="https://pan.baidu.com/s/1ypVy1uV7uoXsLL9w4nxyGw" target="_blank">(Unity3d)环绕观察的例子FreeCamera.rar</a></p>
+<h2 id="Unity3d鼠标对3d物体的事件"><a href="#Unity3d鼠标对3d物体的事件" class="headerlink" title="Unity3d鼠标对3d物体的事件"></a>Unity3d鼠标对3d物体的事件</h2><p>创建一个cube,如果自定义的模型，必须添加碰撞器<br>在主相机上面添加physics Raycaster组件<br>添加EventSystem  </p>
+<pre class="line-numbers language-html"><code class="language-html">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class Mouse_Click : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler,IPointerClickHandler {
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Debug.Log("鼠标移入");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Debug.Log("鼠标移出");
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("鼠标点击");
+    }
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="VS打开Unity脚本-报错：此项目与VisualStudio的当前版本不兼容"><a href="#VS打开Unity脚本-报错：此项目与VisualStudio的当前版本不兼容" class="headerlink" title="VS打开Unity脚本 报错：此项目与VisualStudio的当前版本不兼容"></a>VS打开Unity脚本 报错：此项目与VisualStudio的当前版本不兼容</h2><ol>
+<li><p>在VS安装程序上看是否安装了Unity相关的组件，勾选上”使用Unity的游戏开发”  </p>
+</li>
+<li><p>如果上述方法执行后还是不行，右键解决方案，选择”解析错误”，一般都是可以成功。  </p>
+</li>
+</ol>
+<h2 id="Unity3d的GUI跟随鼠标"><a href="#Unity3d的GUI跟随鼠标" class="headerlink" title="Unity3d的GUI跟随鼠标"></a>Unity3d的GUI跟随鼠标</h2><pre class="line-numbers language-html"><code class="language-html">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WithMouse : MonoBehaviour
+{
+
+    public Texture2D Mid;
+    public Texture2D mouse;
+    public Vector2 mousePs;
+
+    private float angle;
+    private Vector2 FixedPoint1PosV2;
+    void Start()
+    {
+        FixedPoint1PosV2 = new Vector2(250,250);
+    }
+
+
+    void Update()
+    {
+        //获取屏幕上鼠标位置
+        mousePs = Input.mousePosition;
+        //获得实时鼠标位置相对于某固定点的角度
+        angle = 180 - Mathf.Atan2(mousePs.x - FixedPoint1PosV2.x, Screen.height - mousePs.y - FixedPoint1PosV2.y) * Mathf.Rad2Deg;//计算选择角度
+    }
+    private void OnGUI()
+    {
+        //GUI上旋转，使之对齐鼠标点
+        GUIUtility.RotateAroundPivot(angle, new Vector2(250, 250));
+        GUI.DrawTexture(new Rect(200, 200, 100, 100), Mid);
+        GUIUtility.RotateAroundPivot(-angle, new Vector2(250, 250));
+
+        //GUI上，跟随鼠标点显示
+        GUI.DrawTexture(new Rect(mousePs.x, Screen.height - mousePs.y, 237, 60), mouse);
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Unity3d点击物体弹窗-内置GUI"><a href="#Unity3d点击物体弹窗-内置GUI" class="headerlink" title="Unity3d点击物体弹窗(内置GUI)"></a>Unity3d点击物体弹窗(内置GUI)</h2><p>OnMouseEnter、OnMouseDown、OnMouseExit依赖MonoBehaviour(原理是射线)，鼠标触发这些时间需要将本脚本绑定到带碰撞的目标物体本身上，如果有父物体，父物体添加了刚体或者碰撞体后同样会造成检测不到。</p>
+<pre class="line-numbers language-html"><code class="language-html">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ClickObjPopupWin : MonoBehaviour
+{
+    public GameObject target;
+    public bool WindowSwitch = false;
+    private Rect windowRect =new Rect(200, 80, 240, 100);
+    private Vector2 mousePs;
+    private void OnGUI()
+    {
+        if (WindowSwitch) {            
+            windowRect = GUI.Window(0, windowRect, WindowContain, "弹出窗口");
+        }
+
+    }
+    void WindowContain(int windowID) {
+        if (GUI.Button(new Rect(70, 40, 100, 20), "关闭窗口"))
+        {
+            WindowSwitch = false;
+        }
+    }
+    /*    
+OnMouseEnter、OnMouseDown、OnMouseExit依赖MonoBehaviour(原理是射线)，鼠标触发这些时间需要将本脚本绑定到带碰撞的目标物体本身上，如果有父物体，父物体添加了刚体或者碰撞体后同样会造成检测不到。
+    */
+    private void OnMouseEnter()
+    {
+        target.GetComponent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Renderer</span><span class="token punctuation">></span></span>().material.color = Color.red;
+    }
+    private void OnMouseDown()
+    {
+        WindowSwitch = true;
+        windowRect = new Rect(mousePs.x, Screen.height - mousePs.y, 240, 100);
+    }
+    private void OnMouseExit()
+    {
+        target.GetComponent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Renderer</span><span class="token punctuation">></span></span>().material.color = Color.blue;
+    }
+
+
+    void Start()
+    {
+        target = gameObject;
+    }
+
+
+    void Update()
+    {
+        //获取屏幕上鼠标位置
+        mousePs = Input.mousePosition;
+    }
+
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="新版Unity3d基于jslib和网页js方法互相互调"><a href="#新版Unity3d基于jslib和网页js方法互相互调" class="headerlink" title="新版Unity3d基于jslib和网页js方法互相互调"></a>新版Unity3d基于jslib和网页js方法互相互调</h2><p>新版Unity弃用了Application.ExternalCall()，加了个jslib当中介。Unity必须通过jslib来调用网页的js方法。然而js还是通过.SendMessage()调用Unity方法！  </p>
+<p>c#传字符串给js时，需要调用unity3d自带函数Pointer_stringify将字符串转化一下，才能被js识别。传递int、float不需要转化直接传  </p>
+<ol>
+<li>添加jslib文件。(必须放在Unity项目的Plugins目录内)  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">//Plugins下Js_Invoke.jslib:  
+
+mergeInto(LibraryManager.library, {
+    HelloFun: function () {  //给unity3d识别的函数名
+        TestSendFunInJS();    //JS里真实的函数名
+    },
+    CallWin:function(_x,_y,_name){
+        CallWinInJS(_x,_y,Pointer_stringify(_name));
+    }
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>创建c#脚本  </li>
+</ol>
+<p>注意添加”using System.Runtime.InteropServices;”  </p>
+<pre class="line-numbers language-html"><code class="language-html">using UnityEngine;
+using UnityEngine.UI;
+using System.Runtime.InteropServices;
+
+public class WebCommunication : MonoBehaviour
+{
+    //引用jslib的HelloFun()方法
+    [DllImport("__Internal")]
+    private static extern void HelloFun();
+    //测试UI，我们的目的是用jslib的HelloFun()方法调用网页的js方法。然后用js方法调用Unity方法。
+    //这样就完成了Unity和网页中的方法互相调用。最后MyText会显示Hello, world!
+    public Text MyText;
+
+    void Start()
+    {
+        //我们程序一开始就调用jslib的方法Hello()
+        //Unity3d调用js，(通过中介jslib文件)
+        HelloFun();
+    }
+    //测试 网页调用此方法
+    public void TestMethod(string text) {
+        MyText.text = text;
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>发布WebGL后，在网页里添加js函数TestSendFunInJS().  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+      <span class="token keyword">var</span> container <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-container"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> canvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-canvas"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> loadingBar <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-loading-bar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> progressBarFull <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-progress-bar-full"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> fullscreenButton <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-fullscreen-button"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> warningBanner <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-warning"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">function</span> <span class="token function">unityShowBanner</span><span class="token punctuation">(</span>msg<span class="token punctuation">,</span> type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">function</span> <span class="token function">updateBannerVisibility</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          warningBanner<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> warningBanner<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length <span class="token operator">?</span> <span class="token string">'block'</span> <span class="token punctuation">:</span> <span class="token string">'none'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">var</span> div <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        div<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> msg<span class="token punctuation">;</span>
+        warningBanner<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>div<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token string">'error'</span><span class="token punctuation">)</span> div<span class="token punctuation">.</span>style <span class="token operator">=</span> <span class="token string">'background: red; padding: 10px;'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token string">'warning'</span><span class="token punctuation">)</span> div<span class="token punctuation">.</span>style <span class="token operator">=</span> <span class="token string">'background: yellow; padding: 10px;'</span><span class="token punctuation">;</span>
+          <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            warningBanner<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>div<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">updateBannerVisibility</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">updateBannerVisibility</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">var</span> buildUrl <span class="token operator">=</span> <span class="token string">"Build"</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> loaderUrl <span class="token operator">=</span> buildUrl <span class="token operator">+</span> <span class="token string">"/test.loader.js"</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
+        dataUrl<span class="token punctuation">:</span> buildUrl <span class="token operator">+</span> <span class="token string">"/test.data.unityweb"</span><span class="token punctuation">,</span>
+        frameworkUrl<span class="token punctuation">:</span> buildUrl <span class="token operator">+</span> <span class="token string">"/test.framework.js.unityweb"</span><span class="token punctuation">,</span>
+        codeUrl<span class="token punctuation">:</span> buildUrl <span class="token operator">+</span> <span class="token string">"/test.wasm.unityweb"</span><span class="token punctuation">,</span>
+        streamingAssetsUrl<span class="token punctuation">:</span> <span class="token string">"StreamingAssets"</span><span class="token punctuation">,</span>
+        companyName<span class="token punctuation">:</span> <span class="token string">"DefaultCompany"</span><span class="token punctuation">,</span>
+        productName<span class="token punctuation">:</span> <span class="token string">"abc1"</span><span class="token punctuation">,</span>
+        productVersion<span class="token punctuation">:</span> <span class="token string">"0.1"</span><span class="token punctuation">,</span>
+        showBanner<span class="token punctuation">:</span> unityShowBanner<span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token regex">/iPhone|iPad|iPod|Android/i</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>navigator<span class="token punctuation">.</span>userAgent<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> meta <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'meta'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        meta<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'viewport'</span><span class="token punctuation">;</span>
+        meta<span class="token punctuation">.</span>content <span class="token operator">=</span> <span class="token string">'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes'</span><span class="token punctuation">;</span>
+        document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'head'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>meta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        container<span class="token punctuation">.</span>className <span class="token operator">=</span> <span class="token string">"unity-mobile"</span><span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> window<span class="token punctuation">.</span>innerWidth <span class="token operator">+</span> <span class="token string">'px'</span><span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> window<span class="token punctuation">.</span>innerHeight <span class="token operator">+</span> <span class="token string">'px'</span><span class="token punctuation">;</span>
+
+        <span class="token function">unityShowBanner</span><span class="token punctuation">(</span><span class="token string">'WebGL builds are not supported on mobile devices.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        canvas<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token string">"960px"</span><span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">"600px"</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      loadingBar<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"block"</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">var</span> script <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"script"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      script<span class="token punctuation">.</span>src <span class="token operator">=</span> loaderUrl<span class="token punctuation">;</span>
+      script<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token function">createUnityInstance</span><span class="token punctuation">(</span>canvas<span class="token punctuation">,</span> config<span class="token punctuation">,</span> <span class="token punctuation">(</span>progress<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          progressBarFull<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token number">100</span> <span class="token operator">*</span> progress <span class="token operator">+</span> <span class="token string">"%"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>unityInstance<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          gameInstance<span class="token operator">=</span>unityInstance<span class="token punctuation">;</span>
+          loadingBar<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"none"</span><span class="token punctuation">;</span>
+          fullscreenButton<span class="token punctuation">.</span>onclick <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            unityInstance<span class="token punctuation">.</span><span class="token function">SetFullscreen</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          <span class="token function">alert</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>script<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">//js调用unity3d</span>
+      <span class="token keyword">var</span> gameInstance<span class="token punctuation">;</span>
+      <span class="token keyword">function</span> <span class="token function">TestSendFunInJS</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"test123"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        gameInstance<span class="token punctuation">.</span><span class="token function">SendMessage</span><span class="token punctuation">(</span><span class="token string">"GOname"</span><span class="token punctuation">,</span><span class="token string">"TestMethod"</span><span class="token punctuation">,</span><span class="token string">"test456"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Unity3d的webgl里点击物体，弹外部div显示属性值"><a href="#Unity3d的webgl里点击物体，弹外部div显示属性值" class="headerlink" title="Unity3d的webgl里点击物体，弹外部div显示属性值"></a>Unity3d的webgl里点击物体，弹外部div显示属性值</h2><p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/Unity3dEnterObjShowWin.jpg" alt="进入目标物体范围内的鼠标点击可弹窗">  </p>
+<ol>
+<li>新建Js_Invoke.jslib，放到”Assets/Plugins/“目录下  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">mergeInto(LibraryManager.library, {
+    HelloFun: function () {
+        TestSendFunInJS();
+    },
+    CallWin:function(_x,_y,_name){
+        CallWinInJS(_x,_y,Pointer_stringify(_name));
+    },
+    EnterBox:function(_name){
+        EnterBoxInJS(Pointer_stringify(_name));
+    },
+    ExitBox:function(_name){
+        ExitBoxInJS(Pointer_stringify(_name));
+    },
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>新建脚本ClickObjPopupWin，绑定到Unitiy3d欲点击的物体上  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Runtime.InteropServices;
+public class ClickObjPopupWin : MonoBehaviour
+{
+    public GameObject target; 
+    private Vector2 mousePs;
+
+
+    [DllImport("__Internal")]
+    private static extern void CallWin(float _x,float _y,string _name);
+
+    [DllImport("__Internal")]
+    private static extern void EnterBox(string _name);
+    [DllImport("__Internal")]
+    private static extern void ExitBox(string _name);
+
+    /*    
+     OnMouseEnter、OnMouseDown、OnMouseExit依赖MonoBehaviour(原理是射线)，
+     鼠标触发这些时间需要将本脚本绑定到带碰撞的目标物体本身上，
+     如果有父物体，父物体添加了刚体或者碰撞体后同样会造成检测不到。
+    */
+    private void OnMouseEnter()
+    {
+        target.GetComponent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Renderer</span><span class="token punctuation">></span></span>().material.color = Color.red;
+        EnterBox(this.transform.name.ToString());
+    }
+    private void OnMouseDown()
+    {
+        CallWin(mousePs.x, mousePs.y,this.transform.name.ToString());
+    }
+    private void OnMouseExit()
+    {
+        target.GetComponent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Renderer</span><span class="token punctuation">></span></span>().material.color = Color.blue;
+        ExitBox("");
+    }
+    void Start()
+    {
+        target = gameObject;
+    }     
+    void Update()
+    {
+        //获取屏幕上鼠标位置
+        mousePs = Input.mousePosition;
+    }
+
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>打包输出webgl网页，在网页里修改html。添加js函数和待弹出的窗口div  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en-us<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">http-equiv</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Content-Type<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/html; charset<span class="token punctuation">=</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Unity WebGL Player | abc1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>shortcut icon<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>TemplateData/favicon.ico<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>TemplateData/style.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css"> 
+      <span class="token selector"><span class="token id">#tips_bg</span></span><span class="token punctuation">{</span> 
+      <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span> 
+      <span class="token property">z-index</span><span class="token punctuation">:</span> <span class="token number">99</span><span class="token punctuation">;</span> 
+      <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">336</span>px<span class="token punctuation">;</span> 
+      <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">258</span>px<span class="token punctuation">;</span> 
+      <span class="token property">display</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span> 
+      <span class="token punctuation">}</span> 
+      <span class="token selector"><span class="token id">#tips</span> </span><span class="token punctuation">{</span> 
+      <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span> 
+      <span class="token property">z-index</span><span class="token punctuation">:</span> <span class="token number">99</span><span class="token punctuation">;</span> 
+      <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">336</span>px<span class="token punctuation">;</span> 
+      <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">258</span>px<span class="token punctuation">;</span> 
+      <span class="token comment" spellcheck="true">/* background: rgba(0,0,0,0.5); */</span> 
+      <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span> 
+      <span class="token property">color</span><span class="token punctuation">:</span>whitesmoke<span class="token punctuation">;</span> 
+      <span class="token property">background-color</span><span class="token punctuation">:</span> 
+      <span class="token function">rgb</span><span class="token punctuation">(</span><span class="token number">47</span>, <span class="token number">50</span>, <span class="token number">51</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+      <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span> 
+      <span class="token punctuation">}</span>
+      <span class="token selector"><span class="token id">#tips_header</span></span><span class="token punctuation">{</span> <span class="token property">margin</span><span class="token punctuation">:</span><span class="token number">0</span> auto<span class="token punctuation">;</span> 
+      <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">336</span>px<span class="token punctuation">;</span> 
+      <span class="token property">height</span><span class="token punctuation">:</span><span class="token number">40</span>px<span class="token punctuation">;</span>
+      <span class="token property">background-size</span><span class="token punctuation">:</span> cover<span class="token punctuation">;</span> 
+      <span class="token property">background-repeat</span><span class="token punctuation">:</span> no-repeat<span class="token punctuation">;</span> 
+      <span class="token property">background-attachment</span><span class="token punctuation">:</span>fixed<span class="token punctuation">;</span> 
+      <span class="token property">background</span><span class="token punctuation">:</span><span class="token url">url('img/headerBg.jpg')</span><span class="token punctuation">;</span> 
+      <span class="token punctuation">}</span> 
+      <span class="token selector"><span class="token id">#tips_content</span></span><span class="token punctuation">{</span> 
+      <span class="token property">margin</span><span class="token punctuation">:</span> <span class="token number">0</span> auto<span class="token punctuation">;</span> 
+      <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">336</span>px<span class="token punctuation">;</span>
+      <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">218</span>px<span class="token punctuation">;</span> 
+      <span class="token property">background-size</span><span class="token punctuation">:</span> cover<span class="token punctuation">;</span> 
+      <span class="token property">background-repeat</span><span class="token punctuation">:</span> no-repeat<span class="token punctuation">;</span> 
+      <span class="token property">background-attachment</span><span class="token punctuation">:</span>fixed<span class="token punctuation">;</span> 
+      <span class="token property">background</span><span class="token punctuation">:</span><span class="token url">url('img/contentBg2.jpg')</span><span class="token punctuation">;</span> 
+      <span class="token punctuation">}</span> 
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span> 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-container<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-desktop<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>canvas</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-canvas<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation">=</span>960</span> <span class="token attr-name">height</span><span class="token attr-value"><span class="token punctuation">=</span>600</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>canvas</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-loading-bar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-logo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-progress-bar-empty<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-progress-bar-full<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-warning<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-footer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-webgl-logo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-fullscreen-button<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>unity-build-title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>abc1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+      <span class="token keyword">var</span> container <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-container"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> canvas <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-canvas"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> loadingBar <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-loading-bar"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> progressBarFull <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-progress-bar-full"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> fullscreenButton <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-fullscreen-button"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> warningBanner <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">"#unity-warning"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">// Shows a temporary message banner/ribbon for a few seconds, or</span>
+      <span class="token comment" spellcheck="true">// a permanent error message on top of the canvas if type=='error'.</span>
+      <span class="token comment" spellcheck="true">// If type=='warning', a yellow highlight color is used.</span>
+      <span class="token comment" spellcheck="true">// Modify or remove this function to customize the visually presented</span>
+      <span class="token comment" spellcheck="true">// way that non-critical warnings and error messages are presented to the</span>
+      <span class="token comment" spellcheck="true">// user.</span>
+      <span class="token keyword">function</span> <span class="token function">unityShowBanner</span><span class="token punctuation">(</span>msg<span class="token punctuation">,</span> type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">function</span> <span class="token function">updateBannerVisibility</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          warningBanner<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> warningBanner<span class="token punctuation">.</span>children<span class="token punctuation">.</span>length <span class="token operator">?</span> <span class="token string">'block'</span> <span class="token punctuation">:</span> <span class="token string">'none'</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">var</span> div <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        div<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> msg<span class="token punctuation">;</span>
+        warningBanner<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>div<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token string">'error'</span><span class="token punctuation">)</span> div<span class="token punctuation">.</span>style <span class="token operator">=</span> <span class="token string">'background: red; padding: 10px;'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token string">'warning'</span><span class="token punctuation">)</span> div<span class="token punctuation">.</span>style <span class="token operator">=</span> <span class="token string">'background: yellow; padding: 10px;'</span><span class="token punctuation">;</span>
+          <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            warningBanner<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>div<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">updateBannerVisibility</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">5000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">updateBannerVisibility</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">var</span> buildUrl <span class="token operator">=</span> <span class="token string">"Build"</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> loaderUrl <span class="token operator">=</span> buildUrl <span class="token operator">+</span> <span class="token string">"/test.loader.js"</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
+        dataUrl<span class="token punctuation">:</span> buildUrl <span class="token operator">+</span> <span class="token string">"/test.data.unityweb"</span><span class="token punctuation">,</span>
+        frameworkUrl<span class="token punctuation">:</span> buildUrl <span class="token operator">+</span> <span class="token string">"/test.framework.js.unityweb"</span><span class="token punctuation">,</span>
+        codeUrl<span class="token punctuation">:</span> buildUrl <span class="token operator">+</span> <span class="token string">"/test.wasm.unityweb"</span><span class="token punctuation">,</span>
+        streamingAssetsUrl<span class="token punctuation">:</span> <span class="token string">"StreamingAssets"</span><span class="token punctuation">,</span>
+        companyName<span class="token punctuation">:</span> <span class="token string">"DefaultCompany"</span><span class="token punctuation">,</span>
+        productName<span class="token punctuation">:</span> <span class="token string">"abc1"</span><span class="token punctuation">,</span>
+        productVersion<span class="token punctuation">:</span> <span class="token string">"0.1"</span><span class="token punctuation">,</span>
+        showBanner<span class="token punctuation">:</span> unityShowBanner<span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">// By default Unity keeps WebGL canvas render target size matched with</span>
+      <span class="token comment" spellcheck="true">// the DOM size of the canvas element (scaled by window.devicePixelRatio)</span>
+      <span class="token comment" spellcheck="true">// Set this to false if you want to decouple this synchronization from</span>
+      <span class="token comment" spellcheck="true">// happening inside the engine, and you would instead like to size up</span>
+      <span class="token comment" spellcheck="true">// the canvas DOM size and WebGL render target sizes yourself.</span>
+      <span class="token comment" spellcheck="true">// config.matchWebGLToCanvasSize = false;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token regex">/iPhone|iPad|iPod|Android/i</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>navigator<span class="token punctuation">.</span>userAgent<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Mobile device style: fill the whole browser client area with the game canvas:</span>
+
+        <span class="token keyword">var</span> meta <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'meta'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        meta<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'viewport'</span><span class="token punctuation">;</span>
+        meta<span class="token punctuation">.</span>content <span class="token operator">=</span> <span class="token string">'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes'</span><span class="token punctuation">;</span>
+        document<span class="token punctuation">.</span><span class="token function">getElementsByTagName</span><span class="token punctuation">(</span><span class="token string">'head'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>meta<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        container<span class="token punctuation">.</span>className <span class="token operator">=</span> <span class="token string">"unity-mobile"</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// To lower canvas resolution on mobile devices to gain some</span>
+        <span class="token comment" spellcheck="true">// performance, uncomment the following line:</span>
+        <span class="token comment" spellcheck="true">// config.devicePixelRatio = 1;</span>
+
+        canvas<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> window<span class="token punctuation">.</span>innerWidth <span class="token operator">+</span> <span class="token string">'px'</span><span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> window<span class="token punctuation">.</span>innerHeight <span class="token operator">+</span> <span class="token string">'px'</span><span class="token punctuation">;</span>
+
+        <span class="token function">unityShowBanner</span><span class="token punctuation">(</span><span class="token string">'WebGL builds are not supported on mobile devices.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Desktop style: Render the game canvas in a window that can be maximized to fullscreen:</span>
+
+        canvas<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token string">"960px"</span><span class="token punctuation">;</span>
+        canvas<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">"600px"</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      loadingBar<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"block"</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">var</span> script <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">"script"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      script<span class="token punctuation">.</span>src <span class="token operator">=</span> loaderUrl<span class="token punctuation">;</span>
+      script<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token function">createUnityInstance</span><span class="token punctuation">(</span>canvas<span class="token punctuation">,</span> config<span class="token punctuation">,</span> <span class="token punctuation">(</span>progress<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          progressBarFull<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token number">100</span> <span class="token operator">*</span> progress <span class="token operator">+</span> <span class="token string">"%"</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>unityInstance<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          gameInstance<span class="token operator">=</span>unityInstance<span class="token punctuation">;</span>
+          loadingBar<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">"none"</span><span class="token punctuation">;</span>
+          fullscreenButton<span class="token punctuation">.</span>onclick <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            unityInstance<span class="token punctuation">.</span><span class="token function">SetFullscreen</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          <span class="token function">alert</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+      document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>script<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">var</span> gameInstance<span class="token punctuation">;</span>
+      <span class="token keyword">function</span> <span class="token function">CallWinInJS</span><span class="token punctuation">(</span>_x<span class="token punctuation">,</span>_y<span class="token punctuation">,</span>_name<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//console.log("x: "+_x+"  y: "+_y+"  _name: "+_name);      </span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">function</span> <span class="token function">EnterBoxInJS</span><span class="token punctuation">(</span>_name<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        enterArea<span class="token operator">=</span><span class="token boolean">true</span><span class="token punctuation">;</span>
+        enterName<span class="token operator">=</span>_name<span class="token punctuation">;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"EnterBoxInJS"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token punctuation">}</span>
+      <span class="token keyword">function</span> <span class="token function">ExitBoxInJS</span><span class="token punctuation">(</span>_name<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        enterArea<span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">;</span>
+        enterName<span class="token operator">=</span>_name<span class="token punctuation">;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"ExitBoxInJS"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token punctuation">}</span>
+    </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://code.jquery.com/jquery-1.11.2.min.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript"> 
+      <span class="token keyword">var</span> enterArea<span class="token operator">=</span><span class="token boolean">false</span><span class="token punctuation">;</span>
+      <span class="token keyword">var</span> enterName<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">;</span>
+      <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>$<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+          <span class="token comment" spellcheck="true">/* 预置的弹框内容 */</span> 
+          <span class="token keyword">var</span> $tips <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#tips'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>$tips<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+              $tips <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'&lt;div id="tips_bg" class="tips_bg">&lt;div id="tips" > &lt;div id="tips_header">&lt;span id="clickObj" style="float:left;margin-left:100px;margin-top:10px;color:yellow;">&lt;/span>&lt;button id="close_win" style="float:right;margin-right:50px;margin-top:10px">关闭&lt;/button>&lt;/div>&lt;div id="tips_content">&lt;/div>&lt;/div>&lt;/div>'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+              <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>$tips<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+          <span class="token punctuation">}</span>     
+          <span class="token comment" spellcheck="true">//进入目标物体范围内的鼠标点击可弹窗</span>
+          <span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+              <span class="token keyword">if</span><span class="token punctuation">(</span>enterArea<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"click "</span><span class="token operator">+</span>e<span class="token punctuation">.</span>pageX<span class="token operator">+</span><span class="token string">"  "</span><span class="token operator">+</span>e<span class="token punctuation">.</span>pageY <span class="token punctuation">)</span><span class="token punctuation">;</span> 
+                $tips<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token punctuation">{</span> top<span class="token punctuation">:</span> e<span class="token punctuation">.</span>pageY<span class="token punctuation">,</span> left<span class="token punctuation">:</span> e<span class="token punctuation">.</span>pageX<span class="token punctuation">,</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+                <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#tips_bg'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">"display"</span><span class="token punctuation">,</span><span class="token string">"block"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+                <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#clickObj"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">html</span><span class="token punctuation">(</span>enterName<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+              <span class="token punctuation">}</span>             
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         
+
+          <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#tips_bg'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">{</span> 
+              event<span class="token punctuation">.</span><span class="token function">stopPropagation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'#close_win'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'.tips_bg'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">"display"</span><span class="token punctuation">,</span><span class="token string">"none"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+          <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>jQuery<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+
+      </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span> 
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Unity3D开发之webgl键盘事件监听和其他js输入冲突"><a href="#Unity3D开发之webgl键盘事件监听和其他js输入冲突" class="headerlink" title="Unity3D开发之webgl键盘事件监听和其他js输入冲突"></a>Unity3D开发之webgl键盘事件监听和其他js输入冲突</h2><p>做一个大的集控平台的时候，很多时候会把unity导出的webgl3D程序嵌到大平台页面中，属于大平台的一个子功能。在打开3d程序之后再切换到其他js页面的时候，我们会发现其他页面的输入键盘事件不好使了。比如一个input无法输入，也无法删除input里的文字。即input事件被劫听了。<br>情况下unity的webgl会监听所有的键盘事件，无论你是否聚焦这个canvas，只要你打开程序，我们就监听。目的是为了让玩家更加专注游戏而不需要去点击聚焦程序。但是如果你还有其他的html页面，并且其他页面也需要监听这个事件，那就需要改变这个默认设置。使用WebGLInput.captureAllKeyboardInput这个属性。所以我们在程序中Awake函数中加入设置这个属性的代码。  </p>
+<pre class="line-numbers language-html"><code class="language-html">private void Start()
+{
+#if !UNITY_EDITOR &amp;&amp; UNITY_WEBGL 
+     UnityEngine.WebGLInput.captureAllKeyboardInput = false;
+#endif
+}
+
+
+
+另外一种用法，可能有错，没试过：  
+document.addEventListener('click', function(e) {
+    if (e.target.id == "#canvas") {
+        this.FocusCanvas("1");
+    } else {
+        this.FocusCanvas("0");
+    }
+}.bind(this), false);
+
+public void FocusCanvas(string focus)
+{
+    #if !UNITY_EDITOR &amp;&amp; UNITY_WEBGL
+        if (focus == "0") {
+            WebGLInput.captureAllKeyboardInput = false;
+        } else {
+            WebGLInput.captureAllKeyboardInput = true;
+        }
+    #endif
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Unity3d选择、移动3d物体"><a href="#Unity3d选择、移动3d物体" class="headerlink" title="Unity3d选择、移动3d物体"></a>Unity3d选择、移动3d物体</h2><p>将以下脚本附加到目标物体(带碰撞)即可实现：点击选择物体，并拖拽物体移动。  </p>
+<pre class="line-numbers language-html"><code class="language-html">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PickAndMove : MonoBehaviour
+{
+
+    public Renderer rend;
+    public Vector3 targetPos;
+    public Vector3 lastPos;
+
+    private bool isdrag = false;
+    void Start()
+    {
+        rend = GetComponent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Renderer</span><span class="token punctuation">></span></span>();
+    }
+
+    private void OnMouseEnter()
+    {
+        if (!isdrag) {
+            rend.material.color = Color.blue;
+        }
+    }
+    private void OnMouseExit()
+    {
+        if (!isdrag) { 
+            rend.material.color = Color.red;
+        }
+    }
+    private void OnMouseDown()
+    {
+        if (!isdrag)
+        {
+            rend.material.color = Color.yellow;
+            lastPos = Camera.main.ScreenToViewportPoint(Input.mousePosition) - Camera.main.WorldToViewportPoint(transform.position);
+
+        }
+    }
+    private void OnMouseUp()
+    {
+        rend.material.color = Color.blue;
+        isdrag = false;
+    }
+    private void OnMouseDrag()
+    {
+        targetPos = Camera.main.ViewportToWorldPoint(Camera.main.ScreenToViewportPoint(Input.mousePosition) - lastPos);
+        transform.position = new Vector3(targetPos.x, targetPos.y, targetPos.z);
+        isdrag = true;
+    }
+
+    void Update()
+    {
+
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/09/06/diary-20210906-1/" class="b-link-green">Unity3d输出webgl</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/09/14/diary-20210914-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/10.jpg" class="responsive-img" alt="GMAT模拟卫星轨道仿真">
+                        
+                        <span class="card-title">GMAT模拟卫星轨道仿真</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            GMAT-Simulating an OrbitGMAT(Genernal Mission Analysis Tool)  
+The most fundamental capability of GMAT is to propagate, 
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-09-14
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/GMAT/" target="_blank">
+                        <span class="chip bg-color">GMAT</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/09/03/diary-20210903-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/27.jpg" class="responsive-img" alt="基于threejs的全球可视化组件">
+                        
+                        <span class="card-title">基于threejs的全球可视化组件</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            案例说明全球可视化globe.gl_my_example.rar(内置说明文档)全球可视化three-globe_myl_example.rar(内置说明文档)
+
+        document.querySelectorAll('.gi
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-09-03
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/three-js/" target="_blank">
+                        <span class="chip bg-color">three.js</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

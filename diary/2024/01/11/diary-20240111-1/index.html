@@ -1,0 +1,1995 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Qt结合VTK开发, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="VTK8.2.0编译pcl1.8.1（对应vs2015）依赖vtk7.1.1pcl1.9.1（对应vs2017）至pcl1.12.0依赖vtk8.2，pcl1.12以上依赖vtk9.6vtk7.1.1用cmake3.8.0
+下载VTK8.2">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Qt结合VTK开发 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/6.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Qt结合VTK开发
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/vtk/" target="_blank">
+                                <span class="chip bg-color">vtk</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2024-01-11
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        5.2k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        24 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="VTK8-2-0编译"><a href="#VTK8-2-0编译" class="headerlink" title="VTK8.2.0编译"></a>VTK8.2.0编译</h2><p>pcl1.8.1（对应vs2015）依赖vtk7.1.1<br>pcl1.9.1（对应vs2017）至pcl1.12.0依赖vtk8.2，<br>pcl1.12以上依赖vtk9.6<br>vtk7.1.1用cmake3.8.0</p>
+<pre class="line-numbers language-html"><code class="language-html">下载VTK8.2.0源文件, https://vtk.org/files/release/8.2/VTK-8.2.0.zip 解压到F:\Download\VTK\VTK-8.2.0
+下载VTK扩展数据, https://vtk.org/files/release/8.2/VTKData-8.2.0.zip 解压到F:\Download\VTK\VTK-8.2.0目录下，会出现一个.ExternalData的文件夹
+下载CMAKE, VTK8.2.0版本限制3.3至3.12, 下载cmake-3.12.1-win64-x64.zip
+
+启动CMake程序
+指定source code路径为VTK解压路径（此处为C:\VTK\VTK-8.2.0）  
+build the binaries路径为cmake生成文件路径（此处为C:\VTK\VTK-8.2.0\build 需要新建build文件夹）  
+点击 configuration 按钮，弹窗选择编译器Visual Studio 14 2015 Win64  
+
+BUILD：BUILD_SHARED_LIBS ->指示编译共享库还是静态库，默认是编译选上的状态，我们要编译共享库，所以保持默认状态；  
+BUILD_EXAMPLES ->指示编译示例工程，可选可不选。
+CMAKE_INSTALL_PREFIX 这个表示vtk最后生成的链接库的位置，编译完成后bin、lib、include等文件会被拷贝到此，将其修改为：F:/Download/VTK/VTK
+CMAKE_BUILD_TYPE ： 选择 Release。（后续可以选择debug）
+
+Module：因为要在QT中使用VTK，所以勾选上
+Module_vtkGUISupportQt
+Module_vtkGUISupportQtOpenGL
+Module_vtkGUISupportQtSQL
+(删除线)Module_vtkGUISupportQtWebkit(删除线) (这个不选)
+QT 5.6 之后 Webkit 被 Qt WebEngine 替代， 先忽略暂时不使用。
+Module_vtkRenderingQt
+Module_vtkViewsQt
+
+VTK：勾选上
+VTK_Group_Qt；
+VTK_DATA_STORE：可以修改VTK_DATA_STORE的路径为VTKData-8.2.0.zip解压后的.ExternalData路径。
+
+VTK_Group_Imaging 勾选上
+？？点击Add Entry，添加CMAKE_DEBUG_POSTFIX,Value设置为_debug(用来区别debug和release版本)  
+
+再次多点击configure几次，如无error，点击Genrate。  
+用VS2015打开C:\VTK\VTK-8.2.0\build\VTK.sln
+编译类型Release x64,选中ALL BUILD右键"重新生成"  
+选中INSTALL右键"生成"  
+
+F:/Download/VTK/VTK下查看结果
+配置VTK 相关的PATH环境变量F:/Download/VTK/VTK/bin
+
+把F:\Download\VTK\VTK\plugins\designer下的QVTKWidgetPlugin.dll
+把F:\Download\VTK\VTK\bin下的vtkGUISupportQt-8.2.dll和vtkGUISupportQtSQL-8.2.dll
+3个dll分别复制到
+D:\Qt\Qt5.8.0\5.8\msvc2015_64\plugins\designer和D:\Qt\Qt5.8.0\Tools\QtCreator\bin\plugins\designer  
+这两个目录下
+
+D:\Qt\Qt5.8.0\5.8\msvc2015_64\bin\designer.exe打开设计UI时才会打开Qt Designer即可发现增加了QVTK分类QVTKWidget，并在其下有QVTKWidget控件,一定要在release模型下运行， 主要是因为插件是release版本64位  
+方式1，在独立的Qt Designer中创建.ui文件， 界面包 VTKWidget控件 ，并将界面的名称命名为“vtkMainWindow”，并将文件保存为“vtkWidget.ui”  
+方式2，在Qt Creator导入，即在Qt工程中的”.pro”添加UI文件的路径  
+方式3，在Qt Creator中使用该UI文件时，可以采用3种方式直接使用、单继承、多继承  
+这3种都是坑，不好用，还是照下面"qt直接代码使用vtk"来使用vtk
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt直接代码使用vtk"><a href="#qt直接代码使用vtk" class="headerlink" title="qt直接代码使用vtk"></a>qt直接代码使用vtk</h3><pre class="line-numbers language-html"><code class="language-html">*.pro:
+INCLUDEPATH += F:/Download/VTK/VTK/include/vtk-8.2
+LIBS += F:/Download/VTK/VTK/lib/vtk*.lib
+
+*.h:
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkAutoInit.h</span><span class="token punctuation">></span></span>
+VTK_MODULE_INIT(vtkRenderingOpenGL2);// VTK was built with vtkRenderingOpenGL2
+VTK_MODULE_INIT(vtkInteractionStyle);
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QVTKOpenGLNativeWidget.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSmartPointer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindow.h</span><span class="token punctuation">></span></span>
+
+.ui拖一个Widget到窗口里，右键"提升为QVTKOpenGLNativeWidget",objectName取名为widget1  
+（注意"提升为..."需要将自动生成的qvtkopenglnativewidget.h修改为QVTKOpenGLNativeWidget.h否则报错找不到qvtkopenglnativewidget.h，因为下载配置的头文件名称为QVTKOpenGLNativeWidget.h）
+
+*.cpp:  
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+//    ui->widget1=new QVTKOpenGLNativeWidget(this);
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span> renderer = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span>::New();
+
+    ui->widget1->GetRenderWindow()->AddRenderer(renderer);
+    renderer->SetBackground(0.1, 0.2, 0.4);
+
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindowInteractor</span><span class="token punctuation">></span></span> interactor = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindowInteractor</span><span class="token punctuation">></span></span>::New();
+    interactor->SetRenderWindow(ui->widget1->GetRenderWindow());
+    interactor->Initialize();
+
+    ui->widget1->show();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="vtk显示一个红色球体"><a href="#vtk显示一个红色球体" class="headerlink" title="vtk显示一个红色球体"></a>vtk显示一个红色球体</h3><pre class="line-numbers language-html"><code class="language-html">// *.pro:  
+INCLUDEPATH += F:/Download/VTK/VTK/include/vtk-8.2
+LIBS += F:/Download/VTK/VTK/lib/vtk*.lib
+// *.h:  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkAutoInit.h</span><span class="token punctuation">></span></span>
+VTK_MODULE_INIT(vtkRenderingOpenGL2) // VTK was built with vtkRenderingOpenGL2
+VTK_MODULE_INIT(vtkInteractionStyle)
+VTK_MODULE_INIT(vtkRenderingFreeType)
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QVTKOpenGLNativeWidget.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSmartPointer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindow.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSphereSource.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkProperty.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindowInteractor.h</span><span class="token punctuation">></span></span>
+
+// *.cpp:  
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+//    ui->widget1=new QVTKOpenGLNativeWidget(this);
+    //创建渲染器和窗口
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span> renderer = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span>::New();
+    ui->widget1->GetRenderWindow()->AddRenderer(renderer);
+    renderer->SetBackground(0.1, 0.1, 0.1);
+    // 创建球体的源
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSphereSource</span><span class="token punctuation">></span></span> sphereSource = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSphereSource</span><span class="token punctuation">></span></span>::New();
+    sphereSource->SetRadius(1.0);
+    // 创建球体的PolyDataMapper和Actor
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper</span><span class="token punctuation">></span></span> mapper = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper</span><span class="token punctuation">></span></span>::New();
+    mapper->SetInputConnection(sphereSource->GetOutputPort());
+
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor</span><span class="token punctuation">></span></span> actor = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor</span><span class="token punctuation">></span></span>::New();
+    actor->SetMapper(mapper);
+    actor->GetProperty()->SetColor(1.0, 0.0, 0.0); // 设置为红色
+    // 将Actor加入渲染器
+    renderer->AddActor(actor);
+    renderer->ResetCamera();
+
+    ui->widget1->show();
+    setWindowTitle(tr("Hello World"));
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="显示一个带贴图的立方体"><a href="#显示一个带贴图的立方体" class="headerlink" title="显示一个带贴图的立方体"></a>显示一个带贴图的立方体</h3><pre class="line-numbers language-html"><code class="language-html">// *.pro  
+INCLUDEPATH += F:/Download/VTK/VTK/include/vtk-8.2
+LIBS += F:/Download/VTK/VTK/lib/vtk*.lib  
+
+// *.h  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkAutoInit.h</span><span class="token punctuation">></span></span>
+VTK_MODULE_INIT(vtkRenderingOpenGL2) // VTK was built with vtkRenderingOpenGL2
+VTK_MODULE_INIT(vtkInteractionStyle)
+VTK_MODULE_INIT(vtkRenderingFreeType)
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QVTKOpenGLNativeWidget.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSmartPointer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindow.h</span><span class="token punctuation">></span></span>
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkTexture.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkJPEGReader.h</span><span class="token punctuation">></span></span>
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSphereSource.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkCubeSource.h</span><span class="token punctuation">></span></span>
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkProperty.h</span><span class="token punctuation">></span></span>
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindowInteractor.h</span><span class="token punctuation">></span></span>
+// *.cpp  
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    //ui->widget1=new QVTKOpenGLNativeWidget(this);
+    //创建渲染器和窗口
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span> renderer = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span>::New();
+    ui->widget1->GetRenderWindow()->AddRenderer(renderer);
+    renderer->SetBackground(0.1, 0.1, 0.1);
+    // 创建立方体源
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkCubeSource</span><span class="token punctuation">></span></span> cubeSource = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkCubeSource</span><span class="token punctuation">></span></span>::New();
+    cubeSource->SetCenter(0, 0, 0);
+    cubeSource->SetXLength(1);
+    cubeSource->SetYLength(1);
+    cubeSource->SetZLength(1);
+    // 创建纹理读取器
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkJPEGReader</span><span class="token punctuation">></span></span> textureReader = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkJPEGReader</span><span class="token punctuation">></span></span>::New();
+    textureReader->SetFileName("D:/bird.jpg");
+    textureReader->Update();
+    // 创建纹理
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkTexture</span><span class="token punctuation">></span></span> texture = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkTexture</span><span class="token punctuation">></span></span>::New();
+    texture->SetInputConnection(textureReader->GetOutputPort());
+    // 创建立方体的 PolyDataMapper 和 Actor
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper</span><span class="token punctuation">></span></span> mapper = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper</span><span class="token punctuation">></span></span>::New();
+    mapper->SetInputConnection(cubeSource->GetOutputPort());
+
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor</span><span class="token punctuation">></span></span> actor = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor</span><span class="token punctuation">></span></span>::New();
+    actor->SetMapper(mapper);
+    actor->SetTexture(texture);
+    // actor->GetProperty()->SetColor(0, 0, 1); // 设置颜色为蓝色
+    // 将Actor加入渲染器
+    renderer->AddActor(actor);
+    renderer->ResetCamera();
+
+    ui->widget1->show();
+    setWindowTitle(tr("Hello World"));
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Qt-VTK使用合集"><a href="#Qt-VTK使用合集" class="headerlink" title="Qt_VTK使用合集"></a>Qt_VTK使用合集</h2><h3 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h3><p>msvc2015编译器默认支持c++11标准，std::shared_ptr是C++标准库中的智能指针，用于管理动态分配的对象。它提供了自动化的内存管理和资源释放，可以避免内存泄漏和野指针的问题  </p>
+<pre class="line-numbers language-html"><code class="language-html">#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>iostream</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>memory</span><span class="token punctuation">></span></span>
+class MyClass {
+public:
+    MyClass() {
+        std::cout &lt;&lt; "MyClass constructor" &lt;&lt; std::endl;
+    }
+    ~MyClass() {
+        std::cout &lt;&lt; "MyClass destructor" &lt;&lt; std::endl;
+    }
+    void sayHello() {
+        std::cout &lt;&lt; "Helloworld" &lt;&lt; std::endl;
+    }
+};
+
+int main(int argc, char *argv[])
+{
+    // 创建一个 shared_ptr，指向一个动态分配的 MyClass 对象
+    std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyClass</span><span class="token punctuation">></span></span> ptr(new MyClass());
+    // 使用箭头运算符访问 MyClass 的成员函数
+    ptr->sayHello();
+    // 可以像普通指针一样使用 * 运算符解引用
+    (*ptr).sayHello();
+    // 共享所有权，拷贝构造函数会使引用计数增加
+    std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>MyClass</span><span class="token punctuation">></span></span> ptr2 = ptr;
+    // 引用计数为2，两个 shared_ptr 共享同一个对象
+    // 重置指针，引用计数减少
+    ptr.reset();
+    // 引用计数为1，ptr 指向了空指针，ptr2 仍然指向原来的对象
+    return 0;
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="设置主菜单、工具条、底部状态栏"><a href="#设置主菜单、工具条、底部状态栏" class="headerlink" title="设置主菜单、工具条、底部状态栏"></a>设置主菜单、工具条、底部状态栏</h3><p>主菜单、工具条通过QAction响应点击事件，底部状态栏显示当前鼠标坐标</p>
+<pre class="line-numbers language-html"><code class="language-html">// *.h
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMenu</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMenuBar</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QAction</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QToolBar</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QStatusBar</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMouseEvent</span><span class="token punctuation">></span></span>
+
+public:  
+    QStatusBar *m_statusBar=nullptr;
+    void initMenuToolbar();
+    void initEventFilter();
+protected:
+    bool eventFilter(QObject *watched, QEvent *event)override{
+        if (watched == this || watched->isWidgetType()) {
+            if (event->type() == QEvent::MouseMove) {
+                QMouseEvent *mouseEvent = static_cast<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QMouseEvent*</span><span class="token punctuation">></span></span>(event);
+                // QPoint pos = mouseEvent->globalPos();
+                QPoint pos =mapFromGlobal(mouseEvent->globalPos());
+                QString posText = QString("X: %1, Y: %2").arg(pos.x()).arg(pos.y());
+                if(!m_statusBar) {
+                    m_statusBar = new QStatusBar(this);
+                    setStatusBar(m_statusBar);
+                }
+                m_statusBar->showMessage(posText);
+            }
+        }
+        return QMainWindow::eventFilter(watched, event);
+    }
+private slots:
+    void onActionNewTriggered(){
+        std::cout&lt;&lt;"ActionNew"&lt;&lt;std::endl;
+    }
+    void onActionOpenTriggered(){
+        std::cout&lt;&lt;"ActionOpen"&lt;&lt;std::endl;
+    }
+    void onActionA1Triggered(){
+        std::cout&lt;&lt;"ActionA1"&lt;&lt;std::endl;
+    }
+
+// *.cpp  
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    initMenuToolbar();
+    ......  
+    initEventFilter();
+}
+void MainWindow::initEventFilter(){
+    installEventFilter(this);
+    for (QWidget* widget : findChildren<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QWidget*</span><span class="token punctuation">></span></span>()) {
+       widget->installEventFilter(this);
+    }
+    setMouseTracking(true);
+}
+void MainWindow::initMenuToolbar(){
+    // 删除系统默认自带的空白命令栏
+    QList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QToolBar*</span><span class="token punctuation">></span></span> allToolBars =this->findChildren<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QToolBar*</span><span class="token punctuation">></span></span>();
+    foreach (QToolBar* tb, allToolBars) {
+        this->removeToolBar(tb);
+    }
+
+    // 创建一个菜单栏
+    QMenuBar *menuBar = new QMenuBar;
+    // 创建第一个菜单
+    QMenu *fileMenu = new QMenu("文件");
+    // 创建两个菜单项
+    QAction *newAction = new QAction("新建", menuBar);
+    QAction *openAction = new QAction("打开", menuBar);
+    // 将菜单项添加到菜单中
+    fileMenu->addAction(newAction);
+    fileMenu->addAction(openAction);
+    // 设置菜单栏的样式和背景色
+    QString styleSheet = "QMenuBar { \
+                            background-color: rgb(207, 207, 207);\
+                            color: black; \
+                          }";
+    menuBar->setStyleSheet(styleSheet);
+    // 将菜单添加到菜单栏中
+    menuBar->addMenu(fileMenu);
+    // 将菜单栏设置为主窗口的菜单栏
+    setMenuBar(menuBar);
+
+    // 创建一个命令栏
+    QToolBar *toolbar = new QToolBar("cmdtool");
+    // 在命令栏中添加一个动作按钮
+    QAction *actionA1 = new QAction("A1", toolbar);
+    toolbar->addAction(actionA1);
+
+    QAction *actionPlaneTop = new QAction("Top", toolbar);
+    toolbar->addAction(actionPlaneTop);
+    // 将命令栏添加到主窗口中
+    addToolBar(Qt::TopToolBarArea, toolbar);
+
+    // 给菜单项和命令栏动作按钮添加点击事件响应
+    connect(newAction, &amp;QAction::triggered, this, &amp;MainWindow::onActionNewTriggered);
+    connect(openAction, &amp;QAction::triggered, this, &amp;MainWindow::onActionOpenTriggered);
+    connect(actionA1, &amp;QAction::triggered, this, &amp;MainWindow::onActionA1Triggered);
+    connect(actionPlaneTop, &amp;QAction::triggered, this,[&amp;](){
+       vtkCamera* camera = renderer->GetActiveCamera();
+       int distanceCameraToScene = 1;
+       camera->SetViewUp(0, 1, 0);   // 设置相机的上方向
+       camera->SetPosition(0, 0, distanceCameraToScene);  // 设置相机的位置
+       camera->SetFocalPoint(0, 0, 0); // 设置相机的焦点
+       renderer->ResetCamera();
+       // 手动触发渲染更新
+       ui->widget1->GetRenderWindow()->Render();
+    });
+
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="PCL-1-8-0-AllInOne-msvc2015-win64安装配置"><a href="#PCL-1-8-0-AllInOne-msvc2015-win64安装配置" class="headerlink" title="PCL-1.8.0-AllInOne-msvc2015-win64安装配置"></a>PCL-1.8.0-AllInOne-msvc2015-win64安装配置</h3><pre class="line-numbers language-html"><code class="language-html">安装目录时建议将“PCL 1.8.0”中间的空格字符去掉，因为如果后续使用Qt可能会报路径错误
+双击exe安装，Add PCL to the system PATH for all users  
+安装路径不要中文，最好安装在系统盘外，保证空间大于4.2G，安装时提示安装OpenNI,建议安装在PCL安装路径的3rdParty下的OpenNI2目录(如D:\Download\PCL1.8.0\3rdParty\OpenNI2\)  
+安装完成之后，将下载好的pcl-1.8.0-pdb-msvc2015-win64.7z解压，将pdb文件夹中的所有pdb文件拷贝到PCL 安装路径下的bin文件夹中。
+
+我的电脑，右键属性，高级系统设置，环境变量，Path添加  
+D:\Download\PCL1.8.0\bin  
+D:\Download\PCL1.8.0\3rdParty\VTK\bin
+D:\Download\PCL1.8.0\3rdParty\FLANN\bin  
+D:\Download\PCL1.8.0\3rdParty\Qhull\bin  
+D:\Download\PCL1.8.0\3rdParty\OpenNI2\Tools  
+重启电脑 
+
+后续有qt开发需要的话替换vtk相关内容
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="VS环境配置PCL，属性表"><a href="#VS环境配置PCL，属性表" class="headerlink" title="VS环境配置PCL，属性表"></a>VS环境配置PCL，属性表</h3><pre class="line-numbers language-html"><code class="language-html">打开vs，新建项目，菜单栏"视图"->"其它窗口"->"属性管理器"，  
+右侧看到属性管理器页面，左键点击选中"Release|64"，右键"添加新项目属性表"，名字随意，不要中文  
+确定后得到一个自己起名字的新的属性表，在新建的属性表右键->属性  
+点击"VC++目录"，选择"包含目录"，将PCL内的include目录路径填进去   
+如D:\Download\PCL1.8.0\include\pcl-1.8  
+D:\Download\PCL1.8.0\3rdParty\VTK\include\vtk-7.0
+D:\Download\PCL1.8.0\3rdParty\Qhull\include
+D:\Download\PCL1.8.0\3rdParty\OpenNI2\Include
+D:\Download\PCL1.8.0\3rdParty\FLANN\include
+D:\Download\PCL1.8.0\3rdParty\Eigen\eigen3
+D:\Download\PCL1.8.0\3rdParty\Boost\include\boost-1_61
+点击"VC++目录"，选择"库目录"，将PCL内的lib目录路径填进去 
+如D:\Download\PCL1.8.0\3rdParty\VTK\lib;
+D:\Download\PCL1.8.0\3rdParty\Qhull\lib;
+D:\Download\PCL1.8.0\3rdParty\OpenNI2\Lib;
+D:\Download\PCL1.8.0\3rdParty\FLANN\lib;
+D:\Download\PCL1.8.0\3rdParty\Boost\lib;
+D:\Download\PCL1.8.0\lib  
+打开”链接器“->"输入"->”附加依赖项“，选择附加依赖项，把PCL安装路径下的那些lib文件的名字填进去  
+如果批量获得lib文件的名字？建议在C:\Windows\System32下搜索CMD.exe，以管理员的方式打  
+cd/d D:\Download\PCL1.8.0\lib  
+dir/b *.lib*>统计lib文件.txt  
+就这样，我们把所有lib文件夹内的文件名都输出后，选择自己所需要的，填写进去就可以了  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>到这里，Release|64版本的属性表已经配置完成，你可以将它存储下来，等你下一次又新建一个项目的时候，不用再重新配置PCL了，只需要把他添加至你的项目就可以了。<br>Debug|64版本可以按照同样的方式进行配置。  </p>
+<h3 id="Pcl-Vtk"><a href="#Pcl-Vtk" class="headerlink" title="Pcl+Vtk"></a>Pcl+Vtk</h3><pre class="line-numbers language-html"><code class="language-html">拖一个Widget右键"提升为..."为QVTKOpenGLNativeWidget控件  
+
+在main.cpp中引用下面头文件并在QApplication调用前添加下面代码，解决报opengl版本过低的问题。
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QSurfaceFormat</span><span class="token punctuation">></span></span>
+#include "QVTKOpenGLNativeWidget.h"  
+
+修改*.pro
+INCLUDEPATH += /usr/local/include/vtk-8.2
+LIBS += /usr/local/lib/libvtk*.so
+INCLUDEPATH += /usr/local/include/pcl-1.13
+LIBS += /usr/local/lib/libpcl_*.so
+
+添加头文件*.h  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindow.h</span><span class="token punctuation">></span></span>
+#include &lt;pcl/visualization/pcl_visualizer.h>
+#include &lt;pcl/point_types.h>//各种格式的点的头文件
+#include &lt;pcl/io/pcd_io.h>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkGenericOpenGLRenderWindow.h</span><span class="token punctuation">></span></span>  
+
+std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">pcl:</span>:visualization::PCLVisualizer</span> <span class="token punctuation">></span></span> view;
+
+修改实现代码*.cpp  
+
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span> renderer = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span>::New();
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkGenericOpenGLRenderWindow</span><span class="token punctuation">></span></span> renderWindow = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkGenericOpenGLRenderWindow</span><span class="token punctuation">></span></span>::New();
+    renderWindow->AddRenderer(renderer);
+    view.reset(new pcl::visualization::PCLVisualizer(renderer,renderWindow,"viewer",false));
+    view->setupInteractor(ui->guiwidget->GetInteractor(),ui->guiwidget->GetRenderWindow());
+    ui->guiwidget->SetRenderWindow(view->getRenderWindow());
+
+添加按钮的点击事件对应的槽函数，添加加载点云的代码  
+
+    //读取pcd文件并显示
+    pcl::PointCloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">pcl:</span>:PointXYZ</span><span class="token punctuation">></span></span>::Ptr cloud(new pcl::PointCloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">pcl:</span>:PointXYZ</span><span class="token punctuation">></span></span>());//创建点云指针
+    QString fileName = QFileDialog::getOpenFileName(this, "Open PointCloud", ".", "Open PCD files(*.pcd)");
+    if(fileName == "") return;
+    pcl::io::loadPCDFile(fileName.toStdString(),*cloud);
+    view->addPointCloud(cloud,"cloud");
+    view->resetCamera();    //视角
+    ui->guiwidget->GetRenderWindow()->Render();
+
+pcd文件可直接在pcl1.8-pcl-1.8.0.zip源代码中的test文件夹获得
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="VTK7-1编译"><a href="#VTK7-1编译" class="headerlink" title="VTK7.1编译"></a>VTK7.1编译</h2><pre class="line-numbers language-html"><code class="language-html">下载VTK7.1.1源文件, https://vtk.org/files/release/7.1/VTK-7.1.1.zip 解压到F:\Download\VTK\VTK-7.1.1
+下载VTK扩展数据, https://vtk.org/files/release/7.1/VTKData-7.1.1.zip解压到F:\Download\VTK\VTK-8.2.0目录下，会出现一个.ExternalData的文件夹
+下载CMAKE,下载cmake-3.8.0-win64-x64.zip
+
+启动CMake程序
+指定source code路径为VTK解压路径（此处为F:\Download\VTK\VTK-7.1.1）  
+build the binaries路径为cmake生成文件路径（此处为F:\Download\VTK\VTK-7.1.1\build 需要新建build文件夹）  
+点击 configuration 按钮，弹窗选择编译器Visual Studio 14 2015 Win64  
+
+BUILD：BUILD_SHARED_LIBS ->指示编译共享库还是静态库，默认是编译选上的状态，我们要编译共享库，所以保持默认状态；  
+BUILD_EXAMPLES ->指示编译示例工程，可选可不选。
+CMAKE_INSTALL_PREFIX 这个表示vtk最后生成的链接库的位置，编译完成后bin、lib、include等文件会被拷贝到此，将其修改为：F:/Download/VTK/VTK
+
+VTK：勾选上
+VTK_Group_Qt；
+
+再次多点击configure几次(VTK_QT_VERSION中选择5)，如无error，点击Genrate。  
+用VS2015打开F:\Download\VTK\VTK-7.1.1\build\VTK.sln
+编译类型Release x64,选中ALL BUILD右键"重新生成"  
+选中INSTALL右键"生成"  
+
+F:/Download/VTK/VTK下查看结果
+配置VTK 相关的PATH环境变量F:/Download/VTK/VTK/bin
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="qt5-8直接代码使用vtk7-1"><a href="#qt5-8直接代码使用vtk7-1" class="headerlink" title="qt5.8直接代码使用vtk7.1"></a>qt5.8直接代码使用vtk7.1</h3><p>由于VTK在8.0.0版本就开始QVTKQpenGLNativeWidget，而之前版本都可以用QVTKWidget,所以用法可以参考VTK8.2.0结合Qt5使用，只是将8.2.0的QVTKQpenGLNativeWidget换成7.1的QVTKWidget</p>
+<pre class="line-numbers language-html"><code class="language-html">*.pro:
+INCLUDEPATH += F:/Download/VTK/VTK/include/vtk-7.1
+LIBS += F:/Download/VTK/VTK/lib/vtk*.lib
+
+*.h:
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkAutoInit.h</span><span class="token punctuation">></span></span>
+VTK_MODULE_INIT(vtkRenderingOpenGL2)// VTK was built with vtkRenderingOpenGL2
+VTK_MODULE_INIT(vtkInteractionStyle)
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QVTKWidget.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSmartPointer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindow.h</span><span class="token punctuation">></span></span>
+
+.ui拖一个Widget到窗口里，右键"提升为QVTKWidget",点击"添加"再点"提升"，objectName取名为widget1  
+
+*.cpp:  
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span> renderer = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span>::New();
+
+    ui->widget1->GetRenderWindow()->AddRenderer(renderer);
+    renderer->SetBackground(0.1, 0.2, 0.4);
+
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindowInteractor</span><span class="token punctuation">></span></span> interactor = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindowInteractor</span><span class="token punctuation">></span></span>::New();
+    interactor->SetRenderWindow(ui->widget1->GetRenderWindow());
+    interactor->Initialize();
+
+    ui->widget1->show();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="vtk7-1显示一个红色球体"><a href="#vtk7-1显示一个红色球体" class="headerlink" title="vtk7.1显示一个红色球体"></a>vtk7.1显示一个红色球体</h3><pre class="line-numbers language-html"><code class="language-html">// *.pro:  
+INCLUDEPATH += F:/Download/VTK/VTK/include/vtk-7.1
+LIBS += F:/Download/VTK/VTK/lib/vtk*.lib
+// *.h:  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkAutoInit.h</span><span class="token punctuation">></span></span>
+VTK_MODULE_INIT(vtkRenderingOpenGL2) // VTK was built with vtkRenderingOpenGL2
+VTK_MODULE_INIT(vtkInteractionStyle)
+VTK_MODULE_INIT(vtkRenderingFreeType)
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QVTKWidget.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSmartPointer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindow.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSphereSource.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkProperty.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindowInteractor.h</span><span class="token punctuation">></span></span>
+
+// *.cpp:  
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+
+//    ui->widget1=new QVTKOpenGLNativeWidget(this);
+    //创建渲染器和窗口
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span> renderer = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span>::New();
+    ui->widget1->GetRenderWindow()->AddRenderer(renderer);
+    renderer->SetBackground(0.1, 0.1, 0.1);
+    // 创建球体的源
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSphereSource</span><span class="token punctuation">></span></span> sphereSource = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSphereSource</span><span class="token punctuation">></span></span>::New();
+    sphereSource->SetRadius(1.0);
+    // 创建球体的PolyDataMapper和Actor
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper</span><span class="token punctuation">></span></span> mapper = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper</span><span class="token punctuation">></span></span>::New();
+    mapper->SetInputConnection(sphereSource->GetOutputPort());
+
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor</span><span class="token punctuation">></span></span> actor = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor</span><span class="token punctuation">></span></span>::New();
+    actor->SetMapper(mapper);
+    actor->GetProperty()->SetColor(1.0, 0.0, 0.0); // 设置为红色
+    // 将Actor加入渲染器
+    renderer->AddActor(actor);
+    renderer->ResetCamera();
+
+    ui->widget1->show();
+    setWindowTitle(tr("Hello World"));
+}  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Qt-VTK7-1使用合集"><a href="#Qt-VTK7-1使用合集" class="headerlink" title="Qt_VTK7.1使用合集"></a>Qt_VTK7.1使用合集</h2><h3 id="PCL-1-8-0-AllInOne-msvc2015-win64安装配置-1"><a href="#PCL-1-8-0-AllInOne-msvc2015-win64安装配置-1" class="headerlink" title="PCL-1.8.0-AllInOne-msvc2015-win64安装配置"></a>PCL-1.8.0-AllInOne-msvc2015-win64安装配置</h3><pre class="line-numbers language-html"><code class="language-html">安装目录时建议将“PCL 1.8.0”中间的空格字符去掉，因为如果后续使用Qt可能会报路径错误
+双击exe安装，Add PCL to the system PATH for all users  
+安装路径不要中文，最好安装在系统盘外，保证空间大于4.2G，安装时提示安装OpenNI,建议安装在PCL安装路径的3rdParty下的OpenNI2目录(如D:\Download\PCL1.8.0\3rdParty\OpenNI2\)  
+安装完成之后，将下载好的pcl-1.8.0-pdb-msvc2015-win64.7z解压，将pdb文件夹中的所有pdb文件拷贝到PCL 安装路径下的bin文件夹中。
+
+
+1、安装过程中已经创建新的环境变量：%PCL_ROOT%=D:\Download\PCL1.8.0
+2、在Path手动设置的环境变量
+%PCL_ROOT%\bin;
+%PCL_ROOT%\3rdParty\FLANN\bin;
+%PCL_ROOT%\3rdParty\VTK\bin;
+%PCL_ROOT%\3rdParty\Qhull\bin;
+%PCL_ROOT%\3rdParty\OpenNI2\Tools
+
+我的电脑，右键属性，高级系统设置，环境变量，Path添加  
+D:\Download\PCL1.8.0\bin  
+D:\Download\PCL1.8.0\3rdParty\VTK\bin
+D:\Download\PCL1.8.0\3rdParty\FLANN\bin  
+D:\Download\PCL1.8.0\3rdParty\Qhull\bin  
+D:\Download\PCL1.8.0\3rdParty\OpenNI2\Tools  
+重启电脑 
+
+后续有qt开发需要的话替换vtk相关内容，我没有删除原来的vtk，而是用自己编译的vtk目录直接覆盖了
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="VS环境配置PCL，属性表-1"><a href="#VS环境配置PCL，属性表-1" class="headerlink" title="VS环境配置PCL，属性表"></a>VS环境配置PCL，属性表</h3><pre class="line-numbers language-html"><code class="language-html">打开vs，新建项目，菜单栏"视图"->"其它窗口"->"属性管理器"，  
+右侧看到属性管理器页面，左键点击选中"Release|64"，右键"添加新项目属性表"，名字随意，不要中文  
+确定后得到一个自己起名字的新的属性表，在新建的属性表右键->属性  
+点击"VC++目录"，选择"包含目录"，将PCL内的include目录路径填进去   
+如D:\Download\PCL1.8.0\include\pcl-1.8  
+D:\Download\PCL1.8.0\3rdParty\VTK\include\vtk-7.0
+D:\Download\PCL1.8.0\3rdParty\Qhull\include
+D:\Download\PCL1.8.0\3rdParty\OpenNI2\Include
+D:\Download\PCL1.8.0\3rdParty\FLANN\include
+D:\Download\PCL1.8.0\3rdParty\Eigen\eigen3
+D:\Download\PCL1.8.0\3rdParty\Boost\include\boost-1_61
+点击"VC++目录"，选择"库目录"，将PCL内的lib目录路径填进去 
+如D:\Download\PCL1.8.0\3rdParty\VTK\lib;
+D:\Download\PCL1.8.0\3rdParty\Qhull\lib;
+D:\Download\PCL1.8.0\3rdParty\OpenNI2\Lib;
+D:\Download\PCL1.8.0\3rdParty\FLANN\lib;
+D:\Download\PCL1.8.0\3rdParty\Boost\lib;
+D:\Download\PCL1.8.0\lib  
+打开”链接器“->"输入"->”附加依赖项“，选择附加依赖项，把PCL安装路径下的那些lib文件的名字填进去  
+如果批量获得lib文件的名字？建议在C:\Windows\System32下搜索CMD.exe，以管理员的方式打  
+cd/d D:\Download\PCL1.8.0\lib  
+dir/b *.lib*>统计lib文件.txt  
+就这样，我们把所有lib文件夹内的文件名都输出后，选择自己所需要的，填写进去就可以了  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>到这里，Release|64版本的属性表已经配置完成，你可以将它存储下来，等你下一次又新建一个项目的时候，不用再重新配置PCL了，只需要把他添加至你的项目就可以了。<br>Debug|64版本可以按照同样的方式进行配置。  </p>
+<h3 id="Pcl-Vtk-1"><a href="#Pcl-Vtk-1" class="headerlink" title="Pcl+Vtk"></a>Pcl+Vtk</h3><pre class="line-numbers language-html"><code class="language-html">拖一个Widget右键"提升为..."为QVTKWidget控件    
+
+修改*.pro
+INCLUDEPATH += F:/Download/VTK/VTK/include/vtk-7.1
+LIBS += F:/Download/VTK/VTK/lib/vtk*.lib
+
+INCLUDEPATH += D:/iTools/PCL1.8.0/include/pcl-1.8
+LIBS += D:/iTools/PCL1.8.0/lib/pcl*.lib
+
+INCLUDEPATH += D:/iTools/PCL1.8.0/3rdParty/Boost/include/boost-1_61
+LIBS += D:/iTools/PCL1.8.0/3rdParty/Boost/lib/libboost*.lib
+
+// 不用编译Eigen这样加进来就能通过编译 
+// 若报错，屏蔽掉一个定义Eigen2的宏即可无影响
+INCLUDEPATH += D:/iTools/PCL1.8.0/3rdParty/Eigen/eigen3/Eigen/src
+INCLUDEPATH += D:/iTools/PCL1.8.0/3rdParty/Eigen/eigen3/Eigen
+INCLUDEPATH += D:/iTools/PCL1.8.0/3rdParty/Eigen/eigen3
+INCLUDEPATH += D:/iTools/PCL1.8.0/3rdParty/Eigen
+
+添加头文件*.h  
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkAutoInit.h</span><span class="token punctuation">></span></span>
+VTK_MODULE_INIT(vtkRenderingOpenGL2)// VTK was built with vtkRenderingOpenGL2
+VTK_MODULE_INIT(vtkInteractionStyle)
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>QVTKWidget.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSmartPointer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindow.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkSphereSource.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkPolyDataMapper.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkActor.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkProperty.h</span><span class="token punctuation">></span></span>
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderWindowInteractor.h</span><span class="token punctuation">></span></span>
+
+#include &lt;pcl/visualization/pcl_visualizer.h>
+#include &lt;pcl/point_types.h>
+#include &lt;pcl/io/pcd_io.h>
+
+#include <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>memory</span><span class="token punctuation">></span></span>
+
+std::shared_ptr<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">pcl:</span>:visualization::PCLVisualizer</span><span class="token punctuation">></span></span> view;
+
+后面的代码没有试，会崩溃，用法不对吧
+       // 从文件或其他方式加载点云数据到 cloud
+       pcl::PointCloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">pcl:</span>:PointXYZ</span><span class="token punctuation">></span></span>::Ptr cloud(new pcl::PointCloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">pcl:</span>:PointXYZ</span><span class="token punctuation">></span></span>());//创建点云指针
+//       QString fileName="car6.pcd";
+//       pcl::io::loadPCDFile(fileName.toStdString(),*cloud);
+
+//       pcl::visualization::PCLVisualizer::Ptr visualizer(new pcl::visualization::PCLVisualizer("PointCloud Visualizer", false));
+//       visualizer->setBackgroundColor(0, 0, 0);
+//       visualizer->addPointCloud(cloud, "cloud");
+
+//       ui->widget1->SetRenderWindow(visualizer->getRenderWindow());
+//       visualizer->setupInteractor(ui->widget1->GetInteractor(),ui->widget1->GetRenderWindow());
+
+//       ui->widget1->GetRenderWindow()->Render();
+
+
+修改实现代码*.cpp  
+
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span> renderer = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkRenderer</span><span class="token punctuation">></span></span>::New();
+    vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkGenericOpenGLRenderWindow</span><span class="token punctuation">></span></span> renderWindow = vtkSmartPointer<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>vtkGenericOpenGLRenderWindow</span><span class="token punctuation">></span></span>::New();
+    renderWindow->AddRenderer(renderer);
+    view.reset(new pcl::visualization::PCLVisualizer(renderer,renderWindow,"viewer",false));
+    view->setupInteractor(ui->guiwidget->GetInteractor(),ui->guiwidget->GetRenderWindow());
+    ui->guiwidget->SetRenderWindow(view->getRenderWindow());
+
+添加按钮的点击事件对应的槽函数，添加加载点云的代码  
+
+    //读取pcd文件并显示
+    pcl::PointCloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">pcl:</span>:PointXYZ</span><span class="token punctuation">></span></span>::Ptr cloud(new pcl::PointCloud<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">pcl:</span>:PointXYZ</span><span class="token punctuation">></span></span>());//创建点云指针
+    QString fileName = QFileDialog::getOpenFileName(this, "Open PointCloud", ".", "Open PCD files(*.pcd)");
+    if(fileName == "") return;
+    pcl::io::loadPCDFile(fileName.toStdString(),*cloud);
+    view->addPointCloud(cloud,"cloud");
+    view->resetCamera();    //视角
+    ui->guiwidget->GetRenderWindow()->Render();
+
+pcd文件可直接在pcl1.8-pcl-1.8.0.zip源代码中的test文件夹获得
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2024/01/11/diary-20240111-1/" class="b-link-green">Qt结合VTK开发</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2024/01/11/diary-20240111-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/28.jpg" class="responsive-img" alt="Qt结合OSG开发">
+                        
+                        <span class="card-title">Qt结合OSG开发</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            使用OpenSceneGraph编译程序OSG是一个c++的跨平台开源场景图形程序开发接口库，作为中间件为应用软件提供各种高级渲染特性、IO、空间结构组织函数。依靠更低层次的OpenGL硬件抽象层(HAL)实现底层硬件显示驱动。  
+osg
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2024-01-11
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/osg/" target="_blank">
+                        <span class="chip bg-color">osg</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/12/19/diary-20231219-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/16.jpg" class="responsive-img" alt="文字快闪视频的制作">
+                        
+                        <span class="card-title">文字快闪视频的制作</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            万兴唯影制作文字快闪视频
+新建画布，选择合适的画布比例。  
+点击[文字],在文字模板中，选择一个文字模板拖拽到剪辑区应用，双击文字模板可以更改文字内容、样式、动画。  
+导入外部音频素材，直接拖拽到剪辑区应用，应用之前鼠标右键选择”节拍检
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-12-19
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

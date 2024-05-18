@@ -1,0 +1,2211 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Ant Design Pro的Vue实现版本, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Ant Design Pro 的 Vue 实现版本开箱即用的中后台前端/设计解决方案  
+安装
+克隆本项目到本地  $ git clone https://github.com/iczer/vue-antd-admin.git  
+安装依赖">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Ant Design Pro的Vue实现版本 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/28.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Ant Design Pro的Vue实现版本
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Vue/" target="_blank">
+                                <span class="chip bg-color">Vue</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-12-01
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        7.9k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        32 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>Ant Design Pro 的 Vue 实现版本<br>开箱即用的中后台前端/设计解决方案  </p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>克隆本项目到本地  <pre><code>$ git clone https://github.com/iczer/vue-antd-admin.git  </code></pre></li>
+<li>安装依赖  <pre><code>$ npm install  </code></pre></li>
+</ol>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><pre><code>├── docs                     # 使用文档  
+├── public  
+│   └── favicon.png          # favicon  
+│   └── index.html           # 入口 HTML  
+├── src  
+│   ├── assets               # 本地静态资源  
+│   ├── components           # 内置通用组件  
+│   ├── config               # 系统配置  
+│   ├── layouts              # 通用布局  
+│   ├── mock                 # 本地 mock 数据  
+│   ├── pages                # 页面组件和通用模板  
+│   ├── plugins              # vue 插件  
+│   ├── router               # 路由配置  
+│   ├── services             # 数据服务模块  
+│   ├── store                # vuex 状态管理配置  
+│   ├── theme                # 主题相关  
+│   ├── utils                # js 工具  
+│   ├── App.vue              # 应用入口组件  
+│   ├── bootstrap.js         # 应用启动引导js  
+│   └── main.js              # 应用入口js  
+├── package.json             # package.json  
+├── README.md                # README.md  
+└── vue.config.js            # vue 配置文件  </code></pre><h2 id="本地开发"><a href="#本地开发" class="headerlink" title="本地开发"></a>本地开发</h2><pre><code> npm run serve            # 启动服务  </code></pre><p>启动成功后，会看到一个本地预览地址，通常是<a href="http://localhost:8080。接下来就可以修改代码，并实时预览修改结果啦" target="_blank" rel="noopener">http://localhost:8080。接下来就可以修改代码，并实时预览修改结果啦</a>  </p>
+<h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><p>页面整体布局是一个产品最外层的框架结构，往往会包含导航、页脚、侧边栏、通知栏以及内容等。在页面之中，也有很多区块的布局结构。在真实项目中，页面布局通常统领整个应用的界面，有非常重要的作用。  </p>
+<h3 id="Admin的布局"><a href="#Admin的布局" class="headerlink" title="Admin的布局"></a>Admin的布局</h3><p>在 Vue Antd Admin 中，我们抽离了使用过程中一些常用的布局，都放在 layouts 目录中，分别为：  </p>
+<h4 id="AdminLayout-管理后台布局"><a href="#AdminLayout-管理后台布局" class="headerlink" title="AdminLayout/管理后台布局"></a>AdminLayout/管理后台布局</h4><pre><code>src/layouts/AdminLayout.vue  </code></pre><p>包含了头部导航，侧边导航、内容区和页脚，一般用于后台系统的整体布局<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/admin-layoutdsafge01.jpg" alt="">  </p>
+<h4 id="PageLayout-页面布局"><a href="#PageLayout-页面布局" class="headerlink" title="PageLayout/页面布局"></a>PageLayout/页面布局</h4><pre><code>src/layouts/PageLayout.vue  </code></pre><p>包含了页头和内容区，常用于需要页头（包含面包屑、标题、额外操作等）的页面<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/page-layoutdsfsdfgwer02.jpg" alt="">  </p>
+<h4 id="CommonLayout-通用布局"><a href="#CommonLayout-通用布局" class="headerlink" title="CommonLayout/通用布局"></a>CommonLayout/通用布局</h4><pre><code>src/layouts/CommonLayout.vue  </code></pre><p>仅包含内容区和页脚的简单布局，项目中常用于注册、登录或展示页面<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/common-layoutdsfgsdaas03.jpg" alt="">  </p>
+<h3 id="Admin的视图"><a href="#Admin的视图" class="headerlink" title="Admin的视图"></a>Admin的视图</h3><p>在 Vue Antd Admin 中，除了基本布局外，通常有很多页面的结构是相似的。因此，我们把这部分结构抽离为视图组件。<br>一个视图组件通常包含一个基本布局组件、视图公共区块、路由视图内容区、页脚等，常常结合路由配置使用。它们也被放入了 layouts 目录中，分别为：  </p>
+<h4 id="TabsView-多页签视图"><a href="#TabsView-多页签视图" class="headerlink" title="TabsView/多页签视图"></a>TabsView/多页签视图</h4><pre><code>src/layouts/tabs/TabsView.vue  </code></pre><p>包含了 AdminLayout 布局、多页签头和路由视图内容区<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/tabsviewljaflj-01.jpg" alt="">  </p>
+<h4 id="PageView-页面视图"><a href="#PageView-页面视图" class="headerlink" title="PageView/页面视图"></a>PageView/页面视图</h4><pre><code>src/layouts/PageView.vue  </code></pre><p>包含了 PageLayout 布局和路由视图内容区<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/pageveiwdfpkdla02.jpg" alt="">  </p>
+<h4 id="BlankView-空白视图"><a href="#BlankView-空白视图" class="headerlink" title="BlankView/空白视图"></a>BlankView/空白视图</h4><pre><code>src/layouts/BlankView.vue  </code></pre><p>仅包含一个路由视图内容区<br><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/blankviewfweo03.jpg" alt=""></p>
+<h3 id="视图如何使用"><a href="#视图如何使用" class="headerlink" title="视图如何使用"></a>视图如何使用</h3><p>通常我们会把视图组件和路由配置结合一起使用，我们把配置信息抽离在路由配置文件中 src/router/config.js  </p>
+<pre><code>{  
+  path: 'form',  
+  name: '表单页',  
+  meta: {  
+    icon: 'form',  
+  },  
+  component: PageView,  
+  children: [  
+    {  
+      path: 'basic',  
+      name: '基础表单',  
+      component: () =&gt; import('@/pages/form/basic/BasicForm'),  
+    }  
+  ]  
+}  </code></pre><p>如果这满足不了你的需求，你也可以自定义一些视图组件，或者直接在页面组件中使用布局。参考如下workplace自定义视图组件  </p>
+<pre><code>&lt;template&gt;  
+  &lt;page-layout :avatar="currUser.avatar"&gt;  
+    &lt;div slot="headerContent"&gt;  
+      &lt;div class="title"&gt;{{$t('timeFix')}}，{{currUser.name}}，{{$t('welcome')}}&lt;/div&gt;  
+      &lt;div&gt;{{$t('position')}}&lt;/div&gt;  
+    &lt;/div&gt;  
+    &lt;template slot="extra"&gt;  
+      &lt;head-info class="split-right" :title="$t('project')" content="56"/&gt;  
+      &lt;head-info class="split-right" :title="$t('ranking')" content="8/24"/&gt;  
+      &lt;head-info class="split-right" :title="$t('visit')" content="2,223"/&gt;  
+    &lt;/template&gt;  
+    &lt;div&gt;...&lt;/div&gt;  
+  &lt;/page-layout&gt;  
+&lt;/template&gt;  </code></pre><h3 id="其他布局组件"><a href="#其他布局组件" class="headerlink" title="其他布局组件"></a>其他布局组件</h3><p>除了 Admin 里的内建布局以外，在一些页面中需要进行布局，还可以使用 Ant Design Vue 提供的布局组件：Grid 和 Layout。  </p>
+<h4 id="Grid布局组件"><a href="#Grid布局组件" class="headerlink" title="Grid布局组件"></a>Grid布局组件</h4><p>栅格布局是网页中最常用的布局，其特点就是按照一定比例划分页面，能够随着屏幕的变化依旧保持比例，从而具有弹性布局的特点。<br>Ant Design Vue 的栅格组件提供的功能更为强大，能够设置间距、具有支持响应式的比例设置，以及支持 flex 模式，基本上涵盖了大部分的布局场景。  </p>
+<h4 id="Layout布局组件"><a href="#Layout布局组件" class="headerlink" title="Layout布局组件"></a>Layout布局组件</h4><p>如果你需要辅助页面框架级别的布局设计，那么 Layout 则是你最佳的选择，它抽象了大部分框架布局结构，使得只需要填空就可以开发规范专业的页面整体布局。  </p>
+<h3 id="根据不同场景区分抽离布局组件"><a href="#根据不同场景区分抽离布局组件" class="headerlink" title="根据不同场景区分抽离布局组件"></a>根据不同场景区分抽离布局组件</h3><p>在大部分场景下，我们需要基于上面两个组件封装一些适用于当下具体业务的组件，包含了通用的导航、侧边栏、顶部通知、页面标题等元素。<br>通常，我们会把抽象出来的布局组件，放到 layouts 文件夹中方便管理。需要注意的是，这些布局组件和我们平时使用的其它组件并没有什么不同，只不过功能性上是为了处理布局问题而单独归类。  </p>
+<h2 id="路由和菜单"><a href="#路由和菜单" class="headerlink" title="路由和菜单"></a>路由和菜单</h2><p>路由和菜单起到组织一个应用的关键骨架的作用。Vue Antd Admin 使用 vue-router 来配置和管理我们的路由和菜单。<br>通过结合 router 配置文件、基本算法及 menu.js 菜单生成工具，搭建了路由和菜单的基本框架，主要涉及以下几个模块/功能：  </p>
+<table>
+<tbody><tr>
+<td style="width:15%">功能</td><td>配置</td>
+</tr>
+
+<tr>
+<td style="width:15%">路由管理</td><td>通过 vue-router 的路由规则进行管理和配置</td>
+</tr>
+
+<tr>
+<td style="width:15%">菜单生成</td><td>根据路由配置自动生成菜单，菜单项名称、图标和层级等全部可以通过路由配置进行自定义</td>
+</tr>
+
+<tr>
+<td style="width:15%">面包屑</td><td>布局组件 PageLayout 提取当前页面路由，并根据当前路由层次关系自动生成面包屑，当然你也可以自定义面包屑</td>
+</tr>
+
+<tr>
+<td style="width:15%">页面标题</td><td>同面包屑，布局组件 PageLayout 根据提取到的当前页面的路由名称设置为页面标题，你也同样可以自定义标题</td>
+</tr>
+
+</tbody></table>
+
+
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><p>Vue Antd Admin 的路由配置完全遵循 vue-router 的 routes 配置规则。 另外我们还在 routes 的元数据属性 meta 中注入了三个属性 icon、invisible 和 page，它们将在生成菜单和页头时发挥作用。配置示例如下：  </p>
+<pre><code>const options = {  
+  routes: [{  
+    path: '/',  
+    name: '首页',  
+    component: TabsView,  
+    meta: {  
+      invisible: true  
+    },  
+    children: [{  
+      path: 'dashboard',  
+      name: 'Dashboard',  
+      meta: {  
+        icon: 'dashboard'  
+      },  
+      component: BlankView,  
+      children: [{  
+        path: 'workplace',  
+        name: '工作台',  
+        component: () =&gt; import('@/pages/dashboard/workplace/WorkPlace'),  
+      }, {  
+        path: 'analysis',  
+        name: '分析页',  
+        component: () =&gt; import('@/pages/dashboard/analysis/Analysis'),  
+      }]  
+    }]  
+  }]  
+}  </code></pre><h3 id="菜单"><a href="#菜单" class="headerlink" title="菜单"></a>菜单</h3><p>Admin 系统的菜单直接通过路由配置生成，路由属性和菜单功能对应关系如下  </p>
+<table>
+<tbody><tr>
+<td style="width:15%">路由属性</td><td>对应菜单功能</td>
+</tr>
+
+<tr>
+<td style="width:15%">name</td><td>菜单名称</td>
+</tr>
+
+<tr>
+<td style="width:15%">path</td><td>点击菜单时的跳转链接</td>
+</tr>
+
+<tr>
+<td style="width:15%">meta.icon</td><td>菜单图标，图标使用 ant-design-vue 图标库，对应 Icon 组件 的 type 属性</td>
+</tr>
+
+<tr>
+<td style="width:15%">meta.invisible</td><td>是否不将此路由项渲染为菜单项，默认false；如设置为 true，则生成菜单时将忽略此路由</td>
+</tr>
+
+</tbody></table>
+实际项目中，我们是在 AdminLayout 组件创建之前，提取 router 配置中根路由 '/' 下所有子路由配置， 并将此配置传递给 menu.js 插件，从而生成菜单。如下：  
+```
+<template>  
+  <a-layout :class="['admin-layout'...]">  
+    ...  
+    <side-menu :menudata="menuData" ...="">  
+  </side-menu></a-layout>  
+</template>  
+<script>  
+import ...
+export default {  
+  name: 'AdminLayout',  
+  ...  
+  beforeCreate () {  
+    menuData = this.$router.options.routes.find((item) => item.path === '/').children  
+  }  
+}  
+</script>
+```
+当然你也可以不使用 router 配置生成菜单，你只需按照配置规则给菜单传递你所定义配置即可。菜单组件配置规则如下：  
+```
+[{  
+  name: '菜单标题',  
+  path: '菜单路由',  
+  meta: {  
+    icon: '菜单图标',  
+    invisible: 'boolean, 是否隐藏此菜单项, 默认 false',  
+  },  
+  children: [ //子菜单配置  
+    {  
+      name: '子菜单标题',  
+      path: '子菜单路由',  
+      meta: {  
+        icon: '子菜单图标',  
+        invisible: 'boolean, 是否隐藏此菜单项, 默认 false',  
+      },  
+    }  
+  ]  
+}]  
+```
+
+<h3 id="面包屑"><a href="#面包屑" class="headerlink" title="面包屑"></a>面包屑</h3><p>面包屑由 PageHeader (src/components/page/header/PageHeader.vue)实现，PageLayout 组件会从当前页面路由提取面包屑配置（如未设置，则根据当前路由层次关系生成面包屑）。所以只要页面中使用了 PageLayout 布局或者它的父级组件使用了 PageLayout 布局，面包屑都将自动生成。  </p>
+<p>当然，如果你想在某个页面自定义面包屑，只需在对应的路由元数据 meta 中定义 page.breadcrumb 属性即可。Vue Antd Admin 将会优先使用路由元数据 meta 中定义的面包屑配置。  </p>
+<p>比如，想自定义工作台页面面包屑，可以在工作台的 route 配置中如下设置：  </p>
+<pre><code>{  
+  path: 'workplace',  
+  name: '工作台',  
+  meta: {  
+    page: {  
+      breadcrumb: ['首页', 'Dashboard', '自定义']  
+    }  
+  },  
+  component: () =&gt; import('@/pages/dashboard/workplace/WorkPlace'),  
+}  </code></pre><h3 id="页面标题"><a href="#页面标题" class="headerlink" title="页面标题"></a>页面标题</h3><p>页面标题的实现方式与面包屑基本一致，也是由 PageLayout 组件从当前页面路由提取标题（如未设置，则提取当前路由名称作为标题）。<br>如果你想自定义页面标题，在页面对应的路由元数据 meta 中定义 page.title 属性即可，如下示例，定义了工作台页面的标题：  </p>
+<pre><code>{  
+  path: 'workplace',  
+  name: '工作台',  
+  meta: {  
+    page: {  
+      title: '自定义标题'  
+    }  
+  },  
+  component: () =&gt; import('@/pages/dashboard/workplace/WorkPlace'),  
+}  </code></pre><h2 id="页面"><a href="#页面" class="headerlink" title="页面"></a>页面</h2><p>包含新建页面文件，配置路由、样式文件及i18n国际化等。通常情况下，你仅需简单的配置就可以添加一个新的页面。  </p>
+<h3 id="新建页面文件"><a href="#新建页面文件" class="headerlink" title="新建页面文件"></a>新建页面文件</h3><p>在 src/pages 下创建新的 .vue 文件。如果页面相关文件过多，您可以创建一个文件夹来放置这些文件。  </p>
+<pre><code>├── public  
+  ├── src  
+  │   ├── assets               # 本地静态资源  
+  :   :  
+  │   ├── pages                # 页面组件和通用模板  
++ │   │   └── NewPage.vue      # 新页面文件  
+or  
++ │   │   └── newPage          # 为新页面创建一个文件夹  
++ │   │       ├── NewPage.vue  # 新页面文件  
++ │   │       ├── index.less   # 页面样式文件  
++ │   │       └── index.js     # import 引导文件  
+  :   :  
+  │   └── main.js              # 应用入口js  
+  ├── package.json             # package.json  
+  ├── README.md                # README.md  
+  └── vue.config.js            # vue 配置文件  </code></pre><p>为了更好地演示，我们初始化 NewPage.vue 文件如下：  </p>
+<pre><code>&lt;template&gt;  
+  &lt;div class="new-page" :style="`min-height: ${pageMinHeight}px`"&gt;  
+    &lt;h1&gt;演示页面&lt;/h1&gt;  
+  &lt;/div&gt;  
+&lt;/template&gt;  
+&lt;script&gt;  
+  import {mapState} from 'vuex'  
+  export default {  
+    name: 'NewPage',  
+    data() {  
+      return {  
+        desc: '这是一个演示页面'  
+      }  
+    },  
+    computed: {  
+      ...mapState('setting', ['pageMinHeight']),  
+    }  
+  }  
+&lt;/script&gt;  
+&lt;style scoped lang="less"&gt;  
+@import "index.less";  
+&lt;/style&gt;  </code></pre><p>index.less 文件：  </p>
+<pre><code>.new-page{  
+  height: 100%;  
+  background-color: @base-bg-color;  
+  text-align: center;  
+  padding: 200px 0 0 0;  
+  margin-top: -24px;  
+  h1{  
+    font-size: 48px;  
+  }  
+}  </code></pre><p>index.js 文件：  </p>
+<pre><code>import NewPage from './NewPage'  
+export default NewPage  </code></pre><h3 id="路由添加新页面"><a href="#路由添加新页面" class="headerlink" title="路由添加新页面"></a>路由添加新页面</h3><p>路由配置在 src/router/config.js 文件中，我们把上面创建的页面文件加入路由配置中  </p>
+<pre><code>const options = {  
+  routes: [  
+    {name: '登录页'...},  
+    {  
+      path: '/',  
+      name: '首页',  
+      component: TabsView,  
+      redirect: '/login',  
+      children: [  
+        {  
+          path: 'newPage',  
+          name: '新页面',  
+          component: () =&gt; import('@/pages/newPage'),  
+        },  
+        {  
+          path: 'dashboard',  
+          name: 'Dashboard',  
+          meta: {  
+            icon: 'dashboard'  
+          },  
+          component: BlankView,  
+          children: [...]  
+        }  
+      ]  
+      ...  
+    }  
+  ]  
+}  </code></pre><p>如果你想把它配置为二级页面或更深层级的页面，只需为它配置一个父级路由，并为父级路由配置一个视图组件， 这里我们选择 PageView，如下：  </p>
+<pre><code>const options = {  
+  routes: [  
+    {name: '登录页'...},  
+    {  
+      path: '/',  
+      name: '首页',  
+      component: TabsView,  
+      redirect: '/login',  
+      children: [  
+        {  
+          path: 'parent',  
+          name: '父级路由',  
+          component: PageView,  
+          children: [  
+            {  
+              path: 'newPage',  
+              name: '新页面',  
+              component: () =&gt; import('@/pages/newPage'),  
+            }  
+          ]  
+        },  
+        {name: 'dashboard'...}  
+      ]  
+      ...  
+    }  
+  ]  
+}  </code></pre><h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><h3 id="主题颜色"><a href="#主题颜色" class="headerlink" title="主题颜色"></a>主题颜色</h3><p>可以使用任何你喜欢的颜色，只需要在 src/config/config.js 文件中配置你的主题色即可。如：  </p>
+<pre><code>module.exports = {  
+  theme: {  
+    color: '#13c2c2', //换成任何你喜欢的颜色，支持 hex 色值  
+    mode: 'night'  
+  },  
+  multiPage: true,  
+  animate: {  
+    name: 'roll',  
+    direction: 'default'  
+  }  
+}  </code></pre><p>当你设置好主题色后，系统会根据这个主题色为你生成一系列配套的颜色，并应用到vue组件中。(主题色目前只支持 hex 模式的色值。如果设置为 rgb 或其它模式的色值，可能会导致配套颜色无法生成。)  </p>
+<p>除了主题色，系统还有一些功能性颜色，分别为：成功色、警告色和错误色。默认色值分别为：</p>
+<table>
+<tbody><tr>
+<td>名称</td><td>success</td><td>warning</td><td>error</td>
+</tr>
+<tr>
+<td>色值</td><td>#52c41a</td><td>#faad14</td><td>#f5222d</td>
+</tr>
+<tr>
+<td>颜色</td><td>成功色</td><td>警告色</td><td>错误色</td>
+</tr>
+<tr>
+<td>less变量</td><td>@success-color</td><td>@warning-color    </td><td>@error-color</td>
+</tr>
+</tbody></table>
+你也可以在 src/config/config.js 重新定义这些功能色  
+```
+module.exports = {  
+  theme: {  
+    color: '#13c2c2',  
+    mode: 'night',  
+    success: '#52c41a', //定义成功色，支持 hex 色值  
+    warning: '#faad14', //定义警告色，支持 hex 色值  
+    error: '#f5222d'    //定义错误色，支持 hex 色值  
+  },  
+  multiPage: true,  
+  animate: {  
+    name: 'roll',  
+    direction: 'default'  
+  }  
+}  
+```
+### 导航布局 
+
+<p>Vue Antd Admin 有两种导航布局，side/侧边导航 和 head/顶部导航。<br>默认为侧边导航，你可以在 src/config/config.js 中修改导航布局  </p>
+<pre><code>module.exports = {  
+  theme: {  
+    color: '#13c2c2',  
+    mode: 'night'       
+  },  
+  layout: 'side',     //设置你的默认导航布局，有 side 和 head 可选  
+  multiPage: true,  
+  animate: {   
+    name: 'roll',  
+    direction: 'default'  
+  }  
+}  </code></pre><h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><p>Vue Antd Admin 内置了 animate.css 动画库，在页面切换时会应用动画效果。你可以在 src/config/config.js 中配置动画效果或者禁用动画。  </p>
+<pre><code>module.exports = {  
+  theme: {  
+    color: '#13c2c2',  
+    mode: 'night'       
+  },  
+  multiPage: true,  
+  animate: {  
+    disabled: false,      //禁用动画，true:禁用，false:启用  
+    name: 'roll',         //动画效果，支持的动画效果可参考 src/config/default/animate.config.js  
+    direction: 'default'  //动画方向，切换页面时动画的方向，参考 src/config/default/animate.config.js  
+  }  
+}  </code></pre><h2 id="服务端交互"><a href="#服务端交互" class="headerlink" title="服务端交互"></a>服务端交互</h2><p>数据服务是一个应用的灵魂，它驱动着应用的各个功能模块的正常运转。Vue Antd Admin 在 service 模块封装了服务端交互，通过 API 的形式可以和任何技术栈的服务端应用一起工作。  </p>
+<h3 id="服务交互流程"><a href="#服务交互流程" class="headerlink" title="服务交互流程"></a>服务交互流程</h3><p>在 Vue Antd Admin 中，服务端交互流程如下：  </p>
+<ul>
+<li>组件内调用 service 服务 API</li>
+<li>service 服务 API 封装请求数据，通过 request.js 发送请求</li>
+<li>组件获取 service 返回的数据，更新视图数据或触发其它行为</li>
+</ul>
+我们以登录为例，Login.vue 组件内，用户输入账号密码，点击登录，调用 services/user/login api  
+
+<pre><code>&lt;template&gt;
+  ...
+&lt;/template&gt;
+&lt;script&gt;
+import {login} from '@/services/user'
+...
+export default {
+  name: 'Login',
+  methods: {
+    onSubmit (e) {
+      e.preventDefault()
+      this.form.validateFields((err) =&gt; {
+        if (!err) {
+          this.logging = true
+          const name = this.form.getFieldValue('name')
+          const password = this.form.getFieldValue('password')
+          login(name, password).then(res =&gt; this.afterLogin(res))
+        }
+      })
+    }
+  }
+}
+&lt;/script&gt;</code></pre><p>services/user/login 封装账户密码数据，通过 request.js 发送登录服务请求  </p>
+<pre><code>import {request, METHOD} from '@/utils/request'  
+/**  
+ * 登录服务  
+ * @param name 账户名  
+ * @param password 账户密码  
+ * @returns {Promise&lt;AxiosResponse&lt;T&gt;&gt;}  
+ */  
+async function login(name, password) {  
+  return request(LOGIN, METHOD.POST, {  
+    name: name,  
+    password: password  
+  })  
+}  </code></pre><p>Login.vue 获取登录服务返回的数据，进行后续操作  </p>
+<pre><code>&lt;template&gt;
+  ...
+&lt;/template&gt;
+&lt;script&gt;
+import {login} from '@/services/user'
+...
+export default {
+  name: 'Login',
+  methods: {
+    onSubmit (e) {
+      this.form.validateFields((err) =&gt; {
+        if (!err) {
+          ...
+          login(name, password).then(res =&gt; this.afterLogin(res))
+        }
+      })
+    },
+    afterLogin(res) {
+      if (res.data.code &gt;= 0) {                 //登录成功
+        ...
+      } else {                                  //登录失败
+        this.error = loginRes.message
+      }
+    }
+  }
+}
+&lt;/script&gt;</code></pre><h3 id="服务模块结构"><a href="#服务模块结构" class="headerlink" title="服务模块结构"></a>服务模块结构</h3><pre><code>...  
+├── src  
+│   └── services                # 数据服务模块  
+│       ├── user.js             # 用户数据服务  
+│       ├── product.js          # 产品服务  
+│       ...             
+│       ├── api.js              # api 地址管理  
+│       └── index.js            # 服务模块导出  
+...  
+│   └── utils                   # 数据服务模块  
+│       ├── request.js          # 基于 axios 的 http 请求工具  
+...  </code></pre><p>services 文件夹下， api.js 用于服务请求地址的统一管理，index.js 用于模块化导出服务，其它 *.js 文件对应各个服务模块。  </p>
+<h3 id="request-js"><a href="#request-js" class="headerlink" title="request.js"></a>request.js</h3><p>request.js基于 axios 封装了一些常用的函数，如下</p>
+<pre><code>export {   
+  METHOD,                 //http method 常量  
+  AUTH_TYPE,              //凭证认证类型 常量  
+  request,                //http请求函数  
+  setAuthorization,       //设置身份凭证函数  
+  removeAuthorization,    //移除身份凭证函数  
+  checkAuthorization      //检查身份凭证是否过期函数  
+}  </code></pre><h3 id="Base-url-配置"><a href="#Base-url-配置" class="headerlink" title="Base url 配置"></a>Base url 配置</h3><p>你可以在项目根目录下的环境变量文件(.env 和 .env.development)中配置你的 API 服务 base url 地址。<br>生产环境，.env 文件  </p>
+<pre><code>VUE_APP_API_BASE_URL=https://www.server.com</code></pre><p>开发环境，.env.development 文件：  </p>
+<pre><code>VUE_APP_API_BASE_URL=https://localhost:8000  </code></pre><h3 id="跨域设置"><a href="#跨域设置" class="headerlink" title="跨域设置"></a>跨域设置</h3><p>在开发环境中，通常我们的Vue应用和服务应用运行在不同的地址或端口上。我们可以通过简单的设置，代理前端请求，来避免跨域问题。如下：  </p>
+<p>首先，在 services/api.js 文件中设置 API_PROXY_PREFIX 常量，BASE_URL 像下面这样设置：  </p>
+<pre><code>//跨域代理前缀  
+const API_PROXY_PREFIX='/api'  
+//base url  
+const BASE_URL = process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_BASE_URL : API_PROXY_PREFIX  
+//导出api服务地址  
+module.exports = {  
+  LOGIN: `${BASE_URL}/login`,  
+  ROUTES: `${BASE_URL}/routes`  
+}  </code></pre><p>然后，在 vue.config.js 文件中配置代理：  </p>
+<pre><code>model.exports = {  
+  devServer: {  
+    proxy: {  
+      '/api': {               //此处要与 /services/api.js 中的 API_PROXY_PREFIX 值保持一致  
+        target: process.env.VUE_APP_API_BASE_URL,  
+        changeOrigin: true,  
+        pathRewrite: {  
+          '^/api': ''  
+        }  
+      }  
+    }  
+  }  
+}  </code></pre><h2 id="异步路由和菜单"><a href="#异步路由和菜单" class="headerlink" title="异步路由和菜单"></a>异步路由和菜单</h2><p>现实业务中，存在这样的场景，系统的路由和菜单会根据用户的角色变化而变化，或者路由菜单根据用户的权限动态生成。我们为此准备了一套完整的异步加载方案，可以让你很方便的从服务端加载路由和菜单配置，并应用到系统中。<br>异步加载路由分四步实现：  </p>
+<ul>
+<li></li>
+<li></li>
+<li></li>
+<li></li>
+</ul> 
+
+<h3 id="开启异步路由设置"><a href="#开启异步路由设置" class="headerlink" title="开启异步路由设置"></a>开启异步路由设置</h3><p>在 /config/config.js 文件中设置 asyncRoutes 的值为 true:  </p>
+<pre><code>module.exports = {  
+  theme: {  
+    color: '#13c2c2',  
+    mode: 'night'  
+  },  
+  multiPage: true,  
+  asyncRoutes: true,       //异步加载路由，true:开启，false:不开启  
+  animate: {  
+    name: 'roll',  
+    direction: 'default'  
+  }  
+}  </code></pre><h3 id="注册路由组件"><a href="#注册路由组件" class="headerlink" title="注册路由组件"></a>注册路由组件</h3><p>基础路由组件包含路由基本配置和对应的视图组件，我们统一在/router/async/router.map.js文件中注册它们。它和正常的路由配置基本无异，相当于把完整的路由拆分成单个的路由配置进行注册，为后面的路由动态配置打好基础。<br>一个单独的路由组件注册示例如下：  </p>
+<pre><code>registerName: {                               //路由组件注册名称，唯一标识  
+  path: 'path',                               //路由path，可缺省，默认取路由注册名称 registerName 的值  
+  name: '演示页',                             //路由名称  
+  redirect: '/login',                         //路由重定向  
+  component: () =&gt; import('@/pages/demo'),    //路由视图  
+  icon: 'permission',                         //路由的菜单icon，会注入到路由元数据meta中  
+  invisible: false,                           //是否隐藏菜单项，true 隐藏，false 不隐藏，会注入到路由元数据meta中。  
+  authority: {                                //路由权限配置，会注入到路由元数据meta中。可缺省，默认为 ‘*’, 即无权限限制  
+    permission: 'form',                       //路由需要的权限    
+    role: 'admin'                             //路由需要的角色。当permission未设置，通过 role 检查权限  
+  },                     
+  page: {                                     //路由的页面数据，会注入到路由元数据meta中  
+    title: '演示页',                          //页面标题  
+    breadcrumb: ['首页', '演示页']            //页面面包屑  
+  }             
+}  </code></pre><p>完整的路由注册示例：  </p>
+<pre><code>// 视图组件
+const view = {
+  tabs: () =&gt; import('@/layouts/tabs'),
+  blank: () =&gt; import('@/layouts/BlankView'),
+  page: () =&gt; import('@/layouts/PageView')
+}
+
+// 路由组件注册
+const routerMap = {
+  login: {
+    authority: '*',
+    path: '/login',
+    component: () =&gt; import('@/pages/login')
+  },
+  demo: {
+    name: '演示页',
+    renderMenu: false,
+    component: () =&gt; import('@/pages/demo')
+  },
+  exp403: {
+    authority: '*',
+    name: 'exp403',
+    path: '403',
+    component: () =&gt; import('@/pages/exception/403')
+  },
+  exp404: {
+    name: 'exp404',
+    path: '404',
+    component: () =&gt; import('@/pages/exception/404')
+  },
+  exp500: {
+    name: 'exp500',
+    path: '500',
+    component: () =&gt; import('@/pages/exception/500')
+  },
+  root: {
+    path: '/',
+    name: '首页',
+    redirect: '/login',
+    component: view.tabs
+  },
+  parent1: {
+    name: '父级路由1',
+    icon: 'dashboard',
+    component: view.blank
+  },
+  parent2: {
+    name: '父级路由2',
+    icon: 'form',
+    component: view.page
+  },
+  exception: {
+    name: '异常页',
+    icon: 'warning',
+    component: view.blank
+  }
+}
+export default routerMap</code></pre><h3 id="配置基本路由"><a href="#配置基本路由" class="headerlink" title="配置基本路由"></a>配置基本路由</h3><p>如果没有任何路由，你的应用是无法访问的，所以我们需要在本地配置一些基本的路由，比如登录页、404、403 等。你可以在 /router/async/config.async.js 文件中配置一些本地必要的路由。如下  </p>
+<pre><code>const routesConfig = [
+  'login',                      //匹配 router.map.js 中注册的 registerName = login 的路由
+  'root',                       //匹配 router.map.js 中注册的 registerName = root 的路由
+  {
+    router: 'exp404',           //匹配 router.map.js 中注册的 registerName = exp404 的路由
+    path: '*',                  //重写 exp404 路由的 path 属性
+    name: '404'                 //重写 exp404 路由的 name 属性
+  },
+  {
+    router: 'exp403',           //匹配 router.map.js 中注册的 registerName = exp403 的路由
+    path: '/403',               //重写 exp403 路由的 path 属性
+    name: '403'                 //重写 exp403 路由的 name 属性
+  }
+]</code></pre><p>完成配置后，即可通过 routesConfig 和已注册的 routerMap 生成 router.options.routes 配置，如下  </p>
+<pre><code>const options = {
+  routes: parseRoutes(routesConfig, routerMap)
+}</code></pre><p>完整的 config.async.js 代码  </p>
+<pre><code>import routerMap from './router.map'
+import {parseRoutes} from '@/utils/routerUtil'
+
+// 异步路由配置
+const routesConfig = [
+  'login',
+  'root',
+  {
+    router: 'exp404',
+    path: '*',
+    name: '404'
+  },
+  {
+    router: 'exp403',
+    path: '/403',
+    name: '403'
+  }
+]
+const options = {
+  routes: parseRoutes(routesConfig, routerMap)
+}
+export default options</code></pre><p>完成以上设置后，本地就已经有了包含 login、404、403 页面的路由，并且这些路由是可以直接访问的。  </p>
+<h3 id="异步获取路由配置"><a href="#异步获取路由配置" class="headerlink" title="异步获取路由配置"></a>异步获取路由配置</h3><p>当用户登录后（或者其它的前提条件），你可能想根据不同用户加载不同的路由和菜单。 那么我们就需要先从后端服务获取异步路由配置，后端返回的异步路由配置 routesConfig 是一个异步路由配置数组， 应当如下格式  </p>
+<pre><code>[{
+  router: 'root',                           //匹配 router.map.js 中注册名 registerName = root 的路由
+  children: [                               //root 路由的子路由配置
+    {
+      router: 'dashboard',                  //匹配 router.map.js 中注册名 registerName = dashboard 的路由
+      children: ['workplace', 'analysis'],  //dashboard 路由的子路由配置，依次匹配 registerName 为 workplace 和 analysis 的路由
+    },
+    {
+      router: 'form',                       //匹配 router.map.js 中注册名 registerName = form 的路由
+      children: [                           //form 路由的子路由配置
+        'basicForm',                        //匹配 router.map.js 中注册名 registerName = basicForm 的路由
+        'stepForm',                         //匹配 router.map.js 中注册名 registerName = stepForm 的路由
+        {
+          router: 'advanceForm',            //匹配 router.map.js 中注册名 registerName = advanceForm 的路由
+          path: 'advance'                   //重写 advanceForm 路由的 path 属性
+        }
+      ]   
+    },
+    {
+      router: 'basicForm',                  //匹配 router.map.js 中注册名 registerName = basicForm 的路由
+      name: '验权表单',                     //重写 basicForm 路由的 name 属性
+      icon: 'file-excel',                   //重写 basicForm 路由的 icon 属性
+      authority: 'form'                     //重写 basicForm 路由的 authority 属性
+    }
+  ]
+}]</code></pre><p>其中 router 属性 对应 router.map.js 中已注册的基础路由的注册名称 registerName，children 属性为路由的嵌套子路由配置。  </p>
+<p>有些情况下你可能想重写已注册路由的属性，你可以为 routesConfig 配置同名属性去覆盖它。如上面的验权表单路由覆盖了注册路由的 name、icon、authority 属性。  </p>
+<h3 id="加载路由并应用"><a href="#加载路由并应用" class="headerlink" title="加载路由并应用"></a>加载路由并应用</h3><p>我们提供了一个路由加载工具，你只需调用 /utils/routerUtil.js 中的 loadRoutes 方法加载上一步获取到的 routesConfig 即可，如下：  </p>
+<pre><code>getRoutesConfig().then(result =&gt; {
+  const routesConfig = result.data.data
+  loadRoutes(routesConfig)
+})</code></pre><p>至此，异步路由的加载就完成了，你可以访问异步加载的路由了。  </p>
+<h3 id="异步加载菜单"><a href="#异步加载菜单" class="headerlink" title="异步加载菜单"></a>异步加载菜单</h3><p>Vue Antd Admin 的菜单，是根据路由配置自动生成的，默认获取根路由 ‘/’ 下所有子路由作为菜单配置。  </p>
+<p>当你完成了异步路由的加载，菜单也会随之改变，无需你做其它额外的操作。主要代码如下：  </p>
+<pre><code>// 初始化Admin后台菜单数据
+  const rootRoute = router.options.routes.find(item =&gt; item.path === '/')
+  const menuRoutes = rootRoute &amp;&amp; rootRoute.children
+  if (menuRoutes) {
+    mergeI18nFromRoutes(i18n, menuRoutes)
+    store.commit('setting/setMenuData', menuRoutes)
+  }
+</code></pre><h2 id="权限管理"><a href="#权限管理" class="headerlink" title="权限管理"></a>权限管理</h2><p>权限控制是中后台系统中常见的需求之一，你可以利用 Vue Antd Admin 提供的权限控制脚手架，实现一些基本的权限控制功能。  </p>
+<p>通常情况下有两种方式可以控制用户权限，一种是通过用户角色 role 来控制权限，另一种是通过更细致的权限 permission 来控制。 这两种方式 Vue Antd Admin 都支持。  </p>
+<p>我们定义了 role 和 permission 的基本格式，如果你获取的 role 和 permission 数据格式与 Vue Antd Admin 不一致， 你需要在获取到 role 和 permission 后将其转换为 Vue Antd Admin 的格式。  </p>
+<h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h3><p>Vue Antd Admin 的 角色/role 包含 id 和 operation 两个属性。其中 id 为 角色/role 的 id，operation 为 角色/role 具有的操作权限，是一个字符串数组。  </p>
+<pre><code>role = {
+  id: 'admin',                                   //角色ID
+  operation: ['add', 'delete', 'edit', 'close']  //角色的操作权限
+}</code></pre><p>你也可以设置 role 的值为字符串，比如 role = ‘admin’, 它等同于：  </p>
+<pre><code>role = {
+  id: 'admin'
+}</code></pre><h3 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h3><p>Vue Antd Admin 的 权限/permission 也包含 id 和 operation 两个属性。其中 id 为 权限/permission 的 id，operation 为 权限/permission 下的操作权限，是一个字符串数组。  </p>
+<pre><code>permission = {
+  id: 'form',                                    //权限ID
+  operation: ['add', 'delete', 'edit', 'close']  //权限下的操作权限
+}</code></pre><p>你也可以设置 role 的值为字符串，比如 permission = ‘form’, 它等同于：  </p>
+<pre><code>permission = {
+  id: 'form'
+}</code></pre><h3 id="设置用户的角色和权限"><a href="#设置用户的角色和权限" class="headerlink" title="设置用户的角色和权限"></a>设置用户的角色和权限</h3><p>你只需为用户配置 roles 和 permissions 两者中的其中一种，即可完成权限管理功能。当然你也可以两者都配置。  </p>
+<p>获取到用户权限或角色后，将其格式化转为 Vue Antd Admin 可用的格式，然后使用 store.commit(‘account/setPermissions’, permissions) 或 store.commit(‘account/setRoles’, roles) 将其存在本地即可。如下：  </p>
+<pre><code>getPermissions().then(res =&gt; {
+  const permissions = res.data
+  this.$store.commit('account/setPermissions', permissions)
+})
+getRoles().then(res =&gt; {
+  const roles = res.data
+  this.$store.commit('account/setRoles', roles)
+})</code></pre><blockquote>
+<p>注意，存在本地的 permissions 和 roles 都应该是数组。<br>你可以在 /pages/login/Login.vue 查看完整的用户角色和权限设置代码。  </p>
+</blockquote>
+<h3 id="页面权限"><a href="#页面权限" class="headerlink" title="页面权限"></a>页面权限</h3><p>如果你想给一些页面设置准入权限，只需要给该页面对应的路由设置元数据 authority 即可。 authority 的值可以是一个字符串，也可以是对象。  </p>
+<p>如下路由配置，则表明 验权页面 需要准入权限(permission): form  </p>
+<pre><code>const route = {  
+  name: '验权页面',  
+  path: 'auth/demo',  
+  meta: {  
+    authority: 'form',  
+  },  
+  component: () =&gt; import('@/pages/demo')  
+}  </code></pre><p>下面是 authority 的值为对象的写法，这种写法和上面字符串的写法具有相同的效果：  </p>
+<pre><code>const route = {
+  name: '验权页面',
+  path: 'auth/demo',
+  meta: {
+    authority: {
+      permission: 'form'
+    }
+  },
+  component: () =&gt; import('@/pages/demo')
+}</code></pre><p>有时你可能需要通过用户角色来配置页面权限，我们同样支持，用法和上面类似。  </p>
+<p>如下配置，表明 验权页面 需要准入角色(role) admin：  </p>
+<pre><code>const route = {
+  name: '验权页面',
+  path: 'auth/demo',
+  meta: {
+    authority: {
+      role: 'admin'
+    }
+  },
+  component: () =&gt; import('@/pages/demo')
+}</code></pre><p>当你未设置 authority 或 设置 authority 的值 为 * 时，等同于该页面无需权限限制，我们会忽略此页面的权限检查。  </p>
+<p>当 authority 的值为字符串时，会以 权限/permission 验证权限。如果你需要以 角色/role 验证权限，请以对象形式设置 authority 的值。  </p>
+<h3 id="操作权限"><a href="#操作权限" class="headerlink" title="操作权限"></a>操作权限</h3><p>在一些复杂的些场景下，权限可能不仅仅是页面层级这么简单。在一些页面你可能需要校验用户是否具有某些操作的权限，比如 增、删、改、查等。  </p>
+<p>为此，我们提供了 权限校验注入 和 权限校验指令 两个实用的功能。  </p>
+<h4 id="权限校验注入"><a href="#权限校验注入" class="headerlink" title="权限校验注入"></a>权限校验注入</h4><p>通过对Vue组件的实例方法进行 权限校验注入，我们可以控制该实例方法的执行权限，从而精准且安全的验证用户操作。  </p>
+<p>比如，QueryList 页面的 deleteRecord 方法，我们希望具有操作权限 delete 的用户才能调用此方法。 只需为 deleteRecord 方法注入权限校验，按如下方式配置 authorize 即可：  </p>
+<pre><code>&lt;template&gt;
+  ...
+&lt;/template&gt;
+&lt;script&gt;
+...
+export default {
+  name: 'QueryList',
+  data () {...},
+  authorize: {              //权限校验注入设置
+    deleteRecord: 'delete'  //key为需要注入权限校验的方法名，这里为 deleteRecord 方法；值为需要校验的操作权限，这里为 delete 操作权限
+  },
+  methods: {
+    deleteRecord(key) {
+      this.dataSource = this.dataSource.filter(item =&gt; item.key !== key)
+      this.selectedRows = this.selectedRows.filter(item =&gt; item.key !== key)
+    },
+    ...
+  }
+}
+&lt;/script&gt;</code></pre><h4 id="操作权限校验的类型"><a href="#操作权限校验的类型" class="headerlink" title="操作权限校验的类型"></a>操作权限校验的类型</h4><p>authorize 会根据当前页面匹配到的权限类型(permission / role)，来判断是使用 permission.operation 还是 role.operation 来进行权限校验。 如果当前页面同时匹配到了 permission 和 role 权限，则默认通过 permission.operation 来进行操作权限校验。  </p>
+<p>当然你也可以指定操作权限校验的类型，如下设置即可：  </p>
+<pre><code>authorize: {             
+  deleteRecord: {        //需要 注入权限校验 的方法名：deleteRecord
+    check: 'delete',     //需要校验的操作权限：check
+    type: 'role'         //指定操作权限校验的类型，可选 permission 和 role。这里指定以 role.operation 校验操作权限
+  }
+}</code></pre><h4 id="权限校验指令"><a href="#权限校验指令" class="headerlink" title="权限校验指令"></a>权限校验指令</h4><p>有时我们可能希望用户能够更直观的了解自己的操作权限。比如给没有操作权限的控件应用 disable 样式，禁用 click 事件等。 我们提供了权限校验指令 v-auth 来实现这个功能。  </p>
+<p>比如，我们想为 QueryList 页面的删除控件进行 delete 操作权限校验，只需为删除控件设置 v-auth=”<code>delete</code>“ 指令即可，如下：  </p>
+<pre><code>&lt;template&gt;
+  &lt;a-card&gt;...
+    &lt;standard-table ...&gt;
+      ...
+      &lt;div slot="action" slot-scope="{text, record}"&gt;
+        &lt;a @click="deleteRecord(record.key)" v-auth="`delete`"&gt;
+          &lt;a-icon type="delete" /&gt;删除
+        &lt;/a&gt;
+      &lt;/div&gt;
+      ...
+    &lt;/standard-table&gt;
+  &lt;/a-card&gt;
+&lt;/template&gt;</code></pre><p>假如用户没有 delete 操作权限，则控件会被应用 disable 样式，且 click 事件无效。   </p>
+<blockquote>
+<p>v-auth 是我们自定义的一个 Vue指令。因为 Vue指令 的值需要是一个 javascript 表达式，因此你不能直接给 v-auth 赋值为字符串， 需要把 v-auth 的字符串值用 `` 包裹起来，否则可能会报 undefined 错误。  </p>
+</blockquote>
+<h4 id="权限校验指令的类型"><a href="#权限校验指令的类型" class="headerlink" title="权限校验指令的类型"></a>权限校验指令的类型</h4><p>你同样也可以指定 v-auth 的权限校验类型，可选 permission 和 role。它的校验方式和 authorize 类似，如未指定则会自动识别。 v-auth:role 表示通过 role.operation 进行校验，v-auth:permission 表示通过 permission.operation 进行校验。</p>
+<p>如下，指定通过 role.operation 校验删除控件的操作权限：  </p>
+<pre><code>&lt;div slot="action" slot-scope="{text, record}"&gt;
+  ...
+  &lt;a v-auth:role="`delete`"&gt;
+    &lt;a-icon type="delete" /&gt;删除
+  &lt;/a&gt;
+  ...
+&lt;/div&gt;</code></pre><h4 id="异步路由权限"><a href="#异步路由权限" class="headerlink" title="异步路由权限"></a>异步路由权限</h4><p>异步路由同样可以进行权限校验配置，它和正常的路由权限配置基本无异，只是无需把 authority 配置在元数据属性 meta 里。 你可以在路由组件注册时设置 authority，也可以在异步路由配置里设置 authority。  </p>
+<p>路由组件注册时设置 authority：  </p>
+<pre><code>// 路由组件注册
+const routerMap = {
+  ...
+  demo: {
+    name: '演示页',
+    authority: 'form',
+    component: () =&gt; import('@/pages/demo')
+  }
+  ...
+}</code></pre><p>异步路由配置里设置 authority：</p>
+<pre><code>const routesConfig = [{
+    router: 'root',
+    children: ['demo',
+      {router: 'parent1'...},
+      ...
+      {
+        router: 'demo',
+        icon: 'file-ppt',
+        path: 'auth/demo',
+        name: '验权页面',
+        authority: {
+          permission: 'form',
+        }
+      }
+    ]
+  }]
+</code></pre><h2 id="登录认证"><a href="#登录认证" class="headerlink" title="登录认证"></a>登录认证</h2><p>Vue Antd Admin 使用 js-cookie.js 管理用户的 token，结合 axios 配置，可以为每个请求头加上 token 信息。  </p>
+<h3 id="token名称"><a href="#token名称" class="headerlink" title="token名称"></a>token名称</h3><p>后端系统通常会从请求 header 中获取用户的 token，因此我们需要配置好 token 名称，好让后端能正确的识别到用户 token。 Vue Antd Admin 默认token 名称为 Authorization，你可以在 /utils/request.js 中修改它。  </p>
+<pre><code>import axios from 'axios'
+import Cookie from 'js-cookie'
+
+// 跨域认证信息 header 名
+const xsrfHeaderName = 'Authorization'
+...</code></pre><h3 id="token设置"><a href="#token设置" class="headerlink" title="token设置"></a>token设置</h3><p>调用登录接口后拿到用户的 token 和 token 过期时间（如无过期时间，可忽略），并使用 /utils/request.js #setAuthorization 方法保存token。  </p>
+<pre><code>import {setAuthorization} from '@/utils/request'
+
+login(name, password).then(res =&gt; {
+  const {token, expireAt} = res.data
+  setAuthorization({token, expireAt: new Date(expireAt)})
+})</code></pre><h3 id="token校验"><a href="#token校验" class="headerlink" title="token校验"></a>token校验</h3><p>Vue Antd Admin 默认添加了登录导航守卫，如检查到本地cookie 中不包含 token 信息，则会拦截跳转至登录页。你可以在 /router/index.js 中配置 不需要登录拦截的路由  </p>
+<pre><code>// 不需要登录拦截的路由配置
+const loginIgnore = {
+  names: ['404', '403'],      //根据路由名称匹配
+  paths: ['/login'],   //根据路由fullPath匹配
+  /**
+   * 判断路由是否包含在该配置中
+   * @param route vue-router 的 route 对象
+   * @returns {boolean}
+   */
+  includes(route) {
+    return this.names.includes(route.name) || this.paths.includes(route.path)
+  }
+}  </code></pre><p>或者在 /router/guards.js 中移出登录守卫  </p>
+<pre><code>...
+export default {
+-  beforeEach: [loginGuard, authorityGuard, redirectGuard],
++  beforeEach: [authorityGuard, redirectGuard],
+  afterEach: []
+}</code></pre><h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><pre><code>setAuthorization(auth, authType)
+来源：/utils/request.js
+该方法用于保存用户 token，接收两个参数:
+
+形参auth
+认证信息，包含 token、expireAt 等认证数据。
+形参authType
+认证类型，默认为 AUTH_TYPE.BEARER（AUTH_TYPE.BEARER 默认会给token 加上 Bearer 识别前缀），可根据自己的认证类型自行扩展。
+
+
+checkAuthorization(authType)
+该方法用于校验用户 token 是否过期，接收一个参数:
+
+形参authType
+认证类型，默认为 AUTH_TYPE.BEARER。
+
+
+removeAuthorization(authType)
+该方法用于移出用户本地存储的 token，接收一个参数:
+
+形参authType
+认证类型，默认为 AUTH_TYPE.BEARER。
+
+</code></pre><h2 id="路由守卫"><a href="#路由守卫" class="headerlink" title="路由守卫"></a>路由守卫</h2><h2 id="拦截器配置"><a href="#拦截器配置" class="headerlink" title="拦截器配置"></a>拦截器配置</h2><h2 id="全局API"><a href="#全局API" class="headerlink" title="全局API"></a>全局API</h2><h3 id="多页签"><a href="#多页签" class="headerlink" title="多页签"></a>多页签</h3><h3 id="权限-1"><a href="#权限-1" class="headerlink" title="权限"></a>权限</h3><p><a href="https://pan.baidu.com/s/1yvERv9qowh0obOcq9V8TSA" target="_blank">安装好依赖的开发包</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2020/12/01/diary-20201201-1/" class="b-link-green">Ant Design Pro的Vue实现版本</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2020/12/02/diary-20201202-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/26.jpg" class="responsive-img" alt="Electron将网页打包">
+                        
+                        <span class="card-title">Electron将网页打包</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            简介Electron 是一个基于 Chrominum 和 Node.js 的跨平台桌面应用框架。Electron使您可以通过为运行时提供丰富的本地（操作系统）API来使用纯JavaScript创建桌面应用程序。您可以将其看作是专注于桌面应用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-12-02
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Electron/" target="_blank">
+                        <span class="chip bg-color">Electron</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2020/11/27/diary-20201127-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/7.jpg" class="responsive-img" alt="Git使用规范流程(Unity3d)">
+                        
+                        <span class="card-title">Git使用规范流程(Unity3d)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            团队开发中，遵循一个合理、清晰的Git使用流程，是非常重要的。否则，每个人都提交一堆杂乱无章的commit，项目很快就会变得难以协调和维护。  
+Unity3d工程的.gitignore.gitignore文件在git项目管理的根目录下，.
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-11-27
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/unity3d/" target="_blank">
+                        <span class="chip bg-color">unity3d</span>
+                    </a>
+                    
+                    <a href="/diary/tags/git/" target="_blank">
+                        <span class="chip bg-color">git</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

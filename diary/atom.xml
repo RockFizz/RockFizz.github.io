@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>车舟慢</title>
+  
+  <subtitle>车舟慢</subtitle>
+  <link href="/diary/atom.xml" rel="self"/>
+  
+  <link href="http://127.0.0.1/diary/"/>
+  <updated>2024-04-22T16:34:33.652Z</updated>
+  <id>http://127.0.0.1/diary/</id>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>fpga了解</title>
+    <link href="http://127.0.0.1/diary/2024/04/22/diary-20240422-1/"/>
+    <id>http://127.0.0.1/diary/2024/04/22/diary-20240422-1/</id>
+    <published>2024-04-22T14:59:52.000Z</published>
+    <updated>2024-04-22T16:34:33.652Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Vivado是什么&quot;&gt;&lt;a href=&quot;#Vivado是什么&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="FPGA" scheme="http://127.0.0.1/diary/tags/FPGA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>c++平时实践</title>
+    <link href="http://127.0.0.1/diary/2024/03/21/diary-20240321-1/"/>
+    <id>http://127.0.0.1/diary/2024/03/21/diary-20240321-1/</id>
+    <published>2024-03-21T14:59:52.000Z</published>
+    <updated>2024-04-22T16:42:46.427Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;传递指针变量并避免其指向地址和值发生变化&quot;&gt;&lt;a href=&quot;#传递指针变量并避免其指向地址和值发生变化&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="c++" scheme="http://127.0.0.1/diary/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UbuntuARM64</title>
+    <link href="http://127.0.0.1/diary/2024/02/25/diary-20240225-1/"/>
+    <id>http://127.0.0.1/diary/2024/02/25/diary-20240225-1/</id>
+    <published>2024-02-25T14:59:52.000Z</published>
+    <updated>2024-04-22T16:39:11.525Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;DockerDesktop里的UbuntuARM64&quot;&gt;&lt;a href=&quot;#DockerDesktop里的UbuntuARM64&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="qemu" scheme="http://127.0.0.1/diary/tags/qemu/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Blender基本操作</title>
+    <link href="http://127.0.0.1/diary/2024/01/31/diary-20240131-1/"/>
+    <id>http://127.0.0.1/diary/2024/01/31/diary-20240131-1/</id>
+    <published>2024-01-31T14:59:52.000Z</published>
+    <updated>2024-03-03T04:02:06.229Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Blender基本操作&quot;&gt;&lt;a href=&quot;#Blender基本操作&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Qt绘制波形图及VM麒麟系统c++实践</title>
+    <link href="http://127.0.0.1/diary/2024/01/23/diary-20240123-1/"/>
+    <id>http://127.0.0.1/diary/2024/01/23/diary-20240123-1/</id>
+    <published>2024-01-23T14:59:52.000Z</published>
+    <updated>2024-05-16T17:17:33.614Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;QCustomPlot绘制波形图&quot;&gt;&lt;a href=&quot;#QCustomPlot绘制波形图&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Qt" scheme="http://127.0.0.1/diary/tags/Qt/"/>
+    
+      <category term="麒麟系统" scheme="http://127.0.0.1/diary/tags/%E9%BA%92%E9%BA%9F%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="hexo" scheme="http://127.0.0.1/diary/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MFC实践</title>
+    <link href="http://127.0.0.1/diary/2024/01/19/diary-20240119-1/"/>
+    <id>http://127.0.0.1/diary/2024/01/19/diary-20240119-1/</id>
+    <published>2024-01-19T14:59:52.000Z</published>
+    <updated>2024-03-03T09:54:57.643Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;MFC-MicrosoftFoundationClasses&quot;&gt;&lt;a href=&quot;#MFC-MicrosoftFoundationClasses&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="MFC" scheme="http://127.0.0.1/diary/tags/MFC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>cesres-solver_Eigen_glog_gflags</title>
+    <link href="http://127.0.0.1/diary/2024/01/18/diary-20240118-1/"/>
+    <id>http://127.0.0.1/diary/2024/01/18/diary-20240118-1/</id>
+    <published>2024-01-18T14:59:52.000Z</published>
+    <updated>2024-01-20T17:25:30.931Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;WPS趋势线-多项式-操作&quot;&gt;&lt;a href=&quot;#WPS趋势线-多项式-操作&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Eigen" scheme="http://127.0.0.1/diary/tags/Eigen/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Qt结合OSG开发</title>
+    <link href="http://127.0.0.1/diary/2024/01/11/diary-20240111-2/"/>
+    <id>http://127.0.0.1/diary/2024/01/11/diary-20240111-2/</id>
+    <published>2024-01-11T14:59:52.000Z</published>
+    <updated>2024-01-11T15:00:44.977Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;使用OpenSceneGraph编译程序&quot;&gt;&lt;a href=&quot;#使用OpenSceneGraph编译程序&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="osg" scheme="http://127.0.0.1/diary/tags/osg/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Qt结合VTK开发</title>
+    <link href="http://127.0.0.1/diary/2024/01/11/diary-20240111-1/"/>
+    <id>http://127.0.0.1/diary/2024/01/11/diary-20240111-1/</id>
+    <published>2024-01-11T14:49:52.000Z</published>
+    <updated>2024-01-17T16:43:17.090Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;VTK8-2-0编译&quot;&gt;&lt;a href=&quot;#VTK8-2-0编译&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="vtk" scheme="http://127.0.0.1/diary/tags/vtk/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>文字快闪视频的制作</title>
+    <link href="http://127.0.0.1/diary/2023/12/19/diary-20231219-1/"/>
+    <id>http://127.0.0.1/diary/2023/12/19/diary-20231219-1/</id>
+    <published>2023-12-19T01:13:32.000Z</published>
+    <updated>2024-01-09T15:56:56.854Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;万兴唯影制作文字快闪视频&quot;&gt;&lt;a href=&quot;#万兴唯影制作文字快闪视频&quot; class=&quot;headerlink&quot; title=&quot;万兴唯影制作文字快闪视频&quot;&gt;&lt;/a&gt;万兴唯影制作文字快闪视频&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;新建画布，选择合适的画布比例。 
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>VSCode的Python开发</title>
+    <link href="http://127.0.0.1/diary/2023/11/29/diary-20231129-1/"/>
+    <id>http://127.0.0.1/diary/2023/11/29/diary-20231129-1/</id>
+    <published>2023-11-29T01:13:32.000Z</published>
+    <updated>2023-12-18T17:28:28.668Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;vscode开发python&quot;&gt;&lt;a href=&quot;#vscode开发python&quot; class=&quot;headerlink&quot; title=&quot;vscode开发python&quot;&gt;&lt;/a&gt;vscode开发python&lt;/h2&gt;&lt;pre class=&quot;line-numbers
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://127.0.0.1/diary/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>VS的C/C++开发和MFC</title>
+    <link href="http://127.0.0.1/diary/2023/11/17/diary-20231117-1/"/>
+    <id>http://127.0.0.1/diary/2023/11/17/diary-20231117-1/</id>
+    <published>2023-11-17T01:13:32.000Z</published>
+    <updated>2024-04-22T16:04:43.950Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;VisualStudio操作&quot;&gt;&lt;a href=&quot;#VisualStudio操作&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="MFC" scheme="http://127.0.0.1/diary/tags/MFC/"/>
+    
+      <category term="libcurl" scheme="http://127.0.0.1/diary/tags/libcurl/"/>
+    
+      <category term="共享文件夹" scheme="http://127.0.0.1/diary/tags/%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AndroidStudio默认路径和离线编译</title>
+    <link href="http://127.0.0.1/diary/2023/10/30/diary-20231030-1/"/>
+    <id>http://127.0.0.1/diary/2023/10/30/diary-20231030-1/</id>
+    <published>2023-10-30T01:13:32.000Z</published>
+    <updated>2023-11-20T16:08:08.807Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Androidstuio修改默认gradle路径&quot;&gt;&lt;a href=&quot;#Androidstuio修改默认gradle路径&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Cesium重验证、GeoServer、高德地图安卓开发、Markdown</title>
+    <link href="http://127.0.0.1/diary/2023/10/07/diary-20231007-1/"/>
+    <id>http://127.0.0.1/diary/2023/10/07/diary-20231007-1/</id>
+    <published>2023-10-07T01:13:32.000Z</published>
+    <updated>2023-11-20T17:00:24.832Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Cesium重验证&quot;&gt;&lt;a href=&quot;#Cesium重验证&quot; class=&quot;headerlink&quot; title=&quot;Cesium重验证&quot;&gt;&lt;/a&gt;Cesium重验证&lt;/h2&gt;&lt;p&gt;Cesium是纯前端的代码，官方给出的源代码中，配套了nodejs的server端
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Cesium" scheme="http://127.0.0.1/diary/tags/Cesium/"/>
+    
+      <category term="GeoServer" scheme="http://127.0.0.1/diary/tags/GeoServer/"/>
+    
+      <category term="Markdown" scheme="http://127.0.0.1/diary/tags/Markdown/"/>
+    
+      <category term="AMap" scheme="http://127.0.0.1/diary/tags/AMap/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android本地调用、混淆反编译和GeoServer发布服务</title>
+    <link href="http://127.0.0.1/diary/2023/09/27/diary-20230927-1/"/>
+    <id>http://127.0.0.1/diary/2023/09/27/diary-20230927-1/</id>
+    <published>2023-09-27T01:13:32.000Z</published>
+    <updated>2023-12-18T15:49:07.525Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;GeoServer的MBTiles插件和跨域&quot;&gt;&lt;a href=&quot;#GeoServer的MBTiles插件和跨域&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="NDK" scheme="http://127.0.0.1/diary/tags/NDK/"/>
+    
+      <category term="GeoServer" scheme="http://127.0.0.1/diary/tags/GeoServer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android确认框、共享公共变量、异步操作和一些androidstudio的Tips</title>
+    <link href="http://127.0.0.1/diary/2023/09/26/diary-20230926-1/"/>
+    <id>http://127.0.0.1/diary/2023/09/26/diary-20230926-1/</id>
+    <published>2023-09-26T01:13:32.000Z</published>
+    <updated>2023-11-12T16:23:18.888Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Android全局静态类提供公共变量&quot;&gt;&lt;a href=&quot;#Android全局静态类提供公共变量&quot; class=&quot;headerlink&quot; title=&quot;Android全局静态类提供公共变量&quot;&gt;&lt;/a&gt;Android全局静态类提供公共变量&lt;/h2&gt;&lt;pre
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Node中的Buffer和TcpUdp、文件传输</title>
+    <link href="http://127.0.0.1/diary/2023/09/21/diary-20230921-1/"/>
+    <id>http://127.0.0.1/diary/2023/09/21/diary-20230921-1/</id>
+    <published>2023-09-21T01:13:32.000Z</published>
+    <updated>2023-10-04T06:01:10.341Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Node的Buffer转数字&quot;&gt;&lt;a href=&quot;#Node的Buffer转数字&quot; class=&quot;headerlink&quot; title=&quot;Node的Buffer转数字&quot;&gt;&lt;/a&gt;Node的Buffer转数字&lt;/h2&gt;&lt;pre class=&quot;line-numbers
+        
+      
+    
+    </summary>
+    
+    
+      <category term="NodeRPC" scheme="http://127.0.0.1/diary/tags/NodeRPC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NodeRPC、MongoDB和Express</title>
+    <link href="http://127.0.0.1/diary/2023/09/19/diary-20230919-1/"/>
+    <id>http://127.0.0.1/diary/2023/09/19/diary-20230919-1/</id>
+    <published>2023-09-19T01:13:32.000Z</published>
+    <updated>2023-10-15T17:28:25.722Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Express作为API服务的cors跨域访问&quot;&gt;&lt;a href=&quot;#Express作为API服务的cors跨域访问&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="MongoDB" scheme="http://127.0.0.1/diary/tags/MongoDB/"/>
+    
+      <category term="Express" scheme="http://127.0.0.1/diary/tags/Express/"/>
+    
+      <category term="NodeRPC" scheme="http://127.0.0.1/diary/tags/NodeRPC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RxJava2熟悉及OkHttp2</title>
+    <link href="http://127.0.0.1/diary/2023/09/18/diary-20230918-1/"/>
+    <id>http://127.0.0.1/diary/2023/09/18/diary-20230918-1/</id>
+    <published>2023-09-18T01:13:32.000Z</published>
+    <updated>2023-09-20T16:33:46.563Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;RXJava2概念和实例&quot;&gt;&lt;a href=&quot;#RXJava2概念和实例&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="RxJava" scheme="http://127.0.0.1/diary/tags/RxJava/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>qt工程化和安卓自定义输出文件</title>
+    <link href="http://127.0.0.1/diary/2023/09/13/diary-20230913-1/"/>
+    <id>http://127.0.0.1/diary/2023/09/13/diary-20230913-1/</id>
+    <published>2023-09-13T01:13:32.000Z</published>
+    <updated>2023-09-15T20:11:28.818Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;Qt创建带子项目的工程&quot;&gt;&lt;a href=&quot;#Qt创建带子项目的工程&quot; class=&quot;headerlink&quot; title=&quot;Qt创建带子项目的工程&quot;&gt;&lt;/a&gt;Qt创建带子项目的工程&lt;/h2&gt;&lt;p&gt;创建带子项目的总工程  &lt;/p&gt;
+&lt;pre
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Qt" scheme="http://127.0.0.1/diary/tags/Qt/"/>
+    
+  </entry>
+  
+</feed>

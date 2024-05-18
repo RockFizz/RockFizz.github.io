@@ -1,0 +1,2120 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="MapboxGL服务, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="MapboxGL点聚合示例&amp;lt;template&gt;
+  &amp;lt;div class=&#34;superserver&#34;&gt;
+   &amp;lt;div id=&#39;map&#39;&gt;&amp;lt;/div&gt;
+  &amp;lt;/div&gt;
+&amp;lt;/template&gt;
+
+&amp;lt;">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>MapboxGL服务 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/8.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        MapboxGL服务
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/MapboxGL/" target="_blank">
+                                <span class="chip bg-color">MapboxGL</span>
+                            </a>
+                        
+                            <a href="/diary/tags/json/" target="_blank">
+                                <span class="chip bg-color">json</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-05-11
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        7.1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        30 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="MapboxGL点聚合示例"><a href="#MapboxGL点聚合示例" class="headerlink" title="MapboxGL点聚合示例"></a>MapboxGL点聚合示例</h2><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>superserver<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">'</span>map<span class="token punctuation">'</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script language-javascript">
+
+<span class="token keyword">import</span> Mapboxgl <span class="token keyword">from</span> <span class="token string">'mapbox-gl'</span>
+<span class="token keyword">import</span> <span class="token string">'mapbox-gl/dist/mapbox-gl.css'</span>
+
+<span class="token comment" spellcheck="true">// const testData = require('./earthquakes.json')</span>
+<span class="token keyword">const</span> testData <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./suiningGeoPoint.json'</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'superserver'</span><span class="token punctuation">,</span>
+  data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      msg<span class="token punctuation">:</span> <span class="token string">'Welcome to superserver'</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mounted <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">initMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token function">updateMarkers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">var</span> features <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">queryRenderedFeatures</span><span class="token punctuation">(</span><span class="token punctuation">{</span>layers<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token string">'clusters'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'聚合点：'</span><span class="token operator">+</span>features<span class="token punctuation">.</span>length<span class="token punctuation">,</span>features<span class="token punctuation">)</span>
+      <span class="token keyword">var</span> features2 <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">queryRenderedFeatures</span><span class="token punctuation">(</span><span class="token punctuation">{</span>layers<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token string">'unclustered-point'</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'非聚合点'</span><span class="token operator">+</span>features2<span class="token punctuation">.</span>length<span class="token punctuation">,</span>features2<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    initMap <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> that <span class="token operator">=</span> <span class="token keyword">this</span>
+      Mapboxgl<span class="token punctuation">.</span>accessToken <span class="token operator">=</span> <span class="token string">'pk.eyJ1IjoiZml6ejExIiwiYSI6ImNrc244am0xczB5N2kycW1tMTQxenptcmMifQ.jCWWOQsBLvRssVVwTgUZsA'</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Mapboxgl<span class="token punctuation">.</span>Map</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        container<span class="token punctuation">:</span> <span class="token string">'map'</span><span class="token punctuation">,</span>
+        style<span class="token punctuation">:</span> <span class="token string">'mapbox://styles/mapbox/streets-v9'</span><span class="token punctuation">,</span>
+        center<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">105.571331</span><span class="token punctuation">,</span> <span class="token number">30.513311</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        zoom<span class="token punctuation">:</span> <span class="token number">11</span>
+        <span class="token comment" spellcheck="true">// pitch: 70,</span>
+        <span class="token comment" spellcheck="true">// bearing: -10,</span>
+        <span class="token comment" spellcheck="true">// antialias: true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+      <span class="token keyword">this</span><span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'load'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 添加数据源</span>
+        <span class="token comment" spellcheck="true">// 从GeoJSON数据添加一个新的源并设置“cluster”选项为true。</span>
+        <span class="token comment" spellcheck="true">// mapboxgl将把point_count属性添加到源数据中</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">addSource</span><span class="token punctuation">(</span><span class="token string">'earthquakes'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+          type<span class="token punctuation">:</span> <span class="token string">'geojson'</span><span class="token punctuation">,</span>
+          data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            <span class="token string">'type'</span><span class="token punctuation">:</span> <span class="token string">'FeatureCollection'</span><span class="token punctuation">,</span>
+            <span class="token string">'features'</span><span class="token punctuation">:</span> testData<span class="token punctuation">.</span>PointData
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          cluster<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+          <span class="token comment" spellcheck="true">// 聚合范围的大小（指点像素单位距离内的点会聚合到一个点显示）</span>
+          clusterRadius<span class="token punctuation">:</span> <span class="token number">100</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">// 添加圆形聚合图层</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">addLayer</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          id<span class="token punctuation">:</span> <span class="token string">'clusters'</span><span class="token punctuation">,</span>
+          type<span class="token punctuation">:</span> <span class="token string">'circle'</span><span class="token punctuation">,</span>
+          source<span class="token punctuation">:</span> <span class="token string">'earthquakes'</span><span class="token punctuation">,</span>
+          filter<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'has'</span><span class="token punctuation">,</span> <span class="token string">'point_count'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          paint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// 蓝色，当点数小于100时为20px圆</span>
+            <span class="token comment" spellcheck="true">//     点计数在100到750之间时为黄色，21px圆</span>
+            <span class="token comment" spellcheck="true">//     点计数大于或等于750时为22像素的粉红色圆圈</span>
+            <span class="token string">'circle-color'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+              <span class="token string">'step'</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token string">'get'</span><span class="token punctuation">,</span> <span class="token string">'point_count'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token string">'rgba(81, 187, 214, 0.8)'</span><span class="token punctuation">,</span>
+              <span class="token number">100</span><span class="token punctuation">,</span>
+              <span class="token string">'rgba(81, 187, 214, 0.8)'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 'rgba(241, 240, 117, 0.8)',</span>
+              <span class="token number">750</span><span class="token punctuation">,</span>
+              <span class="token string">'rgba(81, 187, 214, 0.8)'</span> <span class="token comment" spellcheck="true">// 'rgba(242, 140, 177, 0.8)'</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">'circle-radius'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+              <span class="token string">'step'</span><span class="token punctuation">,</span>
+              <span class="token punctuation">[</span><span class="token string">'get'</span><span class="token punctuation">,</span> <span class="token string">'point_count'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token number">20</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 蓝色，当点数小于100时为20px圆</span>
+              <span class="token number">100</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 对应上面circle-color 数字，意思为100以内</span>
+              <span class="token number">21</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 点计数在100到750之间时为黄色，21px圆</span>
+              <span class="token number">750</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 对应上面circle-color 数字，意思为750以内</span>
+              <span class="token number">22</span> <span class="token comment" spellcheck="true">// 点计数大于或等于750时为22像素的粉红色圆圈</span>
+            <span class="token punctuation">]</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true">// 添加数字图层</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">addLayer</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          id<span class="token punctuation">:</span> <span class="token string">'cluster-count'</span><span class="token punctuation">,</span>
+          type<span class="token punctuation">:</span> <span class="token string">'symbol'</span><span class="token punctuation">,</span>
+          source<span class="token punctuation">:</span> <span class="token string">'earthquakes'</span><span class="token punctuation">,</span>
+          filter<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'has'</span><span class="token punctuation">,</span> <span class="token string">'point_count'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          layout<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            <span class="token string">'text-field'</span><span class="token punctuation">:</span> <span class="token string">'{point_count_abbreviated}'</span><span class="token punctuation">,</span>
+            <span class="token string">'text-font'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'DIN Offc Pro Medium'</span><span class="token punctuation">,</span> <span class="token string">'Arial Unicode MS Bold'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token string">'text-size'</span><span class="token punctuation">:</span> <span class="token number">12</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          <span class="token comment" spellcheck="true">// 添加这个就可以改变圆圈内字样式，这里我改变了他的颜色</span>
+          paint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            <span class="token string">'text-color'</span><span class="token punctuation">:</span> <span class="token string">'#fff'</span><span class="token punctuation">,</span>
+            <span class="token string">'text-opacity'</span><span class="token punctuation">:</span> <span class="token number">1</span> <span class="token comment" spellcheck="true">// 1</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true">// 添加未聚合图层  聚合图中没有数字的显示小圆点</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">addLayer</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          id<span class="token punctuation">:</span> <span class="token string">'unclustered-point'</span><span class="token punctuation">,</span>
+          type<span class="token punctuation">:</span> <span class="token string">'circle'</span><span class="token punctuation">,</span>
+          source<span class="token punctuation">:</span> <span class="token string">'earthquakes'</span><span class="token punctuation">,</span>
+          filter<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'!'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'has'</span><span class="token punctuation">,</span> <span class="token string">'point_count'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          paint<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+            <span class="token string">'circle-color'</span><span class="token punctuation">:</span> <span class="token string">'rgba(81, 187, 214, 0.8)'</span><span class="token punctuation">,</span>
+            <span class="token string">'circle-radius'</span><span class="token punctuation">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+            <span class="token string">'circle-stroke-width'</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token string">'circle-stroke-color'</span><span class="token punctuation">:</span> <span class="token string">'rgba(255, 255, 255, 0.8)'</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true">// inspect a cluster on click  点击聚合图层地图级别中心点变化</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token string">'clusters'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">var</span> features <span class="token operator">=</span> that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">queryRenderedFeatures</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>point<span class="token punctuation">,</span> <span class="token punctuation">{</span> layers<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'clusters'</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token keyword">var</span> clusterId <span class="token operator">=</span> features<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>properties<span class="token punctuation">.</span>cluster_id
+          that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">getSource</span><span class="token punctuation">(</span><span class="token string">'earthquakes'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getClusterExpansionZoom</span><span class="token punctuation">(</span>clusterId<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>err<span class="token punctuation">,</span> zoom<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token punctuation">}</span>
+
+            that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">easeTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+              center<span class="token punctuation">:</span> features<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates<span class="token punctuation">,</span>
+              zoom<span class="token punctuation">:</span> zoom
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        <span class="token comment" spellcheck="true">// 聚合图层鼠标移入样式</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'mouseenter'</span><span class="token punctuation">,</span> <span class="token string">'clusters'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">getCanvas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>cursor <span class="token operator">=</span> <span class="token string">'pointer'</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">// 聚合图层鼠标移出鼠标样式</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'mouseleave'</span><span class="token punctuation">,</span> <span class="token string">'clusters'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">getCanvas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>cursor <span class="token operator">=</span> <span class="token string">''</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">let</span> popup <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Mapboxgl<span class="token punctuation">.</span>Popup</span><span class="token punctuation">(</span><span class="token punctuation">{</span>className<span class="token punctuation">:</span> <span class="token string">'my-class'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">// 未聚合图层鼠标点击pop框显示</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token string">'unclustered-point'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span>
+          <span class="token keyword">let</span> features <span class="token operator">=</span> e<span class="token punctuation">.</span>features<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>properties
+          popup<span class="token punctuation">.</span><span class="token function">setLngLat</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>lngLat<span class="token punctuation">)</span>
+          popup<span class="token punctuation">.</span><span class="token function">setHTML</span><span class="token punctuation">(</span><span class="token string">'&lt;h1>Hello World!&lt;/h1>'</span><span class="token punctuation">)</span>
+          popup<span class="token punctuation">.</span><span class="token function">setMaxWidth</span><span class="token punctuation">(</span><span class="token string">'300px'</span><span class="token punctuation">)</span>
+          popup<span class="token punctuation">.</span><span class="token function">addTo</span><span class="token punctuation">(</span>that<span class="token punctuation">.</span>map<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'mouseenter'</span><span class="token punctuation">,</span> <span class="token string">'unclustered-point'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 改变鼠标样式</span>
+          that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">getCanvas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>cursor <span class="token operator">=</span> <span class="token string">'pointer'</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">// 未聚合图层鼠标移出pop框隐藏</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'mouseleave'</span><span class="token punctuation">,</span> <span class="token string">'unclustered-point'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 改变鼠标样式</span>
+          that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">getCanvas</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>style<span class="token punctuation">.</span>cursor <span class="token operator">=</span> <span class="token string">''</span>
+          popup<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">//  通过监听地图的数据更新，来实时的绘制与layer显示状态相同的marker</span>
+        that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>sourceId <span class="token operator">!==</span> <span class="token string">'earthquakes'</span> <span class="token operator">||</span> <span class="token operator">!</span>e<span class="token punctuation">.</span>isSourceLoaded<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span>
+          <span class="token punctuation">}</span>
+          that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"move"</span><span class="token punctuation">,</span> that<span class="token punctuation">.</span>updateMarkers<span class="token punctuation">)</span>
+          that<span class="token punctuation">.</span>map<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">"moveend"</span><span class="token punctuation">,</span> that<span class="token punctuation">.</span>updateMarkers<span class="token punctuation">)</span>
+          that<span class="token punctuation">.</span><span class="token function">updateMarkers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> 
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+
+<span class="token comment" spellcheck="true">&lt;!-- Add "scoped" attribute to limit CSS to this component only --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">scoped</span><span class="token punctuation">></span></span><span class="token style language-css">
+ <span class="token selector"><span class="token id">#map</span></span><span class="token punctuation">{</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+    <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token property">bottom</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>geojson文件suiningGeoPoint.json:  </p>
+<pre class="line-numbers language-html"><code class="language-html">
+{
+    "PointData": [
+        {
+            "type": "Feature",
+            "properties": {
+                "color": "green"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.4431492,
+                    30.4435426
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "color": "green"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.5223284,
+                    30.6498668
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "color": "green"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    105.6974018,
+                    30.5334543
+                ]
+            }
+        }
+        。
+        。
+        。
+        。
+        。
+        。
+    ]
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Unity3d生成json"><a href="#Unity3d生成json" class="headerlink" title="Unity3d生成json"></a>Unity3d生成json</h2><pre class="line-numbers language-html"><code class="language-html">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using System.Text;
+using System.IO;
+using LitJson;
+using System;
+
+public struct LonLat {
+    public double lon;
+    public double lat;
+    public LonLat(double _lon, double _lat) {
+        this.lon = _lon;
+        this.lat = _lat;
+    }
+}
+public class hiread : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        //105.334388,30.654238    105.708083,30.396409
+        GenerateD(105.334388, 105.708083, 30.396409, 30.654238,600);
+    }
+
+    // 指定范围内随机生成经纬度点位保存geojson
+    void GenerateD(double lon0, double lon1, double lat0, double lat1, int lonlatCount)
+    {
+
+        System.Random ran = new System.Random();
+        LonLat[] a = new LonLat[lonlatCount];
+
+        StringBuilder sb = new StringBuilder();
+        JsonWriter writer = new JsonWriter(sb);
+        writer.WriteObjectStart();
+        writer.WritePropertyName("PointData");
+        writer.WriteArrayStart();
+        for (int i = 0; i &lt; lonlatCount; i++)
+        {
+            a[i] = new LonLat(NextDouble(ran, lon0, lon1, 7), NextDouble(ran, lat0, lat1, 7));
+            writer.WriteObjectStart();
+            writer.WritePropertyName("type");
+            writer.Write("Feature");
+            writer.WritePropertyName("properties");
+            writer.WriteObjectStart();
+            writer.WritePropertyName("color");
+            writer.Write("green");
+            writer.WriteObjectEnd();
+
+            writer.WritePropertyName("geometry");
+            writer.WriteObjectStart();
+            writer.WritePropertyName("type");
+            writer.Write("Point");
+            writer.WritePropertyName("coordinates");
+            writer.WriteArrayStart();
+            writer.Write(a[i].lon);
+            writer.Write(a[i].lat);
+            writer.WriteArrayEnd();
+
+            writer.WriteObjectEnd();
+            writer.WriteObjectEnd();
+
+        }
+        writer.WriteArrayEnd();
+
+        writer.WriteObjectEnd();
+        JsonData jd2 = JsonMapper.ToObject(sb.ToString().Trim());
+        File.WriteAllText(Application.dataPath + "/Resources/suiningGeoPoint.json", JsonMapper.ToJson(jd2));
+        Debug.Log("success");
+
+        // double randNum = NextDouble(ran, 105.493639, 106.493639, 6);
+
+    }
+
+    // 指定范围内随机生成经纬度点位
+    void GenerateC(double lon0,double lon1,double lat0,double lat1,int lonlatCount) {
+
+        System.Random ran = new System.Random();
+        LonLat[] a = new LonLat[lonlatCount];
+
+        StringBuilder sb = new StringBuilder();
+        JsonWriter writer = new JsonWriter(sb);
+        writer.WriteObjectStart();
+        writer.WritePropertyName("PointData");
+        writer.WriteArrayStart();
+
+        for (int i = 0; i &lt; lonlatCount; i++) {
+            a[i] = new LonLat(NextDouble(ran, lon0, lon1, 6), NextDouble(ran, lat0, lat1, 6));
+            Debug.Log("[ " + a[i].lon + " ___ " + a[i].lat + " ]");
+
+            writer.WriteObjectStart();
+            writer.WritePropertyName("imgs");
+            writer.WriteObjectStart();
+            writer.WritePropertyName("content");
+            writer.Write("xxx.png");
+            writer.WriteObjectEnd();
+            writer.WritePropertyName("mapFlag");
+            writer.Write("detail");
+            writer.WritePropertyName("lon");
+            //writer.Write(a[i].lon.ToString());
+            writer.Write(Math.Round(System.Convert.ToDouble(a[i].lon),7).ToString());
+            writer.WritePropertyName("lat");
+            //writer.Write(a[i].lat.ToString());
+            writer.Write(Math.Round(System.Convert.ToDouble(a[i].lat),7).ToString());
+            writer.WritePropertyName("type");
+            writer.Write("物业管理");
+            writer.WritePropertyName("content");
+            writer.WriteObjectStart();
+            writer.WritePropertyName("上报时间");
+            writer.Write("2020:12:15 9:23:00");
+            writer.WriteObjectEnd();
+            writer.WriteObjectEnd();          
+        }
+        writer.WriteArrayEnd();
+        writer.WriteObjectEnd();
+        JsonData jd2 = JsonMapper.ToObject(sb.ToString().Trim());
+        File.WriteAllText(Application.dataPath + "/Resources/suining7.json", JsonMapper.ToJson(jd2));
+        Debug.Log("success");
+
+        // double randNum = NextDouble(ran, 105.493639, 106.493639, 6);
+
+    }
+    public double NextDouble(System.Random ran, double minValue, double maxValue, int decimalPlace)
+    {
+        double randNum = ran.NextDouble() * (maxValue - minValue) + minValue;
+        return Convert.ToDouble(randNum.ToString("f" + decimalPlace));
+    }
+
+    void GenerateB()
+    {
+        Debug.Log(123);
+        string filePath = Application.dataPath + "/Resources/jiaotong.json";
+        string jsonStv = File.ReadAllText(filePath);
+        JsonData jd = JsonMapper.ToObject(jsonStv);
+        JsonData jdItems = jd["content"]["tf"];
+        Debug.Log(jdItems.Count);
+
+        StringBuilder sb = new StringBuilder();
+        JsonWriter writer = new JsonWriter(sb);
+        writer.WriteObjectStart();
+        writer.WritePropertyName("lineData");
+        writer.WriteArrayStart();
+
+        System.Random r = new System.Random();
+
+
+
+
+        //for (int i = 0; i &lt; 2; i++)
+        for (int i = 0; i &lt; jdItems.Count; i++)
+        {
+            writer.WriteObjectStart();
+            writer.WritePropertyName("type");
+            writer.Write("Feature");
+            writer.WritePropertyName("properties");
+            writer.WriteObjectStart();
+            writer.WritePropertyName("color");
+            writer.Write("green");
+            writer.WriteObjectEnd();
+
+            writer.WritePropertyName("geometry");
+            writer.WriteObjectStart();
+            writer.WritePropertyName("type");
+            writer.Write("LineString");
+            writer.WritePropertyName("coordinates");
+            writer.WriteArrayStart();
+            for (int j = 0,k=0; k &lt; jdItems[i][0].Count / 2; j=j+2,k++)
+            {
+                writer.WriteArrayStart();
+                writer.Write(Math.Round(System.Convert.ToDouble(jdItems[i][0][j].ToString()), 8));
+                writer.Write(Math.Round(System.Convert.ToDouble(jdItems[i][0][j + 1].ToString()), 8));
+                writer.WriteArrayEnd();
+            }
+            writer.WriteArrayEnd();
+
+            writer.WriteObjectEnd();
+            writer.WriteObjectEnd();
+
+        }
+        writer.WriteArrayEnd();
+        writer.WriteObjectEnd();
+        JsonData jd2 = JsonMapper.ToObject(sb.ToString().Trim());
+        File.WriteAllText(Application.dataPath + "/Resources/xixian.json", JsonMapper.ToJson(jd2));
+        Debug.Log("success");
+
+        /*
+                    writer.WritePropertyName("type");
+                    writer.Write(Math.Round(System.Convert.ToDouble(jdItems[i]["geometry"]["coordinates"][0].ToString()), 8));
+                    writer.WritePropertyName("lat");
+                    writer.Write(Math.Round(System.Convert.ToDouble(jdItems[i]["geometry"]["coordinates"][1].ToString()), 8));
+                    writer.WritePropertyName("type");
+                    int num = r.Next(1, 101);
+                    if (num > 50)
+                    {
+                        writer.Write(1);
+                    }
+                    else
+                    {
+                        writer.Write(2);
+                    }
+
+                    writer.WritePropertyName("value");
+                    writer.Write(1000);
+                    writer.WriteObjectEnd();
+                    //Debug.Log(Math.Round(System.Convert.ToDouble(jdItems[i]["geometry"]["coordinates"][0].ToString()), 6) + "____" + Math.Round(System.Convert.ToDouble(jdItems[i]["geometry"]["coordinates"][1].ToString()), 6));
+                }
+                writer.WriteArrayEnd();
+                writer.WriteObjectEnd();
+                JsonData jd2 = JsonMapper.ToObject(sb.ToString().Trim());
+                File.WriteAllText(Application.dataPath + "/Resources/bbb.json", JsonMapper.ToJson(jd2));
+                Debug.Log("success");
+                */
+
+    }
+    void GenerateA() {
+        Debug.Log(123);
+        string filePath = Application.dataPath + "/Resources/aaa.json";
+        string jsonStv = File.ReadAllText(filePath);
+        JsonData jd = JsonMapper.ToObject(jsonStv);
+        JsonData jdItems = jd["features"];
+        Debug.Log(jdItems.Count);
+
+        StringBuilder sb = new StringBuilder();
+        JsonWriter writer = new JsonWriter(sb);
+        writer.WriteObjectStart();
+        writer.WritePropertyName("Name");
+        writer.WriteArrayStart();
+
+        System.Random r = new System.Random();
+
+
+        //for (int i = 0; i &lt; 2; i++)
+        for (int i = 0; i &lt; jdItems.Count; i++)
+        {
+            writer.WriteObjectStart();
+            writer.WritePropertyName("lng");
+            writer.Write(Math.Round(System.Convert.ToDouble(jdItems[i]["geometry"]["coordinates"][0].ToString()), 6));
+            writer.WritePropertyName("lat");
+            writer.Write(Math.Round(System.Convert.ToDouble(jdItems[i]["geometry"]["coordinates"][1].ToString()), 6));
+            writer.WritePropertyName("type");
+            int num = r.Next(1, 101);
+            if (num > 50)
+            {
+                writer.Write(1);
+            }
+            else
+            {
+                writer.Write(2);
+            }
+
+            writer.WritePropertyName("value");
+            writer.Write(1000);
+            writer.WriteObjectEnd();
+            //Debug.Log(Math.Round(System.Convert.ToDouble(jdItems[i]["geometry"]["coordinates"][0].ToString()), 6) + "____" + Math.Round(System.Convert.ToDouble(jdItems[i]["geometry"]["coordinates"][1].ToString()), 6));
+        }
+        writer.WriteArrayEnd();
+        writer.WriteObjectEnd();
+        JsonData jd2 = JsonMapper.ToObject(sb.ToString().Trim());
+        File.WriteAllText(Application.dataPath + "/Resources/bbb.json", JsonMapper.ToJson(jd2));
+        Debug.Log("success");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+}
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="gzip的使用"><a href="#gzip的使用" class="headerlink" title="gzip的使用"></a>gzip的使用</h2><h2 id="常见地图服务"><a href="#常见地图服务" class="headerlink" title="常见地图服务"></a>常见地图服务</h2><p>目前mapboxgl我的地图组件默认接入地图要求：  </p>
+<table>
+<tbody><tr>
+<td>坐标系信息(Projection)</td><td>WGS84/Pseudo-Mercator</td>
+</tr>
+<tr>
+<td>目标坐标系(Target projection)</td><td>EPSG:3857（原坐标系）</td>
+</tr>
+</tbody></table>
+
+<p>WebGIS的开发者经常需要面对各种地图服务规范，例如WMS、WFS、WCS、WPS、WMTS、TMS、WMSC等。因此了解这些服务的内容是相当重要的，这里对常见的服务进行了整理。  </p>
+<h3 id="OGC联盟"><a href="#OGC联盟" class="headerlink" title="OGC联盟"></a>OGC联盟</h3><p>开放地理空间信息联盟 （Open Geospatial Consortium-OGC），是一个非盈利的国际标准组织，致力于提供地理信息行业软件和数据及服务的标准化工作，它制定了数据和服务的一系列标准，GIS厂商按照这个标准进行开发可保证空间数据的互操作。OGC在1994年到2004年期间机构名为Open GIS Consortium， 后因业务需要更名为OGC。  </p>
+<h3 id="WMS服务"><a href="#WMS服务" class="headerlink" title="WMS服务"></a>WMS服务</h3><p>WMS是指OGC的<strong>Web地图服务（Web Map Service）</strong>规范，它利用具有地理空间位置信息的数据制作地图，将地图定义为地理数据可视的表现。详细信息可以参考 <a href="https://docs.geoserver.org/stable/en/user/services/wms/index.html" target="_blank" rel="noopener">https://docs.geoserver.org/stable/en/user/services/wms/index.html</a>  </p>
+<p>WMS定义了一个规范的HTTP接口，支持标准HTTP协议的GET和POST请求，但多基于GET方式进行服务请求。能够根据用户请求返回相应的地图（包括PNG，GIF，JPEG等栅格形式或者是SVG和WEB CGM等矢量形式）。  </p>
+<p>GeoServer支持WMS 1.1.1 (WMS最广泛使用的版本)和WMS 1.3.0。这个规范定义了一系列操作（请求类型）：   </p>
+<table>
+<tbody><tr>
+<th>Operation</th><th>Description</th>
+</tr>
+<tr>
+<td>Exceptions</td><td>If an exception occur</td>
+</tr>
+<tr>
+<td>GetCapabilities</td><td>返回服务级元数据，它是对服务信息内容和要求参数的一种描述、Retrieves metadata about the service, including supported operations and parameters, and a list of the available layers</td>
+</tr>
+<tr>
+<td>GetMap</td><td>返回一个地图影像、Retrieves a map image for a specified area and content</td>
+</tr>
+<tr>
+<td>GetFeatureInfo (optional)</td><td>返回显示在地图上的某些特殊要素的信息。Retrieves the underlying data, including geometry and attribute values, for a pixel location on a map</td>
+</tr>
+<tr>
+<td>DescribeLayer (optional)</td><td>图层描述信息，Indicates the WFS or WCS to retrieve additional information about the layer.</td>
+</tr>
+<tr>
+<td>GetLegendGraphic (optional)</td><td> 获取Legend（图层管理器）的图片、Retrieves a generated legend for a map</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>GetCapabilities返回服务级元数据  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">GetCapabilities返回服务级元数据，它是对服务信息内容和要求参数的一种描述:
+以一个xml文档形式返回服务级元数据：WMS的参数（图片格式、WMS版本兼容性）；图层（包围盒大小、坐标系统、数据位置以及是否透明）  
+
+其参数包括：  
+(1) VERSION=version ： WMS版本号 （没有指定时，使用当前服务提供商提供的最高的wms版本服务）  
+(2) SERVICE=WMS ： 当前为WMS服务 （此项在1.3.0 版本中必须要求，之前的版本可选）  
+(3) REQUEST=GetCapabilities ：请求名称  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>GetMap返回一个地图影像  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">GetMap返回一个地图影像，其地理空间参考和大小参数是明确定义了的（包括PNG等）  
+
+其主要参数包括：  
+(1) VERSION=version ： WMS版本号  
+(2) REQUEST=GetMap ：请求名称  
+(3) LAYERS=layer_list ： 请求图层，多个图层间用逗号分隔（如果SLD存在，该参数可选）  
+(4) STYLES=style_list： 指定每个图层的渲染风格，多个图层间用逗号分隔（如果SLD存在，该参数可选）  
+(5) SRS=namespace:identifier ： 空间坐标系统  
+(6) BBOX=minx,miny,maxx,maxy ： 包围盒（SRS坐标）
+(7) WIDTH=output_width ： 图片宽度
+(8) HEIGHT=output_height ： 图片高度
+(9) FORMAT=output_format ： 图片格式  
+可选参数有：  
+(1) SLD=sld_url ： 图层样式描述文件的URL  
+(2) BGCOLOR=color_value： 背景颜色 缺省是0xffffff（白色）  
+(3) TRANSPARENT=TRUE | FALSE ：是否为透明，缺省是不透明  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="WFS服务"><a href="#WFS服务" class="headerlink" title="WFS服务"></a>WFS服务</h3><p>WFS是指OGC的Web矢量（要素）服务（Web Feature Service），返回的是矢量级的地理标记语言GML编码，并提供对矢量的增加、修改、删除等事务操作，是对Web地图服务的进一步深入。WFS通过OGC Filter构造查询条件，支持基于空间几何关系的查询，基于属性域的查询，还包括基于空间关系和属性域的共同查询。  </p>
+<p>WMS返回的是图层级的地图影像，而WFS是为了返回纯地理数据而设计的，它不包含任何关于绘制数据的建议。  </p>
+<p>所有版本的WFS服务都定义了五个操作：</p>
+<table>
+<tbody><tr>
+<th>Operation</th><th>Description</th>
+</tr>
+<tr>
+<td>GetCapabilities</td><td>返回Web矢量服务性能描述文档（用XML描述）Generates a metadata document describing a WFS service provided by server as well as valid WFS operations and parameters</td>
+</tr>
+<tr>
+<td>DescribeFeatureType</td><td>返回描述可以提供服务的任何矢量结构的XML文档</td>
+</tr>
+<tr>
+<td>GetFeature</td><td>为一个获取矢量实例的请求提供服务</td>
+</tr>
+<tr>
+<td>Transaction</td><td>为事务请求提供服务</td>
+</tr>
+<tr>
+<td>LockFeature</td><td>处理在一个事务期间对一个或多个矢量类型实例上锁的请求</td>
+</tr>
+</tbody></table>
+
+<h3 id="WCS服务"><a href="#WCS服务" class="headerlink" title="WCS服务"></a>WCS服务</h3><p>WCS是指OGC的Web栅格服务（Web Coverage Service）面向空间影像数据，它将包含地理位置值的地理空间数据作为“栅格或者说“覆盖”（Coverage）”在网上相互交换。详见 <a href="https://docs.geoserver.org/stable/en/user/services/wcs/index.html" target="_blank" rel="noopener">https://docs.geoserver.org/stable/en/user/services/wcs/index.html</a>  </p>
+<p>网络栅格服务由三种操作组成：  </p>
+<table>
+<tbody><tr>
+<th>Operation</th><th>Description</th>
+</tr>
+<tr>
+<td>GetCapabilities</td><td>返回描述服务和数据集的XML文档</td>
+</tr>
+<tr>
+<td>GetCoverage</td><td>在GetCapabilities确定什么样的查询可以执行、什么样的数据能够获取之后执行的，它使用通用的栅格格式返回地理位置的值或属性</td>
+</tr>
+<tr>
+<td>DescribeCoverageType</td><td>允许客户端请求由具体的WCS服务器提供的任一覆盖层的完全描述</td>
+</tr>
+
+</tbody></table>  
+
+<h3 id="WPS服务"><a href="#WPS服务" class="headerlink" title="WPS服务"></a>WPS服务</h3><p>WPS是指OGC的网络处理服务Web Processing Server（WPS），一种用于在 Web 上提供和执行地理空间处理的国际规范。它为网络地理信息处理服务提供了标准化的输入和输出。GeoServer可通过安装插件支持该服务。详见<a href="https://docs.geoserver.org/stable/en/user/services/wps/index.html" target="_blank" rel="noopener">https://docs.geoserver.org/stable/en/user/services/wps/index.html</a></p>
+<pre class="line-numbers language-html"><code class="language-html">使用即插即用的机制降低数据处理流程的复杂性。
+连接不同的处理操作。
+开发可以被其它用户重用的处理过程。
+处理流程和模型集中与服务提供者，方便维护。
+利用中央服务器集群的高运算性能。
+方便对复杂模型的公共使用。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="WMTS服务"><a href="#WMTS服务" class="headerlink" title="WMTS服务"></a>WMTS服务</h3><p>WMTS指OGC的Web地图瓦片服务（Web Map Tile Service），是OGC提出的缓存技术标准。WMTS标准定义了一些操作，这些操作允许用户访问瓦片地图，是OGC首个支持RESTful访问的服务标准。  </p>
+<p>WMTS提供了一种采用预定义图块方法发布数字地图服务的标准化解决方案。WMTS弥补了WMS不能提供分块地图的不足，在服务器端把地图切割为一定不同级别大小的瓦片（瓦片矩阵集合），对客户端预先提供这些预定义的瓦片，将更多的数据处理操作如叠加和切割等放在客户端，降低服务器端的载荷。  </p>
+<p>WMTS牺牲了提供定制地图的灵活性，代之以通过提供静态数据（基础地图）来增强伸缩性，这些静态数据的范围框和比例尺被限定在各个图块内。这些固定的图块集使得对WMTS服务的实现可以使用一个仅简单返回已有文件的Web服务器即可，同时使得可以利用一些标准的诸如分布式缓存的网络机制实现伸缩性。</p>
+<p>WMTS接口支持的三类操作  </p>
+<table>
+<tbody><tr>
+<th>Operation</th><th>Required</th><th>Description</th>
+</tr>
+<tr>
+<td>GetCapabilities</td><td>是</td><td>获取服务的元信息</td>
+</tr>
+<tr>
+<td>GetTile    </td><td>是</td><td>获取切片</td>
+</tr>
+<tr>
+<td>GetFeatureInfo</td><td>否</td><td>获取点选的要素信息</td>
+</tr>
+
+</tbody></table>  
+
+<p>一个服务元数据（ServiceMetadata）资源（面向过程架构风格下对GetCapabilities操作的响应）（服务器方必须实现）。ServiceMetadata资源描述指定服务器实现的能力和包含的信息。在面向过程的架构风格中该操作也支持客户端与服务器间的标准版本协商  </p>
+<p>图块资源（对面向过程架构风格下GetTile操作的响应）（服务器方必须实现）。图块资源表示一个图层的地图表达结果的一小块。  </p>
+<p>要素信息（FeatureInfo）资源（对面向过程架构风格下GetFeatureInfo操作的响应）（服务器方可选择实现）。该资源提供了图块地图中某一特定像素位置处地物要素的信息，与WMS中GetFeatureInfo操作的行为相似，以文本形式通过提供比如专题属性名称及其取值的方式返回相关信息</p>
+<h3 id="TMS"><a href="#TMS" class="headerlink" title="TMS"></a>TMS</h3><p>切片地图服务规范（Tile Map Service），提供的操作允许用户按需访问切片地图。将切片保存到了本地，使得访问速度更快，还支持修改坐标系，是一种纯RESTful的服务。</p>
+<p>TMS和WMTS在本质上非常类似，基本上遵循的是同一种切片规则。关于两种服务标准的区别与联系，可参考以下几篇博客：</p>
+<h3 id="概括讲几种服务"><a href="#概括讲几种服务" class="headerlink" title="概括讲几种服务"></a>概括讲几种服务</h3><pre class="line-numbers language-html"><code class="language-html">1. WMS：是一种动态地图服务，根据用户请求返回相应地图数据的可视化结果，实时切片，因此速度较慢。是GeoServer发布地图时较为常用的服务。
+2. WMTS：是一种采用预定义图块方法发布数字地图服务，将地图切分成瓦片矩阵集合，牺牲了提供定制地图的灵活性，代之以通过提供静态数据（基础地图）来增强伸缩性，这些静态数据的范围框和比例尺被限定在各个图块内，但是提升了服务速度。例如我国的天地图就是使用这一服务进行组织的，详情见我另一篇博客：关于天地图的瓦片下载。
+3. WFS：是为了返回纯地理数据而设计的，它不包含任何关于绘制数据的建议，它提供了对矢量的增加、修改、删除等事务操作。
+4. WCS：是面向空间影像数据服务，它将包含地理位置值的地理空间数据作为“栅格或者说“覆盖”（Coverage）”在网上相互交换。
+5. WPS：我理解的是一种提供和执行地理空间处理的服务，用于在web上发起空间运算操作。
+6. WMSC：是一种预先缓存数据的方法，以提升地图请求的速度。目前已被WMTS和TMS取代。
+7. TMS：也是一种瓦片地图服务，与WMTS类似，本质上遵循同样的切片规则。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="超图REST-API简介"><a href="#超图REST-API简介" class="headerlink" title="超图REST API简介"></a>超图REST API简介</h2><p>SuperMap iServer 提供了基于 REST 的应用编程接口——SuperMap iServer REST API，这些接口封装了大部分的 GIS 功能，包括基本的地图功能，数据编辑功能，分析功能等。SuperMap iServer 将这些 GIS 功能通过 SuperMap iServer REST API 提供给客户端，客户端使用这些 API，能够获取到相应的 GIS 能力。  </p>
+<p>SuperMap iServer REST API 包括以下特点  </p>
+<ul>
+<li>所有 GIS 能力被封装为不同的资源，并且每一个资源通过唯一的 URI 进行标识。</li>
+<li>SuperMap iServer REST API 使用 HTTP 协议标准的方法实现对资源的操作，即对 GIS 功能的操作。包括：GET（获取资源）、POST（创建资源）、PUT（创建、修改资源）、DELETE （删除资源）方法等。</li>
+<li>SuperMap iServer 对资源的描述以及 GIS 计算结果通过资源表述的方式表达，且支持多种格式的资源表述，包括 HTML、XML、JSON、BMP 等。</li>
+</ul>
+
+<h3 id="使用REST-API的基本流程"><a href="#使用REST-API的基本流程" class="headerlink" title="使用REST API的基本流程"></a>使用REST API的基本流程</h3><p>REST 服务越来越受到开发者的欢迎其中一个原因就是使用 REST 服务比较简单，因为获取 REST 服务基本上就是通过对资源的 URI 的操作实现的。使用 SuperMap iServer REST API 大致要分为以下几个步骤：  </p>
+<h4 id="1-浏览-REST-服务目录，确定资源-URI、需要的参数结构、支持的表述格式等。"><a href="#1-浏览-REST-服务目录，确定资源-URI、需要的参数结构、支持的表述格式等。" class="headerlink" title="1. 浏览 REST 服务目录，确定资源 URI、需要的参数结构、支持的表述格式等。"></a>1. 浏览 REST 服务目录，确定资源 URI、需要的参数结构、支持的表述格式等。</h4><h4 id="2-构建-HTTP-请求，包括资源的-URI-、所需传递的参数、对资源执行的-HTTP-方法"><a href="#2-构建-HTTP-请求，包括资源的-URI-、所需传递的参数、对资源执行的-HTTP-方法" class="headerlink" title="2. 构建 HTTP 请求，包括资源的 URI 、所需传递的参数、对资源执行的 HTTP 方法"></a>2. 构建 HTTP 请求，包括资源的 URI 、所需传递的参数、对资源执行的 HTTP 方法</h4><blockquote>
+<p>构建 URI  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">SuperMap iServer 的 REST 资源采用层次结构组织，每一类 REST 服务都有一个根资源，如地图 REST 服务的根资源为 maps，maps 的子资源为 map，layers 资源为 map 资源的子资源，以此类推。根据这一的规则，用户可以构建资源的 URI。如 layers 资源的 URI 为：  
+http://192.168.1.1:8090/iserver/services/map-world/rest/maps/World Map/layers  
+
+其中，
+192.168.1.1:8090 是 SuperMap iServer 服务器地址和端口， 
+iserver/services/map-world/rest 是 REST 服务的根目录，即 root 目录名称。 
+maps/World Map 是 layers 的父资源。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>整理待传递的参数  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">REST 资源不同，执行的 HTTP 方法不同所需要传递的参数可能不同，  
+因此用户需要针对具体的资源和请求的方法，确定传递的参数内容。  
+
+在 SuperMap iServer 中规定，发送 GET 请求时，参数信息有两种传递方式，  
+一是参数包含在 URI 中，  
+二是参数放在请求体中（当参数信息很大的时候）。发送 POST，PUT 请求时，参数信息放在请求体中，且请求体中的参数信息以 JSON（默认方式） 或者 XML 方式组织。请求体中的参数组织格式的选择通过设置请求头中的 X-RequestEntity-ContentType 信息来决定。 X-RequestEntity-ContentType 为 application/json 时，标识请求体中的参数为 JSON 格式，为 application/xml 时，标识请求体中的参数为 XML 格式。服务器通过解析请求头，就能知道该按照 JSON 还是 XML 的格式来解析参数。  
+
+例如：参数包含在 URI 中：  
+http://192.168.1.1:8090/iserver/services/map-world/rest/maps/World Map/image.bmp?center={"x":103,"y":34}&amp;scale=0.001  
+对地图 World Map（map 资源）进行地图状态修改，使其默认中心点改为（142，44），可以对 URI：http://192.168.1.1:8090/iserver/services/map-world/rest/maps/World Map.json 构建 PUT 请求，参数放在 PUT 请求的请求体里，JSON 组织形式如下：{"name":"World", "center":{"x":142, "y":44}}
+
+说明：目前 SuperMap iServer 仅支持 JSON 和 XML 两种参数组织格式，如果需要使用其他格式组织参数，需要在 REST 服务端扩展参数解析器，使参数解析器能够解读该格式的参数。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>确定对资源执行的 HTTP 方法  </p>
+</blockquote>
+<p>不同的 HTTP 方法可以对资源执行不同能力的操作，如 POST 方法表示创建一个资源，DELETE 方法表示删除一个资源。客户端需要确定对资源做何种操作。  </p>
+<blockquote>
+<p>设置资源表述格式  </p>
+</blockquote>
+<p>向资源发送请求，资源会将结果以资源表述的方式返回给客户端，SuperMap iServer 支持多种表述格式，因此客户端在提交请求的时候需要指定服务端返回哪种格式的表述。设置表述的格式只需要在 URI 后面加上.<format>即可，如 <a href="http://192.168.1.1:8090/iserver/services/map-world/rest/maps.json" target="_blank" rel="noopener">http://192.168.1.1:8090/iserver/services/map-world/rest/maps.json</a>  </format></p>
+<h4 id="3-向-REST-服务器发送-HTTP-请求"><a href="#3-向-REST-服务器发送-HTTP-请求" class="headerlink" title="3. 向 REST 服务器发送 HTTP 请求"></a>3. 向 REST 服务器发送 HTTP 请求</h4><p>对于 GET 方法提交请求可以直接在浏览器的地址栏中输入 URI 即可。其他方法（POST、PUT、DELETE、HEAD）提交请求需要通过编程实现，不同的开发语言实现的方法不同。  </p>
+<h4 id="4-接收-REST-返回的资源表述"><a href="#4-接收-REST-返回的资源表述" class="headerlink" title="4. 接收 REST 返回的资源表述"></a>4. 接收 REST 返回的资源表述</h4><p>SuperMap iServer 的 REST 资源有几种类型，其中包括同步资源（除异步资源外所有资源均为同步传输机制的资源）和异步资源，即对资源的表述以同步或者异步的方式返回客户端。因此客户端在向 REST 服务器发送 HTTP 请求时，需要根据访问的资源的类型发送同步/异步请求。同理，客户端在接收 REST 返回的资源表述时，也需要根据资源的类型（同步资源或者异步资源）以正确的方式获取资源表述。如，客户端应该向 area 资源（同步资源）发送同步传输请求，并以同步传输方式获取 area 资源表述。目前 SuperMap iServer 大部分都是同步资源。  </p>
+<h4 id="5-参照资源的响应结构-解析资源表述-提取所需的信息"><a href="#5-参照资源的响应结构-解析资源表述-提取所需的信息" class="headerlink" title="5. 参照资源的响应结构,解析资源表述,提取所需的信息"></a>5. 参照资源的响应结构,解析资源表述,提取所需的信息</h4><p>REST 服务器会返回 HTTP 状态代码以响应客户端请求，通过响应码，客户端可以得知请求的处理情况。例如：是否成功、出错的原因，等等。如果返回成功的响应码，客户端可以进一步解析返回的资源表述，REST 服务器响应的资源表述结果支持多种格式，如 XML，HTML，JSON，PNG 等，主要取决于客户端发送请求时对返回的资源表述的格式的选择。如果返回操作失败的响应码，客户端可以获取出错原因。  </p>
+<h3 id="直接通过网址获取-REST服务"><a href="#直接通过网址获取-REST服务" class="headerlink" title="直接通过网址获取 REST服务"></a>直接通过网址获取 REST服务</h3><p>在 HTTP 的方法中仅有 GET 方法是浏览器默认支持的 HTTP 方法，通过 GET 方法客户端可以获取资源的信息描述，因此，如果希望了解 REST 服务中提供的各种资源目录，各种资源的能力等，可以直接在浏览器的地址栏中输入资源 URI。如果希望返回的响应结果以某种固定的格式显示，可以给 URI 加上后缀，形如.[format]。  </p>
+<p>例如在地址栏输入：<a href="http://192.168.1.1:8090/iserver/services/components-rest/rest.html" target="_blank" rel="noopener">http://192.168.1.1:8090/iserver/services/components-rest/rest.html</a><br>可以看到以 HTML 格式描述的 REST 服务目录  </p>
+<p><a href="http://192.168.1.1:8090/iserver/services/components-rest/rest/maps/World" target="_blank" rel="noopener">http://192.168.1.1:8090/iserver/services/components-rest/rest/maps/World</a> Map/image.png<br>表明向 world Map 地图的 image 资源执行 GET 方法，获取 world Map 地图图片。  </p>
+<h3 id="通过JavaScript获取REST服务"><a href="#通过JavaScript获取REST服务" class="headerlink" title="通过JavaScript获取REST服务"></a>通过JavaScript获取REST服务</h3><p>通常 JavaScript 通过 XMLHTTPRequest 建立和发送请求，并响应服务器。经常用到的方法如下：</p>
+<ul>
+<li>open()：建立到服务器的新请求。</li>
+<li>send()：向服务器发送请求</li>
+<li>abort()：退出当前请求。</li>
+<li>readyState：提供当前 HTML 的就绪状态</li>
+<li>responseText：服务器返回的请求响应文本</li>
+</ul>
+
+<p>根据前面介绍的开发步骤，依次构建 URI，发送请求，接收和解析结果。下面的例子是修改地图-World Map 的中心点  </p>
+<p>资源 URI： <a href="http://192.168.1.1:8090/iserver/services/map-world/rest/maps/世界地图" target="_blank" rel="noopener">http://192.168.1.1:8090/iserver/services/map-world/rest/maps/世界地图</a><br>返回的资源表述格式：JSON<br>使用的 HTTP 方法：GET 和 PUT。<br>先使用 GET 方法获取 World 的基本地图信息。再通过 PUT 方法，修改 GET 方法获取的基本地图信息中的中心点的值。  </p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>HTML</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>HEAD</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TITLE</span><span class="token punctuation">></span></span>REST<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>TITLE</span><span class="token punctuation">></span></span>       
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>HEAD</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span>  <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>json_parse.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span>  <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>toJSON.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span>  <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript">
+<span class="token keyword">function</span> <span class="token function">GetMapInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    request <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ActiveXObject</span><span class="token punctuation">(</span><span class="token string">"Msxml2.XMLHTTP"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> uri<span class="token operator">=</span><span class="token string">"http://localhost:8090/iserver/services/maps/rest/maps/World Map.json"</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token string">"GET"</span><span class="token punctuation">,</span><span class="token function">encodeURI</span><span class="token punctuation">(</span>uri<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token boolean">false</span><span class="token punctuation">,</span><span class="token string">""</span><span class="token punctuation">,</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">setRequestHeader</span><span class="token punctuation">(</span><span class="token string">"Content-Type"</span><span class="token punctuation">,</span> <span class="token string">"application/x-www-form-urlencoded; charset=UTF-8"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    request<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>request<span class="token punctuation">.</span>status<span class="token operator">==</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//解析从服务器端返回的 json 字符串，解析为一个 JavaScript 对象。json_parse()为 json_parse.js 文件中的一个解析 json 的函数。</span>
+        <span class="token keyword">var</span> response <span class="token operator">=</span> <span class="token function">json_parse</span><span class="token punctuation">(</span>request<span class="token punctuation">.</span>responseText<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+        <span class="token comment" spellcheck="true">//获取用作显示的 Div 容器。</span>
+        <span class="token keyword">var</span> container <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'container'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//输出结果</span>
+        container<span class="token punctuation">.</span>innerHTML<span class="token operator">=</span><span class="token string">""</span><span class="token punctuation">;</span>
+        container<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;p>地图名：'</span> <span class="token operator">+</span> response<span class="token punctuation">.</span>name <span class="token operator">+</span><span class="token string">'&lt;/p>'</span><span class="token punctuation">;</span>
+        container<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;p>地图显示区域：&lt;li>leftBottom：'</span> <span class="token operator">+</span> <span class="token function">toJSON</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>bounds<span class="token punctuation">.</span>leftBottom<span class="token punctuation">)</span> <span class="token operator">+</span><span class="token string">'&lt;/li>'</span><span class="token operator">+</span><span class="token string">'&lt;li>rightTop：'</span><span class="token operator">+</span><span class="token function">toJSON</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>bounds<span class="token punctuation">.</span>rightTop<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">'&lt;/p>'</span><span class="token punctuation">;</span>
+        container<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;p>用户视窗范围：&lt;li>leftTop：'</span> <span class="token operator">+</span> <span class="token function">toJSON</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>viewer<span class="token punctuation">.</span>leftTop<span class="token punctuation">)</span> <span class="token operator">+</span><span class="token string">'&lt;/li>'</span><span class="token operator">+</span><span class="token string">'&lt;li>rightBottom：'</span><span class="token operator">+</span><span class="token function">toJSON</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>viewer<span class="token punctuation">.</span>rightBottom<span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">'&lt;/p>'</span><span class="token punctuation">;</span>
+        container<span class="token punctuation">.</span>innerHTML <span class="token operator">+</span><span class="token operator">=</span> <span class="token string">'&lt;p>地图比例尺：1：'</span> <span class="token operator">+</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">/</span>response<span class="token punctuation">.</span>scale<span class="token punctuation">)</span> <span class="token operator">+</span><span class="token string">'&lt;/p>'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+        <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"操作失败！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>  
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>BODY</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span>  <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>GetMapInfo<span class="token punctuation">"</span></span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>GetMapInfo()<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>input</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">align</span><span class="token attr-value"><span class="token punctuation">=</span>left</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">left</span><span class="token punctuation">:</span><span class="token number">50</span>px<span class="token punctuation">;</span><span class="token property">top</span><span class="token punctuation">:</span><span class="token number">50</span>px</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>BODY</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>HTML</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="epsg3857和epsg4326"><a href="#epsg3857和epsg4326" class="headerlink" title="epsg3857和epsg4326"></a>epsg3857和epsg4326</h2><p><a href="http://epsg.io" target="_blank" rel="noopener">http://epsg.io</a> 可以查询各自坐标系，比如查询4326  </p>
+<p>查询可得知，3857和4326这两种投影属于同一坐标系–wgs84。  </p>
+<p>需要明确一点的是投影是想用不同的方式展示地图，由于地球是个不规则的椭圆，在做不同地区的地图的时候为了显示其对应的地理特征，采用了不同的投影方式，总的来说坐标系是坐标系，投影是投影（投影的目的是为了展示数据）。  </p>
+<p>如何选择地图投影，请看以下两种常用投影：  </p>
+<blockquote>
+<p>墨卡托投影3857，高纬度地区被拉升，变形严重，但低纬度地区展示数据较好直观  </p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/3587.jpg" alt="墨卡托投影3857"></p>
+<blockquote>
+<p>经纬度投影4326,保留了高纬度地区的特征，拉升不是那么严重，可是看起来就像个扁瓜不好看  </p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/4326.jpg" alt="经纬度投影4326"></p>
+<p>这两个投影都可以用在地图展示上，只是web球面墨卡托投影更加美观，几乎所有的互联网地图都采用3857的投影方式  </p>
+<p>以下两张图分别是4326，和3857的投影模式，准确来说4326不算投影，只能算地球经纬度拉升展开，所以4326常用于计算，误差较小</p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/twoTouYing.jpg" alt="">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/twoTouYing2.jpg" alt=""></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2022/05/11/diary-20220511/" class="b-link-green">MapboxGL服务</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2022/06/06/diary-20220606-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/24.jpg" class="responsive-img" alt="vscode使用maven">
+                        
+                        <span class="card-title">vscode使用maven</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            vscode安装使用maven配置环境变量官网下载  https://mirrors.bfsu.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.zip  
+
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-06-06
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2022/03/19/diary-20220319-2/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/19.jpg" class="responsive-img" alt="Java后端技术栈了解">
+                        
+                        <span class="card-title">Java后端技术栈了解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            简介  
+
+
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { 
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-03-19
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

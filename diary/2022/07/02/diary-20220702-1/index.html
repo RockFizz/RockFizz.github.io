@@ -1,0 +1,2578 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="离线环境使用androidStudio, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="可以联网就随便搞1. Project/build.gradle替换国内仓库  
+
+buildscript {
+    repositories {
+        // google()
+        // mavenCentral()
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>离线环境使用androidStudio | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/28.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        离线环境使用androidStudio
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/AndroidStudio/" target="_blank">
+                                <span class="chip bg-color">AndroidStudio</span>
+                            </a>
+                        
+                            <a href="/diary/tags/qt/" target="_blank">
+                                <span class="chip bg-color">qt</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-07-02
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        Sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        6.9k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        33 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="可以联网就随便搞"><a href="#可以联网就随便搞" class="headerlink" title="可以联网就随便搞"></a>可以联网就随便搞</h2><pre class="line-numbers language-html"><code class="language-html">1. Project/build.gradle替换国内仓库  
+
+buildscript {
+    repositories {
+        // google()
+        // mavenCentral()
+        maven{ url 'https://maven.aliyun.com/repository/google' }
+        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.3"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+allprojects {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven{ url 'https://maven.aliyun.com/repository/jcenter'}
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+2. Project/settings.gradle注释掉
+
+//dependencyResolutionManagement {
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositories {
+//        google()
+//        mavenCentral()
+//        jcenter() // Warning: this repository is going to shut down soon
+//    }
+//}
+rootProject.name = "MyApplicationdefault"
+include ':app'
+
+然后让网络自动同步
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h2><p>Gradle是一个基于Apache Ant和Apache Maven概念的项目自动化构建开源工具  </p>
+<blockquote>
+<p>androidStudio的gradle插件版本和gradle版本对应关系  </p>
+</blockquote>
+<table>
+<tbody><tr>
+<th>gradle插件版本</th><th>gradle版本</th>
+</tr>
+<tr>
+<td>1.0.0-1.1.3</td><td>2.2.1-2.3</td>
+</tr>
+<tr>
+<td>1.2.0-1.3.1</td><td>2.2.1-2.9</td>
+</tr>
+<tr>
+<td>1.5.0</td><td>2.2.1-2.13</td>
+</tr>
+<tr>
+<td>2.0.0-2.1.2</td><td>2.10-2.13</td>
+</tr>
+<tr>
+<td>2.1.3-2.2.3</td><td>2.14.1+</td>
+</tr>
+<tr>
+<td>2.3.0+</td><td>3.3+</td>
+</tr>
+<tr>
+<td>3.0.0+</td><td>4.1+</td>
+</tr>
+<tr>
+<td>3.1.0+</td><td>4.4+</td>
+</tr>
+<tr>
+<td>3.2.0-3.2.1</td><td>4.6+</td>
+</tr>
+<tr>
+<td>3.3.0-3.3.3</td><td>4.10.1+</td>
+</tr>
+<tr>
+<td>3.4.0-3.4.3</td><td>5.1.1+</td>
+</tr>
+<tr>
+<td>3.5.0-3.5.4</td><td>5.4.1+</td>
+</tr>
+<tr>
+<td>3.6.0-3.6.4</td><td>5.6.4+</td>
+</tr>
+<tr>
+<td>4.0.0+</td><td>6.1.1+</td>
+</tr>
+<tr>
+<td>4.1.0+</td><td>6.5+</td>
+</tr>
+</tbody></table>
+
+
+<h2 id="新建noActivity项目修改后同步build成功"><a href="#新建noActivity项目修改后同步build成功" class="headerlink" title="新建noActivity项目修改后同步build成功"></a>新建noActivity项目修改后同步build成功</h2><p>androidstudiou2020.3.1和gradle-5.6.4-all.zip </p>
+<p>正常在线环境</p>
+<ol>
+<li>Project下gradle/wrapper/gradle-wrapper.properties文件内：  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">distributionUrl=http\://localhost:8081/gradle-5.6.4-all.zip
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="2">
+<li>Project Structure里gradle插件版本设置为3.6.4  </li>
+<li>Project下app/build.gradle里注释掉一些内容，换一些内容（因为我用的androidstudio4.3 即2020.3.1）  </li>
+</ol>
+<pre><code>// 20210728 Created by Qiaozi
+    repositories {
+    //    google()
+     //   mavenCentral()
+        maven{url 'https://maven.aliyun.com/repository/google'}
+        maven{url 'https://maven.aliyun.com/repository/jcenter'}
+    //    maven {url 'http://developer.huawei.com/repo/'}
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.0'
+    }
+}
+
+allprojects {
+    repositories {
+        maven{url 'https://maven.aliyun.com/repository/google'}
+        maven{url 'https://maven.aliyun.com/repository/jcenter'}
+    //    google()
+    //    mavenCentral()
+    }
+}
+
+</code></pre><pre><code>
+  compileSdk 30 
+  替换为 compileSdkVersion 30
+  targetSdk 30  
+  替换为 targetSdkVersion 30
+
+// noActivity项目下面这个好像也可以没有
+
+    dataBinding{
+        enabled = true
+    }
+//    buildFeatures {
+//        viewBinding true
+//    }
+</code></pre><ol start="4">
+<li>setting.gradle注释内容  </li>
+</ol>
+<pre><code>//dependencyResolutionManagement {
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+//    repositories {
+//        google()
+//        mavenCentral()
+//        jcenter() // Warning: this repository is going to shut down soon
+//    }
+//}
+rootProject.name = "My ApplicationZSZSZS"
+include ':app'
+</code></pre><p>如果Android Studio更新版本后，新建工程Gradle同步失败，提示警告信息License for package Android SDK Platform 30 not accepted.  </p>
+<blockquote>
+<p>打开Android Studio的SDK manage下载安装Platform 30的sdk到当前环境里去  </p>
+</blockquote>
+<p>Project Structure里GradleJDK使用1.8版本的</p>
+<h2 id="AndroidStudio离线开发"><a href="#AndroidStudio离线开发" class="headerlink" title="AndroidStudio离线开发"></a>AndroidStudio离线开发</h2><blockquote>
+<p>请区分离线开发和内网开发  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">1. 离线开发完全不需要网络，什么都不能下载，只能通过U盘或光驱拉一些文件  
+
+2. 内网开发还可以连接内网服务器，比如要下gradle，可以在内网服务器放入gradle压缩包，然后在项目中配置内网gradle地址来使用。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="第一步：AndroidStudio调整为离线模式开发"><a href="#第一步：AndroidStudio调整为离线模式开发" class="headerlink" title="第一步：AndroidStudio调整为离线模式开发"></a>第一步：AndroidStudio调整为离线模式开发</h3><p>这里讲纯离线开发,将Gradle设置为offline mode  </p>
+<p>(离线模式按钮的右边扳手图标点击进入gradle设置界面)</p>
+<pre class="line-numbers language-html"><code class="language-html">Android Studio离线配置，主要包括两部分:  
+Gradle Plugin 和 Gradle  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="第二步：配置gradle版本和gradle插件版本"><a href="#第二步：配置gradle版本和gradle插件版本" class="headerlink" title="第二步：配置gradle版本和gradle插件版本"></a>第二步：配置gradle版本和gradle插件版本</h3><ol>
+<li>准摆好gradle-x.x.x-all.zip  </li>
+<li>修改Project下gradle/wrapper/gradle-wrapper.properties文件，AndroidStudio中同步应用。</li>
+<li>gradle插件的错误，gradle插件本身就是一个jar包，会在.gradle\caches目录下生成缓存，只要第三大步操作正常即可避免  </li>
+</ol>
+<h3 id="第三步：项目中网络依赖的缓存文件"><a href="#第三步：项目中网络依赖的缓存文件" class="headerlink" title="第三步：项目中网络依赖的缓存文件"></a>第三步：项目中网络依赖的缓存文件</h3><pre class="line-numbers language-html"><code class="language-html">外网正常环境缓存文件位置：  
+C:\Users\用户名\.gradle\caches\modules-2\files-2.1
+将缓存好的对应的依赖包放到离线环境中。  
+
+这时候这些缓存文件在项目中是完全不能用的，需要将这些缓存变为maven资源才能使用  
+在build.gradle中写一个task任务，将缓存中的文件全部复制到.m2/repository  
+
+
+task cacheToLocalMavenRepository(type: Copy) {
+  from new File(gradle.gradleUserHomeDir, 'caches/modules-2/files-2.1')
+  into repositories.mavenLocal().url
+  eachFile {
+    List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> parts = it.path.split('/')
+    it.path = (parts[0]+ '/' + parts[1]).replace('.','/') + '/' + parts[2] + '/' + parts[4]
+  }
+  includeEmptyDirs false
+}
+然后在Termial窗口中执行该任务 gradlew cacheToLocalMavenRepository，你会发现执行不了，因为第二步中的第3点没有gradle插件，所以要执行这个任务就要新建一个能使用gradle命令的项目，具体怎么做如下：  
+
+1. 配置gradle的bin目录为环境变量，环境变量配置gradle的bin目录，如果你想在任何地方使用gradle命令，当然也可以用全路径来使用  
+2. 最好在C盘用户下新建一个空文件夹作为gradle项目地址，进入该文件夹，cmd依次执行 gradle build 和 gradle init，init命令中会有很多的选择，选择构建java项目还是C项目等等。构建好后就有build.gradle文件了。  
+3. 这时候在将上面的任务复制到build.gradle文件中，执行gradlew cacheToLocalMavenRepository就可以了，这里用的是gradlew命令，看下项目下有没有gradlew程序，没有还用gradle命令也行。注意任务中文件目录的调整，因为项目根目录变了
+
+
+task cacheToLocalMavenRepository(type: Copy) {
+  from new File('../.gradle/caches/modules-2/files-2.1')
+  into "../.m2/repository"
+  eachFile {
+    List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> parts = it.path.split('/')
+    it.path = (parts[0]+ '/' + parts[1]).replace('.','/') + '/' + parts[2] + '/' + parts[4]
+  }
+  includeEmptyDirs false
+}
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="第四步：使用-m2-repository中的maven库并尝试编译运行android项目"><a href="#第四步：使用-m2-repository中的maven库并尝试编译运行android项目" class="headerlink" title="第四步：使用.m2/repository中的maven库并尝试编译运行android项目"></a>第四步：使用.m2/repository中的maven库并尝试编译运行android项目</h3><p>android项目根目录下的maven仓库配置调整为mavenLocal()，之前的google()和jcenter()等其它联网的仓库留着不动就行，因为离线模式运行也不会用到它们。</p>
+<p>然后运行基本就可以了，但是有些项目中的依赖会失败  </p>
+<h2 id="Android-Studio项目Gradle内网配置"><a href="#Android-Studio项目Gradle内网配置" class="headerlink" title="Android Studio项目Gradle内网配置"></a>Android Studio项目Gradle内网配置</h2><p>由于内网无法连接到外部网络，在使用Gradle编译Android Studio项目时就会面临一些问题：<br>1.Gradle安装文件无法下载<br>2.Gradle Android插件无法下载<br>3.项目依赖文件无法下载  </p>
+<p>替换项目中gradle-wrapper.properties文件的distributionUrl比如=<a href="http://192.168.121.130:8080/gradle/gradle-3.3-all.zip" target="_blank" rel="noopener">http://192.168.121.130:8080/gradle/gradle-3.3-all.zip</a>  </p>
+<p>在项目根目录下执行gradlew –v,如果本地没有缓存3.3版本则先会从服务器下载gradle-3.3-all.zip并缓存到本地（默认本地缓存目录为C:\Users\xxx.gradle\wrapper\dists）,然后再执行命令  </p>
+<ol>
+<li>首先在外网电脑 成功构建运行项目 让gardle 将所需要下载的库都下载好  </li>
+<li>在外网电脑的 build.gardle(Project)里面新增 task 代码如下  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">在这里插入代码片
+task cacheToLocalMavenRepository(type: Copy) {
+    from new File(gradle.gradleUserHomeDir, 'caches/modules-2/files-2.1')
+    into repositories.mavenLocal().url
+    eachFile {
+        List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> parts = it.path.split('/')
+        it.path = (parts[0]+ '/' + parts[1]).replace('.','/') + '/' + parts[2] + '/' + parts[4]
+    }
+    includeEmptyDirs false
+}
+``然后在 `terminal 栏里进行 gardle库转移到本地maven操作
+具体参开这个文章
+https://blog.csdn.net/u012551120/article/details/116047944?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-14.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-14.control
+
+3.将外网电脑的
+.gardle  .android .m2   文件夹 和sdk 全部复制（也许只需要替换.gardle和 .m2 ） 替换到 内网电脑上
+4.打开内网 android studio 进行 项目构建 
+构建失败  可回头看看  ①.gardle 文件 中所讲的问题
+5 最重要的一点 如果 提示 no cache xxxxx 导致构建失败 切记 先去  .m2/repository 去追找 可能 m2中没有这个库  有的话 可能是 还未刷新 
+（重要） 只要在builld.gardle(moudle)中的 dependencies { }  implementation 后 再进行  Invalidate and Restart 就可以了（多试几次 我的及时 一个库 反复了几回才可以的  我就感觉肯定是gardle的构建流程的。pom文件未刷新所导致的，大家有不同见解可以留言 大家相互讨论 共同进步）
+6.最最重要一步  buildgardle的代码 大家 修改 repositories {} 里面的跟我一样就行 但是 路径大家得看清楚每个人的用户名是不一样的
+这个是 build gardle（project）
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+      //使用本地maven库  
+        maven{
+            url'file:/C:/Users/Administrator/.m2/repository/'
+        }
+        google()  //不要注释
+        jcenter() //不要注释
+        mavenCentral() // add repository
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.1'
+    }
+}
+
+allprojects {
+    repositories {
+        maven{
+            url'file:/C:/Users/Administrator/.m2/repository/'
+        }
+        google()
+        jcenter()
+        mavenCentral() // add repository
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+task cacheToLocalMavenRepository(type: Copy) {
+    from new File(gradle.gradleUserHomeDir, 'caches/modules-2/files-2.1')
+    into repositories.mavenLocal().url
+    eachFile {
+        List<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>String</span><span class="token punctuation">></span></span> parts = it.path.split('/')
+        it.path = (parts[0]+ '/' + parts[1]).replace('.','/') + '/' + parts[2] + '/' + parts[4]
+    }
+    includeEmptyDirs false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+
+build gardle (miudle)
+
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+
+android {
+    compileSdkVersion 28   //26
+    buildToolsVersion "26.0.3"
+    useLibrary 'org.apache.http.legacy'
+    defaultConfig {
+        applicationId "xxxxxxxxxx"
+        minSdkVersion 21
+        targetSdkVersion 26 //26
+        versionCode 2
+        versionName "2.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags "-frtti"
+            }
+        }
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+//    android{
+//        useLibrary 'org.apache.http.legacy'//为了使用过时的HttpClient
+//    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+//    useLibrary 'org.apache.http.legacy'//为了使用过时的HttpClient
+}
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral() // add repository
+        maven {                //使用hellochart
+            url "https://jitpack.io"
+        }
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.3.0' // add plugin
+    }
+}
+
+greendao {
+    schemaVersion 112//更新数据库版本号
+    daoPackage 'com.zsch.forestinventory.db.gen'
+    targetGenDir 'src/main/java'
+}
+
+
+
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.drawerlayout:drawerlayout:1.0.0'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation project(':androidlib')
+  ttpcomponents/httpclient
+   implementation group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
+    implementation 'com.github.lzyzsd.randomcolor:library:1.0.0'
+    // https://mvnrepository.com/artifact/org.locationtech.jts/jts-core
+    implementation group: 'org.locationtech.jts', name: 'jts-core', version: '1.16.1'
+//    //引入 jackjson功能
+//    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion
+//    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+//    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonVersion
+//    // 引入XML功能
+//    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: jacksonVersion
+//    // 比JDK自带XML实现更高效的类库
+//    implementation group: 'com.fasterxml.woodstox', name: 'woodstox-core', version: '5.1.0'
+//    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.22'
+    //引入 WilliamChart
+//    implementation 'com.diogobernardino:williamchart:3.7.1'
+//    implementation 'com.diogobernardino.williamchart:tooltip-slider:3.7.1'
+//    implementation 'com.diogobernardino.williamchart:tooltip-points:3.7.1'
+     //为了使用MultipartEntityBuilder
+  //  compileOnly group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.12'
+    compileOnly group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5.12'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpcore
+    compileOnly group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.13'
+// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+
+
+
+
+}
+
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="内网-离线配置AndroidStudio"><a href="#内网-离线配置AndroidStudio" class="headerlink" title="内网/离线配置AndroidStudio"></a>内网/离线配置AndroidStudio</h2><h3 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h3><p>首先，在联网电脑上安装好Android Studio(AS)并用模拟器运行出“Hello Word”，运行过程中联网电脑会自动从网上加载所需资源到本地。然后，在内网电脑上安装Android Studio，将联网电脑上已加载的资源拷贝到离线电脑并配置maven本地依赖。  </p>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><h4 id="联网电脑的准备"><a href="#联网电脑的准备" class="headerlink" title="联网电脑的准备"></a>联网电脑的准备</h4><ol>
+<li>卸载原电脑上的Android Studio（AS）  </li>
+<li>下载AS安装包并安装  </li>
+<li>模拟器中运行出“Hello World”  </li>
+</ol>
+<h4 id="拷贝联网电脑中的文件"><a href="#拷贝联网电脑中的文件" class="headerlink" title="拷贝联网电脑中的文件"></a>拷贝联网电脑中的文件</h4><pre class="line-numbers language-html"><code class="language-html">把C:\Users\用户名\AppData\Local\Android下的Skd文件夹拷贝到U盘中，其中XiaoMing是你的电脑用户名
+
+把C:\Users\用户名下的.android和.gradle分别拷贝到U盘中
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h4 id="下载maven本地依赖"><a href="#下载maven本地依赖" class="headerlink" title="下载maven本地依赖"></a>下载maven本地依赖</h4><p>offline-gmaven-stable.zip和offline-android-gradle-plugin-preview.zip,解压下载的文件  </p>
+<p>在刚刚使用的U盘中的.android文件下创建名为manual-offline-m2的文件夹，将上一步中的解压文件中的gmaven_stable文件拷贝到该文件夹中  </p>
+<p>在刚刚使用的U盘中的.gradle中创建名为init.d的文件夹，并在其中创建名为offline.gradle的文本文件（即：把记事本创建的.txt后缀名改为.gradle）,文件内容如下，请直接复制粘贴并保存  </p>
+<pre class="line-numbers language-html"><code class="language-html">def reposDir = new File(System.properties['user.home'], ".android/manual-offline-m2")
+def repos = new ArrayList()
+reposDir.eachDir {repos.add(it) }
+repos.sort()
+
+allprojects {
+  buildscript {
+    repositories {
+      for (repo in repos) {
+        maven {
+          name = "injected_offline_${repo.name}"
+          url = repo.toURI().toURL()
+        }
+      }
+    }
+  }
+  repositories {
+    for (repo in repos) {
+      maven {
+        name = "injected_offline_${repo.name}"
+        url = repo.toURI().toURL()
+      }
+    }
+  }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="内网电脑准备"><a href="#内网电脑准备" class="headerlink" title="内网电脑准备"></a>内网电脑准备</h4><ol>
+<li>利用与联网电脑同样的安装包安装Android Studio  </li>
+<li>把U盘中的.android和.gradle替换内网电脑的对应目录，  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">
+即C:\Users\ZhangSan\.android和C:\Users\ZhangSan\.gradle。把U盘中的Sdk复制到C:\Users\ZhangSan\AppData\Local\Android中，其中ZhangSan是内网电脑用户名称。
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>内网电脑启动Android Studio并用模拟器运行Hello World项目，成功！  </li>
+</ol>
+<h2 id="自己封装库以子项目形式嵌入其他项目"><a href="#自己封装库以子项目形式嵌入其他项目" class="headerlink" title="自己封装库以子项目形式嵌入其他项目"></a>自己封装库以子项目形式嵌入其他项目</h2><p>自己封装的excel库（源码）  </p>
+<ol>
+<li>复制pro文件，将pro后缀改为pri，讲多余文件删除，只保留需要用到的库内容  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">qtexcelhtml.pri
+qtexcelhtml.pro  
+excelwrite.h  
+excelwrite.cpp  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="2">
+<li>在其他主项目内新建目录ExcelModule，以上内容放进去  </li>
+<li>主项目的pro文件里引入子项目  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">include(ExcelModule\qtexcelhtml.pri)
+INCLUDEPATH += $$PWD/ExcelModule  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>重新qmake一次，检查子项目是否添加，检查引入路径  </li>
+<li>主项目内的头文件使用引入库的头文件，然后使用  </li>
+</ol>
+<pre class="line-numbers language-c++"><code class="language-c++">//*.h:
+#include "xcelModule\excelwrite.h"
+......  
+
+ExcelWrite *excelWrite;
+
+//*.cpp:  
+excelWrite = new ExcelWrite;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="新项目"><a href="#新项目" class="headerlink" title="新项目"></a>新项目</h2><h3 id="Gradle-sync-started-无法进行？"><a href="#Gradle-sync-started-无法进行？" class="headerlink" title="Gradle sync started 无法进行？"></a>Gradle sync started 无法进行？</h3><pre class="line-numbers language-html"><code class="language-html">Project的build.gradle文件里添加aliyun的仓库地址  
+
+buildscript {
+    repositories {
+        google()
+        jcenter(){url'https://maven.aliyun.com/repository/jcenter'}
+......
+
+allprojects {
+    repositories {
+        google()
+        jcenter(){url'https://maven.aliyun.com/repository/jcenter'}
+......
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="创建avd模拟器系统存放模拟器的位置"><a href="#创建avd模拟器系统存放模拟器的位置" class="headerlink" title="创建avd模拟器系统存放模拟器的位置"></a>创建avd模拟器系统存放模拟器的位置</h3><pre class="line-numbers language-html"><code class="language-html">创建系统变量ANDROID_SDK_HOME : F:\android-sdk-windows  
+重启androidstudio后重新创建avd，下拉菜单->show on disk可以发现创建在F:\android-sdk-windows\.android\avd\目录下了
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<blockquote>
+<p>我的笔记本是AMD,使用androidstudio自带模拟器很麻烦（不支持amd），还是用蓝叠这种第三方模拟器吧  </p>
+</blockquote>
+<h3 id="创建keystore"><a href="#创建keystore" class="headerlink" title="创建keystore"></a>创建keystore</h3><p>android开发者都知道release版本apk是无法直接生成，正常程序运行出来的都是debug版本，当你run release的时候系统会提示你 the apk for your currently selected variant(app-release-unsigned.apk)is not signed，意思就是你这个apk没有签名，只有签名后的release才可以运行，下面简单讲解下创建keystore  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. Build -> Generate Signed APK... -> Key store path 下点击Create new...  
+2. 在弹出对话框里填写内容后点击OK即可，注意最后文件的扩展名变为”.jks”,而不是以前的”.keystore”，一般位置key store path写工程里面的，方便寻找
+
+Key store path 密匙路径  
+Password 密匙签名密码  
+Key - Alias 密匙别名  
+Key - Password Key密匙密码
+Certificate - First and Last Name 开发者信息  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="调试无法到avd虚拟机"><a href="#调试无法到avd虚拟机" class="headerlink" title="调试无法到avd虚拟机"></a>调试无法到avd虚拟机</h3><p>安装APP到模拟器出现 INSTALL_FAILED_NO_MATCHING_ABIS 解决方案  </p>
+<p>由于安装的APP中使用了与当前CPU架构不一致的native libraries,所以导致报错，在 app 的 moudle 的 build.gradle 文件中, 粘贴一下代码, 注意是添加在 android {} 大括号中 ，解决 native libraries 不支持cpu的体系结构。允许模拟器调试。  </p>
+<pre class="line-numbers language-html"><code class="language-html">android{
+    ...  
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'armeabi-v7a','x86_64'
+            universalApk true
+        }
+    }
+    ...  
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="打包正式apk"><a href="#打包正式apk" class="headerlink" title="打包正式apk"></a>打包正式apk</h3><p>AndroidStudio打包生成正式apk（XXX-release.apk）  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 主菜单Build -> Generate Signed APK ... (首次点击可能需要输入操作系统密码)  
+2. 填写key store path，以及密匙签名密码，密匙别名，密匙密码  
+3. 填写生成路径，选择签名方式，Finish完成
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>如果出现“Android studio 签名 报错：Could not download groovy-all.jar”，在app的build.gradle中的android部分添加如下代码块  </p>
+<pre class="line-numbers language-html"><code class="language-html">android{
+    ...  
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    ...  
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>signingConfigs 需要写在defaultConfig 和buildTypes 前面，不然编译的时候会报错。<br>正确配置后还是报错，这里就需要：<br>Clean Project<br>Rebuild Project<br>缺一不可，再次运行即可。</p>
+<h2 id="AndroidStudio快捷键"><a href="#AndroidStudio快捷键" class="headerlink" title="AndroidStudio快捷键"></a>AndroidStudio快捷键</h2><p>Ctrl+N 查找类、文件、符号、方法<br>Ctrl+F 查找文本<br>Ctrl+R 替换文本<br>Alt+F3 快速寻找<br>Ctrl+alt+左方向键 回到上一步处<br>Ctrl+alt+右方向键 回到下一步处  </p>
+<h2 id="代码片段"><a href="#代码片段" class="headerlink" title="代码片段"></a>代码片段</h2><h3 id="记录上一次app数据，重启仍有效"><a href="#记录上一次app数据，重启仍有效" class="headerlink" title="记录上一次app数据，重启仍有效"></a>记录上一次app数据，重启仍有效</h3><p>使用SharedPreferences  </p>
+<pre class="line-numbers language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>himyandroid<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> androidx<span class="token punctuation">.</span>appcompat<span class="token punctuation">.</span>app<span class="token punctuation">.</span>AppCompatActivity<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> android<span class="token punctuation">.</span>content<span class="token punctuation">.</span>SharedPreferences<span class="token punctuation">;</span>
+<span class="token keyword">import</span> android<span class="token punctuation">.</span>os<span class="token punctuation">.</span>Bundle<span class="token punctuation">;</span>
+<span class="token keyword">import</span> android<span class="token punctuation">.</span>view<span class="token punctuation">.</span>View<span class="token punctuation">;</span>
+<span class="token keyword">import</span> android<span class="token punctuation">.</span>widget<span class="token punctuation">.</span>Button<span class="token punctuation">;</span>
+<span class="token keyword">import</span> android<span class="token punctuation">.</span>widget<span class="token punctuation">.</span>EditText<span class="token punctuation">;</span>
+<span class="token keyword">import</span> android<span class="token punctuation">.</span>widget<span class="token punctuation">.</span>Toast<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MainActivity</span> <span class="token keyword">extends</span> <span class="token class-name">AppCompatActivity</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> EditText editText1<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> EditText editText2<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> Button button1<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> SharedPreferences sharedPreferences<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String username<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">onCreate</span><span class="token punctuation">(</span>Bundle savedInstanceState<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">onCreate</span><span class="token punctuation">(</span>savedInstanceState<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">setContentView</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>layout<span class="token punctuation">.</span>activity_main<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        button1<span class="token operator">=</span><span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>button2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        editText1<span class="token operator">=</span><span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>editTextTextPersonName1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        editText2<span class="token operator">=</span><span class="token function">findViewById</span><span class="token punctuation">(</span>R<span class="token punctuation">.</span>id<span class="token punctuation">.</span>editTextTextPersonName2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        sharedPreferences<span class="token operator">=</span><span class="token function">getSharedPreferences</span><span class="token punctuation">(</span><span class="token string">"info"</span><span class="token punctuation">,</span>MODE_PRIVATE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        username<span class="token operator">=</span>sharedPreferences<span class="token punctuation">.</span><span class="token function">getString</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">,</span><span class="token string">"默认用户名"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        password<span class="token operator">=</span>sharedPreferences<span class="token punctuation">.</span><span class="token function">getString</span><span class="token punctuation">(</span><span class="token string">"password"</span><span class="token punctuation">,</span><span class="token string">"默认密码"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        editText1<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        editText2<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        button1<span class="token punctuation">.</span><span class="token function">setOnClickListener</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>OnClickListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token annotation punctuation">@Override</span>
+            <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onClick</span><span class="token punctuation">(</span>View v<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                username<span class="token operator">=</span>editText1<span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                password<span class="token operator">=</span>editText2<span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                sharedPreferences<span class="token operator">=</span><span class="token function">getSharedPreferences</span><span class="token punctuation">(</span><span class="token string">"info"</span><span class="token punctuation">,</span>MODE_PRIVATE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                SharedPreferences<span class="token punctuation">.</span>Editor editor<span class="token operator">=</span>sharedPreferences<span class="token punctuation">.</span><span class="token function">edit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                editor<span class="token punctuation">.</span><span class="token function">putString</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">,</span>username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                editor<span class="token punctuation">.</span><span class="token function">putString</span><span class="token punctuation">(</span><span class="token string">"password"</span><span class="token punctuation">,</span>password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                editor<span class="token punctuation">.</span><span class="token function">commit</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                Toast toast<span class="token operator">=</span>Toast<span class="token punctuation">.</span><span class="token function">makeText</span><span class="token punctuation">(</span><span class="token function">getApplicationContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">"保存成功"</span><span class="token punctuation">,</span>Toast<span class="token punctuation">.</span>LENGTH_LONG<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                toast<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="修改app名字"><a href="#修改app名字" class="headerlink" title="修改app名字"></a>修改app名字</h3><p>名称支持中英文    </p>
+<pre class="line-numbers language-html"><code class="language-html">修改Android/app/res/values/strings.xml里的<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>app_name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>魔兽世界<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+对应于Android/manifests/AndroidManifest.xml里的android:label="@string/app_name"  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="AndroidStudio应用程序图标替换"><a href="#AndroidStudio应用程序图标替换" class="headerlink" title="AndroidStudio应用程序图标替换"></a>AndroidStudio应用程序图标替换</h3><pre class="line-numbers language-html"><code class="language-html">不建议直接在已有项目上更换图标。  
+建议新建空白项目专门用来更换图标，然后将含有新图标的mipmap-xxxx目录覆盖到项目中来。  
+mipmap-anydpi-v26  
+mipmap-hdpi  
+mipmap-mdpi  
+mipmap-xhdpi  
+mipmap-xxhdpi  
+mipmap-xxxhdpi
+
+1. 空项目Project/KongAndroid/app,右键New->Image Asset
+2. SourceAsset的path里选择新图标用的目标图片，Foreground编辑前景图设置，background编辑背景图设置，右边下拉框预览不同尺寸效果，Finish完成。（不管后缀，上述所有目录下原来的同名文件可能存在要手动删除）  
+3. 删除build缓存，重新编译。Project/HiAndroid/app/下的build目录整个右键delete掉
+4. 然后上述所有目录复制到项目目录里去。 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="ImageView显示图片"><a href="#ImageView显示图片" class="headerlink" title="ImageView显示图片"></a>ImageView显示图片</h3><p>不影响原来组件布局的替换图片使用<br>_imageview.setBackground(getResources().getDrawable(R.drawable.myimg));</p>
+<pre class="line-numbers language-html"><code class="language-html">1. window系统里选择并复制图片。  
+2. 进入AndroidStudio,选中res/drawable目录，右键粘贴，出现对话框"选择目标目录"，一般选择"...\app\src\main\res\drawable"后确定。  
+3. 图片重命名,最好以小写字母a-z开头加1-9数字组合。  
+4. AndroidStudio进入Design设计界面，左侧Palette栏中Common栏，将ImageView直接拖到下方的ComponentTree中。  
+5. 在弹出的"Pick a Resources"对话框，选择刚才粘贴到res/drawable下的图片。确定即可
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="可点击的图片-文字-的按钮"><a href="#可点击的图片-文字-的按钮" class="headerlink" title="可点击的图片/文字 的按钮"></a>可点击的图片/文字 的按钮</h3><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TextView</span>
+    <span class="token attr-name"><span class="token namespace">android:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>helloImgBtn<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>background</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@drawable/a001<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>gravity</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>center<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>clickable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+<span class="token punctuation">/></span></span>  
+
+TextView imgBtn=(TextView)findViewById(R.id.hitext);
+imgBtn.setOnClickLister(new View.OnClickListener(){
+    @Override  
+    public void onClick(View v){
+        AlertDialog dialog = new AlertDialog.Builder(MainActivity.this)
+            .setTitle("");
+            .setMessage("我是对话框");
+            .create();
+        dialog.show();
+    }
+});
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="耗时操作进度条提示"><a href="#耗时操作进度条提示" class="headerlink" title="耗时操作进度条提示"></a>耗时操作进度条提示</h3><p>界面上弹出一个对话框，可以屏蔽其他控件的交互。会显示一个进度条表示当前操作比较耗时，让用户耐心的等待  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.myapplication112;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Button button=(Button)findViewById(R.id.button);
+        button.setOnClickListener(this);
+    }
+
+    public  void onClick(View v){
+        switch (v.getId()){
+            case R.id.button:
+                ProgressDialog progressDialog=new ProgressDialog(MainActivity.this);
+                progressDialog.setTitle("");
+                progressDialog.setMessage("正在对设备进行设置");
+                progressDialog.setCancelable(false); //如果设置为false，则不可以使用back键或点击其他区域返回
+                progressDialog.show();
+
+                Thread thread = new Thread(new Runnable(){
+                    @Override
+                    public void run(){
+                        try{
+                            Thread.sleep(5000);//延时5秒
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }finally{
+                            System.out.println("Welcome");
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
+                thread.start();
+
+                break;
+            default:
+                break;
+        }
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="Android实现中英文切换"><a href="#Android实现中英文切换" class="headerlink" title="Android实现中英文切换"></a>Android实现中英文切换</h3><p>在res路径下New-&gt;Android Resource Directory<br>弹出对话框选择Local，右边选择地区，选择语言，语言：English，Regin：US,点击ok<br>创建后切换成project视角查看values有两份，vlaues-en-rUS为刚才刚创建的</p>
+<pre class="line-numbers language-html"><code class="language-html">一、配置AndroidManifest文件  
+将android:configChanges="locale"添加到AndroidManifest文件中   
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>application</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>allowBackup</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>icon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@mipmap/ic_launcher<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@string/app_name<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>configChanges</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>locale<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>roundIcon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@mipmap/ic_launcher_round<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>supportsRtl</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>theme</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@style/Theme.BookAdvancedLight<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activity</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>.activities.test.I18nTestActivity<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>exported</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>intent-filter</span><span class="token punctuation">></span></span>
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>action</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.intent.action.MAIN<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+
+                <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>category</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>android.intent.category.LAUNCHER<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>intent-filter</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>activity</span><span class="token punctuation">></span></span>
+        ......
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>application</span><span class="token punctuation">></span></span>
+
+二、与res/values同级，新建values-en-rUS和values-zh-rCN文件夹，并且在两个文件夹中都新建一个strings.xml文件  
+values、values-en-rUS和values-zh-rCN文件夹中的strings.xml文件内容如下所示：  
+values/strings.xml：
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>app_name<span class="token punctuation">"</span></span> <span class="token attr-name">translatable</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>BookAdvancedLight<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>username<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>password<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>login<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>login<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>usernameHint<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>please input username<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>passwordHint<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>please input password<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resources</span><span class="token punctuation">></span></span>
+values-en-rUS/strings.xml：  
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>tools</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/tools<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">tools:</span>ignore</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ExtraTranslation<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>username<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>password<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>login<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>login<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>usernameHint<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>please input username<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>passwordHint<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>please input password<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resources</span><span class="token punctuation">></span></span>  
+values-zh-rCN/strings.xml：  
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>resources</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>tools</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/tools<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">tools:</span>ignore</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>ExtraTranslation<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token punctuation">></span></span>用户名<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>密码<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>login<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>登录<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>usernameHint<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>请输入用户名<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>passwordHint<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>请输入密码<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>string</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>resources</span><span class="token punctuation">></span></span>  
+
+三、创建Activity及其布局文件  
+Activity文件：  
+public class I18nTestActivity extends AppCompatActivity {
+
+    private Button login;
+    private ToggleButton translate;
+    private TextView txtUsername,txtPassword;
+    private EditText editUsername,editPassword;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_i18n_test);
+        InitView();
+    }
+
+    private void InitView() {
+        login = findViewById(R.id.bt_login);
+        txtUsername = findViewById(R.id.txt_username);
+        txtPassword = findViewById(R.id.txt_password);
+        editUsername = findViewById(R.id.edit_username);
+        editPassword = findViewById(R.id.edit_password);
+        translate = findViewById(R.id.toggle_button);
+        translate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String sta= getResources().getConfiguration().locale.getLanguage();
+                translateText(sta);
+            }
+        });
+    }
+
+    public void translateText(String sta){
+        if (sta.equals("zh")){
+            Resources resources = this.getResources();// 获得res资源对象
+            Configuration config = resources.getConfiguration();// 获得设置对象
+            DisplayMetrics dm = resources.getDisplayMetrics();// 获得屏幕参数：主要是分辨率，像素等。
+            config.locale = Locale.US; // 英文
+            resources.updateConfiguration(config, dm);
+            this.recreate();
+        }else {
+            //转换为中文
+            Resources resources = this.getResources();// 获得res资源对象
+            Configuration config = resources.getConfiguration();// 获得设置对象
+            DisplayMetrics dm = resources.getDisplayMetrics();// 获得屏幕参数：主要是分辨率，像素等。
+            config.locale = Locale.SIMPLIFIED_CHINESE; // 英文
+            resources.updateConfiguration(config, dm);
+            this.recreate();
+        }
+    }
+
+}
+布局activity.xml 文件：  
+<span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>LinearLayout</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">xmlns:</span>app</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res-auto<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">xmlns:</span>tools</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/tools<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">tools:</span>context</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>.activities.test.I18nTestActivity<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>orientation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>vertical<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>LinearLayout</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>80dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>orientation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>horizontal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TextView</span>
+            <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@+id/txt_username<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@string/username<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>gravity</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>center<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>60dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>70dp<span class="token punctuation">"</span></span>
+            <span class="token punctuation">/></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>EditText</span>
+            <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@+id/edit_username<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>70dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>hint</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@string/usernameHint<span class="token punctuation">"</span></span>
+            <span class="token punctuation">/></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>LinearLayout</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>LinearLayout</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>80dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>orientation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>horizontal<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TextView</span>
+            <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@+id/txt_password<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@string/password<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>gravity</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>center<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>60dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>70dp<span class="token punctuation">"</span></span>
+            <span class="token punctuation">/></span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>EditText</span>
+            <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@+id/edit_password<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>70dp<span class="token punctuation">"</span></span>
+            <span class="token attr-name"><span class="token namespace">android:</span>hint</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@string/passwordHint<span class="token punctuation">"</span></span>
+            <span class="token punctuation">/></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>LinearLayout</span><span class="token punctuation">></span></span>
+
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@+id/bt_login<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@string/login<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ToggleButton</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_gravity</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>center<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_marginTop</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>10dp<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@+id/toggle_button<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>textOn</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>中文<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>textOff</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>English<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>textAllCaps</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>LinearLayout</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>下面代码建议写在setContentView方法之前，否则需要重新启动(this.recreate)Activity才生效  </p>
+<pre class="line-numbers language-html"><code class="language-html">    Resources resources = this.getResources();
+    Configuration config = resources.getConfiguration();
+    DisplayMetrics dm = resources.getDisplayMetrics();
+    config.locale = Locale.SIMPLIFIED_CHINESE;  
+    //config.locale = Locale.US; 
+    resources.updateConfiguration(config, dm);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="中英文切换-跨多个activity生效方法之一"><a href="#中英文切换-跨多个activity生效方法之一" class="headerlink" title="中英文切换-跨多个activity生效方法之一"></a>中英文切换-跨多个activity生效方法之一</h3><p>先增加国际化res/values/strings.xml  </p>
+<pre class="line-numbers language-html"><code class="language-html">res右键 -> New -> Android Resource File  
+File name: strings  
+Available qualifiers: Locale >> En  ... ok 选
+选中string.xml 可open in editor添加字符串翻译
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>MainActivity.java  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.hiemptyactivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.Locale;
+
+public class MainActivity extends AppCompatActivity {
+    private Button btn11;
+    private Button btn10;
+    private Button btn12;
+    private boolean clicked;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setLanguage();
+        setContentView(R.layout.activity_main);
+
+        btn11 = (Button) findViewById(R.id.button11);
+        btn10 = (Button) findViewById(R.id.button10);
+        btn12 = (Button) findViewById(R.id.button12);
+        btn10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences preferences = getSharedPreferences("key", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putInt("language", 1);
+                editor.commit();
+                finish();
+                Intent intent=new Intent(MainActivity.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+        btn11.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SharedPreferences preferences = getSharedPreferences("key", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                    editor.putInt("language", 0);
+                editor.commit();
+                finish();
+                Intent intent=new Intent(MainActivity.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        btn12.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2=new Intent(MainActivity.this,MainActivity2.class);
+                intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent2);
+            }
+        });
+    }
+    public void setLanguage(){
+        Configuration configuration = getResources().getConfiguration();
+        SharedPreferences sharedPreferences = getSharedPreferences("key",MODE_PRIVATE);
+        int language=sharedPreferences.getInt("language",0);
+        switch (language){
+            case 0:
+                configuration.setLocale(Locale.ENGLISH);
+                break;
+            case 1:
+                configuration.setLocale(Locale.CHINESE);
+                break;
+            default:
+                break;
+        }
+        getResources().updateConfiguration(configuration,getResources().getDisplayMetrics());
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>MainActivity2.java  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.hiemptyactivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.Locale;
+
+public class MainActivity2 extends AppCompatActivity {
+    private Button btnBack;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setLanguage();
+        setContentView(R.layout.activity_main2);
+        btnBack=findViewById(R.id.buttonBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity2.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+    }
+    public void setLanguage(){
+        Configuration configuration = getResources().getConfiguration();
+        SharedPreferences sharedPreferences = getSharedPreferences("key",MODE_PRIVATE);
+        int language=sharedPreferences.getInt("language",0);
+        switch (language){
+            case 0:
+                configuration.setLocale(Locale.ENGLISH);
+                break;
+            case 1:
+                configuration.setLocale(Locale.CHINESE);
+                break;
+            default:
+                break;
+        }
+        getResources().updateConfiguration(configuration,getResources().getDisplayMetrics());
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用自定义Application"><a href="#使用自定义Application" class="headerlink" title="使用自定义Application"></a>使用自定义Application</h3><p>新建类，继承自Application  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.administrator;  
+
+import android.app.Application;
+import android.util.Log;
+public class MyApplication extends Application {
+    @Override  
+    public void onCreate() {  
+        Log.d("YYYYYYYYYYYYYYYYYYY","MyApplication onCreate");
+        super.onCreate();  
+
+    }  
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后在AndroidManifest.xml文件中的application节点上，引用就可以了(如果不指定也会生成默认的类)  </p>
+<pre class="line-numbers language-html"><code class="language-html"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>application</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.example.administrator.MyApplication<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>allowBackup</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>icon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@mipmap/ic_launcher<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@string/app_name<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>roundIcon</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@mipmap/ic_launcher_round<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>supportsRtl</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>theme</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@style/AppTheme<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="重载决定当前activity语言国际化"><a href="#重载决定当前activity语言国际化" class="headerlink" title="重载决定当前activity语言国际化"></a>重载决定当前activity语言国际化</h3><p>SharedPreferences工具类SPUtil.java  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.administrator;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+public class SPUtil{
+    public static void put(Context context,String key,Object val){
+        SharedPreferences sp = context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit=sp.edit();
+        if(value instanceof String){
+            edit.putString(key,(String)value);
+        }else if(value instanceof Integer){
+            edit.putInt(key,(int)value);
+        }else if(value instanceof Boolean){
+            edit.putBoolean(key,(Boolean)value);
+        }
+        edit.apply();
+    }
+
+    public static String getString(Context context,String key){
+        SharedPreferences sp = context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        return sp.getString(key,"");
+    }
+    public static String getInt(Context context,String key){
+        SharedPreferences sp = context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        return sp.getInt(key,0);
+    }
+    public static String getBoolean(Context context,String key){
+        SharedPreferences sp = context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        return sp.getBoolean(key,false);
+    }
+    public static void clearData(Context context){
+        SharedPreferences sp = context.getSharedPreferences("config",Context.MODE_PRIVATE);
+        sp.edit().clear().apply();
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>MyContextWrapper.java:  </p>
+<pre class="line-numbers language-html"><code class="language-html">public class MyContextWrapper extends ContextWrapper{
+    public MyContextWrapper(Context base){
+        super(base);
+    }
+    public static ContextWrapper wrap(Context context,Locale newLocale){
+        Resources res = context.getResources();
+        Configuration configuration = res.getConfiguration();
+        configuration.setLocale(newLocale);
+        res.updateConfiguration(configuration,res.getDisplayMetries());
+        context=context.createConfigurationContext(configuration);
+        return new ContextWrapper(context);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>目标activity里重载实现attachBaseContext方法,自动判断当前的语言环境  </p>
+<pre class="line-numbers language-html"><code class="language-html">@Override  
+protected void attachBaseContext(Context newBase){
+    Locale newLocale;
+    if(SPUtil.getBoolean(newBase,"isEn")){
+        newLocale=Locale.US;
+    }else{
+        newLocale=Locale.SIMPLIFIED_CHINESE;
+    }
+    Context context=MyContextWrapper.wrap(newBase,newLocale);
+    super.attachBaseContext(context);
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>一键操作  </p>
+<pre class="line-numbers language-html"><code class="language-html">
+
+ToggleButton translate =(ToggleButton)findViewById(R.id.toggleButton1);
+translate.setChecked(SPUtil.getBoolean(this,"isEn"));
+translate.setOnClickListener(new View.OnClickListener(){
+    @Override
+    public void onClick(View v){
+        translateText(translate.isChecked());
+    }
+})
+
+
+
+public void translateText(boolean isChecked){
+    if(isChecked){
+        SPUtil.put(this,"isEn",true);
+    }else{
+        SPUtil.put(this,"isEn",false);
+    }
+    this.recreate();
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="AndroidStudio多模块项目"><a href="#AndroidStudio多模块项目" class="headerlink" title="AndroidStudio多模块项目"></a>AndroidStudio多模块项目</h3><h4 id="正常创建新项目"><a href="#正常创建新项目" class="headerlink" title="正常创建新项目"></a>正常创建新项目</h4><p>按常规步骤创建新项目，主模块app</p>
+<h4 id="多模块创建"><a href="#多模块创建" class="headerlink" title="多模块创建"></a>多模块创建</h4><p>Android/app右键New-&gt;Module-&gt;Android Library 模块名Module name和包名Package name  </p>
+<p>打开项目Project Structure界面  </p>
+<pre class="line-numbers language-html"><code class="language-html">点击Dependencies | Modules选择 | + - 增加 减少 不同模块之间的依赖  
+添加依赖后在不同模块之间相互引用可以自动添加import语句  
+反映在,比如模块app添加对模块main的依赖  
+build.gradle(:app)里会自动添加
+dependencies{
+    implementation project(':main')
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="验证主模块调用子模块"><a href="#验证主模块调用子模块" class="headerlink" title="验证主模块调用子模块"></a>验证主模块调用子模块</h4><p>子模块main下面创建res资源文件夹，再创建activity_first.xml  </p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>RelativeLayout</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>   
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TextView</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>main模块!<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_centerInParent</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>RelativeLayout</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>子模块main-java包下创建FirstActivity.java文件如下  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.main.view; 
+import android.os.Bundle; 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity; 
+import com.example.main.R; 
+public class FirstActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_first);
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>主模块app的布局文件activity_main.xml  </p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token prolog">&lt;?xml version="1.0" encoding="utf-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>RelativeLayout</span> <span class="token attr-name"><span class="token namespace">xmlns:</span>android</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://schemas.android.com/apk/res/android<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span>
+    <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>match_parent<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Button</span>
+        <span class="token attr-name"><span class="token namespace">android:</span>id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@+id/btn_start_module<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>wrap_content<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>点击启动main模块!<span class="token punctuation">"</span></span>
+        <span class="token attr-name"><span class="token namespace">android:</span>layout_centerInParent</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>RelativeLayout</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>主模块app的MainActivity.java  </p>
+<pre class="line-numbers language-html"><code class="language-html">package com.example.demo; 
+import android.content.Intent;
+import android.os.Bundle; 
+import androidx.appcompat.app.AppCompatActivity; 
+import com.example.main.view.FirstActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initView();
+    }
+
+    private void initView() {
+        findViewById(R.id.btn_start_module).setOnClickListener(
+                view -> {
+                    Intent intent = new Intent(MainActivity.this, FirstActivity.class);
+                    startActivity(intent);
+                }
+        );
+    }
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>主模块app的Androidmanifest.xml全局配置文件中，添加子模块main页面的活动  </p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>activity</span> <span class="token attr-name"><span class="token namespace">android:</span>name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.example.main.view.FirstActivity<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>运行即可。  </p>
+<h3 id="控件的Text中字符串默认大写的解决"><a href="#控件的Text中字符串默认大写的解决" class="headerlink" title="控件的Text中字符串默认大写的解决"></a>控件的Text中字符串默认大写的解决</h3><p>控件属性添加  </p>
+<pre class="line-numbers language-html"><code class="language-html">android:textAllCaps="false"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="将Android工程改成android-library-project"><a href="#将Android工程改成android-library-project" class="headerlink" title="将Android工程改成android library project"></a>将Android工程改成android library project</h2><p>将Android工程A改成android library project，另一个工程B引用工程A，在工程A的基础上进行开发。在B中可以引用A的资源和代码</p>
+<pre class="line-numbers language-html"><code class="language-html">将工程B放到工程A目录同级下
+设置为android library才可以作为依赖被添加。  
+右键你(工程B的app)的module--open module settings---
+右边的dependencies---绿色的加号-------
+module dependency---选择你的android library
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2022/07/02/diary-20220702-1/" class="b-link-green">离线环境使用androidStudio</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2022/07/16/diary-20220716-my-rpc/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/31.jpg" class="responsive-img" alt="RPC学习">
+                        
+                        <span class="card-title">RPC学习</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            RPC框架知识铺垫RPC与http区别RPC主要用于公司内部服务调用，性能消耗低传输效率高，服务治理方便。  
+HTTP主要用于对外的异构环境，浏览器/app/第三方接口调用。
+1. 传输协议：  
+RPC可以基于TCP协议，也可以基于HT
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-07-16
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/C/" target="_blank">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2022/06/30/diary-20220630/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/10.jpg" class="responsive-img" alt="win10_vs2019_pcl环境配置">
+                        
+                        <span class="card-title">win10_vs2019_pcl环境配置</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            配置环境第一步：安装pcl
+在官网下载exe安装包和如图zip文件  
+
+PCL-1.12.1-AllInOne-msvc2019-win64.exe  
+pcl-1.12.1-pdb-msvc2019-win64.zip
+
+使用管理员权限
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2022-06-30
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/C/" target="_blank">
+                        <span class="chip bg-color">C++</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\(', '\)']]}
+    });
+</script>
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

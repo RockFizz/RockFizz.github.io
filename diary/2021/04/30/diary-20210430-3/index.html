@@ -1,0 +1,1620 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="rtmp、hls等直播的尝试, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="开头最近需要接入远程摄像头视频流，预研的都是rtmp协议，各种浏览器flash插件不支持，体验不好。国内外流媒体服务器系统在去Flash的趋势中也在不断发展，国内以NTV Media Server G3为代表的流媒体服务器产品率先完成了去F">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>rtmp、hls等直播的尝试 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/19.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        rtmp、hls等直播的尝试
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/rtmp/" target="_blank">
+                                <span class="chip bg-color">rtmp</span>
+                            </a>
+                        
+                            <a href="/diary/tags/hls/" target="_blank">
+                                <span class="chip bg-color">hls</span>
+                            </a>
+                        
+                            <a href="/diary/tags/webRTC/" target="_blank">
+                                <span class="chip bg-color">webRTC</span>
+                            </a>
+                        
+                            <a href="/diary/tags/Flv-js/" target="_blank">
+                                <span class="chip bg-color">Flv.js</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-04-30
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4.3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        16 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="开头"><a href="#开头" class="headerlink" title="开头"></a>开头</h2><p>最近需要接入远程摄像头视频流，预研的都是rtmp协议，各种浏览器flash插件不支持，体验不好。<br>国内外流媒体服务器系统在去Flash的趋势中也在不断发展，国内以NTV Media Server G3为代表的流媒体服务器产品率先完成了去Flash的研发。<br>以下是NTV Media Server G3去Flash技术路线图:  </p>
+<table>
+<tbody><tr>
+<td>点播</td><td>直播</td><td>双向</td>
+</tr>
+<tr>
+<td>m3u8/mp4/flv</td><td>m3u8/http-flv/web-rtc</td><td>webrtc</td>
+</tr>
+</tbody></table>
+<hr>
+<table>
+<tbody><tr>
+<td>浏览器</td><td>技术方案</td><td>协议</td>
+</tr>
+<tr>
+<td>IE11及以上版本</td><td> HTML5 Video + MSE</td><td>http-mp4/http-flv</td>
+</tr>
+<tr>
+<td>Chrome/Safari/Firefox</td><td> HTML5 Video + MSE</td><td> hls/http-flv/http-mp4/webrtc</td>
+</tr>
+<tr>
+<td>IE11以下版本</td><td>Flash Player</td><td>rtmp/http-flv/hls</td>
+</tr>
+</tbody></table>  
+
+<p>RTMP，全称（RealTimeMessagingProtocol），即实时消息传送协议。2005年前Adobe公司为Flash播放器和服务器之间音视频数据传输开发的私有协议。是TCP上的明文协议，协议中的基本数据单元成为消息（Message），传输的过程中消息会被拆分为更小的消息块（Chunk）单元。最后将分割后的消息块通过TCP协议传输，接收端再反解接收的消息块恢复成流媒体数据。RTMP优点是基本上所有编码器如摄像头之类的都支持RTMP输出历史悠久、延迟低。缺点是基于TCP非公共端口可能被防火墙拦截和为adobe私有协议，很多设备特别是ios端无法直接播放。  </p>
+<p>HttpFlv的出现最早是2008年，从它的协议本身我们能看到Adobe的影子，就是flv协议本身。http_flv其实就是一个无限长连续的http的flv文件流，走http80端口，客户端边接受边播放。也可以说，httpflv是争夺与放弃之间妥协的产物。人们再也不愿意看到Adobe，但又不得不面对海量Flv历史文档。在仇恨与无奈的交织中，httpflv诞生了。HttpFlv就是http+flv，将音视频数据封装成FLV格式，然后通过HTTP协议传输给客户端。理解HttpFlv协议，这就话就是关键。但聪明地你马上就会发现，虽然传输协议变了，但在flv数据格式下，脱离FlashPlayer还是无稽之谈。但在2016年，这一切都发生了改变，因为flv.js问世了！Bilibili，也就是传说中的B站，不仅贡献了弹幕，为我们提供了另一种观影交互体验。更重要的，Flv.js的诞生，让我们在视频播放领域彻底告别Adobe时代。一个全新、干净的HTML5就这样向我们走来了。  </p>
+<p>HLS，是Apple推出的直播协议，“HttpLiveStreaming”的缩写，它诞生自2009年。原理简单来说就是把一段视频流，分成一个个小的基于HTTP的文件来下载。通过视频流切片成文件片段来直播的。客户端首先会请求一个m3u8文件，里面会有不同码率的流，或者直接是ts文件列表，通过给出的ts文件地址去依次播放。在直播的时候，客户端会不断请求m3u8文件，检查ts列表是否有新的ts切片。当媒体流正在播放时，客户端可以根据当前网络环境，方便地在不同的码率流中做切换，以实现更好的观影体验。HLS的出现是为了解决苹果原生环境中的流媒体播放，这个协议可以方便地让Mac和iPhone播放视频流，不依赖Adobe。  </p>
+<p>Adobe早已是昨日黄花，未来已来，这是一个Html5的世界。在视频播放领域，全民直播已经开启，这是一个实时性需求强于稳定性的播放环境。苹果也跟曾经的Adobe一样，猜中了故事的开始，却踩空了这个故事的结局。  </p>
+<h2 id="播放RTMP直播流"><a href="#播放RTMP直播流" class="headerlink" title="播放RTMP直播流"></a>播放RTMP直播流</h2><p>此例中<a href="https://pan.baidu.com/s/1L94zwA-Hvv97PNUnkAW0wg" target="_blank">我的浏览器</a>，<a href="https://pan.baidu.com/s/1KIUNFY-GQzJKZ0LOYgGmZA" target="_blank">我的flashplayer插件</a>，<a href="https://pan.baidu.com/s/1Xp9dU3wVo3KDr2YAkASxug" target="_blank">配置好依赖的vue工程</a>，node版本12.<em>或14.</em>应该均可。  </p>
+<p>浏览器处理rtmp/flv视频流直播，必须引入flash。  </p>
+<pre><code>npm install videojs-flash</code></pre><p>videojs(el, options, cb)<br>接受三个参数: </p>
+<blockquote>
+<p>video标签id<br>要实例化的videojs配置<br> 回调函数  </p>
+</blockquote>
+<p>常用的videojs配置选项  </p>
+<pre><code>preload: 是否预加载
+muted : 实现静音播放, 有一些浏览器需要静音才能实现加载之后自动播放
+controls: 将显示视频控件, 如果不需要则去掉controls即可
+autoplay: 视频在加载完成之后自动播放
+poster: 视频封面图片
+loop: true/false, 是否循环播放
+notSupportMessage: 浏览器无法播放时的提示信息
+techOrder: 播放控件,默认是html5,这里需要播放rtmp所以首选项要是flash
+fluid: 流式布局,自适应父元素大小  
+
+更多配置详见 https://docs.videojs.com/tutorial-options.html  </code></pre><p>常用方法和事件  </p>
+<pre><code>autoplay()获取或者设置自动播放属性
+currentTime()设置或者获取当前播放进度
+duration()获取视屏的总长度，一般要等到视屏对象完全加载后才能获取到，一般我们会使用定时轮询的方式来获取总时长
+ended()获取当前视屏对象是否已经处于结束状态
+enterFullWindow() 当全屏不支持我们可以视频容器延伸到浏览器将让我们一样宽。经过试验改api完全无法使视屏进入全屏。分析源码后发现真正进入全屏的api应该是requestFullscreen()，但可惜该api只能又手势触发函数执行，连模拟点击都没法触发他。
+exitFullscreen() 退出全屏，有效的
+exitFullWindow() 退出全屏，试了没什么用
+height() 设置/获取播放器的高度
+width() 设置/获取播放器的宽度
+isFullscreen() 检查是否处于全屏模式
+load() 开始加载视屏
+loop() 在视频中获取或设置循环属性元素
+muted() 获取当前的静音状态
+pause() 暂停视频
+paused() 检查视屏是否暂停
+play() 播放视屏
+played() 检查视屏播放状态
+preload() 获取或设置预加载属性
+ready() 视屏对象加载完成后调用ready中的回调函数
+poster() 获取或设置海报图像源url
+reset() 重载视屏
+src() 更换视频源
+dispose() 销毁视频实例  
+
+更多api，事件详见 https://docs.videojs.com/docs/api/player.html  </code></pre><p>事件监听采用on(‘listener’, cb),off(‘list’)移除事件监听  </p>
+<pre><code>    this.on('firstplay', e =&gt; {});  
+    this.on('progress', e =&gt; {});  
+    this.on('timeupdate', e =&gt; {}); 
+
+视频开始加载时会触发firstplay  
+实例化之后会触发progress,有时候实例化之后无法与后台建立连接,可以在回调设置一个定时器,监听3s后的currentTime()判断是否建立连接  
+视频播放时会不断触发timeupdate事件,结合currentTime()可以检测是否播放中断  </code></pre><p>遇到的问题：  </p>
+<p>videojs播放窗口小于400300时无法自动播放,因为video-js.swf文件跨域.播放rtmp视频时videojs会在cdn上加载一个<a href="https://pan.baidu.com/s/1U3Ix8epD_S59G4E7ErrClA" target="_blank">video-js.swf文件</a>,该文件必须同源才能支持播放窗口小于400300时自动播放  </p>
+<p>使用dispose()销毁实例时会将页面上的dom节点一并移除,如果需要二次复用,则可以在初始实例化时先将节点保存起来  </p>
+<p>videojs提示 (CODE:4 MEDIA_ERR_SRC_NOT_SUPPORTED) No compatible source was found for this video.可能是没有开始浏览器flash支持,chrome默认是询问,需要改成允许  </p>
+<p>演示hirtmp.vue  </p>
+<pre><code>&lt;template&gt;
+  &lt;div class="hello"&gt;
+   &lt;video
+    id="my-player"
+    class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid"
+    preload="auto"
+    autoplay
+    style="width: 1200px;height: 640px;"
+    controls
+    data-setup="{}"
+    &gt;
+    &lt;/video&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
+import "videojs-flash";
+
+export default {
+    name: 'hirtmp',
+    data () {
+        return {
+        msg: 'Welcome to Your Vue.js App'
+        }
+    },
+    mounted: function () {      
+        this.playVideo();
+    },
+    methods:{
+        playVideo(){
+            var videoPlayer = videojs(
+                "my-player",
+                {
+                sources: [
+                    {
+                    src: "rtmp://58.200.131.2:1935/livetv/cctv1",
+                    type: "rtmp/flv"
+                    }
+                ],
+                muted: true,
+                controls: true,
+                autoplay: true,
+                loop: true,
+                techOrder: ["html5", "flash"],
+                width: "1200",
+                height: "640"
+                },
+                function() {
+                this.play();
+                }
+            );
+        },
+    },
+}
+&lt;/script&gt;
+
+&lt;!-- Add "scoped" attribute to limit CSS to this component only --&gt;
+&lt;style scoped&gt;
+h1, h2 {
+  font-weight: normal;
+}
+
+&lt;/style&gt;
+</code></pre><h2 id="播放hls直播流"><a href="#播放hls直播流" class="headerlink" title="播放hls直播流"></a>播放hls直播流</h2><p>安装依赖  </p>
+<pre><code>npm install --save-dev video.js</code></pre><p>main.js添加全局引用  </p>
+<pre><code>import Video from 'video.js';
+import 'video.js/dist/video-js.css';
+Vue.prototype.$videojs = Video; </code></pre><p>演示hihls.vue, <a href="https://pan.baidu.com/s/1lbLLR0iCczP3fXVlBYtwQg" target="_blank">处理hls直播流vue工程安装好依赖</a>，node版本12.<em>或14.</em>应该均可。  </p>
+<pre><code>&lt;template&gt;
+  &lt;div class="hello"&gt;
+    &lt;video id='myvideo' width=800 height=600 class="video-js vjs-default-skin" controls&gt;
+            &lt;!--&lt;source src="http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8"&gt;--&gt;
+        &lt;/video&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+
+export default {
+  name: 'hihls',
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App',
+      _videoPlayer:null,
+    }
+  },
+    mounted: function () {      
+        this.InitVideoPlayer();
+    },
+    methods:{
+            InitVideoPlayer(){
+                var videoPlayer = this.$videojs(
+                    document.querySelector('#myvideo'),
+                    {                    
+                    muted: true,
+                    controls: true,
+                    autoplay: true,
+                    loop: true,                   
+                    width: "1024px",
+                    height: "768px",                     
+                    }                 
+                );
+                videoPlayer.src([
+                    {
+                        src: "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8",
+                        type: 'application/x-mpegURL' 
+                    }
+                ]);
+                this._videoPlayer=videoPlayer;
+                //http://ivi.bupt.edu.cn/hls/jshd.m3u8
+                //http://ivi.bupt.edu.cn/hls/dfhd.m3u8
+                //http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8
+            },
+    },
+}
+&lt;/script&gt;
+
+&lt;!-- Add "scoped" attribute to limit CSS to this component only --&gt;
+&lt;style scoped&gt;
+h1, h2 {
+  font-weight: normal;
+}
+
+&lt;/style&gt;
+</code></pre><h2 id="关于Flv-js"><a href="#关于Flv-js" class="headerlink" title="关于Flv.js"></a>关于Flv.js</h2><p>flv.js是来自Bilibli的开源项目。它解析FLV文件传给原生HTML5的Video标签播放音视频数据，使浏览器在不借助Flash的情况下播放FLV成为可能。（FLV是flash video的简称，是flash的视频格式，现代浏览器已经把flash彻底抛弃了）。<br>安装依赖  </p>
+<pre><code>npm install --save flv.js  </code></pre><p>示例代码  </p>
+<pre><code>&lt;template&gt;
+    &lt;div&gt;
+        &lt;video autoplay controls width="100%" height="500" id="videoElement"&gt;&lt;/video&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    import flvjs from 'flv.js'
+
+    export default {
+        name: 'hiflv',
+        props: {
+            msg: String
+        },
+        mounted() {
+            this.$nextTick(() =&gt; {
+                this.createVideo()
+            })
+        },
+        methods: {
+            createVideo() {
+                if (flvjs.isSupported()) {
+                    var videoElement = document.getElementById('videoElement');
+                    var flvPlayer = flvjs.createPlayer({
+                        type: 'flv',
+                        url: '/static/test.flv' //你的url地址
+                    });
+                    flvPlayer.attachMediaElement(videoElement);
+                    flvPlayer.load();
+                    flvPlayer.play();
+                }
+            }
+        }
+    }
+&lt;/script&gt;
+&lt;style scoped&gt;
+h1, h2 {
+  font-weight: normal;
+}
+&lt;/style&gt;
+</code></pre><p> <a href="https://pan.baidu.com/s/1uGJDun2lLtFyj2z7T__IpQ" target="_blank">Flv.js直接播放flv(不依赖flash插件)的vue工程依赖已备.rar</a></p>
+<h2 id="结尾看看WebRTC"><a href="#结尾看看WebRTC" class="headerlink" title="结尾看看WebRTC"></a>结尾看看WebRTC</h2><p>实时通信（RTC）最容易和WebRTC混淆，实际上，二者不能划等号。<br>WebRTC，是Google的一个专门针对网页实时通信的标准及开源项目。只提供了基础的前端功能实现，包括音视频采集、编解码、流媒体传输、渲染、抖动缓冲等，并在Native代码基础上，封装了简单的JavaScript接口，仅通过几行代码即可实现点对点通信，且具有良好的跨平台特性，目前主流的浏览器都已支持。开发者若要基于WebRTC开发商用项目，那么需要自行做服务端实现和部署，信令前后端选型实现部署，以及手机适配等一系列具体工作；在此之外还要在可用性和高质量方面，进行大量的改进和打磨，对自身开发能力的门槛要求非常高。一个专业的RTC技术服务系统，需要除了涵盖上述的通信环节外，实际上还需要有解决互联网不稳定性的专用通信网络，以及针对互联网信道的高容忍度的音视频信号处理算法。当然常规云服务的高可用、服务质量的保障和监控维护工具等都只能算是一个专业服务商的基本模块。所以，WebRTC仅是RTC技术栈中的几个小细分的技术组合，并不是一个全栈解决方案。  </p>
+<p>基本概念如下：  </p>
+<blockquote>
+<p>SDP：即会话描述协议，主要保存当前会话的媒体和传输信息，其中媒体信息包括媒体类型、传输协议、媒体格式等，传输信息包括媒体的远程地址信息、带宽等；它由多行kv格式的文本信息组成，具体可参考这里。<br>Offer： 通信的发起方对自己的sdp描述<br>Answer： 通信的接收方对自己的sdp描述<br>信令： 协调发起方、接收方通信的数据信息，其中包括sdp描述信息、会话控制信息（节点加入、退出及各类的业务控制信息等）、网络信息、错误信息等。  </p>
+</blockquote>
+<p>具体流程如下：  </p>
+<blockquote>
+<p>1.客户端A初始化本地音视频设备，创建一个用于offer的SDP对象，其中SDP对象中保存当前音视频的相关信息。<br>2.客户端A通过信令服务器将SDP信息发送给客户端B；<br>3.客户端B在接收到客户端A发送的SDP信息并保存后，初始化本地音视频设备并创建用于answer的SDP对象；<br>4.客户端B通过信令服务器将SDP信息发送给客户端A；<br>5.客户端A、B通过交换SDP等信息，建立P2P通道进行音视频传输；  </p>
+</blockquote>
+<p>Chrome浏览器即实现了WebRTC相关协议的客户端，但是稳定性堪忧，连续运行24小时以上内存占用容易崩溃。  </p>
+<p>WebRTC设计的初衷只是为了在两个浏览器native/app之间解决直接连接发送mediastreaming/data数据的，也就是所谓的端对端的通信，大多数的情况下不需要依赖于服务器的中转，因此一般在通信的逻辑上是一对一。而我们现在的直播服务大部分的情况下是一对多的通信，一个主播可能会有成千上万个接收端，（目前主流的直播方案一般采用rtmp方式，首先客户端主播采集音视频流，并通过rtmp协议推流到流媒体服务器，流媒体服务器做一些编码处理等将流分发给各个客户端，进而拉流播放。）这种方式用传统的P2P来实现是不可能的，所以目前直播的方案基本上都是会有直播服务器来做中央管理，主播的数据首先发送给直播服务器，直播服务器为了能够支持非常多用户的同事观看，还要通过边缘节点CDN的方式来做地域加速，所有的接收端都不会直接连接主播，而是从服务器上接收数据。  </p>
+<p>基于端对端的webrtc方式，严格来说不属于常规的直播场景，其主要适用于人数较少的视频会议等场景，各个节点分别建立p2p连接进行音视频的传输，WebRTC的优势是：在web端，对于开发者和使用者来说，音视频通信的开发和使用简单化；对于开发者来说，门槛低，不必熟悉流媒体，仅调用js_api即可实现；对于使用者来说，打开浏览器等浏览器即可。点对点通信，节省服务器带宽费用。相对于基于tcp的rtmp推拉流方式，支持udp的webrtc方式延时低。</p>
+<p>基于端对端的webrtc受限于客户端性能、连接人数等限制，很难适用于直播场景。为了解决这些问题，可以引入媒体服务器，客户端仅传输一路音视频流到媒体服务器，其余客户端通过与媒体服务器建立连接进行音视频显示。目前开源的主流webrtc媒体服务器如下：Kurento、licode、janus。相对于端对端的webrtc方式，避免了客户端性能低、音视频处理、内容审核等问题，支持更为复杂的应用场景；支持多人进行同时观看直播，并发度高；在web端集成相对简单容易，采用浏览器即可接入，且延时较低；缺点：该种方式相对于端对端的webrtc方式，开发成本较高，需要实现自己的媒体服务器，而目前没有比较成熟的方案。相对于成熟的rtmp配套解决方案，周边设施相对较少。</p>
+<p><font color="red"> 目前直播常规技术实现 </font>：服务器请使用 nginx rtmp-module架设，架设好了用ffmpeg命令行来测试播摄像头。主播客户端请使用rtmp进行推流给rtmp-module，粉丝请使用 rtmp / flv + http stream 进行观看，PC-web端的粉丝请使用 Flash NetStream来观看，移动 web端的粉丝请使用 hls / m3u8 来观看。</p>
+<h2 id="动手搭建直播环境"><a href="#动手搭建直播环境" class="headerlink" title="动手搭建直播环境"></a>动手搭建直播环境</h2><p>1.Windows平台下基于Nginx+ffmpeg搭建RTMP流媒体服务。<br>2.使用OBS推流工具进行推流。<br>3.使用Vlc播放器拉流观看直播。  </p>
+<p> <a href="https://pan.baidu.com/s/13yWVVoyIuErUGGRHMhvHfA" target="_blank">FFmpeg_nginx_obs推流搭建直播服务.rar</a></p>
+<h2 id="VLC播放器搭建RTSP直播流播放mp4"><a href="#VLC播放器搭建RTSP直播流播放mp4" class="headerlink" title="VLC播放器搭建RTSP直播流播放mp4"></a>VLC播放器搭建RTSP直播流播放mp4</h2><p>制作适合rtp/rtsp协议播放的流媒体mp4文件:  </p>
+<pre><code>mp4格式的视频必须符合MPEG-4流的RTP负载格式 标准，在RTsp协议下才能播放。  
+经实际测试发现mp4box工具用以下命令刷新mp4文件即可  
+安装My MP4Box GUI 后进入My MP4Box GUI\Tools执行下列命令  
+mp4box.exe -inter 500  -isma -hint myrtspvideo.mp4  
+</code></pre><p> <a href="https://pan.baidu.com/s/1wzDFBZERF-q4kmQ6R7a6Sg" target="_blank">VLC播放器搭建RTSP直播流(将MP4文件转rtsp流播放).rar.rar</a>  </p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/04/30/diary-20210430-3/" class="b-link-green">rtmp、hls等直播的尝试</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/05/02/diary-20210502-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/27.jpg" class="responsive-img" alt="UE4的探索(1)-材质">
+                        
+                        <span class="card-title">UE4的探索(1)-材质</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            PBR概念初览基于物理的材质是一种以三种材质核心输入为基础的实时算法，分别是Mtallic金属感，Specualr高光度，Roughness粗糙度。利用这三项输入我们即可打造出建筑表面所需的任何照片级真实度材质。除金属感，高光度和粗糙度外还
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-05-02
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/UE4/" target="_blank">
+                        <span class="chip bg-color">UE4</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/03/30/diary-20210330-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/14.jpg" class="responsive-img" alt="vue备忘(console查看vue和js)">
+                        
+                        <span class="card-title">vue备忘(console查看vue和js)</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            浏览器console中调用vue内部方法在vue中
+export default{
+    name:'HelloWorld',
+    data(){
+        return{
+
+        }
+    },
+    mount
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-03-30
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Vue/" target="_blank">
+                        <span class="chip bg-color">Vue</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

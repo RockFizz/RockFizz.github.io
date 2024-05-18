@@ -1,0 +1,2034 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Docker实践, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Docker for Window实践运行中的容器共享宿主机内核，Window容器运行在Window宿主机上，Linux容器运行在Linux宿主机上，意味着基于window的容器化应用无法在Linux主机运行。  
+Kbuernetes是保">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Docker实践 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/23.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Docker实践
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/Docker/" target="_blank">
+                                <span class="chip bg-color">Docker</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-09-16
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        sean
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        8.1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        35 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="Docker-for-Window实践"><a href="#Docker-for-Window实践" class="headerlink" title="Docker for Window实践"></a>Docker for Window实践</h2><p>运行中的容器共享宿主机内核，Window容器运行在Window宿主机上，Linux容器运行在Linux宿主机上，意味着基于window的容器化应用无法在Linux主机运行。  </p>
+<p>Kbuernetes是保证容器部署和运行的软件体系，采用Docker作为默认容器运行时(containerRuntime)。  </p>
+<p>Docker引擎是用于运行和编排容器的基础设施工具。是运行容器的核心容器运行时(containerRuntime)。  </p>
+<p>Docker官方维护了一个公共仓库DockerHub，其中已经包括了数量超过15000的镜像。大部分需求都可以通过在DockerHub中直接下载镜像来实现。  </p>
+<pre class="line-numbers language-html"><code class="language-html">1. 下载安装Docker Desktop Installer.exe  
+2. 下载安装补丁 wsl_update_x64.exe  
+3. 登陆Docker id账号  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>打开CMD Windows PowerShell</p>
+<pre class="line-numbers language-html"><code class="language-html">docker run -d -p 8083:80 docker/getting-started  
+
+-d  
+run the container in detached mode (in the background)  
+-p 8083:80  
+将本地端口8083对应容器端口80  
+docker/getting-started  
+被使用的镜像  
+
+
+查看本地镜像  
+docker images  
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>容器是你宿主机上的一个进程，容器使用独立的文件系统(由容器镜像提供)，容器镜像包含程序需要的一切依赖、配置、脚本、binaries等。  </p>
+<ol>
+<li>打开VisualStudioCode  </li>
+<li>新建nodejs项目，npm init，新建src/index.js：  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">var http = require("http");
+
+http.createServer(function (request, response) {
+
+   response.writeHead(200, {'Content-Type': 'text/plain'});
+   response.end('Hello World\n');
+}).listen(3000);
+
+console.log('Server running at http://127.0.0.1:3000/');
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>开发时在命令行里node src/index.js验证服务可以运行。  </p>
+<ol start="3">
+<li>新建Dockerfile文件：  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html"># syntax=docker/dockerfile:1
+FROM node:12-alpine
+RUN apk add --no-cache python g++ make
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>打开CMD PowerShell,输出镜像  </li>
+</ol>
+<pre><code>docker build -t getting-started .  
+注意点号
+</code></pre><p>5.用容器运行镜像,起服务  </p>
+<pre class="line-numbers language-html"><code class="language-html">docker run -d -p 8084:3000 getting-started  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="如果是VMware虚拟机里"><a href="#如果是VMware虚拟机里" class="headerlink" title="如果是VMware虚拟机里"></a>如果是VMware虚拟机里</h3><pre class="line-numbers language-html"><code class="language-html">1 安装Docker Desktop Installer.exe  
+
+vmware虚拟机设置->处理器->虚拟化引擎->虚拟化IntelVt-x/EPT或AMD-V/RVI(V) 勾选
+控制面板->程序->启用或关闭Windows功能>适用于Linux 的 Windows 子系统和虚拟机平台 勾选
+控制面板->程序->启用或关闭Windows功能>Hyper-V 全部勾选  
+
+2 https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi 安装  
+
+3 配置dockers desktop的镜像源
+{
+  "builder": {
+    "gc": {
+      "defaultKeepStorage": "20GB",
+      "enabled": true
+    }
+  },
+  "experimental": false,
+  "registry-mirrors": [
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com"
+  ]
+}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用Docker部署wikitten个人知识库"><a href="#使用Docker部署wikitten个人知识库" class="headerlink" title="使用Docker部署wikitten个人知识库"></a>使用Docker部署wikitten个人知识库</h3><pre class="line-numbers language-html"><code class="language-html">新建目录用来存储数据D:\\data\wikitten
+命令行下载镜像docker pull leonyff/wikitten
+安装好镜像后通过Docker Desktop for Windows配置参数 
+Port 外部本地端口/容器内端口
+8083:80
+Volumes 外部本地路径:容器内路径
+(通过按钮...选择D:\\data\wikitten）:  /data
+Environment variables
+USER=admin
+PASSWD=123456
+运行镜像，Run 
+类比命令行指令docker run -d --name wikitten -p 8083:80 -v /d/data/wikitten:/data -e USER=admin -e PASSWD=123456 leonyff/wikitten:latest
+可通过127.0.0.1:8083使用wikitten系统，关闭防火墙，
+外部可通过ip:8083使用wikitten系统
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="基于docker部署个人影音多媒体管理系统jellyfin"><a href="#基于docker部署个人影音多媒体管理系统jellyfin" class="headerlink" title="基于docker部署个人影音多媒体管理系统jellyfin"></a>基于docker部署个人影音多媒体管理系统jellyfin</h3><pre class="line-numbers language-html"><code class="language-html">拉取镜像docker pull jellyfin/jellyfin  
+创建容器运行镜像docker run -d --name jellyfin -p 8096:8096 -v /path/to/media:/media jellyfin/jellyfin
+也可通过docker desktop for window配置参数来运行容器  
+通过http://127.0.0.1:8096 访问Jellyfin的web界面 
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="基于Docker架设私有翻译服务"><a href="#基于Docker架设私有翻译服务" class="headerlink" title="基于Docker架设私有翻译服务"></a>基于Docker架设私有翻译服务</h3><pre class="line-numbers language-html"><code class="language-html">拉取Docker镜像:docker pull libretranslate/libretranslate
+创建容器运行镜像 docker run -ti --rm -p 14514:5000 libretranslate/libretranslate --load-only zh,en  
+通过http://127.0.0.1:14514 访问翻译服务的web界面
+
+创建镜像时会拉取语言模型,每个模型的体积都很大,下载还很慢,最后一个参数 --load-only zh,en 是只拉取中英文的翻译模型,如果需要,也可以添加de,es,fr,ru等语言包
+然后会下载语言包,等待一段时间，做好至少下载一个小时的准备吧  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="docker服务如何修改"><a href="#docker服务如何修改" class="headerlink" title="docker服务如何修改"></a>docker服务如何修改</h2><p>We aren’t able to start the new container because our old container is still running. The reason this is a problem is because that container is using the host’s port 3000 and only one process on the machine (containers included) can listen to a specific port. To fix this, we need to remove the old container.  </p>
+<p>查看当前容器  </p>
+<pre class="line-numbers language-html"><code class="language-html">docker ps  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>根据容器id，停止容器  </p>
+<pre class="line-numbers language-html"><code class="language-html">docker stop <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>the-container-id</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>一旦容器停止，便可删除容器  </p>
+<pre class="line-numbers language-html"><code class="language-html">docker rm <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>the-container-id</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>修改服务代码，重新打包镜像，起服务。  </p>
+<h2 id="通过docker分享应用程序"><a href="#通过docker分享应用程序" class="headerlink" title="通过docker分享应用程序"></a>通过docker分享应用程序</h2><p>Now that we’ve built an image, let’s share it! To share Docker images, you have to use a Docker registry. The default registry is Docker Hub and is where all of the images we’ve used have come from.  </p>
+<p>To push an image, we first need to create a repository on Docker Hub.  </p>
+<blockquote>
+<p>Create a repo  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">1. Sign up and share images using Docker Hub.  
+2. Sign in to Docker Hub( https://hub.docker.com/ ).  
+3. Click the Create Repository button  
+4. For the repo name, use getting-started. Make sure the Visibility is Public.  
+5. Click the Create button  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>Push the image  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">1. 查看当前已有镜像  
+docker image ls  
+
+2. 登录Docker hub  
+docker -u YourDockerHubUserName  
+
+3. 使用docker tag给镜像重命名，确保使用你的Docker ID  
+docker tag getting-started YOUR-USER-NAME/getting-started  
+YOUR-USER-NAME就是你的Docker ID  
+
+4. 将本地镜像推送到dockerHub的仓库  
+docker push seandocker1/getting-started  
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="测试使用刚才传到dockerhub上的镜像"><a href="#测试使用刚才传到dockerhub上的镜像" class="headerlink" title="测试使用刚才传到dockerhub上的镜像"></a>测试使用刚才传到dockerhub上的镜像</h2><ol>
+<li>进入网站 <a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener">https://labs.play-with-docker.com/</a>   </li>
+<li>点击Login，下拉框选择docker。  </li>
+<li>浏览器拉宽点，在左侧栏点击ADD NEW INSTANCE,在出现的命令行内执行下面命令，运行我们刚上传的镜像  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker run -d -p 8084:3000 seandocker1/getting-started  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="4">
+<li>点击端口8084，会打开新浏览器窗口显示这个镜像的返回结果。  </li>
+</ol>
+<h2 id="docker实践二"><a href="#docker实践二" class="headerlink" title="docker实践二"></a>docker实践二</h2><ol>
+<li>拉取ubuntu镜像，创建文本，存一个随机数进去。  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt &amp;&amp; tail -f /dev/null"
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="2">
+<li>通过Docker Desktop的仪表盘按钮CLI进入，查看刚存的随机数。  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">ls  
+cat /data.txt  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="3">
+<li>WindowsPowerShell直接通过docker命令查看容器镜像里的文件。  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker exec 521aff790093 cat /data.txt
+其中521aff790093为容器id，通过docker ps可以查询得到  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>新建一个容器，运行ubuntu镜像</li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker run -it ubuntu  
+新建容器进入了镜像的命令行  
+可执行ls查询，执行exit返回宿主WindowsPowerShell  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>通过仪表盘进入镜像的CLI执行ls 查看根目录下并没有data.txt，每个容器即使运行相同的镜像，其文件系统是相互独立的。  </p>
+<h2 id="Container-volumes"><a href="#Container-volumes" class="headerlink" title="Container volumes"></a>Container volumes</h2><p>Docker的数据持久化即使数据不随着container的结束而结束，数据存在于host机器上——要么存在于host的某个指定目录中（使用bind mount），要么使用docker自己管理的volume（/var/lib/docker/volumes下）。</p>
+<p>Container volumes提供了各个独立的容器在宿主机间的交流。  </p>
+<p>Volumes provide the ability to connect specific filesystem paths of the container back to the host machine. If a directory in the container is mounted, changes in that directory are also seen on the host machine. If we mount that same directory across container restarts, we’d see the same files.  </p>
+<p>With the database being a single file, if we can persist that file on the host and make it available to the next container, it should be able to pick up where the last one left off. By creating a volume and attaching (often called “mounting”) it to the directory the data is stored in, we can persist the data. As our container writes to the todo.db file, it will be persisted to the host in the volume.  </p>
+<p>we are going to use a named volume. Think of a named volume as simply a bucket of data. Docker maintains the physical location on the disk and you only need to remember the name of the volume. Every time you use the volume, Docker will make sure the correct data is provided.  </p>
+<blockquote>
+<p>Create a volume  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">docker volume create todo-db
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<blockquote>
+<p>Start the todo app container, but add the -v flag to specify a volume mount. We will use the named volume and mount it to /etc/todos, which will capture all files created at the path.  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">docker run -dp 8085:3000 -v todo-db:/etc/todos getting-started 
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="dev-mode-container"><a href="#dev-mode-container" class="headerlink" title="dev-mode container"></a>dev-mode container</h2><p>运行一个处于开发状态的容器，需要：</p>
+<pre class="line-numbers language-html"><code class="language-html">1. 将开发源代码挂到容器里。  
+2. 安装各种开发需要的依赖。  
+3. 使用nodemon监视文件系统的变化。  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="Vue打包部署和docker"><a href="#Vue打包部署和docker" class="headerlink" title="Vue打包部署和docker"></a>Vue打包部署和docker</h2><p>Vue中的打包和部署，包括使用Webpack进行打包、使用Nginx进行部署和使用Docker进行容器化部署。  </p>
+<h3 id="使用Webpack进行打包"><a href="#使用Webpack进行打包" class="headerlink" title="使用Webpack进行打包"></a>使用Webpack进行打包</h3><p>Webpack是一个流行的JavaScript模块打包工具，它可以将多个JavaScript模块打包成一个或多个文件。在Vue应用程序中，我们可以使用Webpack进行打包，将Vue组件、JavaScript代码、CSS样式等资源打包成一个或多个JavaScript文件。  </p>
+<h3 id="使用Nginx进行部署"><a href="#使用Nginx进行部署" class="headerlink" title="使用Nginx进行部署"></a>使用Nginx进行部署</h3><ol>
+<li>安装Nginx，作为Web服务器  </li>
+<li>将打包好的Javascript文件和静态资源部署到Nginx服务器上  </li>
+</ol>
+<h3 id="使用Docker进行容器化部署"><a href="#使用Docker进行容器化部署" class="headerlink" title="使用Docker进行容器化部署"></a>使用Docker进行容器化部署</h3><p>Docker是一款流行的容器化平台，它可以让我们将应用程序打包成容器，并部署到任何支持Docker的环境中。在Vue应用中，将Vue应用程序打包成一个Docker镜像，然后在任何支持Docker的环境中运行这个镜像。  </p>
+<p>在Vue应用程序的根目录下创建一个名为Dockerfile的文件。这个文件用于定义Docker镜像的构建规则。<br>下面是一个简单的Dockerfile示例：  </p>
+<pre class="line-numbers language-html"><code class="language-html"># 基础镜像
+FROM node:14-alpine
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制应用程序代码到容器中
+COPY . .
+
+# 安装依赖
+RUN npm install --production
+
+# 构建应用程序
+RUN npm run build
+
+# 设置环境变量
+ENV NODE_ENV=production
+
+# 暴露端口
+EXPOSE 80
+
+# 启动应用程序
+CMD ["npm", "run", "start"]
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这个Dockerfile中，我们首先指定了一个基础镜像node:14-alpine，这个镜像包含了Node.js环境。然后，我们设置了工作目录为/app，并将应用程序代码复制到容器中。接着，我们安装了生产环境的依赖，并使用npm run build命令打包应用程序。最后，我们设置了环境变量NODE_ENV为production，并暴露了容器的80端口。最后，我们使用npm run start命令启动应用程序。</p>
+<p>接着，我们可以使用以下命令来构建Docker镜像  </p>
+<pre class="line-numbers language-html"><code class="language-html">docker build -t my-vue-app .  
+其中，my-vue-app是Docker镜像的名称，.表示Dockerfile所在的当前目录  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>建完成后，我们可以使用以下命令来运行Docker容器  </p>
+<pre class="line-numbers language-html"><code class="language-html">docker run -d -p 80:80 my-vue-app  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>其中，-d表示在后台运行容器，-p表示将容器的80端口映射到主机的80端口，my-vue-app是Docker镜像的名称。  </p>
+<p>最后，我们可以在浏览器中访问主机的IP地址或域名，即可看到Vue应用程序运行的页面  </p>
+<h2 id="Dockerfile中apt-get-update前先更换国内源"><a href="#Dockerfile中apt-get-update前先更换国内源" class="headerlink" title="Dockerfile中apt-get update前先更换国内源"></a>Dockerfile中apt-get update前先更换国内源</h2><pre class="line-numbers language-html"><code class="language-html">RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak &amp;&amp; \
+   echo "deb http://mirrors.aliyun.com/debian/ buster main non-free contrib" >/etc/apt/sources.list &amp;&amp; \
+   echo "deb-src http://mirrors.aliyun.com/debian/ buster main non-free contrib" >>/etc/apt/sources.list &amp;&amp; \
+   echo "deb http://mirrors.aliyun.com/debian-security buster/updates main" >>/etc/apt/sources.list &amp;&amp; \
+   echo "deb-src http://mirrors.aliyun.com/debian-security buster/updates main" >>/etc/apt/sources.list &amp;&amp; \
+   echo "deb http://mirrors.aliyun.com/debian/ buster-updates main non-free contrib" >>/etc/apt/sources.list &amp;&amp; \
+   echo "deb-src http://mirrors.aliyun.com/debian/ buster-updates main non-free contrib" >>/etc/apt/sources.list &amp;&amp; \
+   echo "deb http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib" >>/etc/apt/sources.list &amp;&amp; \
+   echo "deb-src http://mirrors.aliyun.com/debian/ buster-backports main non-free contrib" >>/etc/apt/sources.list
+RUN apt-get update
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="通过BindMounts共享目录"><a href="#通过BindMounts共享目录" class="headerlink" title="通过BindMounts共享目录"></a>通过BindMounts共享目录</h2><p>如果你使用Bind mounts挂载宿主机目录到一个容器中的非空目录，那么此容器中的非空目录中的文件会被隐藏，容器访问这个目录时能够访问到的文件均来自于宿主机目录。这也是Bind mounts模式和Volumes模式最大的行为上的不同。  </p>
+<p>在window powershell下执行以下，将本地D盘FFOutput目录挂载到容器内/usr/share/nginx/html目录</p>
+<pre class="line-numbers language-html"><code class="language-html">docker run  -it `
+     --name=nginxtest `
+     -v /d/FFOutput:/usr/share/nginx/html `
+     ubuntu
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Multi-container-apps"><a href="#Multi-container-apps" class="headerlink" title="Multi container apps"></a>Multi container apps</h2><p>Remember that containers, by default, run in isolation and don’t know anything about other processes or containers on the same machine. So, how do we allow one container to talk to another? The answer is networking. Now, you don’t have to be a network engineer (hooray!). Simply remember this rule…  </p>
+<blockquote>
+<p>If two containers are on the same network, they can talk to each other. If they aren’t, they can’t.  </p>
+</blockquote>
+<p>docker network create todo-app //新建网络todo-app<br>docker network ls //显示当前网络  </p>
+<h2 id="docker使用mysql"><a href="#docker使用mysql" class="headerlink" title="docker使用mysql"></a>docker使用mysql</h2><p>安装mysql:latest并持久化mysql数据至windows的文件夹  </p>
+<ol>
+<li>下载MySQL镜像  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker pull mysql  
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="2">
+<li><p>Window目录下创建data目录(用来挂载数据库文件)，创建conf目录(用来挂载配置文件)。  </p>
+</li>
+<li><p>运行容器  </p>
+</li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 -d mysql:latest --default-authentication-plugin=mysql_native_password
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="4">
+<li>容器运行之后，通过如下命令把my.cnf文件拷贝到上面创建的conf目录下,window下修改my.cnf内容，可以添加自定义配置  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker cp mysql:/etc/mysql/my.cnf D:/Projects/test/mysql/conf/
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="5">
+<li>把刚才第一次运行的mysql容器停掉，然后删除  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker stop mysql
+docker rm mysql
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<ol start="6">
+<li>然后重新运行一个mysql容器，命令如下  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">
+docker run --name mysql -p 3306:3306 -v D:/Projects/test/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:latest --default-authentication-plugin=mysql_native_password
+
+docker cp D:/Projects/test/mysql/conf/my.cnf mysql:cd
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>容器运行完成后，data目录下也自动出现了数据库的文件,当把容器删除之后，data目录下的文件依旧存在，下次启动另一个mysql容器时把/var/lib/mysql直接挂载到data目录就可以看到之前创建的数据库，并且数据库中的数据依旧存在。  </p>
+<p>宿主WinowsPowerShell下直接进入容器mysql的命令行登录容器内mysql  </p>
+<pre class="line-numbers language-html"><code class="language-html">//进入容器mysql的命令行
+docker exec -it mysql bash  
+//命令行登录mysql  
+mysql -uroot -p123456  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="docker使用Nginx"><a href="#docker使用Nginx" class="headerlink" title="docker使用Nginx"></a>docker使用Nginx</h2><ol>
+<li>下载Nginx镜像  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker pull nginx:latest
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="2">
+<li>运行容器  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">docker run --name nginx-test -p 8082:80 -d nginx
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ol start="3">
+<li><p>宿主机浏览器访问localhost:8082已经就是访问容器的80端口了  </p>
+</li>
+<li><p>删除原来容器，新建容器，这次挂载目录后，放在window挂载目录(D:/Projects/test/nginx/html)下的网页，可以直接通过容器内的nginx被访问。  </p>
+</li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html">
+docker run  --name nginx -d -p 8082:80 -v D:/Projects/test/nginx/html:/usr/share/nginx/html nginx  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="多个容器配合网络通信"><a href="#多个容器配合网络通信" class="headerlink" title="多个容器配合网络通信"></a>多个容器配合网络通信</h2><pre class="line-numbers language-html"><code class="language-html">docker network create todo-app  
+
+docker run --name mysql2 -p 3306:3306 --network todo-app -v D:/Projects/test/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:latest --default-authentication-plugin=mysql_native_password
+
+以上两行没必要
+
+docker run --name mysql2 -p 3306:3306 -v D:/Projects/test/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:latest --default-authentication-plugin=mysql_native_password
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="从从宿主机拷文件到容器里面"><a href="#从从宿主机拷文件到容器里面" class="headerlink" title="从从宿主机拷文件到容器里面"></a>从从宿主机拷文件到容器里面</h2><p>在宿主机里执行如下命令  </p>
+<blockquote>
+<p>docker cp 要拷贝的文件路径 容器id：要拷贝到容器里面对应的路径  </p>
+</blockquote>
+<pre class="line-numbers language-html"><code class="language-html">
+我把E:\JsProject\demo目录复制到容器目录/demo/vue/去
+
+window进行命令行Window PowerShell（管理员）
+进入E盘
+PS E:\>docker cp /JsProject/demo e9ef485ff2a3:/demo/vue
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="使用Docker部署Vue程序"><a href="#使用Docker部署Vue程序" class="headerlink" title="使用Docker部署Vue程序"></a>使用Docker部署Vue程序</h2><p>0.先熟悉docker的操作  </p>
+<pre class="line-numbers language-html"><code class="language-html">//拉取Nginx的镜像，这里使用Nginx最新的镜像  
+docker pull nginx  
+//根据Nginx镜像运行容器  
+docker run --name=nginx -d -p 4030:80 nginx
+
+此时宿主机浏览器访问4030端口，访问的是容器里nginx的80端口服务  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="正常开发Vue程序"><a href="#正常开发Vue程序" class="headerlink" title="正常开发Vue程序"></a>正常开发Vue程序</h3><ol>
+<li>npm run build得到dist目录  (./修改)  </li>
+</ol>
+<h3 id="构建目标镜像"><a href="#构建目标镜像" class="headerlink" title="构建目标镜像"></a>构建目标镜像</h3><ol start="2">
+<li>进入dist目录，其下新建文件Dockerfile（没有后缀）,内容如下  </li>
+</ol>
+<pre class="line-numbers language-html"><code class="language-html"># 设置基础镜像，这里使用最新的nginx镜像，前面已经拉取过了，类似继承。。。
+FROM nginx
+# 定义作者 zss
+MAINTAINER zss
+# 将dist文件中的内容复制到 /usr/share/nginx/html/ 这个目录下面
+COPY dist/  /usr/share/nginx/html/
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>构建新镜像  </p>
+<pre class="line-numbers language-html"><code class="language-html">3. 把dist文件夹和Dockerfile文件上传到该目录/demo/vue下(此步好像没必要。。。)
+
+4. 宿主机下把整个dist目录复制到E:/demo目录下，命令行进入e:/demo
+此时E:/demo目录下有dist目录和Dockerfile文件  
+命令行执行 docker build -t dockervue .  
+(构建镜像)  
+
+5. 根据上步构建的镜像去运行容器执行镜像  
+docker run --name=dockervue -d -p 9020:80 dockervue
+此时宿主机浏览器访问9020端口，访问的是容器里nginx的80端口服务，即我们的Vue程序  
+
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="基于docker的单机魔兽世界"><a href="#基于docker的单机魔兽世界" class="headerlink" title="基于docker的单机魔兽世界"></a>基于docker的单机魔兽世界</h2><h3 id="下载镜像"><a href="#下载镜像" class="headerlink" title="下载镜像"></a>下载镜像</h3><p>进入window的PowerShell</p>
+<pre class="line-numbers language-html"><code class="language-html">docker pull registry.cn-hangzhou.aliyuncs.com/gswxy/gswxy:1.3
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="基于镜像构建容器"><a href="#基于镜像构建容器" class="headerlink" title="基于镜像构建容器"></a>基于镜像构建容器</h3><pre class="line-numbers language-html"><code class="language-html">docker run -itd --name GSWXY -p 8085:8085 -p 3306:3306 -p 3724:3724 -p 80:80 -p 22:22 --restart always registry.cn-hangzhou.aliyuncs.com/gswxy/gswxy:1.3
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>容器打开即自动提供本单机wow运行的服务端 </p>
+<pre class="line-numbers language-html"><code class="language-html">使用 Navicat SQL 等工具连接数据库，数据库用户为 root，密码为 gswxy.com
+使用 Xshell 等工具连接服务端容器，运行环境为 Ubuntu，用户为 root，密码为 gswxy.com
+使用 Winscp 等工具管理容器内文件，用户为 root，密码为 gswxy.com
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>docker desktop删除镜像后没有释放空间  </p>
+<pre class="line-numbers language-html"><code class="language-html">
+WSL发行版默认都是安装在C盘，在%LOCALAPPDATA%/Docker/wsl目录
+docker的运行数据、镜像文件都存在%LOCALAPPDATA%/Docker/wsl/data/ext4.vhdx中，这对C盘空间紧张的人非常不友好。。。
+
+C:\Users\用户\AppData\Local\Docker\wsl\data\ext4.vhdx
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="注册和客户端补丁"><a href="#注册和客户端补丁" class="headerlink" title="注册和客户端补丁"></a>注册和客户端补丁</h3><pre class="line-numbers language-html"><code class="language-html">http://127.0.0.1  注册账号  
+
+本服务端适配纯净版魔兽世界 335 客户端，版本号为 12340，百度网盘wow客户端2022  
+
+请在浏览器输入 http://127.0.0.1/tools/patch-zhCN-Y.MPQ 下载客户端补丁，下载后放入你的魔兽世界客户端 World of Warcraft\Data\zhCN 目录。  
+
+请在浏览器输入 http://127.0.0.1/tools/GSWXY.bat 下载客户端运行脚本，下载后放入你的魔兽世界客户端 World of Warcraft 目录，双击即可进入游戏。
+
+用网盘里的登陆器进入游戏  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>docker容器CLI按钮进入命令行：  </p>
+<pre class="line-numbers language-html"><code class="language-html">先输入输入screen -r world 运行后：
+
+创建用户：  
+account create $account $password  
+比如创建用户名为1，密码为2  
+account create 1 2  
+
+提升GM权限:
+account set gmlevel $account #level #realmid  
+比如将用户名为1的提升为最高GM权限  
+account set gmlevel 1 3 -1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>GM指令  </p>
+<pre class="line-numbers language-html"><code class="language-html">.levelup 59 为目标(或自己) 增加59级，数字自己调，玩家最高等级不能超过255  
+.learn all gm
+.cooldown 重置目标所有冷却技能
+
+.npc add 25315 鸡蛋
+.npc add 22083 伊利丹·怒风
+找NPC代码 .lookup creature 比如 .lookup creature 阿克蒙德
+刷NPC代码 .npc add 25608
+换阵营 .npc factionid 1 改变阵营让他们对打
+删除NPC .npc delete 删除所选生物
+
+.lookup 命令来查询所需的代码
+物品的后缀是item .lookup item 物品名字
+
+.gm on GM模式开启，打怪怪不打你，可以直接传到各大副本  
+.gm off GM模式关闭，怪物会主动攻击你，单人不能下副本。 
+.gps 显示角色或生物的坐标(x,y,z) 地图标号和地区 
+.worldport 瞬移命令，格式：命令后空格加 MapID X Y Z （用上面的命令可以查看当前的坐标信息）
+
+.wchange type status 
+type =1 下雨 =2 下雪 =3 沙尘暴
+status =0 禁止 =1 允许 
+
+http://db.nfuwow.com/80/?items=0.5 wow数据库
+
+查询生物编码           .lookup createure 萨尔
+在gm所在位置添加生物    .npc add [生物编码]   
+.npc del 取消npc
+查看npc信息            .npc info
+选中某个生物，修改阵营  .mod faction [阵营编码]
+.respawn 立刻刷新身边生物
+
+
+45932 水
+.additem 32757 传送到黑暗神殿门口的项链  厄运之锤的月牙钥匙 18249
+.gm fly on 选中自己，开启作弊飞行模式
+.gm fly off 选中自己，关闭作弊飞行模式
+.die 杀死目标
+.KILL 杀死所选中的NPC（声望点数要受影响）
+.revive 复活，先选中自己  s
+.modify money 给自己加金钱，后面空一格加数字，数字是以铜为单位的，
+.modify speed 10 改变玩家所有的速度(奔跑,游泳,跑回) $num 数值是1到10  
+
+
+.learn 883召唤宠物
+.learn 6991餵养宠物
+.learn 982復活宠物
+.learn 2641解散宠物
+.learn 1515驯服宠物
+.learn 48990治疗宠物10级
+
+.pet learn 23965 立刻恢复宠物满血
+.pet learn 33665 宠物闪电愤怒 
+.pet learn 24255 老虎祝福 
+.additem 24490 麦迪文的钥匙
+.learn 72807 冰龙坐骑
+additem 21176 
+修改声望：
+.lookup faction 阵营名或部分名 
+查找阵营id
+.modify rep 阵营id 42000 
+
+蛋刀
+.additem 32838 
+.additem 32837
+
+.setskill 333 375 375 附魔
+.setskill 186 375 375 采矿
+.setskill 171 375 375 炼金
+.setskill 164 375 375 锻造
+.setskill 197 375 375 裁缝
+.setskill 185 375 375 烹饪
+.setskill 165 375 375 制皮
+.setskill 356 375 375 钓鱼
+.setskill 202 375 375 工程
+.setskill 393 375 375 剥皮
+.setskill 182 375 375 草药
+.setskill 755 450 450 珠宝加工
+
+.learn 201 单手剑
+.learn 202 双手剑
+.learn 198 单手锤
+.learn 199 双手锤
+.learn 196 单手斧
+.learn 197 双手斧
+.learn 1180 匕首
+.learn 9116 盾牌
+.learn 227 法杖
+.learn 5009 魔杖
+.learn 200 长柄武器
+.learn 15590 拳套武器
+.learn 203 徒手攻击
+.learn 264 弓
+.learn 266 枪械
+.learn 2567 投掷
+.learn 674 双武器 被动
+.learn 8737 学锁甲
+.learn 750 学板甲
+
+.maxskill 提升所有技能熟练度为最高
+
+
+.learn 40733 无限无敌
+.learn 32345 召唤凤凰
+.learn 36702 召唤战马
+.learn 37015 召唤虚空幼龙
+.learn 32768 乌鸦b
+.additem 23162 36格大包
+.learn 9077 皮甲
+.learn 8737 锁甲
+.learn 750 板甲
+.additemset 669 T6猎人套装戈隆追猎者
+.additem 34183 魔脊长枪 34198 远古本能之柱
+34196 奎尔萨拉斯金弓 34241 原罪披风 34177 终结锁链
+34333 奥蕾莉亚头盔  34228 邪恶陆行鸟胸甲 34343 萨拉斯游侠护手 34168 逐星者护腿 32760 200 加53秒伤箭 52021 秒伤91冰锋箭矢
+.additem 34361 硬化氪金指环
+.additem 34358 硬化氪金项链
+.additem 32235 萨格拉斯幻象头罩
+.additem 32248 荒漠长戟
+.additem 41508 摩托
+.additem 35226 火箭
+到你想要的模型（NPC)或怪，选中，输入.npc info
+DIS ID 就是模型id
+选择宠物，把这个数字输入到.mod dis X命令的X的位置，回车即可
+
+.learn 10032超级潜行 战斗中可用，不影响移动速度，难以被发现
+
+.pet learn 61683毒蛇反射 提高宠物攻击速度，秒伤不变
+.pet learn 61688强效耐力 宠物耐力提高12.pet learn 61690自然护甲 宠物护甲值提高10.pet learn 53187嗜血 宠物的攻击有20©会恢復5命并提高快乐值5.pet learn 53184尖刺项圈 宠物伤害提高9.pet learn 19596野猪之速 宠物移动速度提高30.pet learn 52858狩猎兽群 宠物爪击 撕咬或拍击暴击时，你和你的宠物的伤害提高3¼持续10秒
+.pet learn 53411狮心 宠物收到的昏迷和恐惧效果时间缩短30.pet learn 55709凤凰之心 宠物死后满血復活，冷却时间8分鐘
+.pet learn 53430强化抗性 宠物受到的除神圣外的魔法伤害降低15.pet learn 53205蜘蛛之咬 宠物暴击率提高9.pet learn 62762狂野狩猎 宠物从猎人身上获得的耐力和攻击加成提高
+.pet learn 62760鯊鱼袭击 宠物造成的伤害提高6坚韧
+.pet learn 53482犀牛之血 宠物耐力提高2¼收到的治疗效果提高40.pet learn 53176宠物纹章 宠物护甲值提高10¼闪躲几率提高2.pet learn 53179警卫犬 宠物低吼技能產生的威胁值提高20¼并可以恢復10¿«乐值
+.pet learn 53451螳螂的优雅 宠物近战暴击率提高4.pet learn 62765银背 宠物的低吼技能可以恢復其生命值2.pet learn 63900雷霆践踏 对8码内的敌人造成伤害，造成额外的威胁值 主动技能
+
+
+狡诈
+.pet learn 61684突进 宠物移动速度提高80¼持续16秒
+.pet learn 53485灵活 缩短突进技能的冷却时间16秒，缩短后突进冷却时间為11.2秒
+.pet learn 53516专注 宠物有30¹¾率在使用一个技能之后获得专注效果，8秒内下一个技能不消耗集中值
+.pet learn 53512疯狂捕食 宠物对生命值低於35目标造成的伤害提高16伤害减免
+.pet learn 34331伤害减免：奥术 奥术伤害减免3/4永久DEBUFF
+.pet learn 34333伤害减免：火焰 火焰伤害减免3/4
+.pet learn 34334伤害减免：冰霜 冰霜伤害减免3/4
+.pet learn 34335伤害减免：自然 自然伤害减免3/4
+.pet learn 34336伤害减免：神圣 神圣伤害减免3/4
+.pet learn 34337伤害减免：物理 物理伤害减免3/4
+.pet learn 34338伤害减免：暗影 暗影伤害减免3/4
+.pet learn 38860伤害减免：魔法 魔法伤害减免1/5
+.pet learn 41105防御光环 受到的所有类型伤害减低1/4
+.pet learn 65994每两秒恢复周围友善目标4000左右的血量，很强大的技能，配合免伤更加无敌。对角色有效果，但是不提示
+.pet learn 35230孢子皮肤 被击中之后，给打击者上debuff，使其击中目标几率降低35
+.pet learn 32828防护光环 护甲提高2000，法术抗性提高75
+主动技能
+.pet learn 54043惩戒光环 圣骑士技能，近战反伤112点
+.pet learn 25176奥斯里安之力 伤害提高300.pet learn 56222黑暗敕令 死亡骑士技能，强制目标攻击施法者
+.pet learn 43263食尸鬼嘲讽 產生高威胁值，无消耗，无冷却
+.pet learn 20375命令圣印 圣骑士技能，使普通攻击带有神圣伤害的同时，可以攻击到目标附近的敌对目标
+.pet learn 20271神圣审判 释放圣印能量，施法者攻击被审判者，有几率回血
+.pet learn 48263冰霜灵气 死亡骑士技能，8伤，增加攻击造成的威胁值
+.pet learn 50385强化冰霜灵气 死亡骑士天赋
+.pet learn 48266鲜血灵气
+.pet learn 50371强化鲜血灵气 死亡骑士天赋
+.pet learn 48265邪恶灵气
+.pet learn 50392强化邪恶灵气 死亡骑士天赋
+被动技能 红字的破环平衡的倾向明显
+.pet Learn 4142吞食猎物 对目标造成致命一击后吸取其生命值
+.pet Learn 4279食肉 有一定几率在战斗中从目标身上吸取生命值。
+.pet Learn 9778在战斗中被击中之后有3几率回复60-100点生命值。
+.pet Learn 17625邪恶光环 移动速度和生命值回复速度提高
+.pet Learn 18815吸取生命 在战斗中被击中之后有3几率从目标身上偷取35点生命值
+.pet Learn 20555再生 巨魔种族特长，生命值回复速度提高10¼在战斗中仍可保持10生命值回复速度
+.pet Learn 17498加速 奔跑速度提高5.pet Learn 20550耐久 基础生命提高5.pet learn 37982大地眩晕 有一定几率在近战中使敌人眩晕
+.pet learn 33510生命值恢复 近战有几率恢复90-120点生命，远程有几率恢复128-172法力值
+.pet learn 34586罗密欧的毒药 近战或者远程攻击有几率使目标中毒，造成222-332自然伤害
+.pet learn 53040坚韧 加60点耐力
+.pet learn 46025眩晕 10 率击晕目标
+.pet learn 7219武器链 免疫缴械
+.pet learn 64786智慧之痕 攻击有几率提高726急速等级
+.pet learn 23266烈焰光环 被击中之后对攻击者造成13点火焰伤害。
+.pet learn 60313五色巨龙之怒 每次物理攻击，可以获得16点攻击强度加成，持续10秒，可迭加20次
+.pet learn 51414毒性吐息光环 被近战攻击有一定几率对附近一个敌人造成93到107点自然伤害
+.pet learn 39438远征光环 攻击触发效果 为法术强度或者攻击强度的加成，几点而已，可迭加
+.pet learn 39442愤怒光环 攻击触发效果 未暴击的攻击会使你获得暴击率加成，直至暴击一次为止
+.pet learn 39444复仇光环 被攻击触发效果 10 率被击中之后对攻击者造成95-115点神圣伤害
+.pet learn 59906迅捷的正义之手 杀死可以提供经验的目标，恢复2命。
+.pet learn 21882审判强击 近战暴击后，20 率造成额外300点神圣伤害
+.pet learn 12556霜甲术 主要是法师冰甲的减速效果，也会增加几十点护甲值
+.pet learn 15600正义之手 击中目标后有几率获得额外的一次攻击机会
+
+1 传送到暴风城 .go -9065 434 94 0 
+2 传送到铁炉堡 .go -5032 -819 495 0 
+3 传送到达纳苏斯 .go 9961 2055 1329 1 
+4 传送到奥格瑞玛 .go 1317 -4383 27 1 
+5 传送到雷霆崖 .go -1391 140 23 1 
+6 传送到幽暗城 .go 1909 235 53 0 
+7 传送到棘齿城 .go -977 -3788 6 1 
+8 传送到藏宝海湾 .go -14302 518 9 0 
+0 人类出生地 .go -8975.7 -138.1 83.4 0 
+0 黑石山后门 .go -7319.7 -1086.1 277.0 0 
+2 死亡矿井 .go -16 -383 62 36 
+3 通灵学院 .go 199 126 135 289 
+7 影牙城堡 .go -228.19 2110.56 76.88 33 
+1 剃刀沼泽1 .go 1943 1544 82 47 
+5 剃刀高地 .go 2592 1107 52 129 
+7 祖尔法拉克 .go 1213 841 8.9 209 
+9 GM之岛 .go 16222.1 16252.1 12.5872 1 
+1 斯坦索姆 .go 3392 -3379 143 329 
+4 黑翼之巢 .go -7671 -1106.6 397 469 
+5 安其拉废墟 .go -8418.501953 1505.941162 31.823208 509 
+6 安其拉 .go -8212.002930 2034.474854 129.141342 531 
+8 翡翠森林 .go 3105.41 3096.78 27.0032 169 
+9 时光巨洞 .go 3146.18 2312.06 -146.004 269 
+11 艾尔文塔 .go -11037.7 -1999.49 92.9823 0 
+12 海加尔山 .go 4603.946777 -3879.250977 944.183472 1 
+13 神修道院 .go 16299.464844 16272.843750 69.443901 451 
+14 阿塔神庙 .go 16969.949219 16381.680664 36.604694 451 
+.go -8913.23 554.633 93.7944 0 暴风城 （贸易区） 
+.go -8951.62 524.373 96.6275 0 暴风城门口 
+.go -8852.03 652.878 96.46 0 银行门口 
+.go -8675.39 635.774 96.9275 0 暴风城监狱通往运河之门 
+.go -8662.9 498.212 100.833 0 旧城区(白银之盾) 
+.go -8635.62 762.727 103.667 教堂门口 
+.go -8513.49 861.197 111.039 0 牧师训练师 
+.go -9007.65 870.424 148.618 0 法师训练师入口 
+.go -8896.36 834.148 99.5207 0 法师区法杖店旁 
+.go -9043.76 -41.5906 88.3589 0 北郡山谷门口(人类出生地) 
+.go -9092.38 -368.684 73.6163 0 北郡农场 
+.go -9443.45 59.8944 56.0704 0 闪金镇 
+.go -9355.84 537.441 52.5171 0 明镜湖边(暴风城右边) 
+.go -9469.08 467.583 54.0913 0 明镜湖果园 
+.go -9646.46 679.589 37.4136 0 西泉要塞 
+.go -9964.72 391.509 35.6555 0 斯通菲尔德农场 
+.go -9881.4 88.8972 33.3196 0 马科伦农场 
+.go -9462.99 -161.312 60.7274 0 水晶湖 
+.go -9769.82 -811.712 40.9564 0 布莱克威尔南瓜田 
+.go -9549 -1407.04 54.7673 0 东谷伐木场 
+.go -9136.28 -1053.89 70.624 0 英雄哨岗 
+.go -9325.33 -1038.92 65.3535 0 石碑湖 
+.npc say 选中npc说话
+.modify money # 为目标(或自己) 增加#铜
+.modify hp # # 将目标的HP设置为#/#
+.modify mana # # 将目标的MP设置为#/#
+.modify rage # # 将目标的怒气值设置为#/#
+.modify energy # # 将目标的能量值设置为#/#
+.modify speed # 将目标移动速度设定为初始速度的#倍（#=0.1-10）
+.modify bwalk # 将目标移后退度设定为初始速度的#倍（#=0.1-10）
+.modify swim # 将目标游泳速度设定为初始速度的#倍（#=0.1-10）
+.modify fly # 将目标飞行速度设定为初始速度的#倍（#=0.1-10）
+.modify aspeed # 将目标所有速度设定为初始速度的#倍（#=0.1-10）
+.modify scale # 将目标体积设定为初始状态的#倍（#=0.00-3）
+.modify mount # 为目标召唤一种坐骑（#=1-69）
+.modify honor # 增加目标的荣誉点数#（#=1=2147483646）
+.modify arena # 增加目标的竞技场点数#（#=1=2147483646）
+.modify integral # 修改目标的积分为#（#=0-999999）
+.modify drunk # 修改目标的醉酒度为#（#=0-100）
+.modify faction # 修改你所选择生物的阵营为factionid,flagid为flagid.
+.modify spell # 修改spell
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="wsl1更新到wsl2"><a href="#wsl1更新到wsl2" class="headerlink" title="wsl1更新到wsl2"></a>wsl1更新到wsl2</h2><pre class="line-numbers language-html"><code class="language-html">
+安装Linux内核更新包 wsl_update_x64.rar  
+
+将wsl2设置为默认版本  
+在PowerShell里  
+wsl --set-default-version 2
+
+打开安装包Docker Desktop Installer.exe,   
+勾选 Install required Windows components for WSL2  
+点击 OK, 等待安装完成  
+
+打开Docker Desktop，勾选 Settings > General > Use the WSL 2 based engine, 使用基于WSL 2的引擎
+
+勾选 Resources > WSL Integration > Enable integration with my default WSL distro, 启用与默认WSL发行版的集成
+
+点击 Apply &amp; Restart, 等待Docker重启  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2021/09/16/diary-20210916-1/" class="b-link-green">Docker实践</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2021/09/19/diary-20210919-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/18.jpg" class="responsive-img" alt="MapboxGL在Vue中实践">
+                        
+                        <span class="card-title">MapboxGL在Vue中实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            学习MapboxGL如何查看mapboxgl地图里有哪些配置，哪些layers？
+查看浏览器调试窗口的network接口抓包用console.log(map)打印地图对象  
+
+地图的所有信息都会写入到map 对象里面，_layers里面记
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-09-19
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/three-js/" target="_blank">
+                        <span class="chip bg-color">three.js</span>
+                    </a>
+                    
+                    <a href="/diary/tags/MapboxGL/" target="_blank">
+                        <span class="chip bg-color">MapboxGL</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2021/09/15/diary-20210915-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/4.jpg" class="responsive-img" alt="Cesium根据TLE显示卫星轨迹动画">
+                        
+                        <span class="card-title">Cesium根据TLE显示卫星轨迹动画</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            TLE转czmlCZML is a JSON format for describing a time-dynamic graphical scene, primarily for display in a web browser runn
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-09-15
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Cesium/" target="_blank">
+                        <span class="chip bg-color">Cesium</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

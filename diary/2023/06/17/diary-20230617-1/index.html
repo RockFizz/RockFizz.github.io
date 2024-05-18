@@ -1,0 +1,1591 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Qt通信之QByteArray及数据格式转换, 车舟慢">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="接收和发送数据QT上位机的串口通信发送和接收数据都需要用到QByteArrayQByteArray存储的是char型字符，但QByteArray提供的数组操作，比char更方便。  
+// 初始化
+QByteArray senddata(1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Qt通信之QByteArray及数据格式转换 | 车舟慢</title>
+    <link rel="icon" type="image/png" href="/diary/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/diary/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/diary/css/my.css">
+    
+    <style type="text/css">
+        
+    </style>
+
+    <script src="/diary/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/diary/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/diary/css/prism-line-numbers.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/diary/" class="waves-effect waves-light">
+                    
+                    <img src="/diary/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">车舟慢</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+            
+            <i class="fa fa-music"></i>
+            
+            <span>说说</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/diary/galleries" class="waves-effect waves-light">
+            
+            <i class="fa fa-photo"></i>
+            
+            <span>相册</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+              
+                <i class="fa fa-music"></i>
+              
+              <span>说说</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/diary/galleries" class="waves-effect waves-light">
+              
+                <i class="fa fa-photo"></i>
+              
+              <span>相册</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/diary/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">车舟慢</div>
+        <div class="logo-desc">
+            
+            雁引愁心去，山衔好月来。
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/diary/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-music"></i>
+                
+                说说
+            </a>
+        </li>
+        
+        <li>
+            <a href="/diary/galleries" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-photo"></i>
+                
+                相册
+            </a>
+        </li>
+        
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性   -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/diary/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/demo/shuoshuo" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-music"></i>
+                        
+                        说说
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/diary/galleries" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-photo"></i>
+                        
+                        相册
+                    </a>
+              
+            </li>
+        
+
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+        
+<script src="/diary/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/diary/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/diary/medias/featureimages/16.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Qt通信之QByteArray及数据格式转换
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/diary/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/diary/tags/qt/" target="_blank">
+                                <span class="chip bg-color">qt</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-06-17
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        seanzs
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        2.4k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        10 分
+                    </div>
+                    
+                
+                
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="接收和发送数据"><a href="#接收和发送数据" class="headerlink" title="接收和发送数据"></a>接收和发送数据</h2><p>QT上位机的串口通信发送和接收数据都需要用到QByteArray<br>QByteArray存储的是char型字符，但QByteArray提供的数组操作，比char更方便。  </p>
+<pre class="line-numbers language-html"><code class="language-html">// 初始化
+QByteArray senddata(16,0)//建立一个长度为16字节，初始值为0的字节数组
+
+// 读和写  
+QByteArray senddata;
+senddata.resize(6);
+senddata[0] = 0x3c;
+senddata[1] = 0xb8;
+senddata[2] = 0x64;
+senddata[3] = 0x18;
+senddata[4] = 0xca;
+senddata.data()[5] = 0x31;
+qDebug()&lt;&lt;"[]"&lt;&lt;senddata[2]; //[] d
+qDebug()&lt;&lt;"at()"&lt;&lt;senddata.at(2); //at() d
+qDebug()&lt;&lt;"data()"&lt;&lt;senddata.data()[2]; //data() d
+qDebug()&lt;&lt;"constData()"&lt;&lt;senddata.constData()[2]; //constData() d
+qDebug()&lt;&lt;"constData()"&lt;&lt;senddata.constData()[5]; //constData() 1
+
+QByteArray的读写方式有4种：  
+为[]，at[],data[],constData[]。  
+其中at()和constData[]仅为可读。[]和data[]为可读可写。
+
+如果想要一次读取多个字节，使用left(),right(),mid()。  
+  QByteArray x("Pineapple");
+  QByteArray y = x.right(5);
+  >> y == "apple"
+
+  QByteArray x("Pineapple");
+  QByteArray y = x.left(4);
+  >> y == "Pine"
+
+添加，删除，插入和替换  
+QByteArray类提供了修改字节数组内容的函数：append(),prepend,insert,replace和remove  
+    QByteArray x("and");
+    x.prepend("rock ");         // x == "rock and"  前置
+    x.append(" roll");          // x == "rock and roll" 附加
+    x.replace(5, 3, "&amp;");       // x == "rock &amp; roll" 替代
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>转换数据类型  </p>
+<pre class="line-numbers language-html"><code class="language-html">
+从串口把数据读到QByteArray字节数组里面，在处理数据时需要把数据转换成其他类型  
+1）转为HEX，用于显示十六进制，这点在调试时特别有用，因为大多HEX码是没有字符显示的，如0x00、0x20等等；
+2）转为不同进制数值并显示，如二进制、八进制、十进制和十六进制等；
+3）转为整型、浮点型等数值类型；
+4）大小写转换；
+5）转为字符串类型；  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>hex转化为char赋给QByteArray  </p>
+<pre class="line-numbers language-html"><code class="language-html">QByteArray text = QByteArray::fromHex("517420697320677265617421");
+text.data();            // returns "Qt is great!"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>把QByteArray转化为hex字符串（本质上还是字符串）  </p>
+<pre class="line-numbers language-html"><code class="language-html">    QByteArray ba;
+    ba.resize(3);
+    ba[0] = 0x30;
+    ba[1] = 0x31;
+    ba[2] = 0x32;
+    qDebug() &lt;&lt; ba.toHex(); //return "303132"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>QByteArray储存的是纯数值时，可用to**()函数转化为其他数据类型  </p>
+<pre class="line-numbers language-html"><code class="language-html">QByteArray strInt("1234");
+bool ok0;
+qDebug() &lt;&lt; strInt.toInt();   // return 1234
+qDebug() &lt;&lt; strInt.toInt(&amp;ok0,16);   // return 4660, 默认把strInt作为16进制的1234，对应十进制数值为4660
+
+QByteArray string("1234.56");
+bool ok1;
+qDebug() &lt;&lt; string.toInt();   // return 0, 小数均视为0
+qDebug() &lt;&lt; string.toInt(&amp;ok1,16);   // return 0, 小数均视为0
+qDebug() &lt;&lt; string.toFloat();   // return 1234.56
+qDebug() &lt;&lt; string.toDouble();   // return 1234.56
+
+QByteArray str("FF");
+bool ok2;
+qDebug() &lt;&lt; str.toInt(&amp;ok2, 16);     // return 255, ok2 == true
+qDebug() &lt;&lt; str.toInt(&amp;ok2, 10);     // return 0, ok == false, 转为十进制失败
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>QByteArray于QString相互转化  </p>
+<pre class="line-numbers language-html"><code class="language-html">QByteArray提供一个字节数组,QByteArray可用于存储原始二进制字节（包括“\ 0” ）和传统的8-bits的“\ 0” 端接字符串 . 使用QByteArray比使用const char *更方便。一般在需要传输原始数据和内存资源短缺时使用。  
+
+QString转Qchar时，需要经过 QByteArray，不能用下面的转换形式char *data = str.toLatin1().data();因为这样的话，str.toLatin1()得到的QByteArray类型结果就不能保存（切记！！！），正确用法如下：  
+
+    QByteArray ba("abc123");
+    QString str = ba; //或str.prepend(ba);
+    qDebug()&lt;&lt;str ;   //输出："abc123"
+
+    QString str("abc123");
+    QByteArray ba = str.toLatin1();
+    qDebug()&lt;&lt;ba;  //输出："abc123"
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>把浮点型数据通过串口发送出去  </p>
+<pre class="line-numbers language-html"><code class="language-html">// float转16进制字符串
+float f = 20.321;
+uint f_uint = *(uint*)<span class="token entity" title="&f;">&amp;f;</span>
+QString f_hex = QString("%1").arg(f_uint, 4, 16, QLatin1Char('0'));    // 4是生成字符串的最小长度，可以改为8
+qDebug() &lt;&lt; f_hex;    // "41a29168"
+QByteArray senddata = f_hex.toLatin1();
+qDebug()&lt;&lt;senddata;  //输出："41a29168"
+
+
+// 16进制字符串转float
+QString hex_float = "41a29168";
+uint hex_uint = hex_float.toUInt(nullptr, 16);
+float hex_res = *(float*)&amp;hex_uint;
+qDebug() &lt;&lt; hex_res;    // 20.321
+
+// double转16进制字符串
+double d = 20.321;
+qulonglong d_long = *(qulonglong*)<span class="token entity" title="&d;">&amp;d;</span>
+QString d_hex = QString("%1").arg(d_long, 8, 16, QLatin1Char('0'));
+qDebug() &lt;&lt; d_hex;    // "4034522d0e560419"
+
+// 16进制字符串转double
+QString hex_double = "4034522d0e560419";
+qulonglong hex_long = hex_double.toULongLong(nullptr, 16);
+double hex_d = *(double*)&amp;hex_long;
+qDebug() &lt;&lt; hex_d;    // 20.321  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="QByteArray在串口通信中发送的数据的形式"><a href="#QByteArray在串口通信中发送的数据的形式" class="headerlink" title="QByteArray在串口通信中发送的数据的形式"></a>QByteArray在串口通信中发送的数据的形式</h2><p>注意：由于char类型的取值范围为-128-+127，所以在接收十六进制发送的数据时为防止溢出，接收数据类型最好定义为unsigned char，其取值范围为0-255。</p>
+<p>在计算机中，数据是以二进制的形式存储的，例如十进制 1（10进制）在计算机中用 0000 0001（2进制）来表示。我们在用串口发送数据的时候首先将待数据转换为对应的ASCII码，然后再将这些ASCII码按照二进制的方式一位一位的发送出去  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/chuankou_str.jpg" alt="串口通信-字符串发送">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/shw2018/cdn@1.0/sakura/img/loader/orange.progress-bar-stripe-loader.svg" data-original="../../../../images/2023/chuankou_hex.jpg" alt="串口通信-十六进制发送">  </p>
+<h3 id="数据转换"><a href="#数据转换" class="headerlink" title="数据转换"></a>数据转换</h3><p>任何数据在计算机内部都是以二进制保存的，所以进制与数据的存储无关，只与输入输出有关。所以，对于进制转换，我们只关心字符串中的结果。</p>
+<p>比如我想发送一个十六进制的字符数组，但是char型和int型的数据不必要转为0X类型，char型数据类型可同时存储字符或十进制数值，所以可统一用char[]存储,然后即可发送。  </p>
+<pre class="line-numbers language-html"><code class="language-html">//虽然buf定义了几个十六进制元素，但填充后面的元素并不需要转换为十六进制来表示，直接赋值即可
+unsigned char buf[20] = {0xAB,0x3C,0x02};
+char *str = "asd2bc";
+buf[3] = str[0]; // a
+buf[4] = str[1]; // s
+buf[5] = str[2]; // d
+buf[6] = str[3]; // 2
+buf[7] = str[4]; // b
+buf[8] = str[5]; // c
+send(fd,buf,ntypes); //TCP发送数据
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="Qt常用类型转换"><a href="#Qt常用类型转换" class="headerlink" title="Qt常用类型转换"></a>Qt常用类型转换</h2><p><a href="https://blog.csdn.net/qq_31073871/article/details/79881354?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-79881354-blog-128552817.235%5Ev38%5Epc_relevant_sort_base3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-79881354-blog-128552817.235%5Ev38%5Epc_relevant_sort_base3&amp;utm_relevant_index=2" target="_blank" rel="noopener">https://blog.csdn.net/qq_31073871/article/details/79881354?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-79881354-blog-128552817.235%5Ev38%5Epc_relevant_sort_base3&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-79881354-blog-128552817.235%5Ev38%5Epc_relevant_sort_base3&amp;utm_relevant_index=2</a>  </p>
+<h3 id="字节数组转QByteArray类"><a href="#字节数组转QByteArray类" class="headerlink" title="字节数组转QByteArray类"></a>字节数组转QByteArray类</h3><p>字节数组是指uint8、int8、char的数组,直接使用QByteArray的构造函数即可  </p>
+<pre class="line-numbers language-html"><code class="language-html">    const char *str="abcde";
+    char u8_arr[3]={0xa1,0xC2,0x3E};
+    QByteArray qa1(str);     
+    QByteArray qa2(u8_arr,3);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QByteArray类转字节数组"><a href="#QByteArray类转字节数组" class="headerlink" title="QByteArray类转字节数组"></a>QByteArray类转字节数组</h3><p>直接使用QByteArray的成员函数即可  </p>
+<pre class="line-numbers language-html"><code class="language-html">QByteArray ba("abcd");
+char *pArr = ba.data();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3 id="字节数组转hex字符串"><a href="#字节数组转hex字符串" class="headerlink" title="字节数组转hex字符串"></a>字节数组转hex字符串</h3><p>字节数组是指uint8、int8、char的数组</p>
+<pre class="line-numbers language-html"><code class="language-html">    uint8 u8_arr[3]={0xF5,0x07,0xa5};
+    QByteArray qa2(u8_arr,3);
+    QString qstr(qa2.toHex());//
+    qDebug()&lt;&lt;qstr.toUpper();//输出字符串：F507A5
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="单个数字、字符串，互转"><a href="#单个数字、字符串，互转" class="headerlink" title="单个数字、字符串，互转"></a>单个数字、字符串，互转</h3><p>把数组转为16进制样式”03E8”、10进制样式的字符串”1000”、8进制样式等  </p>
+<pre class="line-numbers language-html"><code class="language-html">int num = 1000;// 1000 = 0x03E8;
+QString  str = QString("%1").arg(num,4,16,(QChar)'0').toUpper();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>字符串转数字  </p>
+<pre class="line-numbers language-html"><code class="language-html">QString str = "123";
+bool OK;
+int a = str.toInt(&amp;OK, 10);// a=123，OK=true
+int b = str.toInt(&amp;OK, 16);// b=0x123，OK=true
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="QString转换为char"><a href="#QString转换为char" class="headerlink" title="QString转换为char*"></a>QString转换为char*</h2><p>Qt 库中也对字符串类型进行了封装，QString 类提供了你能想到的所有字符串操作方法，给开发者带来了极大方便。<br>但是我们在编写程序时，不可避免地会在 Qt 框架上使用第三方的开源库，由于库的类型基本上都是标准的类型，即使用 char * 来表示字符串类型。那么问题来了，QString 和 char * 之间如何进行转换呢？</p>
+<p>将 QString 转 char *，需要用到 QByteArray 类,因为 char * 最后都有一个’\0’作为结束符，而采用 QString::toLatin1() 时会在字符串后面加上’\0’。  </p>
+<pre class="line-numbers language-html"><code class="language-html">QString  str;
+char*  ch;
+QByteArray ba = str.toLatin1();    // must
+ch=ba.data();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上方法当 QString 里不含中文时，没有问题，但是 QString 内含有中文时，转换为 char * 就是乱码，采用如下方法解决  </p>
+<pre class="line-numbers language-html"><code class="language-html">QString  filename;
+std::string str = filename.toStdString();
+const char* ch = str.c_str();
+// 先将 QString 转为标准库中的 string 类型，然后将 string 转为 char *
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="char-转换为QString"><a href="#char-转换为QString" class="headerlink" title="char*转换为QString"></a>char*转换为QString</h2><p>将 char * 转换为 QString 比较容易操作，我们可以使用 QString 的构造函数进行转  </p>
+<pre class="line-numbers language-html"><code class="language-html"> QString 的构造函数:       QString(const QLatin1String &amp;str);
+QLatin1String 的构造函数：  QLatin1String(const char *str);
+下面这个语句就可以将 char * ch 转换为 QString str   
+
+str = QString(QLatin1String(ch));
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="QByteArray与char、int、float-及其数组-之间的互相转化"><a href="#QByteArray与char、int、float-及其数组-之间的互相转化" class="headerlink" title="QByteArray与char、int、float(及其数组)之间的互相转化"></a>QByteArray与char、int、float(及其数组)之间的互相转化</h2><h3 id="QByteArray转char"><a href="#QByteArray转char" class="headerlink" title="QByteArray转char*"></a>QByteArray转char*</h3><p>方式一：传统方式data()和size()方便  </p>
+<pre class="line-numbers language-html"><code class="language-html">QByteArray array(10, 'Q');//初始化
+//array 赋值等代码
+
+// 转化
+char *buf;//只是一个指针
+int len;//buf的长度
+buf = array.data();
+len = array.size();
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方式二：memcpy()灵活</p>
+<pre class="line-numbers language-html"><code class="language-html">QByteArray array(9,'Q');
+char buf[10];//数组
+int len_array = array.size();
+int len_buf = sizeof(buf);
+int len = qMin( len_array, len_buf );
+
+// 转化
+memcpy( buf, array,  len );
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="char-转QByteArray"><a href="#char-转QByteArray" class="headerlink" title="char*转QByteArray"></a>char*转QByteArray</h3><p>方式一:构造函数方便  </p>
+<pre class="line-numbers language-html"><code class="language-html">char buf[10];
+//给buf赋值
+for (int i = 0; i &lt; 10; i++)
+{
+    buf[i] = (i + 1) % 3;//其中存在'\0'元素
+}
+
+// 转化
+QByteArray array;
+array = QByteArray(buf, 10);
+//因为buf[]中有`\0`，必须要写上数据长度；否则，数据会直接截断，丢失数据  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>方式二:memcpy()灵活  </p>
+<pre class="line-numbers language-html"><code class="language-html">char buf[10];
+//给buf赋值
+for (int i = 0; i &lt; 10; i++)
+{
+    buf[i] = (i + 1) % 3;//其中存在'\0'元素
+}
+
+// 转化
+QByteArray array;
+array.resize(sizeof(buf));//重置数据大小
+memcpy(array.data(), buf, sizeof(buf));//copy数据  
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="int转QByteArray"><a href="#int转QByteArray" class="headerlink" title="int转QByteArray"></a>int转QByteArray</h3><pre class="line-numbers language-html"><code class="language-html">// int 转 QByteArray
+int  intVar = 199;
+QByteArray array;
+int len_intVar = sizeof(intVar);
+array.resize(len_intVar);
+memcpy(array.data(), &amp;intVar, len_intVar);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QByteArray转int"><a href="#QByteArray转int" class="headerlink" title="QByteArray转int"></a>QByteArray转int</h3><pre class="line-numbers language-html"><code class="language-html">// array 数据接上面
+int  outIntVar;
+memcpy(&amp;outIntVar, array.data(), len_intVar);
+//memcpy(&amp;outIntVar, array, len_intVar);//此行代码与上句通用
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="int-转QByteArray"><a href="#int-转QByteArray" class="headerlink" title="int[]转QByteArray"></a>int[]转QByteArray</h3><pre class="line-numbers language-html"><code class="language-html">int  intVar[4] = {1,2,9,0};//初始化变量赋值
+QByteArray array;
+int len_intVar = sizeof(intVar);
+array.resize(len_intVar);
+//转换 int[] -> QByteArray
+memcpy(array.data(), &amp;intVar, len_intVar);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QByteArray转int-1"><a href="#QByteArray转int-1" class="headerlink" title="QByteArray转int[]"></a>QByteArray转int[]</h3><pre class="line-numbers language-html"><code class="language-html">// array 数据接上面
+int  outIntVar[4];
+memcpy(&amp;outIntVar, array.data(), len_intVar);
+//memcpy(&amp;outIntVar, array, len_intVar);//此行代码与上句通用
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="float-转QByteArray"><a href="#float-转QByteArray" class="headerlink" title="float[]转QByteArray"></a>float[]转QByteArray</h3><pre class="line-numbers language-html"><code class="language-html">float  fVar[4] = { 1.1, 2.3, 9.5, 0.2 };//初始化变量赋值
+QByteArray array;
+
+int len_fVar = sizeof(fVar); // 4*4 = 16 (一个float占4个字节)
+array.resize(len_intVar);
+memcpy(array.data(), &amp;fVar, len_fVar);
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="QByteArray转float"><a href="#QByteArray转float" class="headerlink" title="QByteArray转float[]"></a>QByteArray转float[]</h3><pre class="line-numbers language-html"><code class="language-html">float  outFvar[4];
+memcpy(&amp;outIntVar, array.data(), len_fVar);
+//memcpy(&amp;outFvar, array, len_fVar);//此行代码与上句通用
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+            </div>
+            <hr/>
+
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="http://127.0.0.1/diary" class="b-link-green">车舟慢</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/diary/2023/06/17/diary-20230617-1/" class="b-link-green">Qt通信之QByteArray及数据格式转换</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+	
+	/*zs shuai*/
+	#vcomments{
+		display:none;
+	}
+	
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: '2Kc1yifl00dRA6CYQxICVIe4-MdYXbMMI',
+        appKey: 'xni6ILbDL2WVE4HDucMuDtx7',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: '',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go ヾﾉ≧∀≦)o ',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/diary/2023/06/18/diary-20230618-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/26.jpg" class="responsive-img" alt="Qt实践">
+                        
+                        <span class="card-title">Qt实践</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            qt常用功能QLabel停留时间开始没有文字，然后有文字，停留几秒钟，然后文字消失  
+首先拖入一个frame，frame中拖入一个label  
+QTimer *timer;
+
+timer=new QTimer();
+connect(ti
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2023-06-18
+                        </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/diary/2023/05/04/diary-20230504-1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/diary/medias/featureimages/4.jpg" class="responsive-img" alt="qt自定义监听拖动和界面布局">
+                        
+                        <span class="card-title">qt自定义监听拖动和界面布局</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            qt自定义监听事件和拖动Qt的事件模型是使用一个QObject对象，
+监视发送其他QObject对象的事件，在事件到达之前对其进行处理。这里要使用一个函数  
+void QObject::installEventFilter(QObject
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2023-05-04
+                            </span>
+                        <span class="publish-author">
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/diary/tags/Qt/" target="_blank">
+                        <span class="chip bg-color">Qt</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: 车舟慢<br />'
+            + '作者: <br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/diary/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+            <!--
+            
+			
+                &nbsp; | &nbsp;字数统计:&nbsp;
+    <span class="white-color">650.5k</span> 字  
+			
+            
+			
+			-->
+
+            
+            <br>
+
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=617641594@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=617641594&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+<!--
+
+    <a href="/diary/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+
+--></div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2020, 5, 1, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已坚持运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+<script src="/diary/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/diary/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/diary/libs/materialize/materialize.min.js"></script>
+        <script src="/diary/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/diary/libs/aos/aos.js"></script>
+        <script src="/diary/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/diary/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/diary/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/diary/libs/others/clicklove.js"></script>
+        
+
+        
+
+        
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+       
+        
+
+        
+        
+
+    
+        
+
+    
+        
+
+        
+
+        
+        
+
+        
+        
+
+        
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/diary/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+
+    <script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                preloadRatio: 1,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=o;var e=n.imageLazyLoadSetting.isSPA,i=n.imageLazyLoadSetting.preloadRatio||1,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function o(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight*i||document.documentElement.clientHeight*i)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},t.src!==i&&(n.src=i)}()}o(),n.addEventListener("scroll",function(){var t,e;t=o,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>
